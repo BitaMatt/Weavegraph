@@ -8,13 +8,18 @@
     "build": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["electron", "cytoscape", "mindmap", "visualization"],
+  "keywords": [
+    "electron",
+    "cytoscape",
+    "mindmap",
+    "visualization"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "cytoscape": "^3.29.0",
-    "electron": "^29.0.0"
+    "electron": "^42.0.0-beta.1"
   },
   "devDependencies": {
     "electron-builder": "^24.0.0"
