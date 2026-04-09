@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>思维导图可视化</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+    }
+    #cy {
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      background-image: linear-gradient(#e0e0e0 1px, transparent 1px),
+                        linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    #input-panel {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      z-index: 100;
+      min-width: 350px;
+    }
+    #input-panel h3 {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    #input-panel input {
+      width: 200px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-right: 10px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+    #input-panel input:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+    }
+    #input-panel button {
+      padding: 10px 18px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    #input-panel button:hover {
+      background: #45a049;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+    }
+    #input-panel button.save-btn {
+      background: #2196F3;
+    }
+    #input-panel button.save-btn:hover {
+      background: #1976D2;
+      box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+    }
+    #input-panel button.load-btn {
+      background: #FF9800;
+    }
+    #input-panel button.load-btn:hover {
+      background: #F57C00;
+      box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
+    }
+    .template-selector {
+      margin-top: 15px;
+    }
+    .template-selector label {
+      margin-right: 10px;
+      font-size: 14px;
+      color: #666;
+    }
+    .template-selector select {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      background: white;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    .template-selector select:focus {
+      outline: none;
+      border-color: #4CAF50;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+    }
+    .storage-buttons {
+      margin-top: 15px;
+    }
+    .info-panel {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      z-index: 100;
+      max-width: 200px;
+    }
+    .info-panel h4 {
+      margin: 0 0 10px 0;
+      color: #333;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .info-panel p {
+      margin: 5px 0;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <div id="input-panel">
+    <h3>思维导图工具</h3>
+    <input type="text" id="node-text" placeholder="输入节点内容">
+    <button id="add-node">添加节点</button>
+    <div class="template-selector">
+      <label>模板:</label>
+      <select id="node-template">
+        <option value="default">默认</option>
+        <option value="insurance">保险类</option>
+        <option value="product">商品类</option>
+        <option value="service">服务类</option>
+      </select>
+    </div>
+    <div class="storage-buttons">
+      <button id="save-btn" class="save-btn">保存</button>
+      <button id="load-btn" class="load-btn">加载</button>
+    </div>
+  </div>
+  <div class="info-panel">
+    <h4>操作说明</h4>
+    <p>• 输入文本，点击"添加节点"创建新节点</p>
+    <p>• 点击空白处快速创建新节点</p>
+    <p>• 点击节点开始连接，再点击另一个节点完成连接</p>
+    <p>• 双击节点或连接线进行编辑</p>
+    <p>• 右键点击元素进行删除</p>
+    <p>• 鼠标悬停查看详细信息</p>
+  </div>
+  <div id="cy"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.29.0/cytoscape.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements: [],
+        style: [
+          {
+            selector: 'node',
+            style: {
+              'background-color': '#666',
+              'label': 'data(label)',
+              'width': 80,
+              'height': 40,
+              'text-valign': 'center',
+              'text-halign': 'center',
+              'color': 'white',
+              'draggable': true
+            }
+          },
+          {
+            selector: 'node.insurance',
+            style: {
+              'background-color': '#2196F3'
+            }
+          },
+          {
+            selector: 'node.product',
+            style: {
+              'background-color': '#FF9800'
+            }
+          },
+          {
+            selector: 'node.service',
+            style: {
+              'background-color': '#4CAF50'
+            }
+          },
+          {
+            selector: 'edge',
+            style: {
+              'width': 3,
+              'line-color': '#ccc',
+              'target-arrow-color': '#ccc',
+              'target-arrow-shape': 'triangle',
+              'label': 'data(label)',
+              'curve-style': 'bezier'
+            }
+          }
+        ],
+        layout: { name: 'grid' },
+        zoomingEnabled: true,
+        userZoomingEnabled: true,
+        panningEnabled: true,
+        userPanningEnabled: true
+      });
+
+      let lastTemplate = 'default';
+      let nodeId = 1;
+      let edgeId = 1;
+      let sourceNode = null;
+
+      // 添加节点功能
+      document.getElementById('add-node').addEventListener('click', function() {
+        const text = document.getElementById('node-text').value.trim();
+        if (text) {
+          const template = document.getElementById('node-template').value;
+          lastTemplate = template;
+          
+          cy.add({
+            data: {
+              id: 'node' + nodeId,
+              label: text
+            },
+            classes: template
+          });
+          
+          nodeId++;
+          document.getElementById('node-text').value = '';
+        }
+      });
+
+      // 点击空白处添加节点
+      cy.on('tap', function(event) {
+        if (event.target === cy) {
+          const position = event.position;
+          const template = lastTemplate;
+          
+          cy.add({
+            data: {
+              id: 'node' + nodeId,
+              label: '新节点'
+            },
+            classes: template,
+            position: position
+          });
+          
+          nodeId++;
+        }
+      });
+
+      // 点击节点开始连接
+      cy.on('tap', 'node', function(event) {
+        const node = event.target;
+        if (!sourceNode) {
+          sourceNode = node;
+          node.addClass('source');
+        } else if (sourceNode.id() !== node.id()) {
+          const targetNode = node;
+          
+          // 提示用户输入连接线名称
+          const edgeLabel = prompt('请输入连接线名称:', '');
+          
+          if (edgeLabel !== null) {
+            cy.add({
+              data: {
+                id: 'edge' + edgeId,
+                source: sourceNode.id(),
+                target: targetNode.id(),
+                label: edgeLabel
+              }
+            });
+            edgeId++;
+          }
+          
+          sourceNode.removeClass('source');
+          sourceNode = null;
+        } else {
+          // 点击同一个节点取消连接
+          sourceNode.removeClass('source');
+          sourceNode = null;
+        }
+      });
+
+      // 样式：连接中的节点
+      cy.style().selector('node.source').style({
+        'border-width': 3,
+        'border-color': '#FF5722',
+        'border-opacity': 1
+      }).update();
+
+      // 查看模式：鼠标悬停时放大显示详细信息并高亮相关元素
+      cy.on('mouseover', 'node', function(event) {
+        const node = event.target;
+        
+        // 放大当前节点
+        node.style({
+          'width': 120,
+          'height': 60,
+          'font-size': 14
+        });
+        
+        // 高亮相关的节点和边
+        const relatedElements = node.connectedEdges().union(node.connectedNodes());
+        relatedElements.style({
+          'opacity': 1,
+          'width': 4,
+          'line-color': '#4CAF50',
+          'target-arrow-color': '#4CAF50'
+        });
+        
+        // 降低其他元素的透明度
+        cy.elements().difference(node.union(relatedElements)).style({
+          'opacity': 0.3
+        });
+      });
+
+      // 鼠标离开时恢复正常状态
+      cy.on('mouseout', 'node', function(event) {
+        const node = event.target;
+        
+        // 恢复节点大小
+        node.style({
+          'width': 80,
+          'height': 40,
+          'font-size': 12
+        });
+        
+        // 恢复所有元素的透明度
+        cy.elements().style({
+          'opacity': 1,
+          'width': 3,
+          'line-color': '#ccc',
+          'target-arrow-color': '#ccc'
+        });
+      });
+
+      // 双击编辑节点
+      cy.on('dblclick', 'node', function(event) {
+        const node = event.target;
+        const currentLabel = node.data('label');
+        
+        const newLabel = prompt('请输入新的节点内容:', currentLabel);
+        if (newLabel !== null) {
+          node.data('label', newLabel);
+        }
+      });
+
+      // 双击编辑连接线
+      cy.on('dblclick', 'edge', function(event) {
+        const edge = event.target;
+        const currentLabel = edge.data('label');
+        
+        const newLabel = prompt('请输入新的连接线名称:', currentLabel);
+        if (newLabel !== null) {
+          edge.data('label', newLabel);
+        }
+      });
+
+      // 删除元素（使用右键菜单）
+      cy.on('cxttap', function(event) {
+        if (event.target !== cy) {
+          const target = event.target;
+          
+          if (confirm('确定要删除这个元素吗？')) {
+            target.remove();
+          }
+        }
+      });
+
+      // 本地存储功能（使用localStorage）
+      // 保存思维导图
+      document.getElementById('save-btn').addEventListener('click', function() {
+        try {
+          const elements = cy.elements().jsons();
+          const data = JSON.stringify(elements, null, 2);
+          localStorage.setItem('mindmap-data', data);
+          alert('思维导图已保存');
+        } catch (error) {
+          console.error('保存失败:', error);
+          alert('保存失败，请检查浏览器存储权限');
+        }
+      });
+
+      // 加载思维导图
+      document.getElementById('load-btn').addEventListener('click', function() {
+        try {
+          const data = localStorage.getItem('mindmap-data');
+          if (data) {
+            const elements = JSON.parse(data);
+            
+            // 清空现有元素
+            cy.remove(cy.elements());
+            
+            // 添加加载的元素
+            cy.add(elements);
+            
+            // 更新节点ID计数器
+            const nodeIds = elements
+              .filter(el => el.group === 'nodes')
+              .map(el => el.data.id);
+            if (nodeIds.length > 0) {
+              const maxId = Math.max(...nodeIds.map(id => parseInt(id.replace('node', ''))));
+              nodeId = maxId + 1;
+            }
+            
+            // 更新边ID计数器
+            const edgeIds = elements
+              .filter(el => el.group === 'edges')
+              .map(el => el.data.id);
+            if (edgeIds.length > 0) {
+              const maxId = Math.max(...edgeIds.map(id => parseInt(id.replace('edge', ''))));
+              edgeId = maxId + 1;
+            }
+            
+            alert('思维导图已加载');
+          } else {
+            alert('没有找到保存的思维导图');
+          }
+        } catch (error) {
+          console.error('加载失败:', error);
+          alert('加载失败，请检查文件格式');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
