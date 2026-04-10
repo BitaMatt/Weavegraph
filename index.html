@@ -6,298 +6,59 @@
   <title>潜在客户关系网络 - 心灵导图工具</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-      font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
-      background: #0f0f23;
-    }
+    body { margin: 0; padding: 0; height: 100vh; width: 100vw; overflow: hidden; font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif; background: #0f0f23; }
     #cy { width: 100%; height: 100%; background: #0f0f23; }
-    #toolbar {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.95);
-      padding: 10px 20px;
-      border-radius: 25px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    #toolbar h3 {
-      margin: 0;
-      color: #1a1a2e;
-      font-size: 16px;
-      font-weight: 600;
-      padding-right: 15px;
-      border-right: 2px solid #ddd;
-    }
-    #toolbar select {
-      padding: 8px 12px;
-      border: 2px solid #ddd;
-      border-radius: 6px;
-      font-size: 13px;
-    }
-    #toolbar button {
-      padding: 10px 18px;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
-      transition: all 0.3s;
-    }
-    #create-node {
-      background: linear-gradient(135deg, #00d4ff 0%, #0066ff 100%);
-      color: white;
-    }
+    #toolbar { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.95); padding: 10px 20px; border-radius: 25px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 100; display: flex; align-items: center; gap: 15px; }
+    #toolbar h3 { margin: 0; color: #1a1a2e; font-size: 16px; font-weight: 600; padding-right: 15px; border-right: 2px solid #ddd; }
+    #toolbar select { padding: 8px 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 13px; }
+    #toolbar button { padding: 10px 18px; border: none; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.3s; }
+    #create-node { background: linear-gradient(135deg, #00d4ff 0%, #0066ff 100%); color: white; }
     #create-node:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4); }
-    #edit-mode-btn {
-      background: linear-gradient(135deg, #ff9500 0%, #ff5e3a 100%);
-      color: white;
-    }
-    #edit-mode-btn.active {
-      background: linear-gradient(135deg, #888 0%, #666 100%);
-    }
-    #view-mode-btn {
-      background: linear-gradient(135deg, #00cc88 0%, #00cc88 100%);
-      color: white;
-    }
-    #view-mode-btn.active {
-      background: linear-gradient(135deg, #00aa66 0%, #008844 100%);
-    }
+    #edit-mode-btn { background: linear-gradient(135deg, #ff9500 0%, #ff5e3a 100%); color: white; }
+    #edit-mode-btn.active { background: linear-gradient(135deg, #888 0%, #666 100%); }
+    #view-mode-btn { background: linear-gradient(135deg, #00cc88 0%, #00cc88 100%); color: white; }
+    #view-mode-btn.active { background: linear-gradient(135deg, #00aa66 0%, #008844 100%); }
     #save-btn { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; }
     #load-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
     #toolbar button:hover { transform: scale(1.05); }
-    .info-panel {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      z-index: 100;
-      max-width: 280px;
-    }
-    .info-panel h4 {
-      margin: 0 0 12px 0;
-      color: #1a1a2e;
-      font-size: 15px;
-      font-weight: 600;
-      border-bottom: 2px solid #00cc88;
-      padding-bottom: 8px;
-    }
-    .info-panel p {
-      margin: 6px 0;
-      font-size: 12px;
-      color: #555;
-      line-height: 1.4;
-    }
-    .mode-indicator {
-      position: absolute;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 500;
-      z-index: 100;
-      display: none;
-    }
-    #node-form-panel {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.98);
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      z-index: 200;
-      min-width: 450px;
-      max-height: 80vh;
-      overflow-y: auto;
-      display: none;
-    }
-    #node-form-panel h3 {
-      margin: 0 0 20px 0;
-      color: #1a1a2e;
-      font-size: 20px;
-      font-weight: 600;
-      text-align: center;
-      border-bottom: 3px solid #00d4ff;
-      padding-bottom: 15px;
-    }
+    .info-panel { position: absolute; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 100; max-width: 280px; }
+    .info-panel h4 { margin: 0 0 12px 0; color: #1a1a2e; font-size: 15px; font-weight: 600; border-bottom: 2px solid #00cc88; padding-bottom: 8px; }
+    .info-panel p { margin: 6px 0; font-size: 12px; color: #555; line-height: 1.4; }
+    .mode-indicator { position: absolute; top: 80px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 500; z-index: 100; display: none; }
+    #node-form-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 450px; max-height: 80vh; overflow-y: auto; display: none; }
+    #node-form-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 20px; font-weight: 600; text-align: center; border-bottom: 3px solid #00d4ff; padding-bottom: 15px; }
     .form-row { margin-bottom: 12px; }
-    .form-row label {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 13px;
-      color: #555;
-      font-weight: 500;
-    }
-    .form-row input, .form-row select {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid #ddd;
-      border-radius: 6px;
-      font-size: 13px;
-    }
+    .form-row label { display: block; margin-bottom: 4px; font-size: 13px; color: #555; font-weight: 500; }
+    .form-row input, .form-row select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 13px; }
     .form-row input:focus, .form-row select:focus { outline: none; border-color: #00d4ff; }
     .form-buttons { margin-top: 20px; display: flex; gap: 15px; justify-content: center; }
-    .btn-confirm {
-      background: linear-gradient(135deg, #00d4ff 0%, #0066ff 100%);
-      color: white;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .btn-cancel {
-      background: #e0e0e0;
-      color: #666;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+    .btn-confirm { background: linear-gradient(135deg, #00d4ff 0%, #0066ff 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .btn-cancel { background: #e0e0e0; color: #666; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .btn-confirm:hover, .btn-cancel:hover { transform: translateY(-2px); }
-    #edge-form-panel {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.98);
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      z-index: 200;
-      min-width: 350px;
-      display: none;
-    }
-    #edge-form-panel h3 {
-      margin: 0 0 20px 0;
-      color: #1a1a2e;
-      font-size: 20px;
-      font-weight: 600;
-      text-align: center;
-      border-bottom: 3px solid #ff6b6b;
-      padding-bottom: 15px;
-    }
-    #edge-form-panel input {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #ddd;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-    #edge-form-panel input:focus { outline: none; border-color: #ff6b6b; }
-    #node-detail-panel {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.98);
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      z-index: 200;
-      min-width: 500px;
-      max-width: 90vw;
-      max-height: 80vh;
-      overflow-y: auto;
-      display: none;
-    }
-    #node-detail-panel h3 {
-      margin: 0 0 20px 0;
-      color: #1a1a2e;
-      font-size: 22px;
-      font-weight: 600;
-      text-align: center;
-      border-bottom: 3px solid #00cc88;
-      padding-bottom: 15px;
-    }
-    .detail-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-    .detail-item {
-      font-size: 15px;
-      color: #555;
-      padding: 12px 15px;
-      background: #f5f5f5;
-      border-radius: 8px;
-      border-left: 4px solid #00d4ff;
-    }
-    .detail-item span {
-      font-weight: 600;
-      color: #0066ff;
-      display: block;
-      font-size: 12px;
-      margin-bottom: 3px;
-    }
+    #edge-form-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 400px; display: none; }
+    #edge-form-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 20px; font-weight: 600; text-align: center; border-bottom: 3px solid #ff6b6b; padding-bottom: 15px; }
+    .relation-select-row { margin-bottom: 12px; }
+    .relation-select-row label { display: block; margin-bottom: 4px; font-size: 13px; color: #555; font-weight: 500; }
+    .relation-select-row select, .relation-select-row input { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 13px; margin-bottom: 10px; }
+    .relation-select-row select:focus, .relation-select-row input:focus { outline: none; border-color: #ff6b6b; }
+    #node-detail-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 550px; max-width: 90vw; max-height: 80vh; overflow-y: auto; display: none; }
+    #node-detail-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 22px; font-weight: 600; text-align: center; border-bottom: 3px solid #00cc88; padding-bottom: 15px; }
+    .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+    .detail-item { font-size: 15px; color: #555; padding: 12px 15px; background: #f5f5f5; border-radius: 8px; border-left: 4px solid #00d4ff; }
+    .detail-item span { font-weight: 600; color: #0066ff; display: block; font-size: 12px; margin-bottom: 3px; }
     .detail-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 15px; }
-    .btn-edit {
-      background: linear-gradient(135deg, #ff9500 0%, #ff5e3a 100%);
-      color: white;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .btn-close {
-      background: #666;
-      color: white;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+    .btn-edit { background: linear-gradient(135deg, #ff9500 0%, #ff5e3a 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .btn-close { background: #666; color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .btn-edit:hover, .btn-close:hover { transform: translateY(-2px); }
-    #relation-panel {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.98);
-      padding: 20px 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      z-index: 100;
-      max-width: 800px;
-      display: none;
-    }
-    #relation-panel h4 {
-      margin: 0 0 12px 0;
-      color: #333;
-      font-size: 16px;
-      font-weight: 600;
-    }
-    .relation-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-    .relation-item {
-      font-size: 13px;
-      color: #555;
-      padding: 8px 12px;
-      background: #f0f0f0;
-      border-radius: 6px;
-      text-align: center;
-    }
+    #relation-panel { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.98); padding: 20px 30px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 200; max-width: 90vw; max-height: 40vh; overflow-y: auto; display: none; }
+    #relation-panel h4 { margin: 0 0 15px 0; color: #333; font-size: 16px; font-weight: 600; }
+    .relation-category { margin-bottom: 15px; }
+    .relation-category h5 { margin: 0 0 8px 0; font-size: 13px; color: #667eea; font-weight: 600; }
+    .relation-items { display: flex; flex-wrap: wrap; gap: 8px; }
+    .relation-item { font-size: 13px; color: #555; padding: 8px 15px; background: #f0f0f0; border-radius: 20px; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
+    .relation-item:hover { background: #e0e0e0; border-color: #00d4ff; transform: scale(1.05); }
+    .relation-item .rel-name { font-weight: 600; color: #333; }
+    .relation-item .rel-type { font-size: 11px; color: #00d4ff; margin-left: 5px; }
   </style>
 </head>
 <body>
@@ -323,11 +84,12 @@
     <p><span style="background:#ff9500;padding:2px 6px;color:white;border-radius:3px;">右键</span> 删除节点/连接线</p>
     <p><span style="background:#00cc88;padding:2px 6px;color:white;border-radius:3px;">滚轮</span> 缩放画布</p>
     <p><span style="background:#667eea;padding:2px 6px;color:white;border-radius:3px;">拖拽</span> 移动节点</p>
+    <p><span style="background:#ff6b6b;padding:2px 6px;color:white;border-radius:3px;">Enter</span> 快速确认</p>
   </div>
   <div id="cy"></div>
   <div id="node-form-panel">
     <h3 id="form-title">新建客户节点</h3>
-    <div class="form-row"><label>姓名:</label><input type="text" id="field-name" placeholder="请输入姓名"></div>
+    <div class="form-row"><label>姓名:</label><input type="text" id="field-name" placeholder="请输入姓名" autofocus></div>
     <div class="form-row"><label>年龄:</label><input type="number" id="field-age" placeholder="请输入年龄"></div>
     <div class="form-row"><label>薪金/年收入(万):</label><input type="number" id="field-salary" placeholder="请输入薪金"></div>
     <div class="form-row"><label>联系方式:</label><input type="text" id="field-contact" placeholder="请输入联系方式"></div>
@@ -338,7 +100,20 @@
   </div>
   <div id="edge-form-panel">
     <h3>连接关系</h3>
-    <div class="form-row"><label>关系名称:</label><input type="text" id="field-relation" placeholder="如: 朋友介绍、客户推荐等"></div>
+    <div class="relation-select-row">
+      <label>选择关系类型:</label>
+      <select id="edge-category-select">
+        <option value="">-- 选择已有关系或新建 --</option>
+        <option value="朋友介绍">朋友介绍</option>
+        <option value="客户推荐">客户推荐</option>
+        <option value="家人介绍">家人介绍</option>
+        <option value="同事关系">同事关系</option>
+        <option value="商业合作">商业合作</option>
+        <option value="其他">其他</option>
+      </select>
+      <label>或输入自定义关系:</label>
+      <input type="text" id="field-relation" placeholder="输入自定义关系名称">
+    </div>
     <div class="form-buttons"><button class="btn-confirm" id="confirm-edge">确认</button><button class="btn-cancel" id="cancel-edge">取消</button></div>
   </div>
   <div id="node-detail-panel">
@@ -349,7 +124,7 @@
   </div>
   <div id="relation-panel">
     <h4>该客户的关系网络</h4>
-    <div class="relation-grid" id="relation-grid"></div>
+    <div id="relation-grid"></div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.29.0/cytoscape.min.js"></script>
   <script>
@@ -360,6 +135,8 @@
       var lastTemplate = 'insurance';
       var pendingPosition = null;
       var currentDetailNode = null;
+      var edgeCategories = ['朋友介绍', '客户推荐', '家人介绍', '同事关系', '商业合作', '其他'];
+      var usedCategories = [];
 
       var cy = cytoscape({
         container: document.getElementById('cy'),
@@ -407,16 +184,8 @@
         setTimeout(function() { indicator.style.display = 'none'; }, 2000);
       }
 
-      document.getElementById('edit-mode-btn').addEventListener('click', function() {
-        isEditMode = true;
-        updateModeUI();
-      });
-
-      document.getElementById('view-mode-btn').addEventListener('click', function() {
-        isEditMode = false;
-        updateModeUI();
-      });
-
+      document.getElementById('edit-mode-btn').addEventListener('click', function() { isEditMode = true; updateModeUI(); });
+      document.getElementById('view-mode-btn').addEventListener('click', function() { isEditMode = false; updateModeUI(); });
       document.getElementById('node-template').addEventListener('change', function(e) { lastTemplate = e.target.value; });
 
       document.getElementById('create-node').addEventListener('click', function() {
@@ -426,26 +195,37 @@
         clearNodeForm();
         var containerRect = cy.container().getBoundingClientRect();
         pendingPosition = { x: containerRect.width / 2, y: containerRect.height / 2 };
+        document.getElementById('field-name').focus();
       });
 
-      document.getElementById('confirm-node').addEventListener('click', function() {
+      document.getElementById('confirm-node').addEventListener('click', function() { createOrUpdateNode(); });
+      document.getElementById('cancel-node').addEventListener('click', function() { closeNodeForm(); });
+
+      document.getElementById('field-name').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
+      document.getElementById('field-age').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
+      document.getElementById('field-salary').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
+      document.getElementById('field-contact').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
+      document.getElementById('field-occupation').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
+      document.getElementById('field-marriage').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
+      document.getElementById('field-parents').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
+
+      function createOrUpdateNode() {
         var name = document.getElementById('field-name').value.trim();
-        if (!name) { alert('请输入姓名'); return; }
+        if (!name) { alert('请输入姓名'); document.getElementById('field-name').focus(); return; }
         var template = document.getElementById('node-template').value;
         var nodeData = { id: 'node' + nodeId, name: name, template: template, age: document.getElementById('field-age').value, salary: document.getElementById('field-salary').value, contact: document.getElementById('field-contact').value, occupation: document.getElementById('field-occupation').value, marriage: document.getElementById('field-marriage').value, parents: document.getElementById('field-parents').value };
         var containerRect = cy.container().getBoundingClientRect();
         var position = pendingPosition || { x: containerRect.width / 2, y: containerRect.height / 2 };
         var newNode = cy.add({ data: nodeData, classes: template, position: position });
         nodeId++;
-        document.getElementById('node-form-panel').style.display = 'none';
-        pendingPosition = null;
+        closeNodeForm();
         cy.center(newNode);
-      });
+      }
 
-      document.getElementById('cancel-node').addEventListener('click', function() {
+      function closeNodeForm() {
         document.getElementById('node-form-panel').style.display = 'none';
         pendingPosition = null;
-      });
+      }
 
       cy.on('tap', function(event) {
         if (event.target === cy && isEditMode) {
@@ -453,6 +233,7 @@
           document.getElementById('form-title').textContent = '新建' + getTemplateName(lastTemplate) + '客户';
           document.getElementById('node-form-panel').style.display = 'block';
           clearNodeForm();
+          document.getElementById('field-name').focus();
         }
       });
 
@@ -464,17 +245,7 @@
             sourceNodeForEdge.addClass('source-node');
           } else {
             if (sourceNodeForEdge.id() !== event.target.id()) {
-              document.getElementById('edge-form-panel').style.display = 'block';
-              document.getElementById('field-relation').value = '';
-              document.getElementById('field-relation').focus();
-              document.getElementById('confirm-edge').onclick = function() {
-                var relation = document.getElementById('field-relation').value.trim() || '关联';
-                cy.add({ data: { id: 'edge' + edgeId, source: sourceNodeForEdge.id(), target: event.target.id(), label: relation }});
-                edgeId++;
-                document.getElementById('edge-form-panel').style.display = 'none';
-                sourceNodeForEdge.removeClass('source-node');
-                sourceNodeForEdge = null;
-              };
+              showEdgeForm(event.target);
             } else {
               sourceNodeForEdge.removeClass('source-node');
               sourceNodeForEdge = null;
@@ -485,39 +256,97 @@
         }
       });
 
+      function showEdgeForm(targetNode) {
+        updateCategorySelect();
+        document.getElementById('edge-form-panel').style.display = 'block';
+        document.getElementById('edge-category-select').value = '';
+        document.getElementById('field-relation').value = '';
+        document.getElementById('field-relation').focus();
+        document.getElementById('confirm-edge').onclick = function() {
+          var category = document.getElementById('edge-category-select').value;
+          var customRelation = document.getElementById('field-relation').value.trim();
+          var relation = category || customRelation || '关联';
+          if (!category && customRelation && usedCategories.indexOf(customRelation) === -1) {
+            usedCategories.push(customRelation);
+          }
+          cy.add({ data: { id: 'edge' + edgeId, source: sourceNodeForEdge.id(), target: targetNode.id(), label: relation }});
+          edgeId++;
+          document.getElementById('edge-form-panel').style.display = 'none';
+          sourceNodeForEdge.removeClass('source-node');
+          sourceNodeForEdge = null;
+        };
+      }
+
+      function updateCategorySelect() {
+        var select = document.getElementById('edge-category-select');
+        select.innerHTML = '<option value="">-- 选择已有关系或新建 --</option>';
+        var allCategories = edgeCategories.concat(usedCategories.filter(function(c) { return edgeCategories.indexOf(c) === -1; }));
+        allCategories.forEach(function(cat) {
+          var opt = document.createElement('option');
+          opt.value = cat;
+          opt.textContent = cat;
+          select.appendChild(opt);
+        });
+      }
+
       document.getElementById('cancel-edge').addEventListener('click', function() {
         document.getElementById('edge-form-panel').style.display = 'none';
         if (sourceNodeForEdge) { sourceNodeForEdge.removeClass('source-node'); sourceNodeForEdge = null; }
       });
 
+      document.getElementById('field-relation').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('confirm-edge').click(); }});
+      document.getElementById('edge-category-select').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('confirm-edge').click(); }});
+
+      function getDisplayValue(val) { return val && val.trim() ? val.trim() : '未知'; }
+
       function showNodeDetail(node) {
         currentDetailNode = node;
         var data = node.data();
         var details = [
-          { label: '姓名', value: data.name },
-          { label: '年龄', value: data.age ? data.age + '岁' : '-' },
-          { label: '薪金', value: data.salary ? data.salary + '万' : '-' },
-          { label: '联系方式', value: data.contact || '-' },
-          { label: '工作职业', value: data.occupation || '-' },
-          { label: '婚姻状态', value: data.marriage || '-' },
-          { label: '父母状态', value: data.parents || '-' }
+          { label: '姓名', value: getDisplayValue(data.name) },
+          { label: '年龄', value: data.age ? data.age + '岁' : '未知' },
+          { label: '薪金', value: data.salary ? data.salary + '万' : '未知' },
+          { label: '联系方式', value: getDisplayValue(data.contact) },
+          { label: '工作职业', value: getDisplayValue(data.occupation) },
+          { label: '婚姻状态', value: getDisplayValue(data.marriage) },
+          { label: '父母状态', value: getDisplayValue(data.parents) }
         ];
-        document.getElementById('detail-title').textContent = getTemplateName(data.template) + ' - ' + data.name;
+        document.getElementById('detail-title').textContent = getTemplateName(data.template) + ' - ' + getDisplayValue(data.name);
         document.getElementById('detail-content').innerHTML = '<div class="detail-grid">' + details.map(function(d) { return '<div class="detail-item"><span>' + d.label + '</span>' + d.value + '</div>'; }).join('') + '</div>';
+        
         var edges = node.connectedEdges();
-        var relations = [];
+        var relationsByCategory = {};
         edges.forEach(function(edge) {
           var source = edge.source();
           var target = edge.target();
           var otherNode = source.id() === node.id() ? target : source;
           var label = edge.data('label') || '关联';
-          relations.push({ name: otherNode.data('name'), relation: label });
+          if (!relationsByCategory[label]) { relationsByCategory[label] = []; }
+          relationsByCategory[label].push({ node: otherNode, edge: edge });
         });
-        if (relations.length > 0) {
-          document.getElementById('relation-content').innerHTML = '<h4 style="margin:15px 0 10px;font-size:14px;color:#333;">关系网络 (' + relations.length + ')</h4><div class="relation-grid">' + relations.map(function(r) { return '<div class="relation-item"><strong>' + r.name + '</strong><br><span style="color:#00d4ff;">' + r.relation + '</span></div>'; }).join('') + '</div>';
-        } else {
-          document.getElementById('relation-content').innerHTML = '';
+        
+        var relContent = '';
+        if (Object.keys(relationsByCategory).length > 0) {
+          relContent += '<h4 style="margin:15px 0 10px;font-size:14px;color:#333;">关系网络 (' + edges.length + ')</h4>';
+          for (var cat in relationsByCategory) {
+            relContent += '<div class="relation-category"><h5>' + cat + '</h5><div class="relation-items">';
+            relationsByCategory[cat].forEach(function(item) {
+              relContent += '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + item.node.data('name') + '</span><span class="rel-type">(' + cat + ')</span></div>';
+            });
+            relContent += '</div></div>';
+          }
         }
+        document.getElementById('relation-content').innerHTML = relContent;
+        
+        document.querySelectorAll('.relation-item').forEach(function(el) {
+          el.addEventListener('click', function() {
+            var nodeIdToFocus = this.getAttribute('data-node-id');
+            var targetNode = cy.getElementById(nodeIdToFocus);
+            cy.animate({ fit: { eles: targetNode, padding: 150 }, duration: 300 });
+            setTimeout(function() { showNodeDetail(targetNode); }, 350);
+          });
+        });
+        
         document.getElementById('node-detail-panel').style.display = 'block';
         node.connectedEdges().addClass('highlight');
         node.connectedEdges().connectedNodes().addClass('highlight');
@@ -547,6 +376,7 @@
         document.getElementById('form-title').textContent = '编辑客户信息';
         document.getElementById('node-detail-panel').style.display = 'none';
         document.getElementById('node-form-panel').style.display = 'block';
+        pendingPosition = node.position();
         var originalHandler = document.getElementById('confirm-node').onclick;
         document.getElementById('confirm-node').onclick = function() {
           var name = document.getElementById('field-name').value.trim();
@@ -554,7 +384,7 @@
           var template = document.getElementById('node-template').value;
           node.data({ name: name, template: template, age: document.getElementById('field-age').value, salary: document.getElementById('field-salary').value, contact: document.getElementById('field-contact').value, occupation: document.getElementById('field-occupation').value, marriage: document.getElementById('field-marriage').value, parents: document.getElementById('field-parents').value });
           node.removeClass('insurance product service').addClass(template);
-          document.getElementById('node-form-panel').style.display = 'none';
+          closeNodeForm();
           document.getElementById('confirm-node').onclick = originalHandler;
           cy.elements().style({ 'opacity': 1 });
           cy.edges().removeClass('highlight');
@@ -563,35 +393,19 @@
       });
 
       cy.on('mouseover', 'node', function(event) {
-        if (isDragging) return;
+        if (isDragging || !isEditMode) return;
         var node = event.target;
-        var data = node.data();
         var edges = node.connectedEdges();
         edges.addClass('highlight');
         edges.connectedNodes().addClass('highlight');
         cy.elements().difference(node.union(edges.connectedNodes())).style({ 'opacity': 0.2 });
-        var relations = [];
-        edges.forEach(function(edge) {
-          var source = edge.source();
-          var target = edge.target();
-          var otherNode = source.id() === node.id() ? target : source;
-          var label = edge.data('label') || '关联';
-          relations.push(otherNode.data('name') + ': ' + label);
-        });
-        var relPanel = document.getElementById('relation-panel');
-        var relGrid = document.getElementById('relation-grid');
-        if (relations.length > 0) {
-          relGrid.innerHTML = relations.map(function(r) { return '<div class="relation-item">' + r + '</div>'; }).join('');
-          relPanel.style.display = 'block';
-        }
       });
 
       cy.on('mouseout', 'node', function(event) {
-        if (isDragging) return;
+        if (isDragging || !isEditMode) return;
         cy.elements().style({ 'opacity': 1 });
         cy.edges().removeClass('highlight');
         cy.nodes().removeClass('highlight');
-        document.getElementById('relation-panel').style.display = 'none';
       });
 
       cy.on('dragfree', 'node', function() { isDragging = false; });
@@ -617,8 +431,11 @@
 
       document.getElementById('save-btn').addEventListener('click', function() {
         try {
-          var elements = cy.elements().jsons();
-          localStorage.setItem('mindmap-customer-data', JSON.stringify(elements));
+          var saveData = {
+            elements: cy.elements().jsons(),
+            usedCategories: usedCategories
+          };
+          localStorage.setItem('mindmap-customer-data', JSON.stringify(saveData));
           alert('数据已保存');
         } catch (error) { alert('保存失败'); }
       });
@@ -627,7 +444,9 @@
         try {
           var data = localStorage.getItem('mindmap-customer-data');
           if (data) {
-            var elements = JSON.parse(data);
+            var saveData = JSON.parse(data);
+            var elements = saveData.elements || saveData;
+            usedCategories = saveData.usedCategories || [];
             cy.remove(cy.elements());
             cy.add(elements);
             var maxNodeId = 1, maxEdgeId = 1;
@@ -639,7 +458,7 @@
             nodeId = maxNodeId;
             edgeId = maxEdgeId;
             cy.fit(100);
-            alert('数据已加载，共 ' + elements.filter(function(e) { return e.group === 'nodes'; }).length + ' 个节点');
+            alert('数据已加载，共 ' + (elements.filter ? elements.filter(function(e) { return e.group === 'nodes'; }).length : 0) + ' 个节点');
           } else { alert('没有找到保存的数据'); }
         } catch (error) { alert('加载失败'); }
       });
