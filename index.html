@@ -8,12 +8,14 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { margin: 0; padding: 0; height: 100vh; width: 100vw; overflow: hidden; font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif; background: #0f0f23; }
     #cy { width: 100%; height: 100%; background: #0f0f23; }
-    #toolbar { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.95); padding: 10px 20px; border-radius: 25px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 100; display: flex; align-items: center; gap: 15px; }
+    #toolbar { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.95); padding: 10px 20px; border-radius: 25px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 100; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; max-width: 95vw; }
     #toolbar h3 { margin: 0; color: #1a1a2e; font-size: 16px; font-weight: 600; padding-right: 15px; border-right: 2px solid #ddd; }
     #toolbar select { padding: 8px 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 13px; }
-    #toolbar button { padding: 10px 18px; border: none; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.3s; }
+    #toolbar button { padding: 10px 18px; border: none; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.3s; white-space: nowrap; }
     #create-node { background: linear-gradient(135deg, #00d4ff 0%, #0066ff 100%); color: white; }
     #create-node:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4); }
+    #create-self { background: linear-gradient(135deg, #ff6b6b 0%, #ff5e3a 100%); color: white; }
+    #create-self:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4); }
     #edit-mode-btn { background: linear-gradient(135deg, #ff9500 0%, #ff5e3a 100%); color: white; }
     #edit-mode-btn.active { background: linear-gradient(135deg, #888 0%, #666 100%); }
     #view-mode-btn { background: linear-gradient(135deg, #00cc88 0%, #00cc88 100%); color: white; }
@@ -25,7 +27,7 @@
     .info-panel h4 { margin: 0 0 12px 0; color: #1a1a2e; font-size: 15px; font-weight: 600; border-bottom: 2px solid #00cc88; padding-bottom: 8px; }
     .info-panel p { margin: 6px 0; font-size: 12px; color: #555; line-height: 1.4; }
     .mode-indicator { position: absolute; top: 80px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 500; z-index: 100; display: none; }
-    #node-form-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 450px; max-height: 80vh; overflow-y: auto; display: none; }
+    #node-form-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 480px; max-height: 85vh; overflow-y: auto; display: none; }
     #node-form-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 20px; font-weight: 600; text-align: center; border-bottom: 3px solid #00d4ff; padding-bottom: 15px; }
     .form-row { margin-bottom: 12px; }
     .form-row label { display: block; margin-bottom: 4px; font-size: 13px; color: #555; font-weight: 500; }
@@ -35,13 +37,22 @@
     .btn-confirm { background: linear-gradient(135deg, #00d4ff 0%, #0066ff 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .btn-cancel { background: #e0e0e0; color: #666; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .btn-confirm:hover, .btn-cancel:hover { transform: translateY(-2px); }
-    #edge-form-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 400px; display: none; }
-    #edge-form-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 20px; font-weight: 600; text-align: center; border-bottom: 3px solid #ff6b6b; padding-bottom: 15px; }
-    .relation-select-row { margin-bottom: 12px; }
-    .relation-select-row label { display: block; margin-bottom: 4px; font-size: 13px; color: #555; font-weight: 500; }
-    .relation-select-row select, .relation-select-row input { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 13px; margin-bottom: 10px; }
-    .relation-select-row select:focus, .relation-select-row input:focus { outline: none; border-color: #ff6b6b; }
-    #node-detail-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 550px; max-width: 90vw; max-height: 80vh; overflow-y: auto; display: none; }
+    #edge-form-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 25px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 500px; max-height: 80vh; overflow-y: auto; display: none; }
+    #edge-form-panel h3 { margin: 0 0 15px 0; color: #1a1a2e; font-size: 18px; font-weight: 600; text-align: center; border-bottom: 3px solid #ff6b6b; padding-bottom: 12px; }
+    .relation-section { margin-bottom: 15px; }
+    .relation-section h5 { margin: 0 0 8px 0; font-size: 13px; font-weight: 600; padding: 5px 10px; border-radius: 5px; }
+    .relation-section.blood h5 { background: #ffe0e0; color: #c62828; }
+    .relation-section.social h5 { background: #e3f2fd; color: #1565c0; }
+    .relation-section.referral h5 { background: #fff3e0; color: #e65100; }
+    .relation-checkboxes { display: flex; flex-wrap: wrap; gap: 8px; }
+    .relation-checkboxes label { display: flex; align-items: center; padding: 6px 12px; background: #f5f5f5; border-radius: 15px; cursor: pointer; font-size: 13px; transition: all 0.2s; }
+    .relation-checkboxes label:hover { background: #e0e0e0; }
+    .relation-checkboxes input { margin-right: 5px; }
+    .custom-relation-row { margin-top: 15px; }
+    .custom-relation-row label { display: block; margin-bottom: 5px; font-size: 13px; color: #555; font-weight: 500; }
+    .custom-relation-row input { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 13px; }
+    .custom-relation-row input:focus { outline: none; border-color: #ff6b6b; }
+    #node-detail-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 580px; max-width: 95vw; max-height: 85vh; overflow-y: auto; display: none; }
     #node-detail-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 22px; font-weight: 600; text-align: center; border-bottom: 3px solid #00cc88; padding-bottom: 15px; }
     .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
     .detail-item { font-size: 15px; color: #555; padding: 12px 15px; background: #f5f5f5; border-radius: 8px; border-left: 4px solid #00d4ff; }
@@ -50,10 +61,13 @@
     .btn-edit { background: linear-gradient(135deg, #ff9500 0%, #ff5e3a 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .btn-close { background: #666; color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .btn-edit:hover, .btn-close:hover { transform: translateY(-2px); }
-    #relation-panel { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.98); padding: 20px 30px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 200; max-width: 90vw; max-height: 40vh; overflow-y: auto; display: none; }
+    #relation-panel { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.98); padding: 20px 30px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 200; max-width: 95vw; max-height: 40vh; overflow-y: auto; display: none; }
     #relation-panel h4 { margin: 0 0 15px 0; color: #333; font-size: 16px; font-weight: 600; }
     .relation-category { margin-bottom: 15px; }
-    .relation-category h5 { margin: 0 0 8px 0; font-size: 13px; color: #667eea; font-weight: 600; }
+    .relation-category h5 { margin: 0 0 8px 0; font-size: 13px; font-weight: 600; padding: 5px 10px; border-radius: 5px; }
+    .relation-category.blood h5 { background: #ffe0e0; color: #c62828; }
+    .relation-category.social h5 { background: #e3f2fd; color: #1565c0; }
+    .relation-category.referral h5 { background: #fff3e0; color: #e65100; }
     .relation-items { display: flex; flex-wrap: wrap; gap: 8px; }
     .relation-item { font-size: 13px; color: #555; padding: 8px 15px; background: #f0f0f0; border-radius: 20px; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
     .relation-item:hover { background: #e0e0e0; border-color: #00d4ff; transform: scale(1.05); }
@@ -70,6 +84,7 @@
       <option value="service">服务类客户</option>
     </select>
     <button id="create-node">新建节点</button>
+    <button id="create-self">添加自己</button>
     <button id="edit-mode-btn" class="active">编辑模式</button>
     <button id="view-mode-btn">查看模式</button>
     <button id="save-btn">保存</button>
@@ -79,12 +94,12 @@
   <div class="info-panel">
     <h4>操作说明</h4>
     <p><strong>编辑模式:</strong> 点击空白处新建节点，点击节点开始连接</p>
-    <p><strong>查看模式:</strong> 左键点击节点查看详情，悬停高亮关系网</p>
+    <p><strong>查看模式:</strong> 左键点击节点查看详情</p>
+    <p><span style="background:#ff6b6b;padding:2px 6px;color:white;border-radius:3px;">添加自己</span> 创建中心节点</p>
     <p><span style="background:#00d4ff;padding:2px 6px;color:white;border-radius:3px;">点击节点</span> 开始连接线</p>
     <p><span style="background:#ff9500;padding:2px 6px;color:white;border-radius:3px;">右键</span> 删除节点/连接线</p>
     <p><span style="background:#00cc88;padding:2px 6px;color:white;border-radius:3px;">滚轮</span> 缩放画布</p>
     <p><span style="background:#667eea;padding:2px 6px;color:white;border-radius:3px;">拖拽</span> 移动节点</p>
-    <p><span style="background:#ff6b6b;padding:2px 6px;color:white;border-radius:3px;">Enter</span> 快速确认</p>
   </div>
   <div id="cy"></div>
   <div id="node-form-panel">
@@ -99,22 +114,54 @@
     <div class="form-buttons"><button class="btn-confirm" id="confirm-node">确认创建</button><button class="btn-cancel" id="cancel-node">取消</button></div>
   </div>
   <div id="edge-form-panel">
-    <h3>连接关系</h3>
-    <div class="relation-select-row">
-      <label>选择关系类型:</label>
-      <select id="edge-category-select">
-        <option value="">-- 选择已有关系或新建 --</option>
-        <option value="朋友介绍">朋友介绍</option>
-        <option value="客户推荐">客户推荐</option>
-        <option value="家人介绍">家人介绍</option>
-        <option value="同事关系">同事关系</option>
-        <option value="商业合作">商业合作</option>
-        <option value="其他">其他</option>
-      </select>
-      <label>或输入自定义关系:</label>
-      <input type="text" id="field-relation" placeholder="输入自定义关系名称">
+    <h3>选择关系类型</h3>
+    <div class="relation-section blood">
+      <h5>★ 生理关系（核心，一生不变）</h5>
+      <div class="relation-checkboxes" id="blood-relations">
+        <label><input type="checkbox" value="父亲">父亲</label>
+        <label><input type="checkbox" value="母亲">母亲</label>
+        <label><input type="checkbox" value="配偶">配偶</label>
+        <label><input type="checkbox" value="子女">子女</label>
+        <label><input type="checkbox" value="兄弟">兄弟</label>
+        <label><input type="checkbox" value="姐妹">姐妹</label>
+        <label><input type="checkbox" value="祖父母">祖父母</label>
+        <label><input type="checkbox" value="外祖父母">外祖父母</label>
+        <label><input type="checkbox" value="孙子女">孙子女</label>
+      </div>
     </div>
-    <div class="form-buttons"><button class="btn-confirm" id="confirm-edge">确认</button><button class="btn-cancel" id="cancel-edge">取消</button></div>
+    <div class="relation-section social">
+      <h5>○ 社交关系（可能变动）</h5>
+      <div class="relation-checkboxes" id="social-relations">
+        <label><input type="checkbox" value="朋友">朋友</label>
+        <label><input type="checkbox" value="小学同学">小学同学</label>
+        <label><input type="checkbox" value="中学同学">中学同学</label>
+        <label><input type="checkbox" value="大学同学">大学同学</label>
+        <label><input type="checkbox" value="同事">同事</label>
+        <label><input type="checkbox" value="上司">上司</label>
+        <label><input type="checkbox" value="下属">下属</label>
+        <label><input type="checkbox" value="邻居">邻居</label>
+        <label><input type="checkbox" value="老师">老师</label>
+        <label><input type="checkbox" value="学生">学生</label>
+        <label><input type="checkbox" value="工作合作伙伴">工作合作伙伴</label>
+        <label><input type="checkbox" value="商业竞争对手">商业竞争对手</label>
+      </div>
+    </div>
+    <div class="relation-section referral">
+      <h5>◇ 推荐关系（商业辅助）</h5>
+      <div class="relation-checkboxes" id="referral-relations">
+        <label><input type="checkbox" value="朋友转介绍">朋友转介绍</label>
+        <label><input type="checkbox" value="客户推荐">客户推荐</label>
+        <label><input type="checkbox" value="公司分配">公司分配</label>
+        <label><input type="checkbox" value="孤儿单">孤儿单</label>
+        <label><input type="checkbox" value="主动咨询">主动咨询</label>
+        <label><input type="checkbox" value="活动认识">活动认识</label>
+      </div>
+    </div>
+    <div class="custom-relation-row">
+      <label>或输入自定义关系（用逗号分隔多个）:</label>
+      <input type="text" id="field-relation" placeholder="例如: 牌友,球友">
+    </div>
+    <div class="form-buttons" style="margin-top:15px;"><button class="btn-confirm" id="confirm-edge">确认添加关系</button><button class="btn-cancel" id="cancel-edge">取消</button></div>
   </div>
   <div id="node-detail-panel">
     <h3 id="detail-title">客户详细信息</h3>
@@ -135,8 +182,7 @@
       var lastTemplate = 'insurance';
       var pendingPosition = null;
       var currentDetailNode = null;
-      var edgeCategories = ['朋友介绍', '客户推荐', '家人介绍', '同事关系', '商业合作', '其他'];
-      var usedCategories = [];
+      var selfNodeId = null;
 
       var cy = cytoscape({
         container: document.getElementById('cy'),
@@ -146,12 +192,16 @@
           { selector: 'node.insurance', style: { 'background-color': '#003366', 'border-color': '#00cc88' }},
           { selector: 'node.product', style: { 'background-color': '#660033', 'border-color': '#ff6b6b' }},
           { selector: 'node.service', style: { 'background-color': '#1a1a4e', 'border-color': '#00d4ff' }},
+          { selector: 'node.self', style: { 'background-color': '#ff6b6b', 'border-color': '#ff5e3a', 'width': 180, 'height': 80 }},
           { selector: 'node:selected', style: { 'border-width': 12, 'border-color': '#ff9500' }},
           { selector: 'node.source-node', style: { 'border-width': 12, 'border-color': '#ff5e3a' }},
           { selector: 'node:active', style: { 'overlay-opacity': 0 }},
           { selector: 'node:hover', style: { 'width': 200, 'height': 90, 'font-size': 18, 'border-width': 10 }},
           { selector: 'edge', style: { 'width': 4, 'line-color': '#666688', 'target-arrow-color': '#666688', 'target-arrow-shape': 'triangle', 'label': 'data(label)', 'color': '#ffffff', 'font-size': 14, 'font-weight': 'bold', 'text-background-color': '#1a1a4e', 'text-background-opacity': 1, 'curve-style': 'bezier' }},
-          { selector: 'edge.highlight', style: { 'width': 6, 'line-color': '#00d4ff', 'target-arrow-color': '#00d4ff' }}
+          { selector: 'edge.blood', style: { 'line-color': '#c62828', 'target-arrow-color': '#c62828', 'width': 5 }},
+          { selector: 'edge.social', style: { 'line-color': '#1565c0', 'target-arrow-color': '#1565c0', 'width': 4 }},
+          { selector: 'edge.referral', style: { 'line-color': '#e65100', 'target-arrow-color': '#e65100', 'width': 3 }},
+          { selector: 'edge.highlight', style: { 'width': 8 }}
         ],
         layout: { name: 'grid', spacingFactor: 2 },
         zoomingEnabled: true,
@@ -175,7 +225,7 @@
           editBtn.classList.add('active');
           viewBtn.classList.remove('active');
         } else {
-          indicator.textContent = '当前模式: 查看模式 - 左键查看详情';
+          indicator.textContent = '当前模式: 查看模式';
           indicator.style.background = 'rgba(0, 204, 136, 0.9)';
           editBtn.classList.remove('active');
           viewBtn.classList.add('active');
@@ -188,9 +238,22 @@
       document.getElementById('view-mode-btn').addEventListener('click', function() { isEditMode = false; updateModeUI(); });
       document.getElementById('node-template').addEventListener('change', function(e) { lastTemplate = e.target.value; });
 
+      document.getElementById('create-self').addEventListener('click', function() {
+        if (!isEditMode) { alert('请切换到编辑模式'); return; }
+        if (selfNodeId) { alert('您已经添加过自己的节点了'); return; }
+        var containerRect = cy.container().getBoundingClientRect();
+        pendingPosition = { x: containerRect.width / 2, y: containerRect.height / 2 };
+        document.getElementById('form-title').textContent = '添加自己';
+        document.getElementById('node-template').value = 'self';
+        clearNodeForm();
+        document.getElementById('node-form-panel').style.display = 'block';
+        document.getElementById('field-name').focus();
+      });
+
       document.getElementById('create-node').addEventListener('click', function() {
         if (!isEditMode) { alert('请切换到编辑模式'); return; }
         document.getElementById('form-title').textContent = '新建' + getTemplateName(lastTemplate) + '客户';
+        document.getElementById('node-template').value = lastTemplate;
         document.getElementById('node-form-panel').style.display = 'block';
         clearNodeForm();
         var containerRect = cy.container().getBoundingClientRect();
@@ -201,22 +264,21 @@
       document.getElementById('confirm-node').addEventListener('click', function() { createOrUpdateNode(); });
       document.getElementById('cancel-node').addEventListener('click', function() { closeNodeForm(); });
 
-      document.getElementById('field-name').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
-      document.getElementById('field-age').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
-      document.getElementById('field-salary').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
-      document.getElementById('field-contact').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
-      document.getElementById('field-occupation').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
-      document.getElementById('field-marriage').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
-      document.getElementById('field-parents').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
+      ['field-name', 'field-age', 'field-salary', 'field-contact', 'field-occupation', 'field-marriage', 'field-parents'].forEach(function(id) {
+        document.getElementById(id).addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
+      });
 
       function createOrUpdateNode() {
         var name = document.getElementById('field-name').value.trim();
         if (!name) { alert('请输入姓名'); document.getElementById('field-name').focus(); return; }
         var template = document.getElementById('node-template').value;
+        if (template === 'self') {
+          selfNodeId = 'node' + nodeId;
+        }
         var nodeData = { id: 'node' + nodeId, name: name, template: template, age: document.getElementById('field-age').value, salary: document.getElementById('field-salary').value, contact: document.getElementById('field-contact').value, occupation: document.getElementById('field-occupation').value, marriage: document.getElementById('field-marriage').value, parents: document.getElementById('field-parents').value };
         var containerRect = cy.container().getBoundingClientRect();
         var position = pendingPosition || { x: containerRect.width / 2, y: containerRect.height / 2 };
-        var newNode = cy.add({ data: nodeData, classes: template, position: position });
+        var newNode = cy.add({ data: nodeData, classes: template === 'self' ? 'self' : template, position: position });
         nodeId++;
         closeNodeForm();
         cy.center(newNode);
@@ -231,6 +293,7 @@
         if (event.target === cy && isEditMode) {
           pendingPosition = event.position;
           document.getElementById('form-title').textContent = '新建' + getTemplateName(lastTemplate) + '客户';
+          document.getElementById('node-template').value = lastTemplate;
           document.getElementById('node-form-panel').style.display = 'block';
           clearNodeForm();
           document.getElementById('field-name').focus();
@@ -256,37 +319,40 @@
         }
       });
 
+      function getRelationCategory(relation) {
+        var blood = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '祖父母', '外祖父母', '孙子女'];
+        var social = ['朋友', '小学同学', '中学同学', '大学同学', '同事', '上司', '下属', '邻居', '老师', '学生', '工作合作伙伴', '商业竞争对手'];
+        var referral = ['朋友转介绍', '客户推荐', '公司分配', '孤儿单', '主动咨询', '活动认识'];
+        if (blood.indexOf(relation) !== -1) return 'blood';
+        if (social.indexOf(relation) !== -1) return 'social';
+        if (referral.indexOf(relation) !== -1) return 'referral';
+        return 'social';
+      }
+
       function showEdgeForm(targetNode) {
-        updateCategorySelect();
-        document.getElementById('edge-form-panel').style.display = 'block';
-        document.getElementById('edge-category-select').value = '';
+        document.querySelectorAll('#edge-form-panel input[type="checkbox"]').forEach(function(cb) { cb.checked = false; });
         document.getElementById('field-relation').value = '';
-        document.getElementById('field-relation').focus();
+        document.getElementById('edge-form-panel').style.display = 'block';
         document.getElementById('confirm-edge').onclick = function() {
-          var category = document.getElementById('edge-category-select').value;
-          var customRelation = document.getElementById('field-relation').value.trim();
-          var relation = category || customRelation || '关联';
-          if (!category && customRelation && usedCategories.indexOf(customRelation) === -1) {
-            usedCategories.push(customRelation);
+          var selectedRelations = [];
+          document.querySelectorAll('#edge-form-panel input[type="checkbox"]:checked').forEach(function(cb) {
+            selectedRelations.push(cb.value);
+          });
+          var customRelations = document.getElementById('field-relation').value.trim();
+          if (customRelations) {
+            var parts = customRelations.split(/[,，]/);
+            parts.forEach(function(p) { p = p.trim(); if (p) selectedRelations.push(p); });
           }
-          cy.add({ data: { id: 'edge' + edgeId, source: sourceNodeForEdge.id(), target: targetNode.id(), label: relation }});
-          edgeId++;
+          if (selectedRelations.length === 0) { selectedRelations.push('关联'); }
+          selectedRelations.forEach(function(relation) {
+            var category = getRelationCategory(relation);
+            cy.add({ data: { id: 'edge' + edgeId, source: sourceNodeForEdge.id(), target: targetNode.id(), label: relation }, classes: category });
+            edgeId++;
+          });
           document.getElementById('edge-form-panel').style.display = 'none';
           sourceNodeForEdge.removeClass('source-node');
           sourceNodeForEdge = null;
         };
-      }
-
-      function updateCategorySelect() {
-        var select = document.getElementById('edge-category-select');
-        select.innerHTML = '<option value="">-- 选择已有关系或新建 --</option>';
-        var allCategories = edgeCategories.concat(usedCategories.filter(function(c) { return edgeCategories.indexOf(c) === -1; }));
-        allCategories.forEach(function(cat) {
-          var opt = document.createElement('option');
-          opt.value = cat;
-          opt.textContent = cat;
-          select.appendChild(opt);
-        });
       }
 
       document.getElementById('cancel-edge').addEventListener('click', function() {
@@ -295,7 +361,6 @@
       });
 
       document.getElementById('field-relation').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('confirm-edge').click(); }});
-      document.getElementById('edge-category-select').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('confirm-edge').click(); }});
 
       function getDisplayValue(val) { return val && val.trim() ? val.trim() : '未知'; }
 
@@ -311,32 +376,34 @@
           { label: '婚姻状态', value: getDisplayValue(data.marriage) },
           { label: '父母状态', value: getDisplayValue(data.parents) }
         ];
-        document.getElementById('detail-title').textContent = getTemplateName(data.template) + ' - ' + getDisplayValue(data.name);
+        var templateName = data.template === 'self' ? '自己' : getTemplateName(data.template);
+        document.getElementById('detail-title').textContent = templateName + ' - ' + getDisplayValue(data.name);
         document.getElementById('detail-content').innerHTML = '<div class="detail-grid">' + details.map(function(d) { return '<div class="detail-item"><span>' + d.label + '</span>' + d.value + '</div>'; }).join('') + '</div>';
         
         var edges = node.connectedEdges();
-        var relationsByCategory = {};
+        var relationsByCategory = { blood: [], social: [], referral: [] };
         edges.forEach(function(edge) {
           var source = edge.source();
           var target = edge.target();
           var otherNode = source.id() === node.id() ? target : source;
           var label = edge.data('label') || '关联';
-          if (!relationsByCategory[label]) { relationsByCategory[label] = []; }
-          relationsByCategory[label].push({ node: otherNode, edge: edge });
+          var cat = getRelationCategory(label);
+          relationsByCategory[cat].push({ node: otherNode, edge: edge, label: label });
         });
         
         var relContent = '';
-        if (Object.keys(relationsByCategory).length > 0) {
-          relContent += '<h4 style="margin:15px 0 10px;font-size:14px;color:#333;">关系网络 (' + edges.length + ')</h4>';
-          for (var cat in relationsByCategory) {
-            relContent += '<div class="relation-category"><h5>' + cat + '</h5><div class="relation-items">';
+        var catNames = { blood: '★ 生理关系', social: '○ 社交关系', referral: '◇ 推荐关系' };
+        for (var cat in relationsByCategory) {
+          if (relationsByCategory[cat].length > 0) {
+            relContent += '<div class="relation-category ' + cat + '"><h5>' + catNames[cat] + '</h5><div class="relation-items">';
             relationsByCategory[cat].forEach(function(item) {
-              relContent += '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + item.node.data('name') + '</span><span class="rel-type">(' + cat + ')</span></div>';
+              relContent += '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + item.node.data('name') + '</span><span class="rel-type">(' + item.label + ')</span></div>';
             });
             relContent += '</div></div>';
           }
         }
-        document.getElementById('relation-content').innerHTML = relContent;
+        if (!relContent) { relContent = '<p style="color:#999;text-align:center;">暂无关系</p>'; }
+        document.getElementById('relation-content').innerHTML = '<h4 style="margin:15px 0 10px;font-size:14px;color:#333;">关系网络 (' + edges.length + ')</h4>' + relContent;
         
         document.querySelectorAll('.relation-item').forEach(function(el) {
           el.addEventListener('click', function() {
@@ -383,7 +450,7 @@
           if (!name) { alert('请输入姓名'); return; }
           var template = document.getElementById('node-template').value;
           node.data({ name: name, template: template, age: document.getElementById('field-age').value, salary: document.getElementById('field-salary').value, contact: document.getElementById('field-contact').value, occupation: document.getElementById('field-occupation').value, marriage: document.getElementById('field-marriage').value, parents: document.getElementById('field-parents').value });
-          node.removeClass('insurance product service').addClass(template);
+          node.removeClass('insurance product service self').addClass(template);
           closeNodeForm();
           document.getElementById('confirm-node').onclick = originalHandler;
           cy.elements().style({ 'opacity': 1 });
@@ -411,17 +478,12 @@
       cy.on('dragfree', 'node', function() { isDragging = false; });
       cy.on('drag', 'node', function() { isDragging = true; });
 
-      cy.on('dblclick', 'edge', function(event) {
-        if (!isEditMode) return;
-        var edge = event.target;
-        var currentLabel = edge.data('label') || '';
-        var newLabel = prompt('请输入新的关系名称:', currentLabel);
-        if (newLabel !== null) { edge.data('label', newLabel || '关联'); }
-      });
-
       cy.on('cxttap', 'node', function(event) {
         if (!isEditMode) return;
-        if (confirm('确定要删除这个客户节点吗？')) { event.target.remove(); }
+        if (confirm('确定要删除这个客户节点吗？')) {
+          if (event.target.data('template') === 'self') { selfNodeId = null; }
+          event.target.remove();
+        }
       });
 
       cy.on('cxttap', 'edge', function(event) {
@@ -431,10 +493,7 @@
 
       document.getElementById('save-btn').addEventListener('click', function() {
         try {
-          var saveData = {
-            elements: cy.elements().jsons(),
-            usedCategories: usedCategories
-          };
+          var saveData = { elements: cy.elements().jsons(), selfNodeId: selfNodeId };
           localStorage.setItem('mindmap-customer-data', JSON.stringify(saveData));
           alert('数据已保存');
         } catch (error) { alert('保存失败'); }
@@ -446,7 +505,7 @@
           if (data) {
             var saveData = JSON.parse(data);
             var elements = saveData.elements || saveData;
-            usedCategories = saveData.usedCategories || [];
+            selfNodeId = saveData.selfNodeId || null;
             cy.remove(cy.elements());
             cy.add(elements);
             var maxNodeId = 1, maxEdgeId = 1;
@@ -458,7 +517,7 @@
             nodeId = maxNodeId;
             edgeId = maxEdgeId;
             cy.fit(100);
-            alert('数据已加载，共 ' + (elements.filter ? elements.filter(function(e) { return e.group === 'nodes'; }).length : 0) + ' 个节点');
+            alert('数据已加载');
           } else { alert('没有找到保存的数据'); }
         } catch (error) { alert('加载失败'); }
       });
