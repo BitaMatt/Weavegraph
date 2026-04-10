@@ -22,23 +22,27 @@
     #view-mode-btn.active { background: linear-gradient(135deg, #00aa66 0%, #008844 100%); }
     #save-btn { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; }
     #load-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
-    #toolbar button:hover { transform: scale(1.05); }
+    #auto-save-indicator { position: absolute; top: 80px; right: 20px; background: rgba(0, 0, 0, 0.8); color: #00cc88; padding: 8px 16px; border-radius: 20px; font-size: 12px; z-index: 100; display: none; }
     .info-panel { position: absolute; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 100; max-width: 280px; }
     .info-panel h4 { margin: 0 0 12px 0; color: #1a1a2e; font-size: 15px; font-weight: 600; border-bottom: 2px solid #00cc88; padding-bottom: 8px; }
     .info-panel p { margin: 6px 0; font-size: 12px; color: #555; line-height: 1.4; }
     .mode-indicator { position: absolute; top: 80px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 500; z-index: 100; display: none; }
-    #node-form-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 480px; max-height: 85vh; overflow-y: auto; display: none; }
-    #node-form-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 20px; font-weight: 600; text-align: center; border-bottom: 3px solid #00d4ff; padding-bottom: 15px; }
+    .panel-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 150; display: none; }
+    #node-form-panel, #edge-form-panel, #node-detail-panel, #save-panel, #load-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; max-width: 95vw; max-height: 85vh; overflow-y: auto; display: none; }
+    #node-form-panel h3, #edge-form-panel h3, #node-detail-panel h3, #save-panel h3, #load-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 20px; font-weight: 600; text-align: center; border-bottom: 3px solid #00d4ff; padding-bottom: 15px; }
+    #save-panel h3 { border-bottom-color: #11998e; }
+    #load-panel h3 { border-bottom-color: #667eea; }
     .form-row { margin-bottom: 12px; }
     .form-row label { display: block; margin-bottom: 4px; font-size: 13px; color: #555; font-weight: 500; }
     .form-row input, .form-row select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 13px; }
     .form-row input:focus, .form-row select:focus { outline: none; border-color: #00d4ff; }
+    .form-row.conditional { display: none; }
+    .form-row.conditional.visible { display: block; }
     .form-buttons { margin-top: 20px; display: flex; gap: 15px; justify-content: center; }
     .btn-confirm { background: linear-gradient(135deg, #00d4ff 0%, #0066ff 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .btn-cancel { background: #e0e0e0; color: #666; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .btn-confirm:hover, .btn-cancel:hover { transform: translateY(-2px); }
-    #edge-form-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 25px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 500px; max-height: 80vh; overflow-y: auto; display: none; }
-    #edge-form-panel h3 { margin: 0 0 15px 0; color: #1a1a2e; font-size: 18px; font-weight: 600; text-align: center; border-bottom: 3px solid #ff6b6b; padding-bottom: 12px; }
+    #edge-form-panel { min-width: 500px; }
     .relation-section { margin-bottom: 15px; }
     .relation-section h5 { margin: 0 0 8px 0; font-size: 13px; font-weight: 600; padding: 5px 10px; border-radius: 5px; }
     .relation-section.blood h5 { background: #ffe0e0; color: #c62828; }
@@ -52,8 +56,8 @@
     .custom-relation-row label { display: block; margin-bottom: 5px; font-size: 13px; color: #555; font-weight: 500; }
     .custom-relation-row input { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 13px; }
     .custom-relation-row input:focus { outline: none; border-color: #ff6b6b; }
-    #node-detail-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; min-width: 580px; max-width: 95vw; max-height: 85vh; overflow-y: auto; display: none; }
-    #node-detail-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 22px; font-weight: 600; text-align: center; border-bottom: 3px solid #00cc88; padding-bottom: 15px; }
+    #node-detail-panel { min-width: 580px; }
+    #node-detail-panel h3 { border-bottom-color: #00cc88; }
     .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
     .detail-item { font-size: 15px; color: #555; padding: 12px 15px; background: #f5f5f5; border-radius: 8px; border-left: 4px solid #00d4ff; }
     .detail-item span { font-weight: 600; color: #0066ff; display: block; font-size: 12px; margin-bottom: 3px; }
@@ -73,9 +77,34 @@
     .relation-item:hover { background: #e0e0e0; border-color: #00d4ff; transform: scale(1.05); }
     .relation-item .rel-name { font-weight: 600; color: #333; }
     .relation-item .rel-type { font-size: 11px; color: #00d4ff; margin-left: 5px; }
+    #save-panel { min-width: 450px; }
+    #load-panel { min-width: 500px; max-height: 70vh; }
+    .save-slot-list { max-height: 300px; overflow-y: auto; }
+    .save-slot-item { padding: 15px; background: #f5f5f5; border-radius: 10px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
+    .save-slot-item:hover { background: #e8f5e9; border-color: #00cc88; }
+    .save-slot-item.active { background: #e8f5e9; border-color: #00cc88; }
+    .save-slot-name { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 5px; }
+    .save-slot-desc { font-size: 12px; color: #666; margin-bottom: 5px; }
+    .save-slot-time { font-size: 11px; color: #999; }
+    .save-slot-actions { margin-top: 8px; display: flex; gap: 10px; }
+    .save-slot-actions button { padding: 5px 12px; font-size: 12px; border-radius: 15px; border: none; cursor: pointer; }
+    .btn-load-slot { background: #667eea; color: white; }
+    .btn-delete-slot { background: #e53935; color: white; }
+    .new-save-form { margin-top: 15px; padding-top: 15px; border-top: 2px solid #ddd; }
+    .new-save-form h4 { margin: 0 0 10px 0; font-size: 14px; color: #333; }
+    .insurance-recommendation { background: linear-gradient(135deg, #fff8e1 0%, #fff3e0 100%); border: 2px solid #ffb74d; border-radius: 12px; padding: 15px; margin-top: 15px; }
+    .insurance-recommendation h5 { margin: 0 0 10px 0; font-size: 14px; color: #e65100; }
+    .insurance-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #ffe0b2; }
+    .insurance-item:last-child { border-bottom: none; }
+    .insurance-name { font-weight: 600; color: #333; }
+    .insurance-percent { font-size: 16px; font-weight: 600; color: #e65100; }
+    .insurance-bar { width: 100px; height: 8px; background: #ffe0b2; border-radius: 4px; overflow: hidden; }
+    .insurance-bar-fill { height: 100%; background: linear-gradient(90deg, #ff9800, #ff5722); border-radius: 4px; }
+    .insurance-reason { font-size: 11px; color: #666; margin-top: 5px; }
   </style>
 </head>
 <body>
+  <div class="panel-overlay" id="panel-overlay"></div>
   <div id="toolbar">
     <h3>客户关系网络</h3>
     <select id="node-template">
@@ -87,10 +116,11 @@
     <button id="create-self">添加自己</button>
     <button id="edit-mode-btn" class="active">编辑模式</button>
     <button id="view-mode-btn">查看模式</button>
-    <button id="save-btn">保存</button>
-    <button id="load-btn">加载</button>
+    <button id="save-btn">存档</button>
+    <button id="load-btn">读档</button>
   </div>
   <div class="mode-indicator" id="mode-indicator">当前模式: 编辑模式</div>
+  <div id="auto-save-indicator">✓ 已自动保存</div>
   <div class="info-panel">
     <h4>操作说明</h4>
     <p><strong>编辑模式:</strong> 点击空白处新建节点，点击节点开始连接</p>
@@ -105,12 +135,15 @@
   <div id="node-form-panel">
     <h3 id="form-title">新建客户节点</h3>
     <div class="form-row"><label>姓名:</label><input type="text" id="field-name" placeholder="请输入姓名" autofocus></div>
-    <div class="form-row"><label>年龄:</label><input type="number" id="field-age" placeholder="请输入年龄"></div>
-    <div class="form-row"><label>薪金/年收入(万):</label><input type="number" id="field-salary" placeholder="请输入薪金"></div>
+    <div class="form-row"><label>年龄:</label><input type="number" id="field-age" placeholder="请输入年龄" min="0" max="120"></div>
+    <div class="form-row"><label>薪金/年收入(万):</label><input type="number" id="field-salary" placeholder="请输入薪金" min="0"></div>
     <div class="form-row"><label>联系方式:</label><input type="text" id="field-contact" placeholder="请输入联系方式"></div>
     <div class="form-row"><label>工作职业:</label><input type="text" id="field-occupation" placeholder="请输入职业"></div>
     <div class="form-row"><label>婚姻状态:</label><select id="field-marriage"><option value="">请选择</option><option value="未婚">未婚</option><option value="已婚">已婚</option><option value="离异">离异</option><option value="丧偶">丧偶</option></select></div>
+    <div class="form-row conditional" id="row-children"><label>子女数量:</label><select id="field-children"><option value="">请选择</option><option value="0">无子女</option><option value="1">1个子女</option><option value="2">2个子女</option><option value="3">3个或以上</option></select></div>
+    <div class="form-row conditional" id="row-children-age"><label>子女年龄:</label><input type="text" id="field-children-age" placeholder="例如: 8岁,5岁"></div>
     <div class="form-row"><label>父母状态:</label><select id="field-parents"><option value="">请选择</option><option value="双亲健在">双亲健在</option><option value="父亲已故">父亲已故</option><option value="母亲已故">母亲已故</option><option value="双亲已故">双亲已故</option></select></div>
+    <div class="form-row conditional" id="row-protection"><label>是否需要保障型保险:</label><select id="field-protection"><option value="">请选择</option><option value="是">是</option><option value="否">否</option><option value="不确定">不确定</option></select></div>
     <div class="form-buttons"><button class="btn-confirm" id="confirm-node">确认创建</button><button class="btn-cancel" id="cancel-node">取消</button></div>
   </div>
   <div id="edge-form-panel">
@@ -167,11 +200,26 @@
     <h3 id="detail-title">客户详细信息</h3>
     <div class="detail-grid" id="detail-content"></div>
     <div id="relation-content"></div>
+    <div id="insurance-recommendation"></div>
     <div class="detail-buttons"><button class="btn-edit" id="edit-detail">编辑</button><button class="btn-close" id="close-detail">关闭</button></div>
   </div>
   <div id="relation-panel">
     <h4>该客户的关系网络</h4>
     <div id="relation-grid"></div>
+  </div>
+  <div id="save-panel">
+    <h3>保存存档</h3>
+    <div class="new-save-form">
+      <h4>新建存档</h4>
+      <div class="form-row"><label>存档名称:</label><input type="text" id="save-name" placeholder="例如: 2024年客户档案"></div>
+      <div class="form-row"><label>存档描述:</label><textarea id="save-desc" rows="3" placeholder="可选，描述这个存档的内容..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;resize:none;"></textarea></div>
+      <div class="form-buttons"><button class="btn-confirm" id="confirm-save">保存存档</button></div>
+    </div>
+  </div>
+  <div id="load-panel">
+    <h3>加载存档</h3>
+    <div class="save-slot-list" id="save-slot-list"></div>
+    <div class="form-buttons" style="margin-top:15px;"><button class="btn-cancel" id="close-load">关闭</button></div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.29.0/cytoscape.min.js"></script>
   <script>
@@ -183,6 +231,12 @@
       var pendingPosition = null;
       var currentDetailNode = null;
       var selfNodeId = null;
+      var autoSaveInterval = null;
+      var lastSaveTime = null;
+
+      var SAVE_KEY_PREFIX = 'mindmap-save-';
+      var SAVE_LIST_KEY = 'mindmap-save-list';
+      var CURRENT_SLOT_KEY = 'mindmap-current-slot';
 
       var cy = cytoscape({
         container: document.getElementById('cy'),
@@ -215,6 +269,156 @@
 
       var nodeId = 1, edgeId = 1;
 
+      function initAutoSave() {
+        autoSaveInterval = setInterval(function() {
+          var currentSlot = localStorage.getItem(CURRENT_SLOT_KEY);
+          if (currentSlot) {
+            performSave(currentSlot, localStorage.getItem(SAVE_KEY_PREFIX + currentSlot + '-name') || '未命名', '', true);
+            showAutoSaveIndicator();
+          }
+        }, 60000);
+        lastSaveTime = Date.now();
+      }
+
+      function showAutoSaveIndicator() {
+        var indicator = document.getElementById('auto-save-indicator');
+        indicator.style.display = 'block';
+        indicator.textContent = '✓ 自动保存 ' + new Date().toLocaleTimeString();
+        setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+      }
+
+      function performSave(slotName, displayName, description, isAuto) {
+        var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
+        var saveData = {
+          name: displayName || slotName,
+          description: description || '',
+          slot: slotName,
+          timestamp: Date.now(),
+          isAuto: isAuto || false,
+          elements: cy.elements().jsons(),
+          selfNodeId: selfNodeId
+        };
+        localStorage.setItem(SAVE_KEY_PREFIX + slotName, JSON.stringify(saveData));
+        if (!isAuto) {
+          var existingIndex = saveList.findIndex(function(s) { return s.slot === slotName; });
+          if (existingIndex >= 0) {
+            saveList[existingIndex] = { name: displayName, description: description, slot: slotName, timestamp: Date.now() };
+          } else {
+            saveList.push({ name: displayName, description: description, slot: slotName, timestamp: Date.now() });
+          }
+          saveList.sort(function(a, b) { return b.timestamp - a.timestamp; });
+          localStorage.setItem(SAVE_LIST_KEY, JSON.stringify(saveList));
+        }
+        localStorage.setItem(CURRENT_SLOT_KEY, slotName);
+        lastSaveTime = Date.now();
+      }
+
+      function loadSaveSlot(slotName) {
+        try {
+          var data = localStorage.getItem(SAVE_KEY_PREFIX + slotName);
+          if (data) {
+            var saveData = JSON.parse(data);
+            var elements = saveData.elements || saveData;
+            selfNodeId = saveData.selfNodeId || null;
+            cy.remove(cy.elements());
+            cy.add(elements);
+            var maxNodeId = 1, maxEdgeId = 1;
+            elements.forEach(function(el) {
+              var id = parseInt(el.data.id.replace(/node|edge/, ''));
+              if (/node/.test(el.data.id)) maxNodeId = Math.max(maxNodeId, id + 1);
+              else maxEdgeId = Math.max(maxEdgeId, id + 1);
+            });
+            nodeId = maxNodeId;
+            edgeId = maxEdgeId;
+            localStorage.setItem(CURRENT_SLOT_KEY, slotName);
+            cy.fit(100);
+            document.getElementById('load-panel').style.display = 'none';
+            document.getElementById('panel-overlay').style.display = 'none';
+            alert('已加载: ' + (saveData.name || slotName));
+          }
+        } catch (error) { alert('加载失败'); }
+      }
+
+      function deleteSaveSlot(slotName) {
+        if (confirm('确定要删除这个存档吗？')) {
+          var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
+          saveList = saveList.filter(function(s) { return s.slot !== slotName; });
+          localStorage.setItem(SAVE_LIST_KEY, JSON.stringify(saveList));
+          localStorage.removeItem(SAVE_KEY_PREFIX + slotName);
+          if (localStorage.getItem(CURRENT_SLOT_KEY) === slotName) {
+            localStorage.removeItem(CURRENT_SLOT_KEY);
+          }
+          renderSaveSlotList();
+        }
+      }
+
+      function renderSaveSlotList() {
+        var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
+        var container = document.getElementById('save-slot-list');
+        if (saveList.length === 0) {
+          container.innerHTML = '<p style="text-align:center;color:#999;padding:30px;">暂无存档</p>';
+          return;
+        }
+        var currentSlot = localStorage.getItem(CURRENT_SLOT_KEY);
+        container.innerHTML = saveList.map(function(slot) {
+          var date = new Date(slot.timestamp);
+          var dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+          return '<div class="save-slot-item' + (slot.slot === currentSlot ? ' active' : '') + '">' +
+            '<div class="save-slot-name">' + slot.name + '</div>' +
+            (slot.description ? '<div class="save-slot-desc">' + slot.description + '</div>' : '') +
+            '<div class="save-slot-time">' + dateStr + '</div>' +
+            '<div class="save-slot-actions">' +
+            '<button class="btn-load-slot" onclick="loadSaveSlot(\'' + slot.slot + '\')">加载</button>' +
+            '<button class="btn-delete-slot" onclick="deleteSaveSlot(\'' + slot.slot + '\')">删除</button>' +
+            '</div></div>';
+        }).join('');
+      }
+
+      window.loadSaveSlot = loadSaveSlot;
+      window.deleteSaveSlot = deleteSaveSlot;
+
+      document.getElementById('panel-overlay').addEventListener('click', function() {
+        document.getElementById('save-panel').style.display = 'none';
+        document.getElementById('load-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+      });
+
+      document.getElementById('save-btn').addEventListener('click', function() {
+        document.getElementById('save-name').value = '';
+        document.getElementById('save-desc').value = '';
+        document.getElementById('save-panel').style.display = 'block';
+        document.getElementById('panel-overlay').style.display = 'block';
+      });
+
+      document.getElementById('confirm-save').addEventListener('click', function() {
+        var name = document.getElementById('save-name').value.trim();
+        if (!name) { alert('请输入存档名称'); return; }
+        var desc = document.getElementById('save-desc').value.trim();
+        var slotName = 'save_' + Date.now();
+        performSave(slotName, name, desc, false);
+        document.getElementById('save-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+        alert('存档已保存: ' + name);
+      });
+
+      document.getElementById('load-btn').addEventListener('click', function() {
+        renderSaveSlotList();
+        document.getElementById('load-panel').style.display = 'block';
+        document.getElementById('panel-overlay').style.display = 'block';
+      });
+
+      document.getElementById('close-load').addEventListener('click', function() {
+        document.getElementById('load-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+      });
+
+      window.addEventListener('beforeunload', function() {
+        var currentSlot = localStorage.getItem(CURRENT_SLOT_KEY);
+        if (currentSlot && cy.elements().length > 0) {
+          performSave(currentSlot, localStorage.getItem(SAVE_KEY_PREFIX + currentSlot + '-name') || '未命名', '', true);
+        }
+      });
+
       function updateModeUI() {
         var indicator = document.getElementById('mode-indicator');
         var editBtn = document.getElementById('edit-mode-btn');
@@ -246,6 +450,7 @@
         document.getElementById('form-title').textContent = '添加自己';
         document.getElementById('node-template').value = 'self';
         clearNodeForm();
+        updateConditionalFields();
         document.getElementById('node-form-panel').style.display = 'block';
         document.getElementById('field-name').focus();
       });
@@ -256,15 +461,31 @@
         document.getElementById('node-template').value = lastTemplate;
         document.getElementById('node-form-panel').style.display = 'block';
         clearNodeForm();
+        updateConditionalFields();
         var containerRect = cy.container().getBoundingClientRect();
         pendingPosition = { x: containerRect.width / 2, y: containerRect.height / 2 };
         document.getElementById('field-name').focus();
       });
 
+      document.getElementById('field-marriage').addEventListener('change', updateConditionalFields);
+
+      function updateConditionalFields() {
+        var marriage = document.getElementById('field-marriage').value;
+        var rowChildren = document.getElementById('row-children');
+        var rowChildrenAge = document.getElementById('row-children-age');
+        if (marriage === '已婚') {
+          rowChildren.classList.add('visible');
+          rowChildrenAge.classList.add('visible');
+        } else {
+          rowChildren.classList.remove('visible');
+          rowChildrenAge.classList.remove('visible');
+        }
+      }
+
       document.getElementById('confirm-node').addEventListener('click', function() { createOrUpdateNode(); });
       document.getElementById('cancel-node').addEventListener('click', function() { closeNodeForm(); });
 
-      ['field-name', 'field-age', 'field-salary', 'field-contact', 'field-occupation', 'field-marriage', 'field-parents'].forEach(function(id) {
+      ['field-name', 'field-age', 'field-salary', 'field-contact', 'field-occupation', 'field-relation'].forEach(function(id) {
         document.getElementById(id).addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
       });
 
@@ -275,7 +496,20 @@
         if (template === 'self') {
           selfNodeId = 'node' + nodeId;
         }
-        var nodeData = { id: 'node' + nodeId, name: name, template: template, age: document.getElementById('field-age').value, salary: document.getElementById('field-salary').value, contact: document.getElementById('field-contact').value, occupation: document.getElementById('field-occupation').value, marriage: document.getElementById('field-marriage').value, parents: document.getElementById('field-parents').value };
+        var nodeData = {
+          id: 'node' + nodeId,
+          name: name,
+          template: template,
+          age: document.getElementById('field-age').value,
+          salary: document.getElementById('field-salary').value,
+          contact: document.getElementById('field-contact').value,
+          occupation: document.getElementById('field-occupation').value,
+          marriage: document.getElementById('field-marriage').value,
+          children: document.getElementById('field-children').value,
+          childrenAge: document.getElementById('field-children-age').value,
+          parents: document.getElementById('field-parents').value,
+          protection: document.getElementById('field-protection').value
+        };
         var containerRect = cy.container().getBoundingClientRect();
         var position = pendingPosition || { x: containerRect.width / 2, y: containerRect.height / 2 };
         var newNode = cy.add({ data: nodeData, classes: template === 'self' ? 'self' : template, position: position });
@@ -296,6 +530,7 @@
           document.getElementById('node-template').value = lastTemplate;
           document.getElementById('node-form-panel').style.display = 'block';
           clearNodeForm();
+          updateConditionalFields();
           document.getElementById('field-name').focus();
         }
       });
@@ -364,6 +599,85 @@
 
       function getDisplayValue(val) { return val && val.trim() ? val.trim() : '未知'; }
 
+      function calculateInsuranceRecommendation(data) {
+        var age = parseInt(data.age) || 0;
+        var salary = parseFloat(data.salary) || 0;
+        var marriage = data.marriage || '';
+        var children = data.children || '';
+        var parents = data.parents || '';
+        var protection = data.protection || '';
+
+        var recommendations = [];
+        var reasons = {};
+
+        if (age < 20 || age > 70) {
+          return { recommendations: [], reasons: {} };
+        }
+
+        if (age >= 20 && age <= 35) {
+          if (salary < 10) {
+            recommendations.push({ name: '医疗', percent: 45, reason: '低收入群体，医疗保障优先' });
+            recommendations.push({ name: '危疾', percent: 30, reason: '年轻人危疾保障重要' });
+            recommendations.push({ name: '储蓄', percent: 15, reason: '开始建立储蓄习惯' });
+            recommendations.push({ name: '人寿', percent: 10, reason: '经济责任较轻' });
+          } else if (salary < 30) {
+            recommendations.push({ name: '医疗', percent: 35, reason: '医疗保障为基础' });
+            recommendations.push({ name: '危疾', percent: 25, reason: '危疾保障重要' });
+            recommendations.push({ name: '人寿', percent: 20, reason: '开始建立家庭保障' });
+            recommendations.push({ name: '储蓄', percent: 20, reason: '储蓄规划未来' });
+          } else {
+            recommendations.push({ name: '医疗', percent: 25, reason: '高收入群体全面保障' });
+            recommendations.push({ name: '危疾', percent: 25, reason: '危疾保障完整' });
+            recommendations.push({ name: '人寿', percent: 25, reason: '高收入需要更高保障' });
+            recommendations.push({ name: '储蓄', percent: 25, reason: '储蓄投资规划' });
+          }
+        } else if (age >= 36 && age <= 50) {
+          if (marriage === '已婚') {
+            if (children && children !== '0') {
+              recommendations.push({ name: '人寿', percent: 35, reason: '家庭责任最重，需保障子女成长' });
+              recommendations.push({ name: '医疗', percent: 25, reason: '医疗保障不能少' });
+              recommendations.push({ name: '危疾', percent: 20, reason: '危疾保障重要' });
+              recommendations.push({ name: '储蓄', percent: 20, reason: '子女教育储蓄规划' });
+            } else {
+              recommendations.push({ name: '人寿', percent: 30, reason: '已婚人士需要家庭保障' });
+              recommendations.push({ name: '医疗', percent: 25, reason: '医疗保障为基础' });
+              recommendations.push({ name: '危疾', percent: 25, reason: '危疾保障重要' });
+              recommendations.push({ name: '储蓄', percent: 20, reason: '养老储蓄规划' });
+            }
+          } else {
+            recommendations.push({ name: '医疗', percent: 30, reason: '中年人医疗需求增加' });
+            recommendations.push({ name: '危疾', percent: 30, reason: '危疾高发期保障' });
+            recommendations.push({ name: '人寿', percent: 20, reason: '个人保障' });
+            recommendations.push({ name: '储蓄', percent: 20, reason: '养老规划' });
+          }
+        } else if (age >= 51 && age <= 65) {
+          recommendations.push({ name: '医疗', percent: 40, reason: '医疗需求最高' });
+          recommendations.push({ name: '人寿', percent: 25, reason: '仍有家庭责任' });
+          recommendations.push({ name: '危疾', percent: 20, reason: '危疾保障' });
+          recommendations.push({ name: '储蓄', percent: 15, reason: '养老储备' });
+        } else {
+          recommendations.push({ name: '医疗', percent: 60, reason: '医疗保障为主' });
+          recommendations.push({ name: '危疾', percent: 25, reason: '危疾保障' });
+          recommendations.push({ name: '储蓄', percent: 15, reason: '少量储蓄' });
+        }
+
+        if (parents === '父亲已故' || parents === '母亲已故' || parents === '双亲已故') {
+          recommendations.forEach(function(r) {
+            if (r.name === '人寿') r.percent = Math.min(40, r.percent + 10);
+            if (r.name === '医疗') r.percent = Math.max(20, r.percent - 5);
+          });
+          reasons.parentNote = '注意: 父母健康状况影响保险规划';
+        }
+
+        var total = recommendations.reduce(function(sum, r) { return sum + r.percent; }, 0);
+        if (total !== 100) {
+          var diff = 100 - total;
+          recommendations[0].percent += diff;
+        }
+
+        return { recommendations: recommendations, reasons: reasons };
+      }
+
       function showNodeDetail(node) {
         currentDetailNode = node;
         var data = node.data();
@@ -376,10 +690,14 @@
           { label: '婚姻状态', value: getDisplayValue(data.marriage) },
           { label: '父母状态', value: getDisplayValue(data.parents) }
         ];
+        if (data.marriage === '已婚') {
+          details.push({ label: '子女数量', value: data.children || '未知' });
+          if (data.childrenAge) details.push({ label: '子女年龄', value: data.childrenAge });
+        }
         var templateName = data.template === 'self' ? '自己' : getTemplateName(data.template);
         document.getElementById('detail-title').textContent = templateName + ' - ' + getDisplayValue(data.name);
         document.getElementById('detail-content').innerHTML = '<div class="detail-grid">' + details.map(function(d) { return '<div class="detail-item"><span>' + d.label + '</span>' + d.value + '</div>'; }).join('') + '</div>';
-        
+
         var edges = node.connectedEdges();
         var relationsByCategory = { blood: [], social: [], referral: [] };
         edges.forEach(function(edge) {
@@ -390,7 +708,7 @@
           var cat = getRelationCategory(label);
           relationsByCategory[cat].push({ node: otherNode, edge: edge, label: label });
         });
-        
+
         var relContent = '';
         var catNames = { blood: '★ 生理关系', social: '○ 社交关系', referral: '◇ 推荐关系' };
         for (var cat in relationsByCategory) {
@@ -404,7 +722,26 @@
         }
         if (!relContent) { relContent = '<p style="color:#999;text-align:center;">暂无关系</p>'; }
         document.getElementById('relation-content').innerHTML = '<h4 style="margin:15px 0 10px;font-size:14px;color:#333;">关系网络 (' + edges.length + ')</h4>' + relContent;
-        
+
+        if (data.template === 'insurance' && data.age) {
+          var rec = calculateInsuranceRecommendation(data);
+          if (rec.recommendations.length > 0) {
+            var recHtml = '<div class="insurance-recommendation"><h5>💡 保险建议（基于客户信息分析）</h5>';
+            rec.recommendations.forEach(function(r) {
+              recHtml += '<div class="insurance-item"><div><div class="insurance-name">' + r.name + '保险</div><div class="insurance-reason">' + r.reason + '</div></div><div><div class="insurance-percent">' + r.percent + '%</div><div class="insurance-bar"><div class="insurance-bar-fill" style="width:' + r.percent + '%;"></div></div></div></div>';
+            });
+            if (rec.reasons.parentNote) {
+              recHtml += '<p style="margin-top:10px;font-size:11px;color:#e65100;">' + rec.reasons.parentNote + '</p>';
+            }
+            recHtml += '</div>';
+            document.getElementById('insurance-recommendation').innerHTML = recHtml;
+          } else {
+            document.getElementById('insurance-recommendation').innerHTML = '';
+          }
+        } else {
+          document.getElementById('insurance-recommendation').innerHTML = '';
+        }
+
         document.querySelectorAll('.relation-item').forEach(function(el) {
           el.addEventListener('click', function() {
             var nodeIdToFocus = this.getAttribute('data-node-id');
@@ -413,7 +750,7 @@
             setTimeout(function() { showNodeDetail(targetNode); }, 350);
           });
         });
-        
+
         document.getElementById('node-detail-panel').style.display = 'block';
         node.connectedEdges().addClass('highlight');
         node.connectedEdges().connectedNodes().addClass('highlight');
@@ -439,17 +776,32 @@
         document.getElementById('field-contact').value = data.contact || '';
         document.getElementById('field-occupation').value = data.occupation || '';
         document.getElementById('field-marriage').value = data.marriage || '';
+        document.getElementById('field-children').value = data.children || '';
+        document.getElementById('field-children-age').value = data.childrenAge || '';
         document.getElementById('field-parents').value = data.parents || '';
+        document.getElementById('field-protection').value = data.protection || '';
         document.getElementById('form-title').textContent = '编辑客户信息';
         document.getElementById('node-detail-panel').style.display = 'none';
         document.getElementById('node-form-panel').style.display = 'block';
+        updateConditionalFields();
         pendingPosition = node.position();
         var originalHandler = document.getElementById('confirm-node').onclick;
         document.getElementById('confirm-node').onclick = function() {
           var name = document.getElementById('field-name').value.trim();
           if (!name) { alert('请输入姓名'); return; }
           var template = document.getElementById('node-template').value;
-          node.data({ name: name, template: template, age: document.getElementById('field-age').value, salary: document.getElementById('field-salary').value, contact: document.getElementById('field-contact').value, occupation: document.getElementById('field-occupation').value, marriage: document.getElementById('field-marriage').value, parents: document.getElementById('field-parents').value });
+          node.data({
+            name: name, template: template,
+            age: document.getElementById('field-age').value,
+            salary: document.getElementById('field-salary').value,
+            contact: document.getElementById('field-contact').value,
+            occupation: document.getElementById('field-occupation').value,
+            marriage: document.getElementById('field-marriage').value,
+            children: document.getElementById('field-children').value,
+            childrenAge: document.getElementById('field-children-age').value,
+            parents: document.getElementById('field-parents').value,
+            protection: document.getElementById('field-protection').value
+          });
           node.removeClass('insurance product service self').addClass(template);
           closeNodeForm();
           document.getElementById('confirm-node').onclick = originalHandler;
@@ -491,46 +843,19 @@
         if (confirm('确定要删除这条关系线吗？')) { event.target.remove(); }
       });
 
-      document.getElementById('save-btn').addEventListener('click', function() {
-        try {
-          var saveData = { elements: cy.elements().jsons(), selfNodeId: selfNodeId };
-          localStorage.setItem('mindmap-customer-data', JSON.stringify(saveData));
-          alert('数据已保存');
-        } catch (error) { alert('保存失败'); }
-      });
-
-      document.getElementById('load-btn').addEventListener('click', function() {
-        try {
-          var data = localStorage.getItem('mindmap-customer-data');
-          if (data) {
-            var saveData = JSON.parse(data);
-            var elements = saveData.elements || saveData;
-            selfNodeId = saveData.selfNodeId || null;
-            cy.remove(cy.elements());
-            cy.add(elements);
-            var maxNodeId = 1, maxEdgeId = 1;
-            elements.forEach(function(el) {
-              var id = parseInt(el.data.id.replace(/node|edge/, ''));
-              if (/node/.test(el.data.id)) maxNodeId = Math.max(maxNodeId, id + 1);
-              else maxEdgeId = Math.max(maxEdgeId, id + 1);
-            });
-            nodeId = maxNodeId;
-            edgeId = maxEdgeId;
-            cy.fit(100);
-            alert('数据已加载');
-          } else { alert('没有找到保存的数据'); }
-        } catch (error) { alert('加载失败'); }
-      });
-
       function getTemplateName(template) {
         return { insurance: '保险类', product: '商品类', service: '服务类' }[template] || '客户';
       }
 
       function clearNodeForm() {
-        ['field-name', 'field-age', 'field-salary', 'field-contact', 'field-occupation'].forEach(function(id) { document.getElementById(id).value = ''; });
+        ['field-name', 'field-age', 'field-salary', 'field-contact', 'field-occupation', 'field-children-age'].forEach(function(id) { document.getElementById(id).value = ''; });
         document.getElementById('field-marriage').value = '';
+        document.getElementById('field-children').value = '';
         document.getElementById('field-parents').value = '';
+        document.getElementById('field-protection').value = '';
       }
+
+      initAutoSave();
     });
   </script>
 </body>
