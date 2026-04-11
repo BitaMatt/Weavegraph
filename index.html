@@ -135,6 +135,7 @@
   <div id="node-form-panel">
     <h3 id="form-title">新建客户节点</h3>
     <div class="form-row"><label>姓名:</label><input type="text" id="field-name" placeholder="请输入姓名" autofocus></div>
+    <div class="form-row"><label>性别:</label><select id="field-gender"><option value="">请选择</option><option value="男">男</option><option value="女">女</option></select></div>
     <div class="form-row"><label>年龄:</label><input type="number" id="field-age" placeholder="请输入年龄" min="0" max="120"></div>
     <div class="form-row"><label>薪金/年收入(万):</label><input type="number" id="field-salary" placeholder="请输入薪金" min="0"></div>
     <div class="form-row"><label>联系方式:</label><input type="text" id="field-contact" placeholder="请输入联系方式"></div>
@@ -500,6 +501,7 @@
           id: 'node' + nodeId,
           name: name,
           template: template,
+          gender: document.getElementById('field-gender').value,
           age: document.getElementById('field-age').value,
           salary: document.getElementById('field-salary').value,
           contact: document.getElementById('field-contact').value,
@@ -602,6 +604,7 @@
       function calculateInsuranceRecommendation(data) {
         var age = parseInt(data.age) || 0;
         var salary = parseFloat(data.salary) || 0;
+        var gender = data.gender || '';
         var marriage = data.marriage || '';
         var children = data.children || '';
         var parents = data.parents || '';
@@ -669,6 +672,19 @@
           reasons.parentNote = '注意: 父母健康状况影响保险规划';
         }
 
+        if (gender === '女') {
+          recommendations.forEach(function(r) {
+            if (r.name === '医疗') r.percent = Math.min(45, r.percent + 5);
+            if (r.name === '危疾') r.percent = Math.min(35, r.percent + 5);
+          });
+          reasons.genderNote = '女性通常寿命更长，医疗和危疾保障更重要';
+        } else if (gender === '男') {
+          recommendations.forEach(function(r) {
+            if (r.name === '人寿') r.percent = Math.min(40, r.percent + 5);
+          });
+          reasons.genderNote = '男性家庭责任通常较重，人寿保障需加强';
+        }
+
         var total = recommendations.reduce(function(sum, r) { return sum + r.percent; }, 0);
         if (total !== 100) {
           var diff = 100 - total;
@@ -683,6 +699,7 @@
         var data = node.data();
         var details = [
           { label: '姓名', value: getDisplayValue(data.name) },
+          { label: '性别', value: getDisplayValue(data.gender) },
           { label: '年龄', value: data.age ? data.age + '岁' : '未知' },
           { label: '薪金', value: data.salary ? data.salary + '万' : '未知' },
           { label: '联系方式', value: getDisplayValue(data.contact) },
@@ -733,6 +750,9 @@
             if (rec.reasons.parentNote) {
               recHtml += '<p style="margin-top:10px;font-size:11px;color:#e65100;">' + rec.reasons.parentNote + '</p>';
             }
+            if (rec.reasons.genderNote) {
+              recHtml += '<p style="margin-top:5px;font-size:11px;color:#1565c0;">' + rec.reasons.genderNote + '</p>';
+            }
             recHtml += '</div>';
             document.getElementById('insurance-recommendation').innerHTML = recHtml;
           } else {
@@ -771,6 +791,7 @@
         var data = node.data();
         document.getElementById('node-template').value = data.template || 'insurance';
         document.getElementById('field-name').value = data.name || '';
+        document.getElementById('field-gender').value = data.gender || '';
         document.getElementById('field-age').value = data.age || '';
         document.getElementById('field-salary').value = data.salary || '';
         document.getElementById('field-contact').value = data.contact || '';
@@ -792,6 +813,7 @@
           var template = document.getElementById('node-template').value;
           node.data({
             name: name, template: template,
+            gender: document.getElementById('field-gender').value,
             age: document.getElementById('field-age').value,
             salary: document.getElementById('field-salary').value,
             contact: document.getElementById('field-contact').value,
@@ -849,6 +871,7 @@
 
       function clearNodeForm() {
         ['field-name', 'field-age', 'field-salary', 'field-contact', 'field-occupation', 'field-children-age'].forEach(function(id) { document.getElementById(id).value = ''; });
+        document.getElementById('field-gender').value = '';
         document.getElementById('field-marriage').value = '';
         document.getElementById('field-children').value = '';
         document.getElementById('field-parents').value = '';
