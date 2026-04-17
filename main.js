@@ -160,16 +160,8 @@ ipcMain.handle('launch-app', async (event, appType) => {
               console.log('[MAIN] QQ PID:', qqPid, 'Title:', qqTitle);
               
               const focusMethods = [
-                // 方法1：模拟用户输入 + 聚焦 - 绕过Windows限制
-                `powershell -command "Add-Type -MemberDefinition '[DllImport(\\\"user32.dll\\\")] public static extern bool SetForegroundWindow(IntPtr hWnd); [DllImport(\\\"user32.dll\\\")] public static extern bool ShowWindow(IntPtr hWnd, int); [DllImport(\\\"user32.dll\\\")] public static extern bool keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);' -Name Win32 -Namespace User32 -PassThru; $h = (Get-Process -Id ${qqPid}).MainWindowHandle; if ($h -ne 0) { $w = [User32.Win32]; $w::keybd_event(13, 0, 0, [UIntPtr]::Zero); Start-Sleep -Milliseconds 50; $w::keybd_event(13, 0, 2, [UIntPtr]::Zero); Start-Sleep -Milliseconds 50; $w::ShowWindow($h, 9); $w::ShowWindow($h, 3); $w::SetForegroundWindow($h) }"`,
-                // 方法2：使用SetWindowPos - 先设为最顶层再取消
-                `powershell -command "Add-Type -MemberDefinition '[DllImport(\\\"user32.dll\\\")] public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags); [DllImport(\\\"user32.dll\\\")] public static extern bool SetForegroundWindow(IntPtr hWnd); [DllImport(\\\"user32.dll\\\")] public static extern bool ShowWindow(IntPtr hWnd, int);' -Name Win32 -Namespace User32 -PassThru; $h = (Get-Process -Id ${qqPid}).MainWindowHandle; if ($h -ne 0) { $w = [User32.Win32]; $HWND_TOPMOST = [IntPtr](-1); $HWND_NOTOPMOST = [IntPtr](-2); $SWP_NOMOVE = 0x0002; $SWP_NOSIZE = 0x0001; $w::SetWindowPos($h, $HWND_TOPMOST, 0, 0, 0, 0, $SWP_NOMOVE -bor $SWP_NOSIZE); Start-Sleep -Milliseconds 100; $w::SetWindowPos($h, $HWND_NOTOPMOST, 0, 0, 0, 0, $SWP_NOMOVE -bor $SWP_NOSIZE); $w::ShowWindow($h, 3); $w::SetForegroundWindow($h) }"`,
-                // 方法3：使用实际窗口标题
-                `powershell -command "Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.Interaction]::AppActivate('${qqTitle}')"`,
-                // 方法4：使用进程ID + 最大化
-                `powershell -command "Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.Interaction]::AppActivate(${qqPid}); Start-Sleep -Milliseconds 100; Add-Type -MemberDefinition '[DllImport(\\\"user32.dll\\\")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow); [DllImport(\\\"user32.dll\\\")] public static extern bool SetForegroundWindow(IntPtr hWnd);' -Name Win32 -Namespace User32 -PassThru; $h = (Get-Process -Id ${qqPid}).MainWindowHandle; if ($h -ne 0) { $w = [User32.Win32]; $w::ShowWindow($h, 3); $w::SetForegroundWindow($h) }"`,
-                // 方法5：强制显示并聚焦
-                `powershell -command "Add-Type -MemberDefinition '[DllImport(\\\"user32.dll\\\")] public static extern bool SetForegroundWindow(IntPtr hWnd); [DllImport(\\\"user32.dll\\\")] public static extern bool ShowWindow(IntPtr hWnd, int);' -Name Win32 -Namespace User32 -PassThru; $h = (Get-Process -Id ${qqPid}).MainWindowHandle; if ($h -ne 0) { $w = [User32.Win32]; $w::ShowWindow($h, 9); $w::ShowWindow($h, 3); $w::SetForegroundWindow($h) }"`
+                // 方法1：使用进程ID + 最大化（唯一有效的方法）
+                `powershell -command "Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.Interaction]::AppActivate(${qqPid}); Start-Sleep -Milliseconds 100; Add-Type -MemberDefinition '[DllImport(\\\"user32.dll\\\")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow); [DllImport(\\\"user32.dll\\\")] public static extern bool SetForegroundWindow(IntPtr hWnd);' -Name Win32 -Namespace User32 -PassThru; $h = (Get-Process -Id ${qqPid}).MainWindowHandle; if ($h -ne 0) { $w = [User32.Win32]; $w::ShowWindow($h, 3); $w::SetForegroundWindow($h) }"`
               ];
               
               let attemptIndex = 0;
@@ -241,16 +233,61 @@ ipcMain.handle('launch-app', async (event, appType) => {
     } else if (appType === 'email' || appType === 'mail') {
       console.log('[MAIN] Handling email app');
       if (platform === 'win32') {
-        console.log('[MAIN] Windows platform detected, using mailto: protocol...');
-        // 直接使用mailto:协议，让Windows弹出邮件应用选择器
-        exec('start mailto:', (err) => {
-          if (err) {
-            console.log('[MAIN] mailto: protocol failed:', err);
-            resolve({ success: false, message: '启动邮件客户端失败，请检查是否已安装邮件应用' });
-          } else {
-            resolve({ success: true, message: '已打开邮件客户端' });
+        console.log('[MAIN] Windows platform detected, trying WScript.Shell method...');
+        
+        // 方法1：智能查找Outlook路径并启动
+        const methods = [
+          // 方法1：使用PowerShell查找Windows Store版Outlook
+          'powershell -command "$outlookApp = Get-AppxPackage *Outlook*; if ($outlookApp) { $installLocation = $outlookApp.InstallLocation; $olkExe = Join-Path $installLocation \"olk.exe\"; if (Test-Path $olkExe) { Start-Process $olkExe } else { Start-Process mailto: } } else { Start-Process mailto: }"',
+          // 方法2：使用WScript.Shell执行outlook.exe
+          'powershell -command "$wsh = New-Object -ComObject WScript.Shell; $wsh.Run(\"outlook.exe\")"',
+          // 方法3：使用Start-Process
+          'powershell -command "Start-Process outlook.exe"',
+          // 方法4：使用mailto:协议
+          'powershell -command "Start-Process mailto:"',
+          // 方法5：使用cmd启动
+          'cmd /c "start outlook"',
+          // 方法6：使用Electron shell.openExternal
+          'shell'
+        ];
+        
+        let methodIndex = 0;
+        const tryNextMethod = () => {
+          if (methodIndex >= methods.length) {
+            console.log('[MAIN] All Outlook launch methods failed');
+            resolve({ success: false, message: '启动Outlook失败，请检查是否已安装' });
+            return;
           }
-        });
+          
+          const method = methods[methodIndex];
+          console.log('[MAIN] Trying method', methodIndex + 1, ':', method);
+          
+          if (method === 'shell') {
+            // 使用Electron的shell.openExternal
+            shell.openExternal('mailto:').then(() => {
+              console.log('[MAIN] shell.openExternal mailto: success');
+              resolve({ success: true, message: '已打开邮件客户端' });
+            }).catch((err) => {
+              console.log('[MAIN] shell.openExternal mailto: failed:', err);
+              methodIndex++;
+              tryNextMethod();
+            });
+          } else {
+            // 执行其他命令
+            exec(method, (err) => {
+              if (err) {
+                console.log('[MAIN] Method', methodIndex + 1, 'failed:', err.message);
+                methodIndex++;
+                setTimeout(tryNextMethod, 500);
+              } else {
+                console.log('[MAIN] Method', methodIndex + 1, 'success');
+                resolve({ success: true, message: '已打开Outlook' });
+              }
+            });
+          }
+        };
+        
+        tryNextMethod();
       } else if (platform === 'darwin') {
         exec('osascript -e \'tell application "Mail" to activate\'', (err) => {
           if (err) {
