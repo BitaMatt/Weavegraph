@@ -218,21 +218,21 @@
   <div id="cy"></div>
   <div id="node-form-panel">
     <h3 id="form-title" data-i18n="newCustomer">新建客户节点</h3>
-    <div class="form-row"><label data-i18n="name">姓名:</label><input type="text" id="field-name" placeholder="请输入姓名" autofocus></div>
-    <div class="form-row"><label data-i18n="gender">性别:</label><select id="field-gender"><option value="">请选择</option><option value="男">男</option><option value="女">女</option></select></div>
-    <div class="form-row"><label data-i18n="age">年龄:</label><input type="number" id="field-age" placeholder="请输入年龄" min="0" max="120"></div>
-    <div class="form-row"><label data-i18n="salary">薪金/年收入(万):</label><input type="number" id="field-salary" placeholder="请输入薪金" min="0"></div>
+    <div class="form-row"><label data-i18n="name">姓名:</label><input type="text" id="field-name" data-i18n-placeholder="inputName" placeholder="请输入姓名" autofocus></div>
+    <div class="form-row"><label data-i18n="gender">性别:</label><select id="field-gender"><option value="" data-i18n="selectOption">请选择</option><option value="男">男</option><option value="女">女</option></select></div>
+    <div class="form-row"><label data-i18n="age">年龄:</label><input type="number" id="field-age" data-i18n-placeholder="enterAge" placeholder="请输入年龄" min="0" max="120"></div>
+    <div class="form-row"><label data-i18n="salary">薪金/年收入(万):</label><input type="number" id="field-salary" data-i18n-placeholder="enterSalary" placeholder="请输入薪金" min="0"></div>
     <div class="form-row" style="flex-direction:column;align-items:flex-start;">
       <label data-i18n="contact" style="margin-bottom:5px;">联系方式:</label>
       <div id="contact-list" style="width:100%;"></div>
-      <button type="button" id="add-contact" style="margin-top:5px;padding:5px 15px;background:#00cc88;color:white;border:none;border-radius:5px;cursor:pointer;font-size:12px;">+ 添加联系方式</button>
+      <button type="button" id="add-contact" data-i18n="addContact" style="margin-top:5px;padding:5px 15px;background:#00cc88;color:white;border:none;border-radius:5px;cursor:pointer;font-size:12px;">+ 添加联系方式</button>
     </div>
-    <div class="form-row"><label data-i18n="occupation">工作职业:</label><input type="text" id="field-occupation" placeholder="请输入职业"></div>
-    <div class="form-row"><label data-i18n="marriage">婚姻状态:</label><select id="field-marriage"><option value="">请选择</option><option value="未婚">未婚</option><option value="已婚">已婚</option><option value="离异">离异</option><option value="丧偶">丧偶</option></select></div>
-    <div class="form-row conditional" id="row-children"><label data-i18n="children">子女数量:</label><select id="field-children"><option value="">请选择</option><option value="0">无子女</option><option value="1">1个子女</option><option value="2">2个子女</option><option value="3">3个或以上</option></select></div>
-    <div class="form-row conditional" id="row-children-age"><label data-i18n="childrenAge">子女年龄:</label><input type="text" id="field-children-age" placeholder="例如: 8岁,5岁"></div>
-    <div class="form-row"><label data-i18n="parents">父母状态:</label><select id="field-parents"><option value="">请选择</option><option value="双亲健在">双亲健在</option><option value="父亲已故">父亲已故</option><option value="母亲已故">母亲已故</option><option value="双亲已故">双亲已故</option></select></div>
-    <div class="form-row conditional" id="row-protection"><label data-i18n="needProtection">是否需要保障型保险:</label><select id="field-protection"><option value="">请选择</option><option value="是">是</option><option value="否">否</option><option value="不确定">不确定</option></select></div>
+    <div class="form-row"><label data-i18n="occupation">工作职业:</label><input type="text" id="field-occupation" data-i18n-placeholder="enterOccupation" placeholder="请输入职业"></div>
+    <div class="form-row"><label data-i18n="marriage">婚姻状态:</label><select id="field-marriage"><option value="" data-i18n="selectOption">请选择</option><option value="未婚" data-i18n="unmarried">未婚</option><option value="已婚" data-i18n="married">已婚</option><option value="离异" data-i18n="divorced">离异</option><option value="丧偶" data-i18n="widowed">丧偶</option></select></div>
+    <div class="form-row conditional" id="row-children"><label data-i18n="children">子女数量:</label><select id="field-children"><option value="" data-i18n="selectOption">请选择</option><option value="0" data-i18n="noChildren">无子女</option><option value="1" data-i18n="oneChild">1个子女</option><option value="2" data-i18n="twoChildren">2个子女</option><option value="3" data-i18n="threeOrMoreChildren">3个或以上</option></select></div>
+    <div class="form-row conditional" id="row-children-age"><label data-i18n="childrenAge">子女年龄:</label><input type="text" id="field-children-age" data-i18n-placeholder="childrenAgePlaceholder" placeholder="例如: 8岁,5岁"></div>
+    <div class="form-row"><label data-i18n="parents">父母状态:</label><select id="field-parents"><option value="" data-i18n="selectOption">请选择</option><option value="双亲健在" data-i18n="bothParentsAlive">双亲健在</option><option value="父亲已故" data-i18n="fatherDeceased">父亲已故</option><option value="母亲已故" data-i18n="motherDeceased">母亲已故</option><option value="双亲已故" data-i18n="bothParentsDeceased">双亲已故</option></select></div>
+    <div class="form-row conditional" id="row-protection"><label data-i18n="needProtection">是否需要保障型保险:</label><select id="field-protection"><option value="" data-i18n="selectOption">请选择</option><option value="是" data-i18n="yes">是</option><option value="否" data-i18n="no">否</option><option value="不确定" data-i18n="uncertain">不确定</option></select></div>
     <div class="form-buttons"><button class="btn-confirm" id="confirm-node" data-i18n="confirmCreate">确认创建</button><button class="btn-cancel" id="cancel-node" data-i18n="cancel">取消</button></div>
   </div>
   <div id="edge-form-panel">
@@ -305,15 +305,15 @@
       <div class="form-row"><label data-i18n="archiveDesc">存档描述:</label><textarea id="save-desc" rows="3" placeholder="可选，描述这个存档的内容..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;resize:none;"></textarea></div>
       <div class="form-buttons"><button class="btn-confirm" id="confirm-save" data-i18n="confirmSave">保存存档</button></div>
     </div>
-    <div class="edit-save-form" id="edit-save-form" style="display:none;">
-      <h4>编辑存档</h4>
-      <input type="hidden" id="edit-save-slot">
-      <div class="form-row"><label>存档名称:</label><input type="text" id="edit-save-name" placeholder="存档名称" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;"></div>
-      <div class="form-row"><label>存档描述:</label><textarea id="edit-save-desc" rows="3" placeholder="可选，描述这个存档的内容..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;resize:none;"></textarea></div>
-      <div class="form-buttons">
-        <button class="btn-confirm" id="confirm-edit-save" style="background:#667eea;">保存修改</button>
-        <button class="btn-cancel" id="cancel-edit-save" style="background:#999;">取消</button>
-      </div>
+  </div>
+  <div id="edit-save-panel" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 301; max-width: 95vw; max-height: 85vh; overflow-y: auto; display: none;">
+    <h3 data-i18n="editArchive">编辑存档</h3>
+    <input type="hidden" id="edit-save-slot">
+    <div class="form-row"><label data-i18n="archiveName">存档名称:</label><input type="text" id="edit-save-name" data-i18n-placeholder="archiveNamePlaceholder" placeholder="存档名称" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;"></div>
+    <div class="form-row"><label data-i18n="archiveDesc">存档描述:</label><textarea id="edit-save-desc" data-i18n-placeholder="archiveDescPlaceholder" rows="3" placeholder="可选，描述这个存档的内容..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;resize:none;"></textarea></div>
+    <div class="form-buttons">
+      <button class="btn-confirm" id="confirm-edit-save" data-i18n="saveChanges" style="background:#667eea;">保存修改</button>
+      <button class="btn-cancel" id="cancel-edit-save" data-i18n="cancel" style="background:#999;">取消</button>
     </div>
   </div>
   <div id="debug-panel" style="position:absolute;top:80px;left:20px;background:rgba(0,0,0,0.9);color:#0f0;border:2px solid #0f0;border-radius:10px;padding:15px;z-index:9999;display:none;min-width:350px;max-height:400px;overflow:auto;font-family:monospace;font-size:12px;">
@@ -578,7 +578,59 @@
         orphanPolicy: '孤儿单',
         activeInquiry: '主动咨询',
         eventMeet: '活动认识',
-        customRelationPlaceholder: '例如: 牌友,球友'
+        customRelationPlaceholder: '例如: 牌友,球友',
+        editTemplate: '编辑模板字段',
+        editTemplateFields: '编辑模板字段',
+        editTemplateHint: '拖动字段可调整顺序，点击编辑或删除',
+        addNewField: '添加新字段',
+        fieldName: '字段名称',
+        fieldType: '字段类型',
+        fieldOptions: '选项(逗号分隔)',
+        addField: '添加字段',
+        saveTemplate: '保存模板',
+        gender: '性别',
+        age: '年龄',
+        salary: '薪金/年收入(万)',
+        occupation: '工作职业',
+        marriage: '婚姻状态',
+        children: '子女数量',
+        childrenAge: '子女年龄',
+        parents: '父母状态',
+        needProtection: '是否需要保障型保险',
+        confirmCreate: '确认创建',
+        cancel: '取消',
+        addContact: '添加联系方式',
+        enterContact: '请输入...',
+        selectOption: '请选择',
+        enterAge: '请输入年龄',
+        enterSalary: '请输入薪金',
+        enterOccupation: '请输入职业',
+        selectGender: '请选择',
+        noChildren: '无子女',
+        oneChild: '1个子女',
+        twoChildren: '2个子女',
+        threeOrMoreChildren: '3个或以上',
+        childrenAgePlaceholder: '例如: 8岁,5岁',
+        bothParentsAlive: '双亲健在',
+        fatherDeceased: '父亲已故',
+        motherDeceased: '母亲已故',
+        bothParentsDeceased: '双亲已故',
+        yes: '是',
+        no: '否',
+        uncertain: '不确定',
+        editArchive: '编辑存档',
+        archiveName: '存档名称',
+        archiveDesc: '存档描述',
+        archiveNamePlaceholder: '存档名称',
+        archiveDescPlaceholder: '可选，描述这个存档的内容...',
+        saveChanges: '保存修改',
+        editSlot: '编辑',
+        loadSlot: '加载',
+        deleteSlot: '删除',
+        noArchives: '暂无存档',
+        deleteConfirm: '确定要删除这个存档吗？',
+        ageRange: '年龄段',
+        nodeType: '节点类型'
       },
       'zh-TW': {
         title: '客戶關係網絡',
@@ -756,7 +808,59 @@
         orphanPolicy: '孤兒單',
         activeInquiry: '主動咨詢',
         eventMeet: '活動認識',
-        customRelationPlaceholder: '例如: 牌友,球友'
+        customRelationPlaceholder: '例如: 牌友,球友',
+        editTemplate: '編輯模板字段',
+        editTemplateFields: '編輯模板字段',
+        editTemplateHint: '拖動字段可調整順序，點擊編輯或刪除',
+        addNewField: '添加新字段',
+        fieldName: '字段名稱',
+        fieldType: '字段類型',
+        fieldOptions: '選項(逗號分隔)',
+        addField: '添加字段',
+        saveTemplate: '保存模板',
+        gender: '性別',
+        age: '年齡',
+        salary: '薪金/年收入(萬)',
+        occupation: '工作職業',
+        marriage: '婚姻狀態',
+        children: '子女數量',
+        childrenAge: '子女年齡',
+        parents: '父母狀態',
+        needProtection: '是否需要保障型保險',
+        confirmCreate: '確認創建',
+        cancel: '取消',
+        addContact: '添加聯繫方式',
+        enterContact: '請輸入...',
+        selectOption: '請選擇',
+        enterAge: '請輸入年齡',
+        enterSalary: '請輸入薪金',
+        enterOccupation: '請輸入職業',
+        selectGender: '請選擇',
+        noChildren: '無子女',
+        oneChild: '1個子女',
+        twoChildren: '2個子女',
+        threeOrMoreChildren: '3個或以上',
+        childrenAgePlaceholder: '例如: 8歲,5歲',
+        bothParentsAlive: '雙親健在',
+        fatherDeceased: '父親已故',
+        motherDeceased: '母親已故',
+        bothParentsDeceased: '雙親已故',
+        yes: '是',
+        no: '否',
+        uncertain: '不確定',
+        editArchive: '編輯存檔',
+        archiveName: '存檔名稱',
+        archiveDesc: '存檔描述',
+        archiveNamePlaceholder: '存檔名稱',
+        archiveDescPlaceholder: '可選，描述這個存檔的內容...',
+        saveChanges: '保存修改',
+        editSlot: '編輯',
+        loadSlot: '加載',
+        deleteSlot: '刪除',
+        noArchives: '暫無存檔',
+        deleteConfirm: '確定要刪除這個存檔嗎？',
+        ageRange: '年齡段',
+        nodeType: '節點類型'
       },
       'en': {
         title: 'Customer Relationship Network',
@@ -935,7 +1039,59 @@
         orphanPolicy: 'Orphan Policy',
         activeInquiry: 'Active Inquiry',
         eventMeet: 'Met at Event',
-        customRelationPlaceholder: 'e.g. Poker Buddy, Golf Friend'
+        customRelationPlaceholder: 'e.g. Poker Buddy, Golf Friend',
+        editTemplate: 'Edit Template Fields',
+        editTemplateFields: 'Edit Template Fields',
+        editTemplateHint: 'Drag to reorder, click to edit or delete',
+        addNewField: 'Add New Field',
+        fieldName: 'Field Name',
+        fieldType: 'Field Type',
+        fieldOptions: 'Options (comma separated)',
+        addField: 'Add Field',
+        saveTemplate: 'Save Template',
+        gender: 'Gender',
+        age: 'Age',
+        salary: 'Salary/Income (10k)',
+        occupation: 'Occupation',
+        marriage: 'Marriage',
+        children: 'Children',
+        childrenAge: 'Children Age',
+        parents: 'Parents Status',
+        needProtection: 'Need Protection Insurance',
+        confirmCreate: 'Confirm',
+        cancel: 'Cancel',
+        addContact: 'Add Contact',
+        enterContact: 'Enter...',
+        selectOption: 'Select',
+        enterAge: 'Enter age',
+        enterSalary: 'Enter salary',
+        enterOccupation: 'Enter occupation',
+        selectGender: 'Select',
+        noChildren: 'No children',
+        oneChild: '1 child',
+        twoChildren: '2 children',
+        threeOrMoreChildren: '3 or more',
+        childrenAgePlaceholder: 'e.g. 8 years, 5 years',
+        bothParentsAlive: 'Both Alive',
+        fatherDeceased: 'Father Deceased',
+        motherDeceased: 'Mother Deceased',
+        bothParentsDeceased: 'Both Deceased',
+        yes: 'Yes',
+        no: 'No',
+        uncertain: 'Uncertain',
+        editArchive: 'Edit Archive',
+        archiveName: 'Archive Name',
+        archiveDesc: 'Archive Description',
+        archiveNamePlaceholder: 'Archive name',
+        archiveDescPlaceholder: 'Optional, describe this archive...',
+        saveChanges: 'Save Changes',
+        editSlot: 'Edit',
+        loadSlot: 'Load',
+        deleteSlot: 'Delete',
+        noArchives: 'No archives',
+        deleteConfirm: 'Delete this archive?',
+        ageRange: 'Age Range',
+        nodeType: 'Node Type'
       }
     };
 
@@ -1388,8 +1544,7 @@
         document.getElementById('edit-save-name').value = slot.name || '';
         document.getElementById('edit-save-desc').value = slot.description || '';
         document.getElementById('new-save-form').style.display = 'none';
-        document.getElementById('edit-save-form').style.display = 'block';
-        document.getElementById('save-panel').style.display = 'block';
+        document.getElementById('edit-save-panel').style.display = 'block';
         document.getElementById('panel-overlay').style.display = 'block';
       }
 
@@ -1410,17 +1565,15 @@
           localStorage.setItem(SAVE_LIST_KEY, JSON.stringify(saveList));
           showToast('存档已更新');
         }
-        document.getElementById('save-panel').style.display = 'none';
+        document.getElementById('edit-save-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
-        document.getElementById('edit-save-form').style.display = 'none';
         document.getElementById('new-save-form').style.display = 'block';
         renderSaveSlotList();
       });
 
       document.getElementById('cancel-edit-save').addEventListener('click', function() {
-        document.getElementById('save-panel').style.display = 'none';
+        document.getElementById('edit-save-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
-        document.getElementById('edit-save-form').style.display = 'none';
         document.getElementById('new-save-form').style.display = 'block';
       });
 
@@ -1444,7 +1597,7 @@
             '<div class="save-slot-time">' + dateStr + '</div>' +
             '<div class="save-slot-actions">' +
             '<button class="btn-load-slot" onclick="loadSaveSlot(\'' + slot.slot + '\')">' + texts.load + '</button>' +
-            '<button class="btn-edit-slot" onclick="editSaveSlot(\'' + slot.slot + '\')" style="padding:5px 12px;background:#667eea;color:white;border:none;border-radius:15px;cursor:pointer;font-size:12px;">编辑</button>' +
+            '<button class="btn-edit-slot" onclick="editSaveSlot(\'' + slot.slot + '\')" style="padding:5px 12px;background:#667eea;color:white;border:none;border-radius:15px;cursor:pointer;font-size:12px;">' + texts.editSlot + '</button>' +
             '<button class="btn-delete-slot" onclick="deleteSaveSlot(\'' + slot.slot + '\')">'+ texts.close.replace('关闭', '删除') +'</button>' +
             '</div></div>';
         }).join('');
@@ -2303,7 +2456,8 @@
         input.type = 'text';
         input.className = 'contact-value';
         input.value = value || '';
-        input.placeholder = '请输入...';
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        input.placeholder = texts.enterContact || '请输入...';
 
         var removeBtn = document.createElement('button');
         removeBtn.type = 'button';
