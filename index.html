@@ -233,6 +233,7 @@
     <div class="form-row conditional" id="row-children-age"><label data-i18n="childrenAge">子女年龄:</label><input type="text" id="field-children-age" data-i18n-placeholder="childrenAgePlaceholder" placeholder="例如: 8岁,5岁"></div>
     <div class="form-row"><label data-i18n="parents">父母状态:</label><select id="field-parents"><option value="" data-i18n="selectOption">请选择</option><option value="双亲健在" data-i18n="bothParentsAlive">双亲健在</option><option value="父亲已故" data-i18n="fatherDeceased">父亲已故</option><option value="母亲已故" data-i18n="motherDeceased">母亲已故</option><option value="双亲已故" data-i18n="bothParentsDeceased">双亲已故</option></select></div>
     <div class="form-row conditional" id="row-protection"><label data-i18n="needProtection">是否需要保障型保险:</label><select id="field-protection"><option value="" data-i18n="selectOption">请选择</option><option value="是" data-i18n="yes">是</option><option value="否" data-i18n="no">否</option><option value="不确定" data-i18n="uncertain">不确定</option></select></div>
+    <div id="custom-fields-container"></div>
     <div class="form-buttons"><button class="btn-confirm" id="confirm-node" data-i18n="confirmCreate">确认创建</button><button class="btn-cancel" id="cancel-node" data-i18n="cancel">取消</button></div>
   </div>
   <div id="edge-form-panel">
@@ -2245,6 +2246,24 @@
           list.appendChild(div);
         });
 
+        document.querySelectorAll('.edit-field-btn').forEach(function(btn) {
+          btn.onclick = function() {
+            var idx = parseInt(this.getAttribute('data-index'));
+            var allFields = getAllFields();
+            var field = allFields[idx];
+            if (field && idx >= defaultFields.length) {
+              var newName = prompt('编辑字段名称:', field.name);
+              if (newName && newName.trim()) {
+                customFields[idx - defaultFields.length].name = newName.trim();
+                renderTemplateFieldsList();
+                showToast('已更新字段');
+              }
+            } else if (idx < defaultFields.length) {
+              showToast('默认字段不能编辑');
+            }
+          };
+        });
+
         document.querySelectorAll('.delete-field-btn').forEach(function(btn) {
           btn.onclick = function() {
             var idx = parseInt(this.getAttribute('data-index'));
@@ -2521,9 +2540,61 @@
         panel.style.display = 'block';
         panel.style.visibility = 'visible';
         forceEnableFields();
+        renderCustomFieldsInForm();
         var fieldName = document.getElementById('field-name');
         fieldName.focus();
         setTimeout(function() { fieldName.focus(); }, 50);
+      }
+
+      function renderCustomFieldsInForm() {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        var container = document.getElementById('custom-fields-container');
+        container.innerHTML = '';
+        var allFields = getAllFields();
+        console.log('All fields:', allFields);
+        console.log('Custom fields:', allFields.filter(f => f.id && f.id.startsWith('custom_')));
+        allFields.forEach(function(field) {
+          if (field.id && field.id.startsWith('custom_')) {
+            console.log('Adding custom field:', field);
+            var div = document.createElement('div');
+            div.className = 'form-row';
+            div.innerHTML = '<label>' + field.name + ':</label>';
+            if (field.type === 'text') {
+              var input = document.createElement('input');
+              input.type = 'text';
+              input.id = 'field_' + field.id;
+              input.placeholder = texts.enterContact || '请输入...';
+              div.appendChild(input);
+            } else if (field.type === 'number') {
+              var input = document.createElement('input');
+              input.type = 'number';
+              input.id = 'field_' + field.id;
+              input.placeholder = texts.enterContact || '请输入...';
+              div.appendChild(input);
+            } else if (field.type === 'textarea') {
+              var textarea = document.createElement('textarea');
+              textarea.id = 'field_' + field.id;
+              textarea.rows = 3;
+              textarea.placeholder = texts.enterContact || '请输入...';
+              div.appendChild(textarea);
+            } else if (field.type === 'select' && field.options) {
+              var select = document.createElement('select');
+              select.id = 'field_' + field.id;
+              var opt = document.createElement('option');
+              opt.value = '';
+              opt.textContent = texts.selectOption || '请选择';
+              select.appendChild(opt);
+              field.options.forEach(function(o) {
+                var opt = document.createElement('option');
+                opt.value = o;
+                opt.textContent = o;
+                select.appendChild(opt);
+              });
+              div.appendChild(select);
+            }
+            container.appendChild(div);
+          }
+        });
       }
 
       function closeNodeForm() {
@@ -2567,6 +2638,15 @@
           parents: document.getElementById('field-parents').value,
           protection: document.getElementById('field-protection').value
         };
+        var allFields = getAllFields();
+        allFields.forEach(function(field) {
+          if (field.id && field.id.startsWith('custom_')) {
+            var el = document.getElementById('field_' + field.id);
+            if (el) {
+              nodeData[field.id] = el.value;
+            }
+          }
+        });
         if (editingNode) {
           saveStateForUndo();
           incrementOperationAndCheckAutoSave();
@@ -2693,6 +2773,15 @@
         document.getElementById('field-parents').value = data.parents || '';
         document.getElementById('field-protection').value = data.protection || '';
         setContactsData(data.contact);
+        var allFields = getAllFields();
+        allFields.forEach(function(field) {
+          if (field.id && field.id.startsWith('custom_')) {
+            var el = document.getElementById('field_' + field.id);
+            if (el && data[field.id]) {
+              el.value = data[field.id];
+            }
+          }
+        });
         updateConditionalFields();
         openNodeForm();
       });
