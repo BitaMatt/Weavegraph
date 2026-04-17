@@ -17,27 +17,40 @@
     #create-self { background: linear-gradient(135deg, #ff6b6b 0%, #ff5e3a 100%); color: white; }
     #create-self:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4); }
     #edit-mode-btn { background: linear-gradient(135deg, #ff9500 0%, #ff5e3a 100%); color: white; }
-    #edit-mode-btn.active { background: linear-gradient(135deg, #888 0%, #666 100%); }
+    #edit-mode-btn.active { background: linear-gradient(135deg, #ff7700 0%, #ff4400 100%); box-shadow: 0 0 15px rgba(255, 149, 0, 0.6); }
     #view-mode-btn { background: linear-gradient(135deg, #00cc88 0%, #00cc88 100%); color: white; }
     #view-mode-btn.active { background: linear-gradient(135deg, #00aa66 0%, #008844 100%); }
     #save-btn { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; }
     #load-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    #lang-select { min-width: 120px; }
     #auto-save-indicator { position: absolute; top: 80px; right: 20px; background: rgba(0, 0, 0, 0.8); color: #00cc88; padding: 8px 16px; border-radius: 20px; font-size: 12px; z-index: 100; display: none; }
     .info-panel { position: absolute; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 100; max-width: 280px; }
     .info-panel h4 { margin: 0 0 12px 0; color: #1a1a2e; font-size: 15px; font-weight: 600; border-bottom: 2px solid #00cc88; padding-bottom: 8px; }
     .info-panel p { margin: 6px 0; font-size: 12px; color: #555; line-height: 1.4; }
     .mode-indicator { position: absolute; top: 80px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 500; z-index: 100; display: none; }
     .panel-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 150; display: none; }
-    #node-form-panel, #edge-form-panel, #node-detail-panel, #save-panel, #load-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; max-width: 95vw; max-height: 85vh; overflow-y: auto; display: none; }
-    #node-form-panel h3, #edge-form-panel h3, #node-detail-panel h3, #save-panel h3, #load-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 20px; font-weight: 600; text-align: center; border-bottom: 3px solid #00d4ff; padding-bottom: 15px; }
+    #node-form-panel, #edge-form-panel, #node-detail-panel, #save-panel, #load-panel, #settings-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; max-width: 95vw; max-height: 85vh; overflow-y: auto; display: none; }
+    #node-form-panel h3, #edge-form-panel h3, #node-detail-panel h3, #save-panel h3, #load-panel h3, #settings-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 20px; font-weight: 600; text-align: center; border-bottom: 3px solid #00d4ff; padding-bottom: 15px; }
     #save-panel h3 { border-bottom-color: #11998e; }
     #load-panel h3 { border-bottom-color: #667eea; }
+    #settings-panel h3 { border-bottom-color: #ff9500; }
+    #settings-panel { min-width: 400px; }
+    .settings-section { margin-bottom: 15px; }
+    .settings-section h4 { margin: 0 0 10px 0; font-size: 14px; color: #333; }
+    #settings-btn { padding: 8px 12px; background: #f5f5f5; border: 2px solid #ddd; border-radius: 20px; cursor: pointer; font-size: 16px; }
+    #settings-btn:hover { background: #e0e0e0; }
     .form-row { margin-bottom: 12px; }
     .form-row label { display: block; margin-bottom: 4px; font-size: 13px; color: #555; font-weight: 500; }
     .form-row input, .form-row select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 13px; }
     .form-row input:focus, .form-row select:focus { outline: none; border-color: #00d4ff; }
+    .form-row input:disabled, .form-row select:disabled { background: #f0f0f0; color: #999; cursor: not-allowed; }
     .form-row.conditional { display: none; }
     .form-row.conditional.visible { display: block; }
+    .contact-row { display: flex; gap: 5px; margin-bottom: 5px; align-items: center; }
+    .contact-row .contact-method { padding: 6px; border: 1px solid #ddd; border-radius: 4px; min-width: 70px; max-width: 80px; font-size: 12px; }
+    .contact-row .contact-value { flex: 1; padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; min-width: 0; }
+    .contact-row .contact-value::placeholder { color: #999; opacity: 1; }
+    .contact-remove { padding: 2px 8px; background: #ff4444; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; line-height: 1; flex-shrink: 0; }
     .form-buttons { margin-top: 20px; display: flex; gap: 15px; justify-content: center; }
     .btn-confirm { background: linear-gradient(135deg, #00d4ff 0%, #0066ff 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .btn-cancel { background: #e0e0e0; color: #666; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
@@ -56,11 +69,29 @@
     .custom-relation-row label { display: block; margin-bottom: 5px; font-size: 13px; color: #555; font-weight: 500; }
     .custom-relation-row input { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 13px; }
     .custom-relation-row input:focus { outline: none; border-color: #ff6b6b; }
-    #node-detail-panel { min-width: 580px; }
+    #node-detail-panel { min-width: 580px; width: auto; max-width: 90vw; }
     #node-detail-panel h3 { border-bottom-color: #00cc88; }
-    .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
-    .detail-item { font-size: 15px; color: #555; padding: 12px 15px; background: #f5f5f5; border-radius: 8px; border-left: 4px solid #00d4ff; }
+    .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; width: 100%; box-sizing: border-box; }
+    .detail-item { font-size: 15px; color: #555; padding: 12px 15px; background: #f5f5f5; border-radius: 8px; border-left: 4px solid #00d4ff; cursor: pointer; transition: all 0.2s; }
+    .detail-item:hover { background: #e8f5e9; border-color: #00cc88; }
     .detail-item span { font-weight: 600; color: #0066ff; display: block; font-size: 12px; margin-bottom: 3px; }
+    .detail-section { grid-column: 1 / -1; font-size: 16px; font-weight: bold; color: #333; margin-top: 10px; padding-bottom: 5px; border-bottom: 2px solid #00d4ff; }
+    .contact-display-item { display: flex; align-items: center; gap: 10px; padding: 10px 15px; background: #f5f5f5; border-radius: 8px; border-left: 4px solid #00d4ff; flex-wrap: wrap; }
+    .contact-display-icon { font-size: 18px; }
+    .contact-display-type { font-weight: 600; color: #0066ff; min-width: 60px; }
+    .contact-display-value { flex: 1; color: #333; min-width: 100px; word-break: break-all; }
+    .contact-action-btn { padding: 5px 12px; background: #00d4ff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; }
+    .contact-action-btn:hover { background: #0099cc; }
+    .contact-popup { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: white; border: 2px solid #00cc88; border-radius: 10px; padding: 10px; z-index: 1000; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); min-width: 150px; }
+    .contact-popup.show { display: block; }
+    .contact-popup-item { padding: 10px 15px; cursor: pointer; border-radius: 5px; font-size: 13px; white-space: nowrap; display: flex; align-items: center; }
+    .contact-popup-item:hover { background: #e8f5e9; }
+    .contact-popup-item .icon { margin-right: 8px; font-size: 16px; }
+    .contact-popup-item.phone:hover { background: #e3f2fd; }
+    .contact-popup-item.email:hover { background: #f3e5f5; }
+    .contact-popup-item.qq:hover { background: #e8f5e9; }
+    .contact-popup-item.wechat:hover { background: #e8f5e9; }
+    .contact-popup-item.copy:hover { background: #fff3e0; }
     .detail-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 15px; }
     .btn-edit { background: linear-gradient(135deg, #ff9500 0%, #ff5e3a 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
     .btn-close { background: #666; color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
@@ -101,128 +132,1061 @@
     .insurance-bar { width: 100px; height: 8px; background: #ffe0b2; border-radius: 4px; overflow: hidden; }
     .insurance-bar-fill { height: 100%; background: linear-gradient(90deg, #ff9800, #ff5722); border-radius: 4px; }
     .insurance-reason { font-size: 11px; color: #666; margin-top: 5px; }
+    .edit-hint { font-size: 11px; color: #ff9500; text-align: center; margin-top: 10px; }
+
+    body.theme-light { background: #f5f5f5; }
+    body.theme-light #cy { background: #e8e8e8; }
+    body.theme-light #toolbar { background: rgba(255, 255, 255, 0.98); box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
+    body.theme-light #toolbar h3 { color: #333; }
+    body.theme-light .info-panel { background: rgba(255, 255, 255, 0.98); }
+    body.theme-light .info-panel h4 { color: #333; }
+    body.theme-light .info-panel p { color: #666; }
+    body.theme-light #node-form-panel, body.theme-light #edge-form-panel, body.theme-light #node-detail-panel, body.theme-light #save-panel, body.theme-light #load-panel, body.theme-light #settings-panel { background: rgba(255, 255, 255, 0.98); }
+    body.theme-light .form-row label { color: #333; }
+    body.theme-light .form-row input, body.theme-light .form-row select { background: #fff; border-color: #ccc; color: #333; }
+    body.theme-light #relation-panel { background: rgba(255, 255, 255, 0.98); }
+
+    body.theme-blue { background: #1a2a4a; }
+    body.theme-blue #cy { background: #0f1a2e; }
+    body.theme-blue #toolbar { background: rgba(30, 60, 100, 0.95); }
+    body.theme-blue #toolbar h3 { color: #aac4ff; }
+    body.theme-blue .info-panel { background: rgba(30, 60, 100, 0.95); }
+    body.theme-blue .info-panel h4 { color: #aac4ff; }
+    body.theme-blue .info-panel p { color: #ccd9f5; }
+    body.theme-blue #node-form-panel, body.theme-blue #edge-form-panel, body.theme-blue #node-detail-panel, body.theme-blue #save-panel, body.theme-blue #load-panel, body.theme-blue #settings-panel { background: rgba(30, 60, 100, 0.98); }
+    body.theme-blue .form-row label { color: #aac4ff; }
+    body.theme-blue .form-row input, body.theme-blue .form-row select { background: #0f1a2e; border-color: #4a6a9a; color: #ffffff; }
+    body.theme-blue #relation-panel { background: rgba(30, 60, 100, 0.95); }
+
+    body.theme-green { background: #1a2e2a; }
+    body.theme-green #cy { background: #0f1a1e; }
+    body.theme-green #toolbar { background: rgba(20, 60, 50, 0.95); }
+    body.theme-green #toolbar h3 { color: #aaffcc; }
+    body.theme-green .info-panel { background: rgba(20, 60, 50, 0.95); }
+    body.theme-green .info-panel h4 { color: #aaffcc; }
+    body.theme-green .info-panel p { color: #ccf5e5; }
+    body.theme-green #node-form-panel, body.theme-green #edge-form-panel, body.theme-green #node-detail-panel, body.theme-green #save-panel, body.theme-green #load-panel, body.theme-green #settings-panel { background: rgba(20, 60, 50, 0.98); }
+    body.theme-green .form-row label { color: #aaffcc; }
+    body.theme-green .form-row input, body.theme-green .form-row select { background: #0f1a1e; border-color: #4a8a6a; color: #ffffff; }
+    body.theme-green #relation-panel { background: rgba(20, 60, 50, 0.95); }
   </style>
 </head>
 <body>
   <div class="panel-overlay" id="panel-overlay"></div>
   <div id="toolbar">
-    <h3>客户关系网络</h3>
+    <h3 data-i18n="title">客户关系网络</h3>
     <select id="node-template">
-      <option value="insurance">保险类客户</option>
-      <option value="product">商品类客户</option>
-      <option value="service">服务类客户</option>
+      <option value="insurance" data-i18n="insurance">保险类客户</option>
+      <option value="product" data-i18n="product">商品类客户</option>
+      <option value="service" data-i18n="service">服务类客户</option>
     </select>
-    <button id="create-node">新建节点</button>
-    <button id="create-self">添加自己</button>
-    <button id="edit-mode-btn" class="active">编辑模式</button>
-    <button id="view-mode-btn">查看模式</button>
-    <button id="save-btn">存档</button>
-    <button id="load-btn">读档</button>
+    <button id="create-node" data-i18n="newNode">新建节点</button>
+    <button id="create-self" data-i18n="addSelf">添加自己</button>
+    <button id="edit-mode-btn" class="active" data-i18n="editMode">编辑模式</button>
+    <button id="view-mode-btn" data-i18n="viewMode">查看模式</button>
+    <button id="center-btn" title="居中自己">🎯</button>
+    <button id="clear-btn" title="清除画板">🗑️</button>
+    <button id="filter-btn" title="筛选">🔍</button>
+    <button id="search-btn" title="搜索 Ctrl+F">🔎</button>
+    <button id="save-btn" data-i18n="save">存档</button>
+    <button id="load-btn" data-i18n="load">读档</button>
+    <button id="debug-btn">🔧</button>
+    <button id="export-btn">📤</button>
+    <button id="import-btn">📥</button>
+    <button id="template-btn">📋</button>
+    <input type="file" id="import-file" accept=".json" style="display:none;">
+    <button id="settings-btn">⚙️</button>
+    <select id="lang-select">
+      <option value="zh-CN">简体中文</option>
+      <option value="zh-TW">繁體中文</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+    </select>
   </div>
   <div class="mode-indicator" id="mode-indicator">当前模式: 编辑模式</div>
   <div id="auto-save-indicator">✓ 已自动保存</div>
   <div class="info-panel">
-    <h4>操作说明</h4>
-    <p><strong>编辑模式:</strong> 点击空白处新建节点，点击节点开始连接</p>
-    <p><strong>查看模式:</strong> 左键点击节点查看详情</p>
-    <p><span style="background:#ff6b6b;padding:2px 6px;color:white;border-radius:3px;">添加自己</span> 创建中心节点</p>
-    <p><span style="background:#00d4ff;padding:2px 6px;color:white;border-radius:3px;">点击节点</span> 开始连接线</p>
-    <p><span style="background:#ff9500;padding:2px 6px;color:white;border-radius:3px;">右键</span> 删除节点/连接线</p>
-    <p><span style="background:#00cc88;padding:2px 6px;color:white;border-radius:3px;">滚轮</span> 缩放画布</p>
-    <p><span style="background:#667eea;padding:2px 6px;color:white;border-radius:3px;">拖拽</span> 移动节点</p>
+    <h4 data-i18n="instructions">操作说明</h4>
+    <p><strong data-i18n="editModeDesc">编辑模式:</strong> <span data-i18n="editModeTip">点击空白处新建节点，点击节点开始连接</span></p>
+    <p><strong data-i18n="viewModeDesc">查看模式:</strong> <span data-i18n="viewModeTip">左键点击节点查看详情</span></p>
+    <p><span style="background:#ff6b6b;padding:2px 6px;color:white;border-radius:3px;" data-i18n="addSelfTip">添加自己</span> <span data-i18n="addSelfTip2">创建中心节点</span></p>
+    <p><span style="background:#00d4ff;padding:2px 6px;color:white;border-radius:3px;" data-i18n="clickNode">点击节点</span> <span data-i18n="clickNodeTip">开始连接线</span></p>
+    <p><span style="background:#ff9500;padding:2px 6px;color:white;border-radius:3px;" data-i18n="rightClick">右键</span> <span data-i18n="rightClickTip">删除节点/连接线</span></p>
+    <p><span style="background:#00cc88;padding:2px 6px;color:white;border-radius:3px;" data-i18n="scroll">滚轮</span> <span data-i18n="scrollTip">缩放画布</span></p>
+    <p><span style="background:#667eea;padding:2px 6px;color:white;border-radius:3px;" data-i18n="drag">拖拽</span> <span data-i18n="dragTip">移动节点</span></p>
+    <p><span style="background:#9c27b0;padding:2px 6px;color:white;border-radius:3px;" data-i18n="dblclick">双击</span> <span data-i18n="dblclickTip">快速编辑节点</span></p>
   </div>
   <div id="cy"></div>
   <div id="node-form-panel">
-    <h3 id="form-title">新建客户节点</h3>
-    <div class="form-row"><label>姓名:</label><input type="text" id="field-name" placeholder="请输入姓名" autofocus></div>
-    <div class="form-row"><label>性别:</label><select id="field-gender"><option value="">请选择</option><option value="男">男</option><option value="女">女</option></select></div>
-    <div class="form-row"><label>年龄:</label><input type="number" id="field-age" placeholder="请输入年龄" min="0" max="120"></div>
-    <div class="form-row"><label>薪金/年收入(万):</label><input type="number" id="field-salary" placeholder="请输入薪金" min="0"></div>
-    <div class="form-row"><label>联系方式:</label><input type="text" id="field-contact" placeholder="请输入联系方式"></div>
-    <div class="form-row"><label>工作职业:</label><input type="text" id="field-occupation" placeholder="请输入职业"></div>
-    <div class="form-row"><label>婚姻状态:</label><select id="field-marriage"><option value="">请选择</option><option value="未婚">未婚</option><option value="已婚">已婚</option><option value="离异">离异</option><option value="丧偶">丧偶</option></select></div>
-    <div class="form-row conditional" id="row-children"><label>子女数量:</label><select id="field-children"><option value="">请选择</option><option value="0">无子女</option><option value="1">1个子女</option><option value="2">2个子女</option><option value="3">3个或以上</option></select></div>
-    <div class="form-row conditional" id="row-children-age"><label>子女年龄:</label><input type="text" id="field-children-age" placeholder="例如: 8岁,5岁"></div>
-    <div class="form-row"><label>父母状态:</label><select id="field-parents"><option value="">请选择</option><option value="双亲健在">双亲健在</option><option value="父亲已故">父亲已故</option><option value="母亲已故">母亲已故</option><option value="双亲已故">双亲已故</option></select></div>
-    <div class="form-row conditional" id="row-protection"><label>是否需要保障型保险:</label><select id="field-protection"><option value="">请选择</option><option value="是">是</option><option value="否">否</option><option value="不确定">不确定</option></select></div>
-    <div class="form-buttons"><button class="btn-confirm" id="confirm-node">确认创建</button><button class="btn-cancel" id="cancel-node">取消</button></div>
+    <h3 id="form-title" data-i18n="newCustomer">新建客户节点</h3>
+    <div class="form-row"><label data-i18n="name">姓名:</label><input type="text" id="field-name" placeholder="请输入姓名" autofocus></div>
+    <div class="form-row"><label data-i18n="gender">性别:</label><select id="field-gender"><option value="">请选择</option><option value="男">男</option><option value="女">女</option></select></div>
+    <div class="form-row"><label data-i18n="age">年龄:</label><input type="number" id="field-age" placeholder="请输入年龄" min="0" max="120"></div>
+    <div class="form-row"><label data-i18n="salary">薪金/年收入(万):</label><input type="number" id="field-salary" placeholder="请输入薪金" min="0"></div>
+    <div class="form-row" style="flex-direction:column;align-items:flex-start;">
+      <label data-i18n="contact" style="margin-bottom:5px;">联系方式:</label>
+      <div id="contact-list" style="width:100%;"></div>
+      <button type="button" id="add-contact" style="margin-top:5px;padding:5px 15px;background:#00cc88;color:white;border:none;border-radius:5px;cursor:pointer;font-size:12px;">+ 添加联系方式</button>
+    </div>
+    <div class="form-row"><label data-i18n="occupation">工作职业:</label><input type="text" id="field-occupation" placeholder="请输入职业"></div>
+    <div class="form-row"><label data-i18n="marriage">婚姻状态:</label><select id="field-marriage"><option value="">请选择</option><option value="未婚">未婚</option><option value="已婚">已婚</option><option value="离异">离异</option><option value="丧偶">丧偶</option></select></div>
+    <div class="form-row conditional" id="row-children"><label data-i18n="children">子女数量:</label><select id="field-children"><option value="">请选择</option><option value="0">无子女</option><option value="1">1个子女</option><option value="2">2个子女</option><option value="3">3个或以上</option></select></div>
+    <div class="form-row conditional" id="row-children-age"><label data-i18n="childrenAge">子女年龄:</label><input type="text" id="field-children-age" placeholder="例如: 8岁,5岁"></div>
+    <div class="form-row"><label data-i18n="parents">父母状态:</label><select id="field-parents"><option value="">请选择</option><option value="双亲健在">双亲健在</option><option value="父亲已故">父亲已故</option><option value="母亲已故">母亲已故</option><option value="双亲已故">双亲已故</option></select></div>
+    <div class="form-row conditional" id="row-protection"><label data-i18n="needProtection">是否需要保障型保险:</label><select id="field-protection"><option value="">请选择</option><option value="是">是</option><option value="否">否</option><option value="不确定">不确定</option></select></div>
+    <div class="form-buttons"><button class="btn-confirm" id="confirm-node" data-i18n="confirmCreate">确认创建</button><button class="btn-cancel" id="cancel-node" data-i18n="cancel">取消</button></div>
   </div>
   <div id="edge-form-panel">
-    <h3>选择关系类型</h3>
+    <h3 data-i18n="selectRelation">选择关系类型</h3>
     <div class="relation-section blood">
-      <h5>★ 生理关系（核心，一生不变）</h5>
+      <h5 data-i18n="bloodRelation">★ 生理关系（核心，一生不变）</h5>
       <div class="relation-checkboxes" id="blood-relations">
-        <label><input type="checkbox" value="父亲">父亲</label>
-        <label><input type="checkbox" value="母亲">母亲</label>
-        <label><input type="checkbox" value="配偶">配偶</label>
-        <label><input type="checkbox" value="子女">子女</label>
-        <label><input type="checkbox" value="兄弟">兄弟</label>
-        <label><input type="checkbox" value="姐妹">姐妹</label>
-        <label><input type="checkbox" value="祖父母">祖父母</label>
-        <label><input type="checkbox" value="外祖父母">外祖父母</label>
-        <label><input type="checkbox" value="孙子女">孙子女</label>
+        <label><input type="checkbox" value="父亲"><span data-i18n="father">父亲</span></label>
+        <label><input type="checkbox" value="母亲"><span data-i18n="mother">母亲</span></label>
+        <label><input type="checkbox" value="配偶"><span data-i18n="spouse">配偶</span></label>
+        <label><input type="checkbox" value="子女"><span data-i18n="child">子女</span></label>
+        <label><input type="checkbox" value="兄弟"><span data-i18n="brother">兄弟</span></label>
+        <label><input type="checkbox" value="姐妹"><span data-i18n="sister">姐妹</span></label>
+        <label><input type="checkbox" value="祖父母"><span data-i18n="grandparent">祖父母</span></label>
+        <label><input type="checkbox" value="外祖父母"><span data-i18n="maternalGrandparent">外祖父母</span></label>
+        <label><input type="checkbox" value="孙子女"><span data-i18n="grandchild">孙子女</span></label>
       </div>
     </div>
     <div class="relation-section social">
-      <h5>○ 社交关系（可能变动）</h5>
+      <h5 data-i18n="socialRelation">○ 社交关系（可能变动）</h5>
       <div class="relation-checkboxes" id="social-relations">
-        <label><input type="checkbox" value="朋友">朋友</label>
-        <label><input type="checkbox" value="小学同学">小学同学</label>
-        <label><input type="checkbox" value="中学同学">中学同学</label>
-        <label><input type="checkbox" value="大学同学">大学同学</label>
-        <label><input type="checkbox" value="同事">同事</label>
-        <label><input type="checkbox" value="上司">上司</label>
-        <label><input type="checkbox" value="下属">下属</label>
-        <label><input type="checkbox" value="邻居">邻居</label>
-        <label><input type="checkbox" value="老师">老师</label>
-        <label><input type="checkbox" value="学生">学生</label>
-        <label><input type="checkbox" value="工作合作伙伴">工作合作伙伴</label>
-        <label><input type="checkbox" value="商业竞争对手">商业竞争对手</label>
+        <label><input type="checkbox" value="朋友"><span data-i18n="friend">朋友</span></label>
+        <label><input type="checkbox" value="小学同学"><span data-i18n="primarySchool">小学同学</span></label>
+        <label><input type="checkbox" value="中学同学"><span data-i18n="middleSchool">中学同学</span></label>
+        <label><input type="checkbox" value="大学同学"><span data-i18n="highSchool">大学同学</span></label>
+        <label><input type="checkbox" value="同事"><span data-i18n="colleague">同事</span></label>
+        <label><input type="checkbox" value="上司"><span data-i18n="supervisor">上司</span></label>
+        <label><input type="checkbox" value="下属"><span data-i18n="subordinate">下属</span></label>
+        <label><input type="checkbox" value="邻居"><span data-i18n="neighbor">邻居</span></label>
+        <label><input type="checkbox" value="老师"><span data-i18n="teacher">老师</span></label>
+        <label><input type="checkbox" value="学生"><span data-i18n="student">学生</span></label>
+        <label><input type="checkbox" value="工作合作伙伴"><span data-i18n="businessPartner">工作合作伙伴</span></label>
+        <label><input type="checkbox" value="商业竞争对手"><span data-i18n="competitor">商业竞争对手</span></label>
       </div>
     </div>
     <div class="relation-section referral">
-      <h5>◇ 推荐关系（商业辅助）</h5>
+      <h5 data-i18n="referralRelation">◇ 推荐关系（商业辅助）</h5>
       <div class="relation-checkboxes" id="referral-relations">
-        <label><input type="checkbox" value="朋友转介绍">朋友转介绍</label>
-        <label><input type="checkbox" value="客户推荐">客户推荐</label>
-        <label><input type="checkbox" value="公司分配">公司分配</label>
-        <label><input type="checkbox" value="孤儿单">孤儿单</label>
-        <label><input type="checkbox" value="主动咨询">主动咨询</label>
-        <label><input type="checkbox" value="活动认识">活动认识</label>
+        <label><input type="checkbox" value="朋友转介绍"><span data-i18n="friendReferral">朋友转介绍</span></label>
+        <label><input type="checkbox" value="客户推荐"><span data-i18n="clientReferral">客户推荐</span></label>
+        <label><input type="checkbox" value="公司分配"><span data-i18n="companyAssign">公司分配</span></label>
+        <label><input type="checkbox" value="孤儿单"><span data-i18n="orphanPolicy">孤儿单</span></label>
+        <label><input type="checkbox" value="主动咨询"><span data-i18n="activeInquiry">主动咨询</span></label>
+        <label><input type="checkbox" value="活动认识"><span data-i18n="eventMeet">活动认识</span></label>
       </div>
     </div>
     <div class="custom-relation-row">
-      <label>或输入自定义关系（用逗号分隔多个）:</label>
-      <input type="text" id="field-relation" placeholder="例如: 牌友,球友">
+      <label data-i18n="customRelation">或输入自定义关系（用逗号分隔多个）:</label>
+      <input type="text" id="field-relation" data-i18n-placeholder="customRelationPlaceholder" placeholder="例如: 牌友,球友">
     </div>
-    <div class="form-buttons" style="margin-top:15px;"><button class="btn-confirm" id="confirm-edge">确认添加关系</button><button class="btn-cancel" id="cancel-edge">取消</button></div>
+    <div class="form-buttons" style="margin-top:15px;"><button class="btn-confirm" id="confirm-edge" data-i18n="confirmAdd">确认添加关系</button><button class="btn-cancel" id="cancel-edge" data-i18n="cancel">取消</button></div>
   </div>
   <div id="node-detail-panel">
-    <h3 id="detail-title">客户详细信息</h3>
+    <h3 id="detail-title" data-i18n="customerDetail">客户详细信息</h3>
     <div class="detail-grid" id="detail-content"></div>
     <div id="relation-content"></div>
     <div id="insurance-recommendation"></div>
-    <div class="detail-buttons"><button class="btn-edit" id="edit-detail">编辑</button><button class="btn-close" id="close-detail">关闭</button></div>
+    <p class="edit-hint" id="edit-hint" style="display:none;" data-i18n="viewModeEditHint">查看模式下无法编辑，请切换到编辑模式修改</p>
+    <div class="detail-buttons"><button class="btn-edit" id="edit-detail" data-i18n="edit">编辑</button><button class="btn-close" id="close-detail" data-i18n="close">关闭</button></div>
   </div>
   <div id="relation-panel">
-    <h4>该客户的关系网络</h4>
+    <h4 data-i18n="relationNetwork">该客户的关系网络</h4>
     <div id="relation-grid"></div>
   </div>
   <div id="save-panel">
-    <h3>保存存档</h3>
-    <div class="new-save-form">
-      <h4>新建存档</h4>
-      <div class="form-row"><label>存档名称:</label><input type="text" id="save-name" placeholder="例如: 2024年客户档案"></div>
-      <div class="form-row"><label>存档描述:</label><textarea id="save-desc" rows="3" placeholder="可选，描述这个存档的内容..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;resize:none;"></textarea></div>
-      <div class="form-buttons"><button class="btn-confirm" id="confirm-save">保存存档</button></div>
+    <h3 data-i18n="saveArchive">保存存档</h3>
+    <div class="new-save-form" id="new-save-form">
+      <h4 data-i18n="newArchive">新建存档</h4>
+      <div class="form-row"><label data-i18n="archiveName">存档名称:</label><input type="text" id="save-name" placeholder="例如: 2024年客户档案"></div>
+      <div class="form-row"><label data-i18n="archiveDesc">存档描述:</label><textarea id="save-desc" rows="3" placeholder="可选，描述这个存档的内容..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;resize:none;"></textarea></div>
+      <div class="form-buttons"><button class="btn-confirm" id="confirm-save" data-i18n="confirmSave">保存存档</button></div>
+    </div>
+    <div class="edit-save-form" id="edit-save-form" style="display:none;">
+      <h4>编辑存档</h4>
+      <input type="hidden" id="edit-save-slot">
+      <div class="form-row"><label>存档名称:</label><input type="text" id="edit-save-name" placeholder="存档名称" style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;"></div>
+      <div class="form-row"><label>存档描述:</label><textarea id="edit-save-desc" rows="3" placeholder="可选，描述这个存档的内容..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;resize:none;"></textarea></div>
+      <div class="form-buttons">
+        <button class="btn-confirm" id="confirm-edit-save" style="background:#667eea;">保存修改</button>
+        <button class="btn-cancel" id="cancel-edit-save" style="background:#999;">取消</button>
+      </div>
+    </div>
+  </div>
+  <div id="debug-panel" style="position:absolute;top:80px;left:20px;background:rgba(0,0,0,0.9);color:#0f0;border:2px solid #0f0;border-radius:10px;padding:15px;z-index:9999;display:none;min-width:350px;max-height:400px;overflow:auto;font-family:monospace;font-size:12px;">
+    <h4 style="margin:0 0 10px 0;color:#0f0;">🔧 Debug Panel</h4>
+    <div id="debug-content"></div>
+    <button id="close-debug" style="margin-top:10px;padding:5px 15px;background:#333;color:#0f0;border:1px solid #0f0;cursor:pointer;">关闭</button>
+  </div>
+  <div id="search-panel" style="position:absolute;top:80px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.98);padding:20px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.3);z-index:300;display:none;min-width:350px;">
+    <h3 style="margin:0 0 15px 0;text-align:center;" data-i18n="searchNode">🔎 搜索节点</h3>
+    <input type="text" id="search-input" data-i18n-placeholder="searchPlaceholder" placeholder="输入姓名、电话、职业等关键词..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:14px;box-sizing:border-box;">
+    <div id="search-results" style="max-height:300px;overflow-y:auto;margin-top:10px;"></div>
+    <div style="text-align:center;margin-top:10px;"><button id="close-search" data-i18n="close" style="padding:8px 25px;background:#666;color:white;border:none;border-radius:5px;cursor:pointer;">关闭</button></div>
+  </div>
+  <div id="filter-panel" style="position:absolute;top:80px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.98);padding:20px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.3);z-index:300;display:none;min-width:450px;">
+    <h3 style="margin:0 0 15px 0;text-align:center;" data-i18n="filterNode">🔍 筛选节点</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="form-row"><label data-i18n="gender">性别:</label><select id="filter-gender"><option value="" data-i18n="all">全部</option><option value="男" data-i18n="male">男</option><option value="女" data-i18n="female">女</option></select></div>
+      <div class="form-row"><label data-i18n="ageRange">年龄段:</label><select id="filter-age"><option value="" data-i18n="all">全部</option><option value="0-25" data-i18n="under25">25岁以下</option><option value="26-40" data-i18n="26to40">26-40岁</option><option value="41-55" data-i18n="41to55">41-55岁</option><option value="56+" data-i18n="over56">56岁以上</option></select></div>
+      <div class="form-row"><label data-i18n="relation">关系:</label><select id="filter-relation"><option value="" data-i18n="all">全部</option><option value="同事" data-i18n="colleague">同事</option><option value="朋友" data-i18n="friend">朋友</option><option value="家人" data-i18n="family">家人</option><option value="亲戚" data-i18n="relative">亲戚</option><option value="客户" data-i18n="client">客户</option></select></div>
+      <div class="form-row"><label data-i18n="marriage">婚姻:</label><select id="filter-marriage"><option value="" data-i18n="all">全部</option><option value="已婚" data-i18n="married">已婚</option><option value="未婚" data-i18n="unmarried">未婚</option><option value="离异" data-i18n="divorced">离异</option></select></div>
+    </div>
+    <div class="form-row" style="margin-top:10px;"><label data-i18n="nodeType">节点类型:</label><select id="filter-template"><option value="" data-i18n="all">全部</option><option value="insurance" data-i18n="insurance">保险类</option><option value="product" data-i18n="product">商品类</option><option value="service" data-i18n="service">服务类</option><option value="self" data-i18n="self">自己</option></select></div>
+    <div style="display:flex;justify-content:center;gap:10px;margin-top:15px;">
+      <button id="apply-filter" data-i18n="applyFilter" style="padding:8px 25px;background:#00cc88;color:white;border:none;border-radius:5px;cursor:pointer;">应用筛选</button>
+      <button id="clear-filter" data-i18n="clearFilter" style="padding:8px 25px;background:#ff9500;color:white;border:none;border-radius:5px;cursor:pointer;">清除筛选</button>
+      <button id="close-filter" data-i18n="close" style="padding:8px 25px;background:#666;color:white;border:none;border-radius:5px;cursor:pointer;">关闭</button>
+    </div>
+  </div>
+  <div id="settings-panel">
+    <h3 data-i18n="settings">⚙️ 设置</h3>
+    <div class="settings-section">
+      <h4 data-i18n="uiTheme">🖥️ UI主题</h4>
+      <div class="form-row">
+        <select id="setting-theme">
+          <option value="dark" data-i18n="darkTheme">深色主题（默认）</option>
+          <option value="light" data-i18n="lightTheme">浅色主题</option>
+          <option value="blue" data-i18n="blueTheme">蓝色主题</option>
+          <option value="green" data-i18n="greenTheme">绿色主题</option>
+        </select>
+      </div>
+    </div>
+    <div class="settings-section">
+      <h4 data-i18n="shortcutSettings">⌨️ 快捷键设置</h4>
+      <p style="font-size:11px;color:#999;margin-bottom:8px;" data-i18n="shortcutHint">点击输入框后按下你想要设置的快捷键（如：Ctrl+K, Alt+S, F12）</p>
+      <div class="form-row"><label data-i18n="switchMode">切换模式:</label><input type="text" id="setting-key-mode" placeholder="Ctrl+M"></div>
+      <div class="form-row"><label data-i18n="quickSave">快速保存:</label><input type="text" id="setting-key-save" placeholder="Ctrl+S"></div>
+      <div class="form-row"><label data-i18n="quickLoad">快速读取:</label><input type="text" id="setting-key-load" placeholder="Ctrl+L"></div>
+      <div class="form-row"><label data-i18n="undo">撤销:</label><input type="text" id="setting-key-undo" placeholder="Ctrl+Z"></div>
+      <div class="form-row"><label data-i18n="redo">重做:</label><input type="text" id="setting-key-redo" placeholder="Ctrl+Y"></div>
+      <p style="font-size:11px;color:#e65100;margin-top:8px;" data-i18n="shortcutWarning">注意: 部分快捷键可能与浏览器默认快捷键冲突</p>
+    </div>
+    <div class="settings-section">
+      <h4 data-i18n="insuranceWeight">📊 保险建议自定义</h4>
+      <p style="font-size:12px;color:#666;margin-bottom:10px;" data-i18n="insuranceWeightHint">设置各险种的推荐权重百分比</p>
+      <div class="form-row"><label data-i18n="medicalWeight">医疗险权重:</label><input type="number" id="setting-medical" min="0" max="100" value="30"></div>
+      <div class="form-row"><label data-i18n="criticalWeight">危疾险权重:</label><input type="number" id="setting-critical" min="0" max="100" value="25"></div>
+      <div class="form-row"><label data-i18n="lifeWeight">人寿险权重:</label><input type="number" id="setting-life" min="0" max="100" value="25"></div>
+      <div class="form-row"><label data-i18n="savingsWeight">储蓄险权重:</label><input type="number" id="setting-savings" min="0" max="100" value="20"></div>
+      <p style="font-size:11px;color:#999;margin-top:5px;" data-i18n="weightNote">注: 权重会自动归一化，填0表示不使用该险种</p>
+    </div>
+    <div class="form-buttons" style="margin-top:15px;">
+      <button id="edit-template-btn" style="padding:8px 15px;background:#2196F3;color:white;border:none;border-radius:5px;cursor:pointer;margin-right:10px;" data-i18n="editTemplate">📝 编辑模板字段</button>
+      <button class="btn-confirm" id="confirm-settings" data-i18n="saveSettings">保存设置</button>
+      <button class="btn-cancel" id="cancel-settings" data-i18n="close">关闭</button>
     </div>
   </div>
   <div id="load-panel">
-    <h3>加载存档</h3>
+    <h3 data-i18n="loadArchive">加载存档</h3>
     <div class="save-slot-list" id="save-slot-list"></div>
-    <div class="form-buttons" style="margin-top:15px;"><button class="btn-cancel" id="close-load">关闭</button></div>
+    <div class="form-buttons" style="margin-top:15px;"><button class="btn-cancel" id="close-load" data-i18n="close">关闭</button></div>
+  </div>
+  <div id="template-edit-panel" style="position:absolute;top:80px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.98);padding:20px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.3);z-index:400;display:none;min-width:500px;max-height:70vh;overflow:auto;">
+    <h3 data-i18n="editTemplateFields">📝 编辑模板字段</h3>
+    <p style="font-size:12px;color:#666;margin:10px 0;" data-i18n="templateEditHint">拖动字段可调整顺序，点击编辑或删除</p>
+    <div id="template-fields-list" style="margin:10px 0;"></div>
+    <div style="border-top:1px solid #ddd;padding-top:10px;margin-top:10px;">
+      <h4 data-i18n="addNewField">➕ 添加新字段</h4>
+      <div class="form-row"><label data-i18n="fieldName">字段名称:</label><input type="text" id="new-field-name" placeholder="例如: 备注" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;"></div>
+      <div class="form-row"><label data-i18n="fieldType">字段类型:</label><select id="new-field-type" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;"><option value="text">文本</option><option value="number">数字</option><option value="select">下拉选项</option><option value="textarea">多行文本</option></select></div>
+      <div class="form-row" id="field-options-row" style="display:none;"><label data-i18n="fieldOptions">选项(逗号分隔):</label><input type="text" id="new-field-options" placeholder="选项1,选项2,选项3" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;"></div>
+      <button id="add-field-btn" style="margin-top:10px;padding:8px 20px;background:#4CAF50;color:white;border:none;border-radius:5px;cursor:pointer;" data-i18n="addField">添加字段</button>
+    </div>
+    <div class="form-buttons" style="margin-top:15px;"><button id="save-template-btn" style="padding:8px 20px;background:#4CAF50;color:white;border:none;border-radius:5px;cursor:pointer;margin-right:10px;" data-i18n="saveTemplate">保存模板</button><button class="btn-cancel" id="close-template-edit" data-i18n="close">关闭</button></div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.29.0/cytoscape.min.js"></script>
+  <script>
+    var i18n = {
+      'zh-CN': {
+        title: '客户关系网络',
+        insurance: '保险类客户',
+        product: '商品类客户',
+        service: '服务类客户',
+        newNode: '新建节点',
+        addSelf: '添加自己',
+        editMode: '编辑模式',
+        viewMode: '查看模式',
+        save: '存档',
+        load: '读档',
+        instructions: '操作说明',
+        editModeDesc: '编辑模式:',
+        editModeTip: '点击空白处新建节点，点击节点开始连接',
+        viewModeDesc: '查看模式:',
+        viewModeTip: '左键点击节点查看详情',
+        addSelfTip: '添加自己',
+        addSelfTip2: '创建中心节点',
+        clickNode: '点击节点',
+        clickNodeTip: '开始连接线',
+        rightClick: '右键',
+        rightClickTip: '删除节点/连接线',
+        scroll: '滚轮',
+        scrollTip: '缩放画布',
+        drag: '拖拽',
+        dragTip: '移动节点',
+        dblclick: '双击',
+        dblclickTip: '快速编辑节点',
+        newCustomer: '新建客户节点',
+        name: '姓名:',
+        gender: '性别:',
+        age: '年龄:',
+        salary: '薪金/年收入(万):',
+        contact: '联系方式:',
+        occupation: '工作职业:',
+        marriage: '婚姻状态:',
+        children: '子女数量:',
+        childrenAge: '子女年龄:',
+        parents: '父母状态:',
+        needProtection: '是否需要保障型保险:',
+        confirmCreate: '确认创建',
+        cancel: '取消',
+        selectRelation: '选择关系类型',
+        bloodRelation: '★ 生理关系（核心，一生不变）',
+        socialRelation: '○ 社交关系（可能变动）',
+        referralRelation: '◇ 推荐关系（商业辅助）',
+        customRelation: '或输入自定义关系（用逗号分隔多个）:',
+        confirmAdd: '确认添加关系',
+        customerDetail: '客户详细信息',
+        viewModeEditHint: '查看模式下无法编辑，请切换到编辑模式修改',
+        edit: '编辑',
+        close: '关闭',
+        relationNetwork: '该客户的关系网络',
+        saveArchive: '保存存档',
+        newArchive: '新建存档',
+        archiveName: '存档名称:',
+        archiveDesc: '存档描述:',
+        confirmSave: '保存存档',
+        loadArchive: '加载存档',
+        addSelfError: '您已经添加过自己的节点了',
+        editSelfError: '请切换到编辑模式',
+        inputName: '请输入姓名',
+        confirmDelete: '确定要删除这个客户节点吗？',
+        confirmDeleteEdge: '确定要删除这条关系线吗？',
+        confirmClear: '确定要清除画板吗？此操作不可恢复！',
+        saved: '存档已保存:',
+        loaded: '已加载:',
+        noSave: '没有找到保存的数据',
+        loadFailed: '加载失败',
+        deleteConfirm: '确定要删除这个存档吗？',
+        noSaveYet: '暂无存档',
+        cleared: '✓ 画板已清除',
+        noData: '画板已是空的',
+        phone: '拨打电话',
+        wechat: '打开微信',
+        qq: '打开QQ',
+        email: '发送邮件',
+        copy: '复制到剪贴板',
+        copied: '已复制!',
+        autoSaved: '✓ 自动保存',
+        quickSaved: '✓ 快速保存成功!',
+        currentMode: '当前模式:',
+        male: '男',
+        female: '女',
+        married: '已婚',
+        unmarried: '未婚',
+        divorced: '离异',
+        widowed: '丧偶',
+        bothParents: '双亲健在',
+        fatherDeceased: '父亲已故',
+        motherDeceased: '母亲已故',
+        bothDeceased: '双亲已故',
+        contactPhone: '电话',
+        contactMobile: '手机',
+        contactWechat: '微信',
+        contactQq: 'QQ',
+        contactEmail: '邮箱',
+        contactAddress: '地址',
+        yes: '是',
+        no: '否',
+        uncertain: '不确定',
+        unknown: '未知',
+        self: '自己',
+        noRelation: '暂无关系',
+        relationCount: '关系网络',
+        exported: '✓ 导出成功',
+        imported: '✓ 导入成功',
+        templateLoaded: '模板已加载',
+        settings: '⚙️ 设置',
+        uiTheme: '🖥️ UI主题',
+        darkTheme: '深色主题（默认）',
+        lightTheme: '浅色主题',
+        blueTheme: '蓝色主题',
+        greenTheme: '绿色主题',
+        shortcutSettings: '⌨️ 快捷键设置',
+        shortcutHint: '点击输入框后按下你想要设置的快捷键',
+        switchMode: '切换模式:',
+        quickSave: '快速保存:',
+        quickLoad: '快速读取:',
+        undo: '撤销:',
+        redo: '重做:',
+        shortcutWarning: '注意: 部分快捷键可能与浏览器默认快捷键冲突',
+        insuranceWeight: '📊 保险建议自定义',
+        insuranceWeightHint: '设置各险种的推荐权重百分比',
+        medicalWeight: '医疗险权重:',
+        criticalWeight: '危疾险权重:',
+        lifeWeight: '人寿险权重:',
+        savingsWeight: '储蓄险权重:',
+        weightNote: '注: 权重会自动归一化，填0表示不使用该险种',
+        saveSettings: '保存设置',
+        searchNode: '🔎 搜索节点',
+        searchPlaceholder: '输入姓名、电话、职业等关键词...',
+        filterNode: '🔍 筛选节点',
+        applyFilter: '应用筛选',
+        clearFilter: '清除筛选',
+        all: '全部',
+        under25: '25岁以下',
+        '26to40': '26-40岁',
+        '41to55': '41-55岁',
+        over56: '56岁以上',
+        colleague: '同事',
+        friend: '朋友',
+        family: '家人',
+        relative: '亲戚',
+        client: '客户',
+        married: '已婚',
+        unmarried: '未婚',
+        divorced: '离异',
+        importConfirm: '导入将覆盖当前所有数据。是否继续？',
+        templateConfirm: '加载模板将覆盖当前所有数据。是否继续？',
+        filterResult: '筛选结果',
+        nodes: '个节点',
+        father: '父亲',
+        mother: '母亲',
+        spouse: '配偶',
+        child: '子女',
+        brother: '兄弟',
+        sister: '姐妹',
+        grandparent: '祖父母',
+        maternalGrandparent: '外祖父母',
+        grandchild: '孙子女',
+        primarySchool: '小学同学',
+        middleSchool: '中学同学',
+        highSchool: '大学同学',
+        supervisor: '上司',
+        subordinate: '下属',
+        neighbor: '邻居',
+        teacher: '老师',
+        student: '学生',
+        businessPartner: '工作合作伙伴',
+        competitor: '商业竞争对手',
+        friendReferral: '朋友转介绍',
+        clientReferral: '客户推荐',
+        companyAssign: '公司分配',
+        orphanPolicy: '孤儿单',
+        activeInquiry: '主动咨询',
+        eventMeet: '活动认识',
+        customRelationPlaceholder: '例如: 牌友,球友'
+      },
+      'zh-TW': {
+        title: '客戶關係網絡',
+        insurance: '保險類客戶',
+        product: '商品類客戶',
+        service: '服務類客戶',
+        newNode: '新建節點',
+        addSelf: '添加自己',
+        editMode: '編輯模式',
+        viewMode: '查看模式',
+        save: '存檔',
+        load: '讀檔',
+        instructions: '操作說明',
+        editModeDesc: '編輯模式:',
+        editModeTip: '點擊空白處新建節點，點擊節點開始連接',
+        viewModeDesc: '查看模式:',
+        viewModeTip: '左鍵點擊節點查看詳情',
+        addSelfTip: '添加自己',
+        addSelfTip2: '創建中心節點',
+        clickNode: '點擊節點',
+        clickNodeTip: '開始連接線',
+        rightClick: '右鍵',
+        rightClickTip: '刪除節點/連接線',
+        scroll: '滾輪',
+        scrollTip: '縮放畫布',
+        drag: '拖拽',
+        dragTip: '移動節點',
+        dblclick: '雙擊',
+        dblclickTip: '快速編輯節點',
+        newCustomer: '新建客戶節點',
+        name: '姓名:',
+        gender: '性別:',
+        age: '年齡:',
+        salary: '薪金/年收入(萬):',
+        contact: '聯繫方式:',
+        occupation: '工作職業:',
+        marriage: '婚姻狀態:',
+        children: '子女數量:',
+        childrenAge: '子女年齡:',
+        parents: '父母狀態:',
+        needProtection: '是否需要保障型保險:',
+        confirmCreate: '確認創建',
+        cancel: '取消',
+        selectRelation: '選擇關係類型',
+        bloodRelation: '★ 生理關係（核心，一生不變）',
+        socialRelation: '○ 社交關係（可能變動）',
+        referralRelation: '◇ 推薦關係（商業輔助）',
+        customRelation: '或輸入自定義關係（用逗號分隔多個）:',
+        confirmAdd: '確認添加關係',
+        customerDetail: '客戶詳細信息',
+        viewModeEditHint: '查看模式下無法編輯，請切換到編輯模式修改',
+        edit: '編輯',
+        close: '關閉',
+        relationNetwork: '該客戶的關係網絡',
+        saveArchive: '保存存檔',
+        newArchive: '新建存檔',
+        archiveName: '存檔名稱:',
+        archiveDesc: '存檔描述:',
+        confirmSave: '保存存檔',
+        loadArchive: '加載存檔',
+        addSelfError: '您已經添加過自己的節點了',
+        editSelfError: '請切換到編輯模式',
+        inputName: '請輸入姓名',
+        confirmDelete: '確定要刪除這個客戶節點嗎？',
+        confirmDeleteEdge: '確定要刪除這條關係線嗎？',
+        confirmClear: '確定要清除畫板嗎？此操作不可恢復！',
+        saved: '存檔已保存:',
+        loaded: '已加載:',
+        noSave: '沒有找到保存的數據',
+        loadFailed: '加載失敗',
+        deleteConfirm: '確定要刪除這個存檔嗎？',
+        noSaveYet: '暫無存檔',
+        cleared: '✓ 畫板已清除',
+        noData: '畫板已是空的',
+        phone: '撥打電話',
+        wechat: '打開微信',
+        qq: '打開QQ',
+        email: '發送郵件',
+        copy: '複製到剪貼板',
+        copied: '已複製!',
+        autoSaved: '✓ 自動保存',
+        currentMode: '當前模式:',
+        male: '男',
+        female: '女',
+        married: '已婚',
+        unmarried: '未婚',
+        divorced: '離異',
+        widowed: '喪偶',
+        bothParents: '雙親健在',
+        fatherDeceased: '父親已故',
+        motherDeceased: '母親已故',
+        bothDeceased: '雙親已故',
+        contactPhone: '電話',
+        contactMobile: '手機',
+        contactWechat: '微信',
+        contactQq: 'QQ',
+        contactEmail: '郵箱',
+        contactAddress: '地址',
+        yes: '是',
+        no: '否',
+        uncertain: '不確定',
+        unknown: '未知',
+        self: '自己',
+        noRelation: '暫無關係',
+        relationCount: '關係網絡',
+        exported: '✓ 導出成功',
+        imported: '✓ 導入成功',
+        templateLoaded: '模板已載入',
+        settings: '⚙️ 設置',
+        uiTheme: '🖥️ UI主題',
+        darkTheme: '深色主題（預設）',
+        lightTheme: '淺色主題',
+        blueTheme: '藍色主題',
+        greenTheme: '綠色主題',
+        shortcutSettings: '⌨️ 快捷鍵設置',
+        shortcutHint: '點擊輸入框後按下你想要設置的快捷鍵',
+        switchMode: '切換模式:',
+        quickSave: '快速保存:',
+        quickLoad: '快速讀取:',
+        undo: '撤銷:',
+        redo: '重做:',
+        shortcutWarning: '注意: 部分快捷鍵可能與瀏覽器預設快捷鍵衝突',
+        insuranceWeight: '📊 保險建議自定義',
+        insuranceWeightHint: '設置各險種的推薦權重百分比',
+        medicalWeight: '醫療險權重:',
+        criticalWeight: '危疾險權重:',
+        lifeWeight: '人壽險權重:',
+        savingsWeight: '儲蓄險權重:',
+        weightNote: '注: 權重會自動歸一化，填0表示不使用該險種',
+        saveSettings: '保存設置',
+        searchNode: '🔎 搜尋節點',
+        searchPlaceholder: '輸入姓名、電話、職業等關鍵詞...',
+        filterNode: '🔍 篩選節點',
+        applyFilter: '應用篩選',
+        clearFilter: '清除篩選',
+        all: '全部',
+        under25: '25歲以下',
+        '26to40': '26-40歲',
+        '41to55': '41-55歲',
+        over56: '56歲以上',
+        colleague: '同事',
+        friend: '朋友',
+        family: '家人',
+        relative: '親戚',
+        client: '客戶',
+        married: '已婚',
+        unmarried: '未婚',
+        divorced: '離異',
+        importConfirm: '導入將覆蓋當前所有數據。是否繼續？',
+        templateConfirm: '加載模板將覆蓋當前所有數據。是否繼續？',
+        filterResult: '篩選結果',
+        nodes: '個節點',
+        father: '父親',
+        mother: '母親',
+        spouse: '配偶',
+        child: '子女',
+        brother: '兄弟',
+        sister: '姐妹',
+        grandparent: '祖父母',
+        maternalGrandparent: '外祖父母',
+        grandchild: '孫子女',
+        primarySchool: '小學同學',
+        middleSchool: '中學同學',
+        highSchool: '大學同學',
+        supervisor: '上司',
+        subordinate: '下屬',
+        neighbor: '鄰居',
+        teacher: '老師',
+        student: '學生',
+        businessPartner: '工作合作夥伴',
+        competitor: '商業競爭對手',
+        friendReferral: '朋友轉介紹',
+        clientReferral: '客戶推薦',
+        companyAssign: '公司分配',
+        orphanPolicy: '孤兒單',
+        activeInquiry: '主動咨詢',
+        eventMeet: '活動認識',
+        customRelationPlaceholder: '例如: 牌友,球友'
+      },
+      'en': {
+        title: 'Customer Relationship Network',
+        insurance: 'Insurance Client',
+        product: 'Product Client',
+        service: 'Service Client',
+        newNode: 'New Node',
+        addSelf: 'Add Self',
+        editMode: 'Edit Mode',
+        viewMode: 'View Mode',
+        save: 'Save',
+        load: 'Load',
+        instructions: 'Instructions',
+        editModeDesc: 'Edit Mode:',
+        editModeTip: 'Click empty space to create node, click node to connect',
+        viewModeDesc: 'View Mode:',
+        viewModeTip: 'Left click node to view details',
+        addSelfTip: 'Add Self',
+        addSelfTip2: 'Create center node',
+        clickNode: 'Click Node',
+        clickNodeTip: 'Start connection',
+        rightClick: 'Right Click',
+        rightClickTip: 'Delete node/edge',
+        scroll: 'Scroll',
+        scrollTip: 'Zoom canvas',
+        drag: 'Drag',
+        dragTip: 'Move node',
+        dblclick: 'Double Click',
+        dblclickTip: 'Quick edit node',
+        newCustomer: 'New Customer',
+        name: 'Name:',
+        gender: 'Gender:',
+        age: 'Age:',
+        salary: 'Salary/Income (10k):',
+        contact: 'Contact:',
+        occupation: 'Occupation:',
+        marriage: 'Marriage:',
+        children: 'Children:',
+        childrenAge: 'Children Age:',
+        parents: 'Parents Status:',
+        needProtection: 'Need Protection Insurance:',
+        confirmCreate: 'Confirm',
+        cancel: 'Cancel',
+        selectRelation: 'Select Relation Type',
+        bloodRelation: '★ Blood Relation (Core)',
+        socialRelation: '○ Social Relation',
+        referralRelation: '◇ Referral Relation',
+        customRelation: 'Custom relation (comma separated):',
+        confirmAdd: 'Confirm',
+        customerDetail: 'Customer Details',
+        viewModeEditHint: 'Cannot edit in view mode, switch to edit mode',
+        edit: 'Edit',
+        close: 'Close',
+        relationNetwork: 'Relation Network',
+        saveArchive: 'Save Archive',
+        newArchive: 'New Archive',
+        archiveName: 'Archive Name:',
+        archiveDesc: 'Archive Description:',
+        confirmSave: 'Save',
+        loadArchive: 'Load Archive',
+        addSelfError: 'You already added yourself',
+        editSelfError: 'Please switch to edit mode',
+        inputName: 'Please enter name',
+        confirmDelete: 'Delete this customer?',
+        confirmDeleteEdge: 'Delete this relation?',
+        confirmClear: 'Clear canvas? This cannot be undone!',
+        saved: 'Saved:',
+        loaded: 'Loaded:',
+        noSave: 'No saved data',
+        loadFailed: 'Load failed',
+        deleteConfirm: 'Delete this archive?',
+        noSaveYet: 'No archives',
+        cleared: '✓ Canvas cleared',
+        noData: 'Canvas is already empty',
+        phone: 'Call',
+        wechat: 'Open WeChat',
+        qq: 'Open QQ',
+        email: 'Send Email',
+        copy: 'Copy to clipboard',
+        copied: 'Copied!',
+        autoSaved: '✓ Auto saved',
+        quickSaved: '✓ Quick save successful!',
+        currentMode: 'Current Mode:',
+        male: 'Male',
+        female: 'Female',
+        married: 'Married',
+        unmarried: 'Single',
+        divorced: 'Divorced',
+        widowed: 'Widowed',
+        bothParents: 'Both Alive',
+        fatherDeceased: 'Father Deceased',
+        motherDeceased: 'Mother Deceased',
+        bothDeceased: 'Both Deceased',
+        contactPhone: 'Phone',
+        contactMobile: 'Mobile',
+        contactWechat: 'WeChat',
+        contactQq: 'QQ',
+        contactEmail: 'Email',
+        contactAddress: 'Address',
+        yes: 'Yes',
+        no: 'No',
+        uncertain: 'Uncertain',
+        unknown: 'Unknown',
+        self: 'Self',
+        noRelation: 'No relations',
+        relationCount: 'Relations',
+        exported: '✓ Export successful',
+        imported: '✓ Import successful',
+        templateLoaded: 'Template loaded',
+        settings: '⚙️ Settings',
+        uiTheme: '🖥️ UI Theme',
+        darkTheme: 'Dark (Default)',
+        lightTheme: 'Light Theme',
+        blueTheme: 'Blue Theme',
+        greenTheme: 'Green Theme',
+        shortcutSettings: '⌨️ Keyboard Shortcuts',
+        shortcutHint: 'Click input and press your desired shortcut key',
+        switchMode: 'Switch Mode:',
+        quickSave: 'Quick Save:',
+        quickLoad: 'Quick Load:',
+        undo: 'Undo:',
+        redo: 'Redo:',
+        shortcutWarning: 'Note: Some shortcuts may conflict with browser defaults',
+        insuranceWeight: '📊 Insurance Recommendation Custom',
+        insuranceWeightHint: 'Set recommendation weight percentages for each insurance type',
+        medicalWeight: 'Medical Weight:',
+        criticalWeight: 'Critical Illness Weight:',
+        lifeWeight: 'Life Insurance Weight:',
+        savingsWeight: 'Savings Weight:',
+        weightNote: 'Note: Weights will auto-normalize, 0 means not using this type',
+        saveSettings: 'Save Settings',
+        searchNode: '🔎 Search Nodes',
+        searchPlaceholder: 'Enter name, phone, occupation...',
+        filterNode: '🔍 Filter Nodes',
+        applyFilter: 'Apply',
+        clearFilter: 'Clear',
+        all: 'All',
+        under25: 'Under 25',
+        '26to40': '26-40',
+        '41to55': '41-55',
+        over56: 'Over 56',
+        colleague: 'Colleague',
+        friend: 'Friend',
+        family: 'Family',
+        relative: 'Relative',
+        client: 'Client',
+        married: 'Married',
+        unmarried: 'Single',
+        divorced: 'Divorced',
+        importConfirm: 'Import will overwrite all current data. Continue?',
+        templateConfirm: 'Loading template will overwrite all current data. Continue?',
+        filterResult: 'Filter Result',
+        nodes: 'nodes',
+        father: 'Father',
+        mother: 'Mother',
+        spouse: 'Spouse',
+        child: 'Child',
+        brother: 'Brother',
+        sister: 'Sister',
+        grandparent: 'Grandparent',
+        maternalGrandparent: 'Maternal Grandparent',
+        grandchild: 'Grandchild',
+        primarySchool: 'Primary School Friend',
+        middleSchool: 'Middle School Friend',
+        highSchool: 'High School Friend',
+        supervisor: 'Supervisor',
+        subordinate: 'Subordinate',
+        neighbor: 'Neighbor',
+        teacher: 'Teacher',
+        student: 'Student',
+        businessPartner: 'Business Partner',
+        competitor: 'Business Competitor',
+        friendReferral: 'Friend Referral',
+        clientReferral: 'Client Referral',
+        companyAssign: 'Company Assignment',
+        orphanPolicy: 'Orphan Policy',
+        activeInquiry: 'Active Inquiry',
+        eventMeet: 'Met at Event',
+        customRelationPlaceholder: 'e.g. Poker Buddy, Golf Friend'
+      },
+      'ja': {
+        title: '顧客関係ネットワーク',
+        insurance: '保険クライアント',
+        product: '商品クライアント',
+        service: 'サービスクライアント',
+        newNode: '新規ノード',
+        addSelf: '自分を追加',
+        editMode: '編集モード',
+        viewMode: '閲覧モード',
+        save: '保存',
+        load: '読込',
+        instructions: '操作説明',
+        editModeDesc: '編集モード:',
+        editModeTip: '空白をクリックしてノード作成、ノードをクリックして接続',
+        viewModeDesc: '閲覧モード:',
+        viewModeTip: '左クリックで詳細表示',
+        addSelfTip: '自分を追加',
+        addSelfTip2: ' центральный узелを作成',
+        clickNode: 'ノードクリック',
+        clickNodeTip: '接続開始',
+        rightClick: '右クリック',
+        rightClickTip: 'ノード/エッジ削除',
+        scroll: 'スクロール',
+        scrollTip: 'キャンバスズーム',
+        drag: 'ドラッグ',
+        dragTip: 'ノード移動',
+        dblclick: 'ダブルクリック',
+        dblclickTip: 'クイック編集',
+        newCustomer: '新規顧客',
+        name: '名前:',
+        gender: '性別:',
+        age: '年齢:',
+        salary: '年收入(万円):',
+        contact: '連絡先:',
+        occupation: '職業:',
+        marriage: '婚姻状態:',
+        children: '子供数:',
+        childrenAge: '子供の年齢:',
+        parents: '父母的状態:',
+        needProtection: '保障型保険が必要:',
+        confirmCreate: '確認',
+        cancel: 'キャンセル',
+        selectRelation: '関係タイプ選択',
+        bloodRelation: '★ 血縁関係（核、一生不変）',
+        socialRelation: '○ 社会的関係（変動可能性）',
+        referralRelation: '◇ 紹介関係（ビジネス補助）',
+        customRelation: 'カスタム関係（カンマ区切り）:',
+        confirmAdd: '確認追加',
+        customerDetail: '顧客詳細',
+        viewModeEditHint: '閲覧モードでは編集できません、編集モードに切り替え',
+        edit: '編集',
+        close: '閉じる',
+        relationNetwork: '関係ネットワーク',
+        saveArchive: 'アーカイブ保存',
+        newArchive: '新規アーカイブ',
+        archiveName: 'アーカイブ名:',
+        archiveDesc: 'アーカイブ説明:',
+        confirmSave: '保存',
+        loadArchive: 'アーカイブ読込',
+        addSelfError: '自分はすでに追加済み',
+        editSelfError: '編集モードに切り替えください',
+        inputName: '名前を入力',
+        confirmDelete: 'この顧客を削除しますか？',
+        confirmDeleteEdge: 'この関係を削除しますか？',
+        confirmClear: 'キャンバスをクリアしますか？この操作は元に戻せません！',
+        saved: '保存完了:',
+        loaded: '読込完了:',
+        noSave: '保存データなし',
+        loadFailed: '読込失敗',
+        deleteConfirm: 'このアーカイブを削除しますか？',
+        noSaveYet: 'アーカイブなし',
+        cleared: '✓ キャンバスをクリアしました',
+        noData: 'キャンバスは既に空です',
+        phone: '電話をかける',
+        wechat: 'WeChatを開く',
+        qq: 'QQを開く',
+        email: 'メール送信',
+        copy: 'クリップボードにコピー',
+        copied: 'コピー完了!',
+        autoSaved: '✓ 自動保存',
+        currentMode: '現在のモード:',
+        male: '男',
+        female: '女',
+        married: '既婚',
+        unmarried: '未婚',
+        divorced: '離婚',
+        widowed: '死別',
+        bothParents: '両親存命',
+        fatherDeceased: '父親死去',
+        motherDeceased: '母親死去',
+        bothDeceased: '両親死去',
+        contactPhone: '電話',
+        contactMobile: '携帯',
+        contactWechat: 'WeChat',
+        contactQq: 'QQ',
+        contactEmail: 'メール',
+        contactAddress: '住所',
+        yes: 'はい',
+        no: 'いいえ',
+        uncertain: '未定',
+        unknown: '不明',
+        self: '自分',
+        noRelation: '関係なし',
+        relationCount: '関係',
+        exported: '✓ エクスポート成功',
+        imported: '✓ インポート成功',
+        templateLoaded: 'テンプレート読込完了',
+        settings: '⚙️ 設定',
+        uiTheme: '🖥️ UIテーマ',
+        darkTheme: 'ダークテーマ（デフォルト）',
+        lightTheme: 'ライトテーマ',
+        blueTheme: 'ブルーテーマ',
+        greenTheme: 'グリーンテーマ',
+        shortcutSettings: '⌨️ ショートカット設定',
+        shortcutHint: '入力框をクリックして希望するショートカットキーを押してください',
+        switchMode: 'モード切替:',
+        quickSave: 'クイック保存:',
+        quickLoad: 'クイック読込:',
+        undo: '元に戻す:',
+        redo: 'やり直し:',
+        shortcutWarning: '注意: 一部のショートカットはブラウザのデフォルトと競合する可能性があります',
+        insuranceWeight: '📊 保険提案カスタマイズ',
+        insuranceWeightHint: '各险種の推奨重み百分比を設定',
+        medicalWeight: '医療險の重み:',
+        criticalWeight: '重大疾病險の重み:',
+        lifeWeight: '人寿險の重み:',
+        savingsWeight: '貯蓄險の重み:',
+        weightNote: '注: 重みは自動的に正規化され、0は 해당險種不使用を示します',
+        saveSettings: '設定を保存',
+        searchNode: '🔎 ノード検索',
+        searchPlaceholder: '名前、電話、職業などを入力...',
+        filterNode: '🔍 ノードフィルタ',
+        applyFilter: '適用',
+        clearFilter: 'クリア',
+        all: 'すべて',
+        under25: '25歳以下',
+        '26to40': '26-40歳',
+        '41to55': '41-55歳',
+        over56: '56歳以上',
+        colleague: '同僚',
+        friend: '友達',
+        family: '家族',
+        relative: '親戚',
+        client: 'クライアント',
+        married: '既婚',
+        unmarried: '未婚',
+        divorced: '離婚',
+        importConfirm: 'インポートすると現在のすべてのデータが上書きされます。続行しますか？',
+        templateConfirm: 'テンプレートを読み込むと現在のすべてのデータが上書きされます。続行しますか？',
+        filterResult: 'フィルタ結果',
+        nodes: 'ノード',
+        father: '父親',
+        mother: '母親',
+        spouse: '配偶者',
+        child: '子供',
+        brother: '兄弟',
+        sister: '姉妹',
+        grandparent: '祖父母',
+        maternalGrandparent: '母方の祖父母',
+        grandchild: '孫',
+        primarySchool: '小学生時代の友人',
+        middleSchool: '中学生時代の友人',
+        highSchool: '高校生時代の友人',
+        supervisor: '上司',
+        subordinate: '部下',
+        neighbor: '隣人',
+        teacher: '先生',
+        student: '学生',
+        businessPartner: 'ビジネスパートナー',
+        competitor: 'ビジネス競争相手',
+        friendReferral: '友達からの紹介',
+        clientReferral: 'クライアントからの紹介',
+        companyAssign: '会社の割り当て',
+        orphanPolicy: 'orphan案件',
+        activeInquiry: '主动の相談',
+        eventMeet: 'イベントで知り合う',
+        customRelationPlaceholder: '例: 麻雀仲間、ゴールドフレンド'
+      }
+    };
+
+    var currentLang = 'zh-CN';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('mindmap-lang', lang);
+      var texts = i18n[lang] || i18n['zh-CN'];
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (texts[key]) {
+          el.textContent = texts[key];
+        }
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n-placeholder');
+        if (texts[key]) {
+          el.placeholder = texts[key];
+        }
+      });
+      if (cy && typeof cy.edges === 'function') {
+        cy.edges().style('label', function(ele) { return translateRelation(ele.data('label')) || ''; });
+      }
+    }
+
+    function translateRelation(label) {
+      var texts = i18n[currentLang] || i18n['zh-CN'];
+      var relationMap = {
+        '父亲': texts.father || 'Father',
+        '母亲': texts.mother || 'Mother',
+        '配偶': texts.spouse || 'Spouse',
+        '子女': texts.child || 'Child',
+        '兄弟': texts.brother || 'Brother',
+        '姐妹': texts.sister || 'Sister',
+        '祖父母': texts.grandparent || 'Grandparent',
+        '外祖父母': texts.maternalGrandparent || 'Maternal Grandparent',
+        '孙子女': texts.grandchild || 'Grandchild',
+        '朋友': texts.friend || 'Friend',
+        '小学同学': texts.primarySchool || 'Primary School Friend',
+        '中学同学': texts.middleSchool || 'Middle School Friend',
+        '大学同学': texts.highSchool || 'High School Friend',
+        '同事': texts.colleague || 'Colleague',
+        '上司': texts.supervisor || 'Supervisor',
+        '下属': texts.subordinate || 'Subordinate',
+        '邻居': texts.neighbor || 'Neighbor',
+        '老师': texts.teacher || 'Teacher',
+        '学生': texts.student || 'Student',
+        '工作合作伙伴': texts.businessPartner || 'Business Partner',
+        '商业竞争对手': texts.competitor || 'Business Competitor',
+        '朋友转介绍': texts.friendReferral || 'Friend Referral',
+        '客户推荐': texts.clientReferral || 'Client Referral',
+        '公司分配': texts.companyAssign || 'Company Assignment',
+        '孤儿单': texts.orphanPolicy || 'Orphan Policy',
+        '主动咨询': texts.activeInquiry || 'Active Inquiry',
+        '活动认识': texts.eventMeet || 'Met at Event'
+      };
+      return relationMap[label] || label;
+    }
+
+    document.getElementById('lang-select').addEventListener('change', function(e) {
+      setLanguage(e.target.value);
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var savedLang = localStorage.getItem('mindmap-lang');
+      if (savedLang) {
+        document.getElementById('lang-select').value = savedLang;
+        setLanguage(savedLang);
+      }
+    });
+  </script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var isEditMode = true;
@@ -234,10 +1198,148 @@
       var selfNodeId = null;
       var autoSaveInterval = null;
       var lastSaveTime = null;
+      var editingNode = null;
 
       var SAVE_KEY_PREFIX = 'mindmap-save-';
       var SAVE_LIST_KEY = 'mindmap-save-list';
       var CURRENT_SLOT_KEY = 'mindmap-current-slot';
+      var INSURANCE_WEIGHTS_KEY = 'mindmap-insurance-weights';
+      var currentLoadedSlot = null; // 跟踪用户是否明确加载了存档
+
+      var customInsuranceWeights = { medical: 30, critical: 25, life: 25, savings: 20 };
+
+      function loadInsuranceWeights() {
+        var saved = localStorage.getItem(INSURANCE_WEIGHTS_KEY);
+        if (saved) {
+          try {
+            customInsuranceWeights = JSON.parse(saved);
+          } catch (e) {}
+        }
+        document.getElementById('setting-medical').value = customInsuranceWeights.medical;
+        document.getElementById('setting-critical').value = customInsuranceWeights.critical;
+        document.getElementById('setting-life').value = customInsuranceWeights.life;
+        document.getElementById('setting-savings').value = customInsuranceWeights.savings;
+      }
+
+      function saveInsuranceWeights() {
+        customInsuranceWeights.medical = parseInt(document.getElementById('setting-medical').value) || 0;
+        customInsuranceWeights.critical = parseInt(document.getElementById('setting-critical').value) || 0;
+        customInsuranceWeights.life = parseInt(document.getElementById('setting-life').value) || 0;
+        customInsuranceWeights.savings = parseInt(document.getElementById('setting-savings').value) || 0;
+        localStorage.setItem(INSURANCE_WEIGHTS_KEY, JSON.stringify(customInsuranceWeights));
+      }
+
+      var THEME_KEY = 'mindmap-theme';
+      var currentTheme = 'dark';
+
+      function applyTheme(theme) {
+        document.body.classList.remove('theme-dark', 'theme-light', 'theme-blue', 'theme-green');
+        document.body.classList.add('theme-' + theme);
+        currentTheme = theme;
+        if (theme === 'light') {
+          document.getElementById('cy').style.background = '#e8e8e8';
+        } else if (theme === 'dark') {
+          document.getElementById('cy').style.background = '#0f0f23';
+        } else if (theme === 'blue') {
+          document.getElementById('cy').style.background = '#0f1a2e';
+        } else if (theme === 'green') {
+          document.getElementById('cy').style.background = '#0f1a1e';
+        }
+      }
+
+      function loadTheme() {
+        var saved = localStorage.getItem(THEME_KEY);
+        if (saved) {
+          applyTheme(saved);
+        }
+        document.getElementById('setting-theme').value = currentTheme;
+      }
+
+      function saveTheme(theme) {
+        localStorage.setItem(THEME_KEY, theme);
+        applyTheme(theme);
+      }
+
+      var KEYBOARD_SHORTCUTS_KEY = 'mindmap-keyboard-shortcuts';
+      var keyboardShortcuts = {
+        mode: 'F8',
+        save: 'Ctrl+S',
+        load: 'Ctrl+L',
+        undo: 'Ctrl+Z',
+        redo: 'Ctrl+Y'
+      };
+
+      function parseKeyCombo(combo) {
+        var parts = combo.toUpperCase().split('+');
+        var result = { ctrl: false, alt: false, shift: false, key: '' };
+        parts.forEach(function(p) {
+          p = p.trim();
+          if (p === 'CTRL' || p === 'CONTROL') result.ctrl = true;
+          else if (p === 'ALT') result.alt = true;
+          else if (p === 'SHIFT') result.shift = true;
+          else if (p.startsWith('F') && /F\d+/.test(p)) result.key = p;
+          else if (p.length === 1) result.key = p;
+          else result.key = p.charAt(0) + p.slice(1).toLowerCase();
+        });
+        return result;
+      }
+
+      function matchKeyCombo(e, combo) {
+        var parsed = parseKeyCombo(combo);
+        if (!parsed.key) return false;
+        if (parsed.key.length > 1) {
+          if (parsed.key !== e.key) return false;
+        } else {
+          if (e.key.length > 1) return false;
+          if (parsed.key.toUpperCase() !== e.key.toUpperCase()) return false;
+        }
+        if (parsed.ctrl && !e.ctrlKey && !e.metaKey) return false;
+        if (!parsed.ctrl && (e.ctrlKey || e.metaKey)) return false;
+        if (parsed.alt && !e.altKey) return false;
+        if (!parsed.alt && e.altKey) return false;
+        if (parsed.shift && !e.shiftKey) return false;
+        if (!parsed.shift && e.shiftKey) return false;
+        return true;
+      }
+
+      function loadKeyboardShortcuts() {
+        var saved = localStorage.getItem(KEYBOARD_SHORTCUTS_KEY);
+        if (saved) {
+          try {
+            keyboardShortcuts = JSON.parse(saved);
+          } catch (e) {}
+        }
+        document.getElementById('setting-key-mode').value = keyboardShortcuts.mode;
+        document.getElementById('setting-key-save').value = keyboardShortcuts.save;
+        document.getElementById('setting-key-load').value = keyboardShortcuts.load;
+        document.getElementById('setting-key-undo').value = keyboardShortcuts.undo;
+        document.getElementById('setting-key-redo').value = keyboardShortcuts.redo;
+      }
+
+      function saveKeyboardShortcuts() {
+        keyboardShortcuts.mode = document.getElementById('setting-key-mode').value || 'F8';
+        keyboardShortcuts.save = document.getElementById('setting-key-save').value || 'Ctrl+S';
+        keyboardShortcuts.load = document.getElementById('setting-key-load').value || 'Ctrl+L';
+        keyboardShortcuts.undo = document.getElementById('setting-key-undo').value || 'Ctrl+Z';
+        keyboardShortcuts.redo = document.getElementById('setting-key-redo').value || 'Ctrl+Y';
+        localStorage.setItem(KEYBOARD_SHORTCUTS_KEY, JSON.stringify(keyboardShortcuts));
+      }
+
+      function formatKeyCombo(e) {
+        var parts = [];
+        if (e.ctrlKey || e.metaKey) parts.push('Ctrl');
+        if (e.altKey) parts.push('Alt');
+        if (e.shiftKey) parts.push('Shift');
+        var key = e.key;
+        if (key.startsWith('F') && /F\d+/.test(key)) {
+          parts.push(key.toUpperCase());
+        } else if (key.length === 1) {
+          parts.push(key.toUpperCase());
+        } else if (key !== 'Control' && key !== 'Alt' && key !== 'Shift' && key !== 'Meta') {
+          parts.push(key);
+        }
+        return parts.join('+');
+      }
 
       var cy = cytoscape({
         container: document.getElementById('cy'),
@@ -252,11 +1354,16 @@
           { selector: 'node.source-node', style: { 'border-width': 12, 'border-color': '#ff5e3a' }},
           { selector: 'node:active', style: { 'overlay-opacity': 0 }},
           { selector: 'node:hover', style: { 'width': 200, 'height': 90, 'font-size': 18, 'border-width': 10 }},
-          { selector: 'edge', style: { 'width': 4, 'line-color': '#666688', 'target-arrow-color': '#666688', 'target-arrow-shape': 'triangle', 'label': 'data(label)', 'color': '#ffffff', 'font-size': 14, 'font-weight': 'bold', 'text-background-color': '#1a1a4e', 'text-background-opacity': 1, 'curve-style': 'bezier' }},
+          { selector: 'edge', style: { 'width': 4, 'line-color': '#666688', 'target-arrow-color': '#666688', 'target-arrow-shape': 'triangle', 'label': function(ele) { return translateRelation(ele.data('label')) || ''; }, 'color': '#ffffff', 'font-size': 14, 'font-weight': 'bold', 'text-background-color': '#1a1a4e', 'text-background-opacity': 1, 'curve-style': 'bezier' }},
           { selector: 'edge.blood', style: { 'line-color': '#c62828', 'target-arrow-color': '#c62828', 'width': 5 }},
           { selector: 'edge.social', style: { 'line-color': '#1565c0', 'target-arrow-color': '#1565c0', 'width': 4 }},
           { selector: 'edge.referral', style: { 'line-color': '#e65100', 'target-arrow-color': '#e65100', 'width': 3 }},
-          { selector: 'edge.highlight', style: { 'width': 8 }}
+          { selector: 'edge.highlight', style: { 'width': 8 }},
+          { selector: 'node.dimmed', style: { 'opacity': 0.25, 'font-size': 10, 'width': 80, 'height': 35 }},
+          { selector: 'edge.dimmed', style: { 'opacity': 0.15 }},
+          { selector: 'node.highlight', style: { 'border-width': 12, 'border-color': '#ffff00', 'width': 220, 'height': 100, 'font-size': 20 }},
+          { selector: 'node.search-match', style: { 'border-color': '#ff9500', 'background-color': '#ff9500' }},
+          { selector: 'node.filter-match', style: { 'border-color': '#00cc88', 'background-color': '#008844' }}
         ],
         layout: { name: 'grid', spacingFactor: 2 },
         zoomingEnabled: true,
@@ -270,22 +1377,107 @@
 
       var nodeId = 1, edgeId = 1;
 
-      function initAutoSave() {
-        autoSaveInterval = setInterval(function() {
+      var undoStack = [];
+      var redoStack = [];
+      var maxUndoSteps = 50;
+      var operationCount = 0;
+      var AUTO_SAVE_STEPS = 5;
+
+      function saveStateForUndo() {
+        if (cy.elements().length === 0) return;
+        var state = JSON.stringify(cy.elements().jsons());
+        undoStack.push(state);
+        if (undoStack.length > maxUndoSteps) undoStack.shift();
+        redoStack = [];
+      }
+
+      function incrementOperationAndCheckAutoSave() {
+        if (!currentLoadedSlot) return;
+        operationCount++;
+        if (operationCount >= AUTO_SAVE_STEPS) {
           var currentSlot = localStorage.getItem(CURRENT_SLOT_KEY);
           if (currentSlot) {
-            performSave(currentSlot, localStorage.getItem(SAVE_KEY_PREFIX + currentSlot + '-name') || '未命名', '', true);
+            var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
+            var slot = saveList.find(function(s) { return s.slot === currentSlot; });
+            var name = slot ? slot.name : '未命名';
+            var desc = slot ? slot.description : '';
+            performSave(currentSlot, name, desc, true);
             showAutoSaveIndicator();
           }
-        }, 60000);
+          operationCount = 0;
+        }
+      }
+
+      function undo() {
+        if (undoStack.length <= 1) return;
+        var currentState = undoStack.pop();
+        redoStack.push(currentState);
+        var previousState = undoStack[undoStack.length - 1];
+        loadStateFromJSON(previousState);
+      }
+
+      function redo() {
+        if (redoStack.length === 0) return;
+        var nextState = redoStack.pop();
+        undoStack.push(nextState);
+        loadStateFromJSON(nextState);
+      }
+
+      function loadStateFromJSON(stateJSON) {
+        try {
+          var elements = JSON.parse(stateJSON);
+          cy.remove(cy.elements());
+          cy.add(elements);
+          cy.fit(100);
+        } catch (e) { console.error('Failed to load state:', e); }
+      }
+
+      function initAutoSave() {
         lastSaveTime = Date.now();
       }
 
       function showAutoSaveIndicator() {
         var indicator = document.getElementById('auto-save-indicator');
+        var texts = i18n[currentLang] || i18n['zh-CN'];
         indicator.style.display = 'block';
-        indicator.textContent = '✓ 自动保存 ' + new Date().toLocaleTimeString();
+        indicator.textContent = texts.autoSaved + ' ' + new Date().toLocaleTimeString();
         setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+      }
+
+      function showToast(message, duration) {
+        duration = duration || 3000;
+        var indicator = document.getElementById('auto-save-indicator');
+        indicator.textContent = message;
+        indicator.style.display = 'block';
+        indicator.style.left = '50%';
+        indicator.style.transform = 'translateX(-50%)';
+        indicator.style.top = '80px';
+        setTimeout(function() {
+          indicator.style.display = 'none';
+        }, duration);
+      }
+
+      function showConfirm(message, onConfirm, onCancel) {
+        var overlay = document.getElementById('panel-overlay');
+        var confirmBox = document.createElement('div');
+        confirmBox.id = 'confirm-box';
+        confirmBox.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:30px;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);z-index:1000;min-width:300px;text-align:center;';
+        confirmBox.innerHTML = '<p style="margin:0 0 20px;font-size:16px;color:#333;">' + message + '</p>' +
+          '<div style="display:flex;gap:15px;justify-content:center;">' +
+          '<button id="confirm-yes" style="padding:10px 30px;background:#00cc88;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;">确定</button>' +
+          '<button id="confirm-no" style="padding:10px 30px;background:#666;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;">取消</button></div>';
+        document.body.appendChild(confirmBox);
+        overlay.style.display = 'block';
+        document.getElementById('confirm-yes').onclick = function() {
+          document.body.removeChild(confirmBox);
+          overlay.style.display = 'none';
+          if (onConfirm) onConfirm();
+        };
+        document.getElementById('confirm-no').onclick = function() {
+          document.body.removeChild(confirmBox);
+          overlay.style.display = 'none';
+          if (onCancel) onCancel();
+        };
       }
 
       function performSave(slotName, displayName, description, isAuto) {
@@ -311,6 +1503,7 @@
           localStorage.setItem(SAVE_LIST_KEY, JSON.stringify(saveList));
         }
         localStorage.setItem(CURRENT_SLOT_KEY, slotName);
+        currentLoadedSlot = slotName; // 标记用户已加载存档
         lastSaveTime = Date.now();
       }
 
@@ -332,16 +1525,26 @@
             nodeId = maxNodeId;
             edgeId = maxEdgeId;
             localStorage.setItem(CURRENT_SLOT_KEY, slotName);
+            currentLoadedSlot = slotName;
             cy.fit(100);
             document.getElementById('load-panel').style.display = 'none';
             document.getElementById('panel-overlay').style.display = 'none';
-            alert('已加载: ' + (saveData.name || slotName));
+            var texts = i18n[currentLang] || i18n['zh-CN'];
+            var indicator = document.getElementById('auto-save-indicator');
+            var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
+            var slotInfo = saveList.find(function(s) { return s.slot === slotName; });
+            var displayName = slotInfo ? slotInfo.name : (saveData.name || slotName);
+            indicator.textContent = texts.loaded + ' ' + displayName;
+            indicator.style.display = 'block';
+            setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+            setTimeout(function() { forceEnableFields(); }, 100);
           }
-        } catch (error) { alert('加载失败'); }
+        } catch (error) { showToast(i18n[currentLang].loadFailed, 4000); }
       }
 
       function deleteSaveSlot(slotName) {
-        if (confirm('确定要删除这个存档吗？')) {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        showConfirm(texts.deleteConfirm, function() {
           var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
           saveList = saveList.filter(function(s) { return s.slot !== slotName; });
           localStorage.setItem(SAVE_LIST_KEY, JSON.stringify(saveList));
@@ -350,14 +1553,64 @@
             localStorage.removeItem(CURRENT_SLOT_KEY);
           }
           renderSaveSlotList();
-        }
+        });
       }
+
+      function editSaveSlot(slotName) {
+        var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
+        var slot = saveList.find(function(s) { return s.slot === slotName; });
+        if (!slot) {
+          showToast('存档不存在');
+          return;
+        }
+        document.getElementById('edit-save-slot').value = slotName;
+        document.getElementById('edit-save-name').value = slot.name || '';
+        document.getElementById('edit-save-desc').value = slot.description || '';
+        document.getElementById('new-save-form').style.display = 'none';
+        document.getElementById('edit-save-form').style.display = 'block';
+        document.getElementById('save-panel').style.display = 'block';
+        document.getElementById('panel-overlay').style.display = 'block';
+      }
+
+      document.getElementById('confirm-edit-save').addEventListener('click', function() {
+        var slotName = document.getElementById('edit-save-slot').value;
+        var newName = document.getElementById('edit-save-name').value.trim();
+        var newDesc = document.getElementById('edit-save-desc').value.trim();
+        if (!newName) {
+          showToast('请输入存档名称');
+          return;
+        }
+        var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
+        var slotIndex = saveList.findIndex(function(s) { return s.slot === slotName; });
+        if (slotIndex >= 0) {
+          saveList[slotIndex].name = newName;
+          saveList[slotIndex].description = newDesc;
+          saveList[slotIndex].timestamp = Date.now();
+          localStorage.setItem(SAVE_LIST_KEY, JSON.stringify(saveList));
+          showToast('存档已更新');
+        }
+        document.getElementById('save-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+        document.getElementById('edit-save-form').style.display = 'none';
+        document.getElementById('new-save-form').style.display = 'block';
+        renderSaveSlotList();
+      });
+
+      document.getElementById('cancel-edit-save').addEventListener('click', function() {
+        document.getElementById('save-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+        document.getElementById('edit-save-form').style.display = 'none';
+        document.getElementById('new-save-form').style.display = 'block';
+      });
+
+      window.editSaveSlot = editSaveSlot;
 
       function renderSaveSlotList() {
         var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
         var container = document.getElementById('save-slot-list');
+        var texts = i18n[currentLang] || i18n['zh-CN'];
         if (saveList.length === 0) {
-          container.innerHTML = '<p style="text-align:center;color:#999;padding:30px;">暂无存档</p>';
+          container.innerHTML = '<p style="text-align:center;color:#999;padding:30px;">' + texts.noSaveYet + '</p>';
           return;
         }
         var currentSlot = localStorage.getItem(CURRENT_SLOT_KEY);
@@ -369,8 +1622,9 @@
             (slot.description ? '<div class="save-slot-desc">' + slot.description + '</div>' : '') +
             '<div class="save-slot-time">' + dateStr + '</div>' +
             '<div class="save-slot-actions">' +
-            '<button class="btn-load-slot" onclick="loadSaveSlot(\'' + slot.slot + '\')">加载</button>' +
-            '<button class="btn-delete-slot" onclick="deleteSaveSlot(\'' + slot.slot + '\')">删除</button>' +
+            '<button class="btn-load-slot" onclick="loadSaveSlot(\'' + slot.slot + '\')">' + texts.load + '</button>' +
+            '<button class="btn-edit-slot" onclick="editSaveSlot(\'' + slot.slot + '\')" style="padding:5px 12px;background:#667eea;color:white;border:none;border-radius:15px;cursor:pointer;font-size:12px;">编辑</button>' +
+            '<button class="btn-delete-slot" onclick="deleteSaveSlot(\'' + slot.slot + '\')">'+ texts.close.replace('关闭', '删除') +'</button>' +
             '</div></div>';
         }).join('');
       }
@@ -381,6 +1635,8 @@
       document.getElementById('panel-overlay').addEventListener('click', function() {
         document.getElementById('save-panel').style.display = 'none';
         document.getElementById('load-panel').style.display = 'none';
+        document.getElementById('node-form-panel').style.display = 'none';
+        document.getElementById('node-detail-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
       });
 
@@ -393,13 +1649,17 @@
 
       document.getElementById('confirm-save').addEventListener('click', function() {
         var name = document.getElementById('save-name').value.trim();
-        if (!name) { alert('请输入存档名称'); return; }
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        if (!name) { showToast(texts.inputName); document.getElementById('save-name').focus(); return; }
         var desc = document.getElementById('save-desc').value.trim();
         var slotName = 'save_' + Date.now();
         performSave(slotName, name, desc, false);
         document.getElementById('save-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
-        alert('存档已保存: ' + name);
+        var indicator = document.getElementById('auto-save-indicator');
+        indicator.textContent = texts.saved + ' ' + name;
+        indicator.style.display = 'block';
+        setTimeout(function() { indicator.style.display = 'none'; }, 3000);
       });
 
       document.getElementById('load-btn').addEventListener('click', function() {
@@ -408,9 +1668,668 @@
         document.getElementById('panel-overlay').style.display = 'block';
       });
 
+      document.getElementById('export-btn').addEventListener('click', function() {
+        var exportData = {
+          version: '1.0',
+          exportTime: new Date().toISOString(),
+          elements: cy.elements().jsons(),
+          selfNodeId: selfNodeId,
+          insuranceWeights: customInsuranceWeights,
+          theme: currentTheme,
+          language: currentLang
+        };
+        var jsonStr = JSON.stringify(exportData, null, 2);
+        var blob = new Blob([jsonStr], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'mindmap_export_' + new Date().toISOString().slice(0, 10) + '.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        var indicator = document.getElementById('auto-save-indicator');
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        indicator.textContent = texts.exported || '✓ 导出成功';
+        indicator.style.display = 'block';
+        setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+      });
+
+      document.getElementById('import-btn').addEventListener('click', function() {
+        document.getElementById('import-file').click();
+      });
+
+      document.getElementById('import-file').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(event) {
+          try {
+            var importData = JSON.parse(event.target.result);
+            if (!importData.elements || !Array.isArray(importData.elements)) {
+              throw new Error('Invalid format');
+            }
+            var texts = i18n[currentLang] || i18n['zh-CN'];
+            showConfirm(texts.importConfirm || '导入将覆盖当前所有数据。是否继续？', function() {
+              performImport(importData);
+            });
+
+            function performImport(importData) {
+              cy.remove(cy.elements());
+              cy.add(importData.elements);
+              selfNodeId = importData.selfNodeId || null;
+              var maxNodeId = 1, maxEdgeId = 1;
+              importData.elements.forEach(function(el) {
+                var nodeMatch = el.data.id.match(/^node(\d+)$/);
+                var edgeMatch = el.data.id.match(/^edge(\d+)$/);
+                if (nodeMatch) {
+                  var id = parseInt(nodeMatch[1]);
+                  maxNodeId = Math.max(maxNodeId, id + 1);
+                } else if (edgeMatch) {
+                  var id = parseInt(edgeMatch[1]);
+                  maxEdgeId = Math.max(maxEdgeId, id + 1);
+                }
+              });
+              nodeId = maxNodeId;
+              edgeId = maxEdgeId;
+              debugLog('Import loaded: nodeId=' + nodeId + ', edgeId=' + edgeId);
+              if (importData.insuranceWeights) {
+                customInsuranceWeights = importData.insuranceWeights;
+                localStorage.setItem(INSURANCE_WEIGHTS_KEY, JSON.stringify(customInsuranceWeights));
+              }
+              if (importData.theme) {
+                saveTheme(importData.theme);
+              }
+              if (importData.language) {
+                setLanguage(importData.language);
+                document.getElementById('lang-select').value = importData.language;
+              }
+
+              var selfNodeImport = selfNodeId ? cy.$('#' + selfNodeId) : cy.nodes().first();
+              var centerXImport = selfNodeImport.length > 0 ? selfNodeImport.position().x : 600;
+              var centerYImport = selfNodeImport.length > 0 ? selfNodeImport.position().y : 400;
+              var nodeWidthImport = 120;
+              var minSpacingImport = 30;
+              var baseRadiusImport = 375;
+              var ringSpacingImport = 525;
+              var bloodRelationsImport = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '祖父母', '外祖父母', '孙子女'];
+              var socialRelationsImport = ['朋友', '小学同学', '中学同学', '大学同学', '同事', '上司', '下属', '邻居', '老师', '学生'];
+              var casualRelationsImport = ['工作合作伙伴', '商业竞争对手', '朋友转介绍', '客户推荐', '公司分配', '孤儿单', '主动咨询', '活动认识'];
+              var getRelationLevelImport = function(label) {
+                if (bloodRelationsImport.indexOf(label) !== -1) return 1;
+                if (socialRelationsImport.indexOf(label) !== -1) return 2;
+                if (casualRelationsImport.indexOf(label) !== -1) return 3;
+                return 4;
+              };
+              var allNodesImport = cy.nodes().filter(function(n) { return !(selfNodeId && n.id() === selfNodeId); });
+              var nodesByLevelImport = { 1: [], 2: [], 3: [], 4: [] };
+              allNodesImport.forEach(function(node) {
+                var edges = node.connectedEdges();
+                var minLevel = 4;
+                if (edges.length === 0) {
+                  minLevel = 4;
+                } else {
+                  edges.forEach(function(edge) {
+                    var label = edge.data('label') || '';
+                    var level = getRelationLevelImport(label);
+                    minLevel = Math.min(minLevel, level);
+                  });
+                }
+                node.data('ringLevel', minLevel);
+                nodesByLevelImport[minLevel].push(node);
+              });
+              var maxNodesPerRingImport = function(radius) {
+                return Math.floor((2 * Math.PI * radius) / (nodeWidthImport + minSpacingImport));
+              };
+              var ringsImport = [];
+              for (var levelImport in nodesByLevelImport) {
+                var nodes = nodesByLevelImport[levelImport];
+                if (nodes.length === 0) continue;
+                var levelIntImport = parseInt(levelImport);
+                var levelMultiplierImport = levelIntImport === 4 ? 4 : (levelIntImport - 1);
+                var levelRadius = baseRadiusImport + levelMultiplierImport * ringSpacingImport;
+                var capacity = maxNodesPerRingImport(levelRadius);
+                if (nodes.length <= capacity) {
+                  ringsImport.push({ radius: levelRadius, nodes: nodes });
+                } else {
+                  var subRingCount = Math.ceil(nodes.length / capacity);
+                  var nodesPerSubRing = Math.ceil(nodes.length / subRingCount);
+                  for (var i = 0; i < subRingCount; i++) {
+                    var subNodes = nodes.slice(i * nodesPerSubRing, (i + 1) * nodesPerSubRing);
+                    if (subNodes.length > 0) {
+                      var subRadius = levelRadius + (i * 250);
+                      ringsImport.push({ radius: subRadius, nodes: subNodes });
+                    }
+                  }
+                }
+              }
+              ringsImport.forEach(function(ring) {
+                var nodes = ring.nodes;
+                var angleStep = (2 * Math.PI) / nodes.length;
+                var angleOffsetImport = -Math.PI / 2;
+                nodes.forEach(function(node, i) {
+                  var angle = i * angleStep + angleOffsetImport;
+                  var x = centerXImport + ring.radius * Math.cos(angle);
+                  var y = centerYImport + ring.radius * Math.sin(angle);
+                  node.position({ x: x, y: y });
+                });
+              });
+
+              cy.layout({
+                name: 'preset',
+                positions: function(node) { return node.position(); },
+                zoom: 1,
+                pan: { x: 0, y: 0 },
+                fit: true,
+                padding: 50,
+                animate: true,
+                animationDuration: 800,
+                animationEasing: 'ease-out'
+              }).run();
+
+              setTimeout(function() {
+                if (selfNodeImport.length > 0) {
+                  cy.center(selfNodeImport);
+                  cy.zoom(1);
+                  cy.center(selfNodeImport);
+                }
+              }, 900);
+
+              var indicator = document.getElementById('auto-save-indicator');
+              var texts = i18n[currentLang] || i18n['zh-CN'];
+              indicator.textContent = texts.imported || '✓ 导入成功，共' + importData.elements.length + '个元素';
+              indicator.style.display = 'block';
+              setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+            }
+          } catch (err) {
+            showToast('导入失败：文件格式不正确', 4000);
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+      });
+
+      document.getElementById('template-btn').addEventListener('click', function() {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        if (cy.elements().length > 0) {
+          showConfirm(texts.templateConfirm || '加载模板将覆盖当前所有数据。是否继续？', function() {
+            loadTemplate();
+          });
+        } else {
+          loadTemplate();
+        }
+
+        function loadTemplate() {
+        fetch('templates/template_100people.json')
+          .then(function(response) { return response.json(); })
+          .then(function(templateData) {
+            cy.remove(cy.elements());
+            cy.add(templateData.elements);
+            selfNodeId = templateData.selfNodeId || null;
+            var maxNodeId = 1, maxEdgeId = 1;
+            templateData.elements.forEach(function(el) {
+              var nodeMatch = el.data.id.match(/^node(\d+)$/);
+              var edgeMatch = el.data.id.match(/^edge(\d+)$/);
+              if (nodeMatch) {
+                var id = parseInt(nodeMatch[1]);
+                maxNodeId = Math.max(maxNodeId, id + 1);
+              } else if (edgeMatch) {
+                var id = parseInt(edgeMatch[1]);
+                maxEdgeId = Math.max(maxEdgeId, id + 1);
+              }
+            });
+            nodeId = maxNodeId;
+            edgeId = maxEdgeId;
+            debugLog('Template loaded: nodeId=' + nodeId + ', edgeId=' + edgeId);
+
+            var selfNode = selfNodeId ? cy.$('#' + selfNodeId) : cy.nodes().first();
+            var centerX = selfNode.length > 0 ? selfNode.position().x : 600;
+            var centerY = selfNode.length > 0 ? selfNode.position().y : 400;
+            var nodeWidth = 120;
+            var minSpacing = 30;
+            var baseRadius = 375;
+            var ringSpacing = 525;
+            var bloodRelations = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '祖父母', '外祖父母', '孙子女'];
+            var socialRelations = ['朋友', '小学同学', '中学同学', '大学同学', '同事', '上司', '下属', '邻居', '老师', '学生'];
+            var casualRelations = ['工作合作伙伴', '商业竞争对手', '朋友转介绍', '客户推荐', '公司分配', '孤儿单', '主动咨询', '活动认识'];
+            var getRelationLevel = function(label) {
+              if (bloodRelations.indexOf(label) !== -1) return 1;
+              if (socialRelations.indexOf(label) !== -1) return 2;
+              if (casualRelations.indexOf(label) !== -1) return 3;
+              return 4;
+            };
+            var allNodes = cy.nodes().filter(function(n) { return !(selfNodeId && n.id() === selfNodeId); });
+            var nodesByLevel = { 1: [], 2: [], 3: [], 4: [] };
+            allNodes.forEach(function(node) {
+              var edges = node.connectedEdges();
+              var minLevel = 4;
+              if (edges.length === 0) {
+                minLevel = 4;
+              } else {
+                edges.forEach(function(edge) {
+                  var label = edge.data('label') || '';
+                  var level = getRelationLevel(label);
+                  minLevel = Math.min(minLevel, level);
+                });
+              }
+              node.data('ringLevel', minLevel);
+              nodesByLevel[minLevel].push(node);
+            });
+            var maxNodesPerRing = function(radius) {
+              return Math.floor((2 * Math.PI * radius) / (nodeWidth + minSpacing));
+            };
+            var rings = [];
+            for (var level in nodesByLevel) {
+              var nodes = nodesByLevel[level];
+              if (nodes.length === 0) continue;
+              var levelInt = parseInt(level);
+              var levelMultiplier = levelInt === 4 ? 4 : (levelInt - 1);
+              var levelRadius = baseRadius + levelMultiplier * ringSpacing;
+              var capacity = maxNodesPerRing(levelRadius);
+              if (nodes.length <= capacity) {
+                rings.push({ radius: levelRadius, nodes: nodes });
+              } else {
+                var subRingCount = Math.ceil(nodes.length / capacity);
+                var nodesPerSubRing = Math.ceil(nodes.length / subRingCount);
+                for (var i = 0; i < subRingCount; i++) {
+                  var subNodes = nodes.slice(i * nodesPerSubRing, (i + 1) * nodesPerSubRing);
+                  if (subNodes.length > 0) {
+                    var subRadius = levelRadius + (i * 250);
+                    rings.push({ radius: subRadius, nodes: subNodes });
+                  }
+                }
+              }
+            }
+            rings.forEach(function(ring) {
+              var nodes = ring.nodes;
+              var angleStep = (2 * Math.PI) / nodes.length;
+              var angleOffset = -Math.PI / 2;
+              nodes.forEach(function(node, i) {
+                var angle = i * angleStep + angleOffset;
+                var x = centerX + ring.radius * Math.cos(angle);
+                var y = centerY + ring.radius * Math.sin(angle);
+                node.position({ x: x, y: y });
+              });
+            });
+
+            cy.layout({
+              name: 'preset',
+              positions: function(node) { return node.position(); },
+              zoom: 1,
+              pan: { x: 0, y: 0 },
+              fit: true,
+              padding: 50,
+              animate: true,
+              animationDuration: 800,
+              animationEasing: 'ease-out'
+            }).run();
+
+            setTimeout(function() {
+              if (selfNode.length > 0) {
+                cy.center(selfNode);
+                cy.zoom(1);
+                cy.center(selfNode);
+              }
+            }, 900);
+            var indicator = document.getElementById('auto-save-indicator');
+            var texts = i18n[currentLang] || i18n['zh-CN'];
+            var nodeCount = templateData.elements.filter(function(el) { return /^node\d+$/.test(el.data.id); }).length;
+            indicator.textContent = '✓ ' + (texts.templateLoaded || '模板已加载') + ' ' + nodeCount + '人';
+            indicator.style.display = 'block';
+            setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+          })
+          .catch(function(err) {
+            showToast('加载模板失败，请确保 templates/template_100people.json 文件存在', 4000);
+          });
+        }
+      });
+
+      var debugLogs = [];
+      function addDebugLog(msg) {
+        var timestamp = new Date().toLocaleTimeString();
+        var logEntry = '[' + timestamp + '] ' + msg;
+        debugLogs.push(logEntry);
+        if (debugLogs.length > 100) debugLogs.shift();
+        var content = document.getElementById('debug-content');
+        if (content) {
+          content.innerHTML = debugLogs.map(function(l) { return '<div style="margin:3px 0;">' + l + '</div>'; }).join('');
+          content.scrollTop = content.scrollHeight;
+        }
+        console.log('[DEBUG]', msg);
+      }
+
+      window.debugLog = addDebugLog;
+
+      document.getElementById('debug-btn').addEventListener('click', function() {
+        var panel = document.getElementById('debug-panel');
+        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        addDebugLog('=== Debug Panel Opened ===');
+        addDebugLog('sourceNodeForEdge: ' + (window.sourceNodeForEdge ? window.sourceNodeForEdge.id() : 'null'));
+        addDebugLog('isEditMode: ' + window.isEditMode);
+        addDebugLog('Total nodes: ' + cy.nodes().length);
+        addDebugLog('Total edges: ' + cy.edges().length);
+      });
+
+      document.getElementById('close-debug').addEventListener('click', function() {
+        document.getElementById('debug-panel').style.display = 'none';
+      });
+
+      document.getElementById('center-btn').addEventListener('click', function() {
+        if (selfNodeId) {
+          var selfNode = cy.$('#' + selfNodeId);
+          if (selfNode.length > 0) {
+            cy.center(selfNode);
+            cy.zoom(1.2);
+            cy.center(selfNode);
+            return;
+          }
+        }
+        cy.center();
+        cy.zoom(1);
+      });
+
+      document.getElementById('clear-btn').addEventListener('click', function() {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        if (cy.elements().length > 0) {
+          showConfirm(texts.confirmClear, function() {
+            cy.remove(cy.elements());
+            selfNodeId = null;
+            nodeId = 1;
+            edgeId = 1;
+            undoStack = [];
+            redoStack = [];
+            saveStateForUndo();
+            showToast(texts.cleared);
+          });
+        } else {
+          showToast(texts.noData);
+        }
+      });
+
+      document.getElementById('search-btn').addEventListener('click', function() {
+        document.getElementById('search-panel').style.display = 'block';
+        document.getElementById('search-input').value = '';
+        document.getElementById('search-results').innerHTML = '';
+        document.getElementById('search-input').focus();
+      });
+
+      document.getElementById('close-search').addEventListener('click', function() {
+        document.getElementById('search-panel').style.display = 'none';
+      });
+
+      document.getElementById('search-input').addEventListener('input', function(e) {
+        var query = e.target.value.trim().toLowerCase();
+        var resultsDiv = document.getElementById('search-results');
+        if (query.length < 1) {
+          resultsDiv.innerHTML = '';
+          cy.elements().removeClass('dimmed highlight search-match');
+          return;
+        }
+        var matchedNodes = cy.nodes().filter(function(node) {
+          var data = node.data();
+          var nameMatch = data.name && data.name.toLowerCase().indexOf(query) !== -1;
+          var occMatch = data.occupation && data.occupation.toLowerCase().indexOf(query) !== -1;
+          var contactMatch = false;
+          if (data.contact) {
+            if (typeof data.contact === 'string') {
+              try {
+                var contactsArr = JSON.parse(data.contact);
+                if (Array.isArray(contactsArr)) {
+                  contactMatch = contactsArr.some(function(c) { return c.value && c.value.toLowerCase().indexOf(query) !== -1; });
+                } else {
+                  contactMatch = data.contact.toLowerCase().indexOf(query) !== -1;
+                }
+              } catch(e) {
+                contactMatch = data.contact.toLowerCase().indexOf(query) !== -1;
+              }
+            } else if (Array.isArray(data.contact)) {
+              contactMatch = data.contact.some(function(c) { return c.value && c.value.toLowerCase().indexOf(query) !== -1; });
+            }
+          }
+          return nameMatch || occMatch || contactMatch;
+        });
+        cy.elements().removeClass('dimmed highlight search-match');
+        if (matchedNodes.length > 0) {
+          cy.elements().addClass('dimmed');
+          matchedNodes.addClass('highlight search-match');
+          matchedNodes.connectedEdges().removeClass('dimmed').addClass('highlight');
+          matchedNodes.connectedEdges().connectedNodes().removeClass('dimmed').addClass('highlight');
+          resultsDiv.innerHTML = '<div style="color:#666;font-size:12px;">找到 ' + matchedNodes.length + ' 个匹配:</div>';
+          matchedNodes.forEach(function(node) {
+            var data = node.data();
+            resultsDiv.innerHTML += '<div style="padding:8px;cursor:pointer;border-bottom:1px solid #eee;" onclick="focusNode(\'' + node.id() + '\')"><b>' + data.name + '</b> <span style="color:#666;">' + (data.occupation || '') + '</span></div>';
+          });
+        } else {
+          resultsDiv.innerHTML = '<div style="color:#999;">没有找到匹配的节点</div>';
+        }
+      });
+
+      window.focusNode = function(nodeId) {
+        var node = cy.$('#' + nodeId);
+        if (node.length > 0) {
+          cy.center(node);
+          cy.zoom(1.5);
+          cy.center(node);
+        }
+      };
+
+      document.getElementById('filter-btn').addEventListener('click', function() {
+        document.getElementById('filter-panel').style.display = 'block';
+      });
+
+      document.getElementById('close-filter').addEventListener('click', function() {
+        document.getElementById('filter-panel').style.display = 'none';
+      });
+
+      document.getElementById('apply-filter').addEventListener('click', function() {
+        var gender = document.getElementById('filter-gender').value;
+        var ageRange = document.getElementById('filter-age').value;
+        var relation = document.getElementById('filter-relation').value;
+        var marriage = document.getElementById('filter-marriage').value;
+        var template = document.getElementById('filter-template').value;
+        var matchedNodes = cy.nodes().filter(function(node) {
+          var data = node.data();
+          if (gender && data.gender !== gender) return false;
+          if (ageRange) {
+            var age = parseInt(data.age) || 0;
+            if (ageRange === '0-25' && (age < 0 || age > 25)) return false;
+            if (ageRange === '26-40' && (age < 26 || age > 40)) return false;
+            if (ageRange === '41-55' && (age < 41 || age > 55)) return false;
+            if (ageRange === '56+' && age < 56) return false;
+          }
+          if (marriage && data.marriage !== marriage) return false;
+          if (template && data.template !== template) return false;
+          if (relation) {
+            var connectedEdges = node.connectedEdges();
+            var hasRelation = connectedEdges.some(function(edge) {
+              return edge.data('label') === relation;
+            });
+            if (!hasRelation) return false;
+          }
+          return true;
+        });
+        cy.elements().removeClass('dimmed highlight filter-match');
+        if (matchedNodes.length > 0) {
+          cy.elements().addClass('dimmed');
+          matchedNodes.addClass('highlight filter-match');
+          matchedNodes.connectedEdges().removeClass('dimmed').addClass('highlight');
+          matchedNodes.connectedEdges().connectedNodes().removeClass('dimmed').addClass('highlight');
+        }
+        var indicator = document.getElementById('auto-save-indicator');
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        indicator.textContent = (texts.filterResult || '筛选结果') + ': ' + matchedNodes.length + ' ' + (texts.nodes || '个节点');
+        indicator.style.display = 'block';
+        setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+        document.getElementById('filter-panel').style.display = 'none';
+      });
+
+      document.getElementById('clear-filter').addEventListener('click', function() {
+        document.getElementById('filter-gender').value = '';
+        document.getElementById('filter-age').value = '';
+        document.getElementById('filter-relation').value = '';
+        document.getElementById('filter-marriage').value = '';
+        document.getElementById('filter-template').value = '';
+        cy.elements().removeClass('dimmed highlight filter-match');
+        document.getElementById('filter-panel').style.display = 'none';
+      });
+
       document.getElementById('close-load').addEventListener('click', function() {
         document.getElementById('load-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
+      });
+
+      document.getElementById('settings-btn').addEventListener('click', function() {
+        loadInsuranceWeights();
+        loadKeyboardShortcuts();
+        document.getElementById('setting-theme').value = currentTheme;
+        document.getElementById('settings-panel').style.display = 'block';
+        document.getElementById('panel-overlay').style.display = 'block';
+      });
+
+      document.getElementById('cancel-settings').addEventListener('click', function() {
+        document.getElementById('settings-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+      });
+
+      document.getElementById('confirm-settings').addEventListener('click', function() {
+        var theme = document.getElementById('setting-theme').value;
+        saveTheme(theme);
+        saveKeyboardShortcuts();
+        saveInsuranceWeights();
+        document.getElementById('settings-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+        var indicator = document.getElementById('auto-save-indicator');
+        indicator.textContent = '✓ 设置已保存';
+        indicator.style.display = 'block';
+        setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+      });
+
+      var activeShortcutInput = null;
+      ['setting-key-mode', 'setting-key-save', 'setting-key-load', 'setting-key-undo', 'setting-key-redo'].forEach(function(id) {
+        var input = document.getElementById(id);
+        if (input) {
+          input.addEventListener('focus', function() {
+            activeShortcutInput = this;
+            this.value = '';
+          });
+          input.addEventListener('blur', function() {
+            if (this.value === '') {
+              this.value = keyboardShortcuts[this.id.replace('setting-key-', '')];
+            }
+            activeShortcutInput = null;
+          });
+          input.addEventListener('keydown', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.key === 'Escape' || e.key === 'Enter') {
+              this.blur();
+              return;
+            }
+            if (e.key === 'Backspace' || e.key === 'Delete') {
+              this.value = '';
+              return;
+            }
+            var combo = formatKeyCombo(e);
+            if (combo && combo !== 'CTRL' && combo !== 'ALT' && combo !== 'SHIFT' && combo !== 'META') {
+              this.value = combo;
+              this.blur();
+            }
+          });
+        }
+      });
+
+      document.getElementById('setting-theme').addEventListener('change', function(e) {
+        saveTheme(e.target.value);
+      });
+
+      var customFields = JSON.parse(localStorage.getItem('customFields') || '[]');
+      var defaultFields = [
+        { id: 'name', name: '姓名', type: 'text', required: true },
+        { id: 'gender', name: '性别', type: 'select', options: ['男', '女'], required: false },
+        { id: 'age', name: '年龄', type: 'number', required: false },
+        { id: 'salary', name: '薪金/年收入(万)', type: 'number', required: false },
+        { id: 'contact', name: '联系方式', type: 'contact', required: false },
+        { id: 'occupation', name: '工作职业', type: 'text', required: false },
+        { id: 'marriage', name: '婚姻状态', type: 'select', options: ['未婚', '已婚', '离异', '丧偶'], required: false },
+        { id: 'children', name: '子女数量', type: 'select', options: ['无子女', '1个子女', '2个子女', '3个或以上'], required: false, conditional: true },
+        { id: 'childrenAge', name: '子女年龄', type: 'text', required: false, conditional: true },
+        { id: 'parents', name: '父母状态', type: 'select', options: ['双亲健在', '父亲已故', '母亲已故', '双亲已故'], required: false },
+        { id: 'protection', name: '是否需要保障型保险', type: 'select', options: ['是', '否', '不确定'], required: false, conditional: true }
+      ];
+
+      function getAllFields() {
+        return defaultFields.concat(customFields);
+      }
+
+      function renderTemplateFieldsList() {
+        var list = document.getElementById('template-fields-list');
+        list.innerHTML = '';
+        var allFields = getAllFields();
+        allFields.forEach(function(field, index) {
+          var div = document.createElement('div');
+          div.className = 'template-field-item';
+          div.style.cssText = 'display:flex;align-items:center;padding:8px;background:#f5f5f5;border-radius:4px;margin-bottom:5px;cursor:move;';
+          div.innerHTML = '<span style="flex:1;">' + (index + 1) + '. <strong>' + field.name + '</strong> (' + field.type + ')' + (field.required ? ' <span style="color:red;">*</span>' : '') + (field.conditional ? ' <span style="color:#ff9800;">[条件]</span>' : '') + '</span><button class="edit-field-btn" data-index="' + index + '" style="padding:3px 10px;background:#2196F3;color:white;border:none;border-radius:3px;cursor:pointer;margin-right:5px;">编辑</button><button class="delete-field-btn" data-index="' + index + '" style="padding:3px 10px;background:#f44336;color:white;border:none;border-radius:3px;cursor:pointer;">删除</button>';
+          list.appendChild(div);
+        });
+
+        document.querySelectorAll('.delete-field-btn').forEach(function(btn) {
+          btn.onclick = function() {
+            var idx = parseInt(this.getAttribute('data-index'));
+            if (idx >= defaultFields.length) {
+              customFields.splice(idx - defaultFields.length, 1);
+              renderTemplateFieldsList();
+            }
+          };
+        });
+      }
+
+      document.getElementById('edit-template-btn').addEventListener('click', function() {
+        document.getElementById('template-edit-panel').style.display = 'block';
+        document.getElementById('panel-overlay').style.display = 'block';
+        renderTemplateFieldsList();
+      });
+
+      document.getElementById('close-template-edit').addEventListener('click', function() {
+        document.getElementById('template-edit-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+      });
+
+      document.getElementById('new-field-type').addEventListener('change', function() {
+        document.getElementById('field-options-row').style.display = this.value === 'select' ? 'flex' : 'none';
+      });
+
+      document.getElementById('add-field-btn').addEventListener('click', function() {
+        var name = document.getElementById('new-field-name').value.trim();
+        var type = document.getElementById('new-field-type').value;
+        var options = document.getElementById('new-field-options').value.trim();
+
+        if (!name) {
+          showToast('请输入字段名称');
+          return;
+        }
+
+        var newField = {
+          id: 'custom_' + Date.now(),
+          name: name,
+          type: type,
+          required: false
+        };
+
+        if (type === 'select' && options) {
+          newField.options = options.split(',').map(function(o) { return o.trim(); });
+        }
+
+        customFields.push(newField);
+        document.getElementById('new-field-name').value = '';
+        document.getElementById('new-field-options').value = '';
+        renderTemplateFieldsList();
+        showToast('已添加字段: ' + name);
+      });
+
+      document.getElementById('save-template-btn').addEventListener('click', function() {
+        localStorage.setItem('customFields', JSON.stringify(customFields));
+        document.getElementById('template-edit-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+        showToast('✓ 模板已保存');
       });
 
       window.addEventListener('beforeunload', function() {
@@ -424,16 +2343,20 @@
         var indicator = document.getElementById('mode-indicator');
         var editBtn = document.getElementById('edit-mode-btn');
         var viewBtn = document.getElementById('view-mode-btn');
+        var texts = i18n[currentLang] || i18n['zh-CN'];
         if (isEditMode) {
-          indicator.textContent = '当前模式: 编辑模式';
+          indicator.textContent = texts.currentMode + ' ' + texts.editMode;
           indicator.style.background = 'rgba(255, 149, 0, 0.9)';
           editBtn.classList.add('active');
           viewBtn.classList.remove('active');
+          setFormFieldsDisabled(false);
         } else {
-          indicator.textContent = '当前模式: 查看模式';
+          indicator.textContent = texts.currentMode + ' ' + texts.viewMode;
           indicator.style.background = 'rgba(0, 204, 136, 0.9)';
           editBtn.classList.remove('active');
           viewBtn.classList.add('active');
+          setFormFieldsDisabled(true);
+          closeNodeForm();
         }
         indicator.style.display = 'block';
         setTimeout(function() { indicator.style.display = 'none'; }, 2000);
@@ -444,28 +2367,30 @@
       document.getElementById('node-template').addEventListener('change', function(e) { lastTemplate = e.target.value; });
 
       document.getElementById('create-self').addEventListener('click', function() {
-        if (!isEditMode) { alert('请切换到编辑模式'); return; }
-        if (selfNodeId) { alert('您已经添加过自己的节点了'); return; }
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        if (!isEditMode) { showToast(texts.editSelfError); return; }
+        if (selfNodeId) { showToast(texts.addSelfError); return; }
         var containerRect = cy.container().getBoundingClientRect();
         pendingPosition = { x: containerRect.width / 2, y: containerRect.height / 2 };
-        document.getElementById('form-title').textContent = '添加自己';
+        editingNode = null;
+        document.getElementById('form-title').textContent = texts.addSelf;
         document.getElementById('node-template').value = 'self';
         clearNodeForm();
         updateConditionalFields();
-        document.getElementById('node-form-panel').style.display = 'block';
-        document.getElementById('field-name').focus();
+        openNodeForm();
       });
 
       document.getElementById('create-node').addEventListener('click', function() {
-        if (!isEditMode) { alert('请切换到编辑模式'); return; }
-        document.getElementById('form-title').textContent = '新建' + getTemplateName(lastTemplate) + '客户';
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        if (!isEditMode) { showToast(texts.editSelfError); return; }
+        editingNode = null;
+        document.getElementById('form-title').textContent = texts.newCustomer;
         document.getElementById('node-template').value = lastTemplate;
-        document.getElementById('node-form-panel').style.display = 'block';
         clearNodeForm();
         updateConditionalFields();
         var containerRect = cy.container().getBoundingClientRect();
         pendingPosition = { x: containerRect.width / 2, y: containerRect.height / 2 };
-        document.getElementById('field-name').focus();
+        openNodeForm();
       });
 
       document.getElementById('field-marriage').addEventListener('change', updateConditionalFields);
@@ -483,28 +2408,183 @@
         }
       }
 
+      function setFormFieldsDisabled(disabled) {
+        var fields = ['field-name', 'field-gender', 'field-age', 'field-salary', 'field-occupation', 'field-marriage', 'field-children', 'field-children-age', 'field-parents', 'field-protection'];
+        fields.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) {
+            el.disabled = disabled;
+            if (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'number')) {
+              el.readOnly = disabled;
+            }
+            el.style.pointerEvents = disabled ? 'none' : 'auto';
+            el.style.opacity = disabled ? '0.6' : '1';
+            el.style.cursor = disabled ? 'not-allowed' : 'text';
+          }
+        });
+        document.querySelectorAll('.contact-method, .contact-value').forEach(function(el) {
+          el.disabled = disabled;
+          el.readOnly = disabled;
+          el.style.pointerEvents = disabled ? 'none' : 'auto';
+          el.style.opacity = disabled ? '0.6' : '1';
+          el.style.cursor = disabled ? 'not-allowed' : 'text';
+        });
+      }
+
+      function forceEnableFields() {
+        var fields = ['field-name', 'field-gender', 'field-age', 'field-salary', 'field-occupation', 'field-marriage', 'field-children', 'field-children-age', 'field-parents', 'field-protection'];
+        fields.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) {
+            el.disabled = false;
+            el.readOnly = false;
+            el.style.pointerEvents = 'auto';
+            el.style.opacity = '1';
+            el.style.cursor = 'text';
+          }
+        });
+        document.querySelectorAll('.contact-method, .contact-value').forEach(function(el) {
+          el.disabled = false;
+          el.readOnly = false;
+          el.style.pointerEvents = 'auto';
+          el.style.opacity = '1';
+          el.style.cursor = 'text';
+        });
+      }
+
+      var contactMethods = function() {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        return [
+          { value: 'phone', label: texts.contactPhone || '电话' },
+          { value: 'mobile', label: texts.contactMobile || '手机' },
+          { value: 'wechat', label: texts.contactWechat || '微信' },
+          { value: 'qq', label: texts.contactQq || 'QQ' },
+          { value: 'email', label: texts.contactEmail || '邮箱' },
+          { value: 'address', label: texts.contactAddress || '地址' }
+        ];
+      };
+
+      function createContactRow(method, value) {
+        var div = document.createElement('div');
+        div.className = 'contact-row';
+
+        var select = document.createElement('select');
+        select.className = 'contact-method';
+        contactMethods().forEach(function(m) {
+          var opt = document.createElement('option');
+          opt.value = m.value;
+          opt.textContent = m.label;
+          if (m.value === method) opt.selected = true;
+          select.appendChild(opt);
+        });
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'contact-value';
+        input.value = value || '';
+        input.placeholder = '请输入...';
+
+        var removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.textContent = '×';
+        removeBtn.className = 'contact-remove';
+        removeBtn.onclick = function() { div.remove(); };
+
+        div.appendChild(select);
+        div.appendChild(input);
+        div.appendChild(removeBtn);
+        return div;
+      }
+
+      function getContactsData() {
+        var contacts = [];
+        document.querySelectorAll('.contact-row').forEach(function(row) {
+          var method = row.querySelector('.contact-method').value;
+          var value = row.querySelector('.contact-value').value.trim();
+          if (value) {
+            contacts.push({ type: method, value: value });
+          }
+        });
+        return JSON.stringify(contacts);
+      }
+
+      function setContactsData(contactsJson) {
+        var contactList = document.getElementById('contact-list');
+        contactList.innerHTML = '';
+        var contacts = [];
+        if (!contactsJson) {
+          contacts = [];
+        } else if (typeof contactsJson === 'string') {
+          try {
+            contacts = JSON.parse(contactsJson);
+            if (!Array.isArray(contacts)) {
+              contacts = [{ type: 'phone', value: contactsJson }];
+            }
+          } catch(e) {
+            contacts = [{ type: 'phone', value: contactsJson }];
+          }
+        } else if (Array.isArray(contactsJson)) {
+          contacts = contactsJson;
+        } else {
+          contacts = [{ type: 'phone', value: String(contactsJson) }];
+        }
+        if (contacts.length === 0) {
+          contactList.appendChild(createContactRow('phone', ''));
+        } else {
+          contacts.forEach(function(c) {
+            if (c && typeof c === 'object' && c.value) {
+              contactList.appendChild(createContactRow(c.type || 'phone', c.value));
+            } else if (typeof c === 'string') {
+              contactList.appendChild(createContactRow('phone', c));
+            }
+          });
+        }
+      }
+
+      function openNodeForm() {
+        var panel = document.getElementById('node-form-panel');
+        panel.style.display = 'block';
+        panel.style.visibility = 'visible';
+        forceEnableFields();
+        var fieldName = document.getElementById('field-name');
+        fieldName.focus();
+        setTimeout(function() { fieldName.focus(); }, 50);
+      }
+
+      function closeNodeForm() {
+        var panel = document.getElementById('node-form-panel');
+        panel.style.display = 'none';
+        panel.style.visibility = 'hidden';
+        pendingPosition = null;
+        editingNode = null;
+      }
+
       document.getElementById('confirm-node').addEventListener('click', function() { createOrUpdateNode(); });
       document.getElementById('cancel-node').addEventListener('click', function() { closeNodeForm(); });
+      document.getElementById('add-contact').addEventListener('click', function() {
+        document.getElementById('contact-list').appendChild(createContactRow('phone', ''));
+      });
 
-      ['field-name', 'field-age', 'field-salary', 'field-contact', 'field-occupation', 'field-relation'].forEach(function(id) {
+      ['field-name', 'field-age', 'field-salary', 'field-occupation', 'field-relation'].forEach(function(id) {
         document.getElementById(id).addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); createOrUpdateNode(); }});
       });
 
       function createOrUpdateNode() {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
         var name = document.getElementById('field-name').value.trim();
-        if (!name) { alert('请输入姓名'); document.getElementById('field-name').focus(); return; }
+        if (!name) { showToast(texts.inputName); document.getElementById('field-name').focus(); return; }
         var template = document.getElementById('node-template').value;
         if (template === 'self') {
           selfNodeId = 'node' + nodeId;
         }
         var nodeData = {
-          id: 'node' + nodeId,
+          id: editingNode ? editingNode.id() : ('node' + nodeId),
           name: name,
           template: template,
           gender: document.getElementById('field-gender').value,
           age: document.getElementById('field-age').value,
           salary: document.getElementById('field-salary').value,
-          contact: document.getElementById('field-contact').value,
+          contact: getContactsData(),
           occupation: document.getElementById('field-occupation').value,
           marriage: document.getElementById('field-marriage').value,
           children: document.getElementById('field-children').value,
@@ -512,48 +2592,134 @@
           parents: document.getElementById('field-parents').value,
           protection: document.getElementById('field-protection').value
         };
-        var containerRect = cy.container().getBoundingClientRect();
-        var position = pendingPosition || { x: containerRect.width / 2, y: containerRect.height / 2 };
-        var newNode = cy.add({ data: nodeData, classes: template === 'self' ? 'self' : template, position: position });
-        nodeId++;
+        if (editingNode) {
+          saveStateForUndo();
+          incrementOperationAndCheckAutoSave();
+          editingNode.data(nodeData);
+          editingNode.removeClass('insurance product service self').addClass(template);
+        } else {
+          saveStateForUndo();
+          incrementOperationAndCheckAutoSave();
+          var containerRect = cy.container().getBoundingClientRect();
+          var position = pendingPosition || { x: containerRect.width / 2, y: containerRect.height / 2 };
+          var newNode = cy.add({ data: nodeData, classes: template === 'self' ? 'self' : template, position: position });
+          nodeId++;
+          cy.center(newNode);
+        }
         closeNodeForm();
-        cy.center(newNode);
       }
 
       function closeNodeForm() {
         document.getElementById('node-form-panel').style.display = 'none';
         pendingPosition = null;
+        editingNode = null;
       }
 
       cy.on('tap', function(event) {
         if (event.target === cy && isEditMode) {
+          if (sourceNodeForEdge) {
+            sourceNodeForEdge.removeClass('source-node');
+            sourceNodeForEdge = null;
+          }
           pendingPosition = event.position;
-          document.getElementById('form-title').textContent = '新建' + getTemplateName(lastTemplate) + '客户';
+          editingNode = null;
+          var texts = i18n[currentLang] || i18n['zh-CN'];
+          document.getElementById('form-title').textContent = texts.newCustomer;
           document.getElementById('node-template').value = lastTemplate;
-          document.getElementById('node-form-panel').style.display = 'block';
           clearNodeForm();
           updateConditionalFields();
-          document.getElementById('field-name').focus();
+          openNodeForm();
         }
       });
 
+      function editNode(node) {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        var data = node.data();
+        editingNode = node;
+        pendingPosition = node.position();
+        document.getElementById('form-title').textContent = texts.edit || '编辑';
+        document.getElementById('node-template').value = data.template || 'insurance';
+        document.getElementById('field-name').value = data.name || '';
+        document.getElementById('field-gender').value = data.gender || '';
+        document.getElementById('field-age').value = data.age || '';
+        document.getElementById('field-salary').value = data.salary || '';
+        document.getElementById('field-occupation').value = data.occupation || '';
+        document.getElementById('field-marriage').value = data.marriage || '';
+        document.getElementById('field-children').value = data.children || '';
+        document.getElementById('field-children-age').value = data.childrenAge || '';
+        document.getElementById('field-parents').value = data.parents || '';
+        document.getElementById('field-protection').value = data.protection || '';
+        setContactsData(data.contact);
+        updateConditionalFields();
+        openNodeForm();
+      }
+
       cy.on('tap', 'node', function(event) {
+        debugLog('tap on node, isEditMode: ' + isEditMode + ', isDragging: ' + isDragging);
+        debugLog('sourceNodeForEdge: ' + (sourceNodeForEdge ? sourceNodeForEdge.id() : 'null'));
         if (isDragging) return;
         if (isEditMode) {
+          var clickedNode = event.target;
+          debugLog('clicked node id: ' + clickedNode.id());
           if (sourceNodeForEdge === null) {
-            sourceNodeForEdge = event.target;
+            sourceNodeForEdge = clickedNode;
             sourceNodeForEdge.addClass('source-node');
+            debugLog('Set sourceNodeForEdge to: ' + clickedNode.id());
           } else {
-            if (sourceNodeForEdge.id() !== event.target.id()) {
-              showEdgeForm(event.target);
+            debugLog('sourceNodeForEdge.id(): ' + sourceNodeForEdge.id() + ', clickedNode.id(): ' + clickedNode.id());
+            if (sourceNodeForEdge.id() !== clickedNode.id()) {
+              debugLog('Calling showEdgeForm with target: ' + clickedNode.id());
+              showEdgeForm(clickedNode);
             } else {
-              sourceNodeForEdge.removeClass('source-node');
-              sourceNodeForEdge = null;
+              debugLog('Same node clicked, checking for edit');
+              if (clickedNode.hasClass('source-node')) {
+                clickedNode.removeClass('source-node');
+                sourceNodeForEdge = null;
+                editNode(clickedNode);
+              }
             }
           }
         } else {
+          debugLog('View mode, showing detail');
           showNodeDetail(event.target);
         }
+      });
+
+      cy.on('dbltap', function(event) {
+        if (event.target === cy && isEditMode) {
+          pendingPosition = event.position;
+          editingNode = null;
+          var texts = i18n[currentLang] || i18n['zh-CN'];
+          document.getElementById('form-title').textContent = texts.newCustomer;
+          document.getElementById('node-template').value = lastTemplate;
+          clearNodeForm();
+          updateConditionalFields();
+          openNodeForm();
+        }
+      });
+
+      cy.on('dbltap', 'node', function(event) {
+        if (!isEditMode) return;
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        var node = event.target;
+        var data = node.data();
+        editingNode = node;
+        pendingPosition = node.position();
+        document.getElementById('form-title').textContent = texts.edit || '编辑';
+        document.getElementById('node-template').value = data.template || 'insurance';
+        document.getElementById('field-name').value = data.name || '';
+        document.getElementById('field-gender').value = data.gender || '';
+        document.getElementById('field-age').value = data.age || '';
+        document.getElementById('field-salary').value = data.salary || '';
+        document.getElementById('field-occupation').value = data.occupation || '';
+        document.getElementById('field-marriage').value = data.marriage || '';
+        document.getElementById('field-children').value = data.children || '';
+        document.getElementById('field-children-age').value = data.childrenAge || '';
+        document.getElementById('field-parents').value = data.parents || '';
+        document.getElementById('field-protection').value = data.protection || '';
+        setContactsData(data.contact);
+        updateConditionalFields();
+        openNodeForm();
       });
 
       function getRelationCategory(relation) {
@@ -567,10 +2733,13 @@
       }
 
       function showEdgeForm(targetNode) {
+        debugLog('showEdgeForm called, targetNode: ' + (targetNode ? targetNode.id() : 'null'));
+        debugLog('sourceNodeForEdge: ' + (sourceNodeForEdge ? sourceNodeForEdge.id() : 'null'));
         document.querySelectorAll('#edge-form-panel input[type="checkbox"]').forEach(function(cb) { cb.checked = false; });
         document.getElementById('field-relation').value = '';
         document.getElementById('edge-form-panel').style.display = 'block';
         document.getElementById('confirm-edge').onclick = function() {
+          debugLog('confirm-edge clicked');
           var selectedRelations = [];
           document.querySelectorAll('#edge-form-panel input[type="checkbox"]:checked').forEach(function(cb) {
             selectedRelations.push(cb.value);
@@ -581,14 +2750,25 @@
             parts.forEach(function(p) { p = p.trim(); if (p) selectedRelations.push(p); });
           }
           if (selectedRelations.length === 0) { selectedRelations.push('关联'); }
+          debugLog('selectedRelations: ' + JSON.stringify(selectedRelations));
+          debugLog('sourceNodeForEdge before saveStateForUndo: ' + (sourceNodeForEdge ? sourceNodeForEdge.id() : 'null'));
+          saveStateForUndo();
+          debugLog('Adding edges, source: ' + (sourceNodeForEdge ? sourceNodeForEdge.id() : 'null') + ', target: ' + (targetNode ? targetNode.id() : 'null'));
           selectedRelations.forEach(function(relation) {
             var category = getRelationCategory(relation);
-            cy.add({ data: { id: 'edge' + edgeId, source: sourceNodeForEdge.id(), target: targetNode.id(), label: relation }, classes: category });
+            var edgeData = { id: 'edge' + edgeId, source: sourceNodeForEdge.id(), target: targetNode.id(), label: relation, classes: category };
+            debugLog('Adding edge: ' + JSON.stringify(edgeData));
+            cy.add({ data: edgeData });
             edgeId++;
           });
+          incrementOperationAndCheckAutoSave();
+          debugLog('Clearing sourceNodeForEdge');
           document.getElementById('edge-form-panel').style.display = 'none';
-          sourceNodeForEdge.removeClass('source-node');
+          if (sourceNodeForEdge) {
+            sourceNodeForEdge.removeClass('source-node');
+          }
           sourceNodeForEdge = null;
+          debugLog('sourceNodeForEdge is now: ' + sourceNodeForEdge);
         };
       }
 
@@ -600,6 +2780,153 @@
       document.getElementById('field-relation').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('confirm-edge').click(); }});
 
       function getDisplayValue(val) { return val && val.trim() ? val.trim() : '未知'; }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#39;');
+      }
+
+      function detectContactType(value) {
+        var phonePattern = /^[\d\-\+\(\)\s]{7,20}$/;
+        var wechatPattern = /^[a-zA-Z][a-zA-Z0-9_\-]{5,19}$/;
+        var qqPattern = /^\d{5,12}$/;
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailPattern.test(value)) return 'email';
+        if (phonePattern.test(value.replace(/\s/g, ''))) return 'phone';
+        if (qqPattern.test(value) && value.length >= 5) return 'qq';
+        if (wechatPattern.test(value)) return 'wechat';
+        return 'unknown';
+      }
+
+      function handleContactAction(value, type, action) {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        var showCopied = function(msg) {
+          var indicator = document.getElementById('auto-save-indicator');
+          indicator.textContent = msg;
+          indicator.style.display = 'block';
+          setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+        };
+        var copyToClipboard = function(val, msg) {
+          navigator.clipboard.writeText(val).then(function() {
+            showCopied(msg);
+          }).catch(function() {
+            showToast(msg);
+          });
+        };
+        var launchApp = function(appType, successMsg, failMsg) {
+          console.log('[DEBUG] launchApp called with appType:', appType);
+          if (window.electronAPI && window.electronAPI.launchApp) {
+            console.log('[DEBUG] electronAPI.launchApp is available, calling...');
+            window.electronAPI.launchApp(appType).then(function(result) {
+              console.log('[DEBUG] launchApp result:', result);
+              if (result.success) {
+                showToast(successMsg || result.message);
+              } else {
+                showToast(failMsg || '操作失败: ' + (result.message || ''));
+              }
+            }).catch(function(err) {
+              console.error('[DEBUG] launchApp error:', err);
+              showToast(failMsg || '操作失败: ' + err.message);
+            });
+          } else {
+            console.warn('[DEBUG] electronAPI.launchApp is NOT available');
+            showToast(failMsg || '不支持此操作');
+          }
+        };
+
+        if (type === 'phone' || type === 'mobile') {
+          if (action === 'call') {
+            copyToClipboard(value, value);
+            var telUrl = 'tel:' + value;
+            if (window.electronAPI && typeof window.electronAPI.openExternal === 'function') {
+              window.electronAPI.openExternal(telUrl).catch(function() {
+                window.open(telUrl);
+              });
+            } else {
+              window.open(telUrl);
+            }
+          } else if (action === 'copy') {
+            copyToClipboard(value, value + ' ' + (texts.copied || '已复制'));
+          }
+        } else if (type === 'email') {
+          if (action === 'send') {
+            copyToClipboard(value, value + ' ' + (texts.copied || '已复制'));
+            if (window.electronAPI && typeof window.electronAPI.launchApp === 'function') {
+              window.electronAPI.launchApp('email').then(function(result) {
+                if (result.success) {
+                  showToast(result.message);
+                } else {
+                  showToast('已复制邮箱，请手动打开发件客户端');
+                }
+              }).catch(function() {
+                showToast('已复制邮箱，请手动打开发件客户端');
+              });
+            } else {
+              showToast('已复制邮箱，请手动打开发件客户端');
+            }
+          } else if (action === 'copy') {
+            copyToClipboard(value, value + ' ' + (texts.copied || '已复制'));
+          }
+        } else if (type === 'qq') {
+          if (action === 'open') {
+            copyToClipboard(value, 'QQ: ' + value + ' ' + (texts.copied || '已复制'));
+            if (window.electronAPI && typeof window.electronAPI.launchApp === 'function') {
+              window.electronAPI.launchApp('qq').then(function(result) {
+                if (result.success) {
+                  showToast(result.message);
+                } else {
+                  showToast('已复制QQ号，请手动打开QQ');
+                }
+              }).catch(function() {
+                showToast('已复制QQ号，请手动打开QQ');
+              });
+            } else {
+              showToast('已复制QQ号，请手动打开QQ');
+            }
+          } else if (action === 'copy') {
+            copyToClipboard(value, 'QQ: ' + value + ' ' + (texts.copied || '已复制'));
+          }
+        } else if (type === 'wechat') {
+          if (action === 'open') {
+            copyToClipboard(value, '微信: ' + value + ' ' + (texts.copied || '已复制'));
+            if (window.electronAPI && typeof window.electronAPI.launchWechat === 'function') {
+              window.electronAPI.launchWechat().then(function(result) {
+                if (result.success) {
+                  showToast(result.message);
+                } else {
+                  showToast('微信号已复制，请手动打开微信搜索');
+                }
+              }).catch(function() {
+                showToast('微信号已复制，请手动打开微信搜索');
+              });
+            } else {
+              showToast('微信号已复制，请在微信中搜索添加');
+            }
+          } else if (action === 'copy') {
+            copyToClipboard(value, '微信: ' + value + ' ' + (texts.copied || '已复制'));
+          }
+        } else if (type === 'address') {
+          if (action === 'map') {
+            copyToClipboard(value, value + ' ' + (texts.copied || '已复制'));
+            var mapUrl = 'https://maps.google.com/?q=' + encodeURIComponent(value);
+            if (window.electronAPI && typeof window.electronAPI.openExternal === 'function') {
+              window.electronAPI.openExternal(mapUrl).catch(function() {
+                window.open(mapUrl);
+              });
+            } else {
+              window.open(mapUrl);
+            }
+          } else if (action === 'copy') {
+            copyToClipboard(value, value + ' ' + (texts.copied || '已复制'));
+          }
+        } else {
+          copyToClipboard(value, value + ' ' + (texts.copied || '已复制'));
+        }
+      }
 
       function calculateInsuranceRecommendation(data) {
         var age = parseInt(data.age) || 0;
@@ -659,9 +2986,10 @@
           recommendations.push({ name: '危疾', percent: 20, reason: '危疾保障' });
           recommendations.push({ name: '储蓄', percent: 15, reason: '养老储备' });
         } else {
-          recommendations.push({ name: '医疗', percent: 60, reason: '医疗保障为主' });
+          recommendations.push({ name: '医疗', percent: 55, reason: '医疗保障为主' });
           recommendations.push({ name: '危疾', percent: 25, reason: '危疾保障' });
-          recommendations.push({ name: '储蓄', percent: 15, reason: '少量储蓄' });
+          recommendations.push({ name: '人寿', percent: 12, reason: '传承规划' });
+          recommendations.push({ name: '储蓄', percent: 8, reason: '少量储蓄' });
         }
 
         if (parents === '父亲已故' || parents === '母亲已故' || parents === '双亲已故') {
@@ -691,29 +3019,134 @@
           recommendations[0].percent += diff;
         }
 
+        var defaultWeights = { medical: 30, critical: 25, life: 25, savings: 20 };
+        var hasCustomWeights = false;
+        for (var key in customInsuranceWeights) {
+          if (customInsuranceWeights[key] !== defaultWeights[key]) {
+            hasCustomWeights = true;
+            break;
+          }
+        }
+
+        if (hasCustomWeights) {
+          var weightMap = { '医疗': customInsuranceWeights.medical, '危疾': customInsuranceWeights.critical, '人寿': customInsuranceWeights.life, '储蓄': customInsuranceWeights.savings };
+          recommendations = recommendations.filter(function(r) {
+            return weightMap[r.name] > 0;
+          });
+
+          if (recommendations.length > 0) {
+            var totalWeight = 0;
+            recommendations.forEach(function(r) {
+              r.percent = weightMap[r.name];
+              totalWeight += r.percent;
+            });
+            if (totalWeight > 0) {
+              recommendations.forEach(function(r) {
+                r.percent = Math.round((r.percent / totalWeight) * 100);
+              });
+            }
+            var sum = recommendations.reduce(function(s, r) { return s + r.percent; }, 0);
+            if (sum !== 100 && recommendations.length > 0) {
+              recommendations[0].percent += (100 - sum);
+            }
+          }
+        }
+
         return { recommendations: recommendations, reasons: reasons };
       }
 
       function showNodeDetail(node) {
         currentDetailNode = node;
         var data = node.data();
+        var texts = i18n[currentLang] || i18n['zh-CN'];
         var details = [
-          { label: '姓名', value: getDisplayValue(data.name) },
-          { label: '性别', value: getDisplayValue(data.gender) },
-          { label: '年龄', value: data.age ? data.age + '岁' : '未知' },
-          { label: '薪金', value: data.salary ? data.salary + '万' : '未知' },
-          { label: '联系方式', value: getDisplayValue(data.contact) },
-          { label: '工作职业', value: getDisplayValue(data.occupation) },
-          { label: '婚姻状态', value: getDisplayValue(data.marriage) },
-          { label: '父母状态', value: getDisplayValue(data.parents) }
+          { label: texts.name || '姓名', value: getDisplayValue(data.name), key: 'name' },
+          { label: texts.gender || '性别', value: getDisplayValue(data.gender), key: 'gender' },
+          { label: texts.age || '年龄', value: data.age ? data.age + '岁' : '未知', key: 'age' },
+          { label: texts.salary || '薪金', value: data.salary ? data.salary + '万' : '未知', key: 'salary' },
+          { label: texts.occupation || '工作职业', value: getDisplayValue(data.occupation), key: 'occupation' },
+          { label: texts.marriage || '婚姻状态', value: getDisplayValue(data.marriage), key: 'marriage' },
+          { label: texts.parents || '父母状态', value: getDisplayValue(data.parents), key: 'parents' }
         ];
         if (data.marriage === '已婚') {
-          details.push({ label: '子女数量', value: data.children || '未知' });
-          if (data.childrenAge) details.push({ label: '子女年龄', value: data.childrenAge });
+          details.push({ label: texts.children || '子女数量', value: data.children || '未知', key: 'children' });
+          if (data.childrenAge) details.push({ label: texts.childrenAge || '子女年龄', value: data.childrenAge, key: 'childrenAge' });
         }
-        var templateName = data.template === 'self' ? '自己' : getTemplateName(data.template);
+
+        var contacts = [];
+        try {
+          if (data.contact) {
+            if (typeof data.contact === 'string') {
+              try {
+                contacts = JSON.parse(data.contact);
+              } catch(e) {
+                contacts = [{ type: 'phone', value: data.contact }];
+              }
+            } else if (Array.isArray(data.contact)) {
+              contacts = data.contact;
+            }
+          }
+        } catch(e) {
+          contacts = [];
+        }
+
+        var templateName = data.template === 'self' ? (texts.self || '自己') : getTemplateName(data.template);
         document.getElementById('detail-title').textContent = templateName + ' - ' + getDisplayValue(data.name);
-        document.getElementById('detail-content').innerHTML = '<div class="detail-grid">' + details.map(function(d) { return '<div class="detail-item"><span>' + d.label + '</span>' + d.value + '</div>'; }).join('') + '</div>';
+
+        var detailHtml = '<div class="detail-grid">';
+        details.forEach(function(d) {
+          detailHtml += '<div class="detail-item"><span class="detail-label">' + d.label + '</span> <span class="detail-value">' + d.value + '</span></div>';
+        });
+
+        if (contacts.length > 0) {
+          detailHtml += '<div class="detail-section">' + (texts.contact || '联系方式') + '</div>';
+          contacts.forEach(function(c, idx) {
+            var icon = '📞';
+            var typeLabel = texts.contactPhone || '电话';
+            if (c.type === 'mobile') { icon = '📱'; typeLabel = texts.contactMobile || '手机'; }
+            else if (c.type === 'wechat') { icon = '💚'; typeLabel = texts.contactWechat || '微信'; }
+            else if (c.type === 'qq') { icon = '💬'; typeLabel = texts.contactQq || 'QQ'; }
+            else if (c.type === 'email') { icon = '✉️'; typeLabel = texts.contactEmail || '邮箱'; }
+            else if (c.type === 'address') { icon = '📍'; typeLabel = texts.contactAddress || '地址'; }
+
+            var safeValue = escapeHtml(c.value || '');
+            detailHtml += '<div class="contact-display-item">';
+            detailHtml += '<span class="contact-display-icon">' + icon + '</span>';
+            detailHtml += '<span class="contact-display-type">' + typeLabel + ':</span>';
+            detailHtml += '<span class="contact-display-value">' + safeValue + '</span>';
+            if (c.type === 'phone' || c.type === 'mobile') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'call\')">📞</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'copy\')">📋</button>';
+            } else if (c.type === 'qq') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'open\')">💬</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'copy\')">📋</button>';
+            } else if (c.type === 'wechat') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'open\')">💚</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'copy\')">📋</button>';
+            } else if (c.type === 'email') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'send\')">✉️</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'copy\')">📋</button>';
+            } else if (c.type === 'address') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'map\')">📍</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'copy\')">📋</button>';
+            } else {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'copy\')">📋</button>';
+            }
+            detailHtml += '</div>';
+          });
+        } else if (data.contact && typeof data.contact === 'string' && data.contact.trim()) {
+          detailHtml += '<div class="detail-section">' + (texts.contact || '联系方式') + '</div>';
+          detailHtml += '<div class="contact-display-item">';
+          detailHtml += '<span class="contact-display-icon">📞</span>';
+          detailHtml += '<span class="contact-display-type">' + (texts.contactPhone || '电话') + ':</span>';
+          detailHtml += '<span class="contact-display-value">' + escapeHtml(data.contact) + '</span>';
+          detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + escapeHtml(data.contact) + '\', \'phone\', \'call\')">📞</button>';
+          detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + escapeHtml(data.contact) + '\', \'phone\', \'copy\')">📋</button>';
+          detailHtml += '</div>';
+        }
+
+        detailHtml += '</div>';
+        document.getElementById('detail-content').innerHTML = detailHtml;
 
         var edges = node.connectedEdges();
         var relationsByCategory = { blood: [], social: [], referral: [] };
@@ -727,18 +3160,18 @@
         });
 
         var relContent = '';
-        var catNames = { blood: '★ 生理关系', social: '○ 社交关系', referral: '◇ 推荐关系' };
+        var catNames = { blood: texts.bloodRelation || '★ 生理关系', social: texts.socialRelation || '○ 社交关系', referral: texts.referralRelation || '◇ 推荐关系' };
         for (var cat in relationsByCategory) {
           if (relationsByCategory[cat].length > 0) {
             relContent += '<div class="relation-category ' + cat + '"><h5>' + catNames[cat] + '</h5><div class="relation-items">';
             relationsByCategory[cat].forEach(function(item) {
-              relContent += '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + item.node.data('name') + '</span><span class="rel-type">(' + item.label + ')</span></div>';
+              relContent += '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + item.node.data('name') + '</span><span class="rel-type">(' + translateRelation(item.label) + ')</span></div>';
             });
             relContent += '</div></div>';
           }
         }
-        if (!relContent) { relContent = '<p style="color:#999;text-align:center;">暂无关系</p>'; }
-        document.getElementById('relation-content').innerHTML = '<h4 style="margin:15px 0 10px;font-size:14px;color:#333;">关系网络 (' + edges.length + ')</h4>' + relContent;
+        if (!relContent) { relContent = '<p style="color:#999;text-align:center;">' + (texts.noRelation || '暂无关系') + '</p>'; }
+        document.getElementById('relation-content').innerHTML = '<h4 style="margin:15px 0 10px;font-size:14px;color:#333;">' + (texts.relationCount || '关系网络') + ' (' + edges.length + ')</h4>' + relContent;
 
         if (data.template === 'insurance' && data.age) {
           var rec = calculateInsuranceRecommendation(data);
@@ -772,10 +3205,14 @@
         });
 
         document.getElementById('node-detail-panel').style.display = 'block';
+        document.getElementById('edit-hint').style.display = isEditMode ? 'none' : 'block';
+        document.getElementById('edit-detail').style.display = isEditMode ? 'inline-block' : 'none';
         node.connectedEdges().addClass('highlight');
         node.connectedEdges().connectedNodes().addClass('highlight');
         cy.elements().difference(node.union(node.connectedEdges().connectedNodes())).style({ 'opacity': 0.15 });
       }
+
+      window.handleContactAction = handleContactAction;
 
       document.getElementById('close-detail').addEventListener('click', function() {
         document.getElementById('node-detail-panel').style.display = 'none';
@@ -787,54 +3224,31 @@
 
       document.getElementById('edit-detail').addEventListener('click', function() {
         if (!currentDetailNode) return;
+        var texts = i18n[currentLang] || i18n['zh-CN'];
         var node = currentDetailNode;
         var data = node.data();
+        editingNode = node;
+        pendingPosition = node.position();
+        document.getElementById('form-title').textContent = texts.edit || '编辑';
         document.getElementById('node-template').value = data.template || 'insurance';
         document.getElementById('field-name').value = data.name || '';
         document.getElementById('field-gender').value = data.gender || '';
         document.getElementById('field-age').value = data.age || '';
         document.getElementById('field-salary').value = data.salary || '';
-        document.getElementById('field-contact').value = data.contact || '';
         document.getElementById('field-occupation').value = data.occupation || '';
         document.getElementById('field-marriage').value = data.marriage || '';
         document.getElementById('field-children').value = data.children || '';
         document.getElementById('field-children-age').value = data.childrenAge || '';
         document.getElementById('field-parents').value = data.parents || '';
         document.getElementById('field-protection').value = data.protection || '';
-        document.getElementById('form-title').textContent = '编辑客户信息';
         document.getElementById('node-detail-panel').style.display = 'none';
-        document.getElementById('node-form-panel').style.display = 'block';
+        setContactsData(data.contact);
         updateConditionalFields();
-        pendingPosition = node.position();
-        var originalHandler = document.getElementById('confirm-node').onclick;
-        document.getElementById('confirm-node').onclick = function() {
-          var name = document.getElementById('field-name').value.trim();
-          if (!name) { alert('请输入姓名'); return; }
-          var template = document.getElementById('node-template').value;
-          node.data({
-            name: name, template: template,
-            gender: document.getElementById('field-gender').value,
-            age: document.getElementById('field-age').value,
-            salary: document.getElementById('field-salary').value,
-            contact: document.getElementById('field-contact').value,
-            occupation: document.getElementById('field-occupation').value,
-            marriage: document.getElementById('field-marriage').value,
-            children: document.getElementById('field-children').value,
-            childrenAge: document.getElementById('field-children-age').value,
-            parents: document.getElementById('field-parents').value,
-            protection: document.getElementById('field-protection').value
-          });
-          node.removeClass('insurance product service self').addClass(template);
-          closeNodeForm();
-          document.getElementById('confirm-node').onclick = originalHandler;
-          cy.elements().style({ 'opacity': 1 });
-          cy.edges().removeClass('highlight');
-          cy.nodes().removeClass('highlight');
-        };
+        openNodeForm();
       });
 
       cy.on('mouseover', 'node', function(event) {
-        if (isDragging || !isEditMode) return;
+        if (isDragging) return;
         var node = event.target;
         var edges = node.connectedEdges();
         edges.addClass('highlight');
@@ -843,7 +3257,7 @@
       });
 
       cy.on('mouseout', 'node', function(event) {
-        if (isDragging || !isEditMode) return;
+        if (isDragging) return;
         cy.elements().style({ 'opacity': 1 });
         cy.edges().removeClass('highlight');
         cy.nodes().removeClass('highlight');
@@ -853,30 +3267,100 @@
       cy.on('drag', 'node', function() { isDragging = true; });
 
       cy.on('cxttap', 'node', function(event) {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
         if (!isEditMode) return;
-        if (confirm('确定要删除这个客户节点吗？')) {
+        showConfirm(texts.confirmDelete, function() {
+          saveStateForUndo();
+          incrementOperationAndCheckAutoSave();
           if (event.target.data('template') === 'self') { selfNodeId = null; }
           event.target.remove();
-        }
+        });
       });
 
       cy.on('cxttap', 'edge', function(event) {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
         if (!isEditMode) return;
-        if (confirm('确定要删除这条关系线吗？')) { event.target.remove(); }
+        showConfirm(texts.confirmDeleteEdge, function() {
+          saveStateForUndo();
+          incrementOperationAndCheckAutoSave();
+          event.target.remove();
+        });
       });
 
       function getTemplateName(template) {
-        return { insurance: '保险类', product: '商品类', service: '服务类' }[template] || '客户';
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        return { insurance: texts.insurance || '保险类', product: texts.product || '商品类', service: texts.service || '服务类' }[template] || '客户';
       }
 
       function clearNodeForm() {
-        ['field-name', 'field-age', 'field-salary', 'field-contact', 'field-occupation', 'field-children-age'].forEach(function(id) { document.getElementById(id).value = ''; });
+        ['field-name', 'field-age', 'field-salary', 'field-occupation', 'field-children-age'].forEach(function(id) { document.getElementById(id).value = ''; });
         document.getElementById('field-gender').value = '';
         document.getElementById('field-marriage').value = '';
         document.getElementById('field-children').value = '';
         document.getElementById('field-parents').value = '';
         document.getElementById('field-protection').value = '';
+        setContactsData('[]');
       }
+
+      forceEnableFields();
+      loadInsuranceWeights();
+      loadTheme();
+      loadKeyboardShortcuts();
+      saveStateForUndo();
+      debugLog('App initialized');
+
+      document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+          debugLog('Ctrl+Shift+I pressed - DevTools shortcut');
+        }
+        var panel = document.getElementById('settings-panel');
+        if (panel.style.display !== 'none' && panel.offsetParent !== null) {
+          return;
+        }
+
+        if (e.ctrlKey && e.key === 'f') {
+          e.preventDefault();
+          document.getElementById('search-btn').click();
+          return;
+        }
+
+        if (matchKeyCombo(e, keyboardShortcuts.save)) {
+          e.preventDefault();
+          if (currentLoadedSlot) {
+            var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
+            var slot = saveList.find(function(s) { return s.slot === currentLoadedSlot; });
+            var name = slot ? slot.name : '未命名';
+            var desc = slot ? slot.description : '';
+            performSave(currentLoadedSlot, name, desc, false);
+            var indicator = document.getElementById('auto-save-indicator');
+            var texts = i18n[currentLang] || i18n['zh-CN'];
+            indicator.textContent = texts.quickSaved;
+            indicator.style.display = 'block';
+            setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+          } else {
+            document.getElementById('save-panel').style.display = 'block';
+            document.getElementById('panel-overlay').style.display = 'block';
+          }
+        } else if (matchKeyCombo(e, keyboardShortcuts.load)) {
+          e.preventDefault();
+          if (currentLoadedSlot) {
+            loadSaveSlot(currentLoadedSlot);
+          } else {
+            document.getElementById('load-panel').style.display = 'block';
+            document.getElementById('panel-overlay').style.display = 'block';
+          }
+        } else if (matchKeyCombo(e, keyboardShortcuts.undo)) {
+          e.preventDefault();
+          undo();
+        } else if (matchKeyCombo(e, keyboardShortcuts.redo)) {
+          e.preventDefault();
+          redo();
+        } else if (matchKeyCombo(e, keyboardShortcuts.mode)) {
+          e.preventDefault();
+          isEditMode = !isEditMode;
+          updateModeUI();
+        }
+      });
 
       initAutoSave();
     });

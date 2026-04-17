@@ -1,43 +1,88 @@
 {
   "name": "mindmapinterface",
   "version": "1.0.0",
-  "description": "思维导图可视化应用",
+  "description": "客户关系网络思维导图工具",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder",
+    "build": "electron-builder --win --mac",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "electron",
     "cytoscape",
     "mindmap",
-    "visualization"
+    "visualization",
+    "crm"
   ],
-  "author": "",
+  "author": "曹振威",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "cytoscape": "^3.29.0",
-    "electron": "^42.0.0-beta.1"
+    "cytoscape": "^3.29.0"
   },
   "devDependencies": {
+    "electron": "^41.0.0",
     "electron-builder": "^24.0.0"
   },
   "build": {
     "appId": "com.mindmap.interface",
-    "productName": "思维导图工具",
+    "productName": "MindMapInterface",
+    "electronVersion": "41.2.0",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/**/*",
+      "!dist/**/*",
+      "!\\.trae/**/*"
+    ],
     "win": {
-      "target": "nsis",
-      "icon": "icon.ico"
+      "target": [
+        {
+          "target": "zip",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "${productName}-${version}-win64.${ext}"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "artifactName": "${productName}-${version}-mac.${ext}",
+      "category": "public.app-category.productivity"
     },
     "nsis": {
-      "oneClick": true,
-      "installerIcon": "icon.ico",
-      "uninstallerIcon": "icon.ico",
-      "installerHeaderIcon": "icon.ico",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createStartMenuShortcut": true,
+      "shortcutName": "MindMapInterface",
+      "installerLanguages": ["zh_CN", "zh_TW", "en_US", "ja_JP"],
+      "language": "0804",
+      "perMachine": false,
+      "differentialPackage": false
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
     }
   }
 }
