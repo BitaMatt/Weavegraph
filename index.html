@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>潜在客户关系网络 - 心灵导图工具</title>
+  <title>人脈織圖</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { margin: 0; padding: 0; height: 100vh; width: 100vw; overflow: hidden; font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif; background: #0f0f23; }
@@ -177,8 +177,6 @@
     <h3 data-i18n="title">客户关系网络</h3>
     <select id="node-template">
       <option value="insurance" data-i18n="insurance">保险类客户</option>
-      <option value="product" data-i18n="product">商品类客户</option>
-      <option value="service" data-i18n="service">服务类客户</option>
     </select>
     <button id="create-node" data-i18n="newNode">新建节点</button>
     <button id="create-self" data-i18n="addSelf">添加自己</button>
@@ -197,13 +195,13 @@
     <input type="file" id="import-file" accept=".json" style="display:none;">
     <button id="settings-btn">⚙️</button>
     <select id="lang-select">
-      <option value="zh-CN">简体中文</option>
       <option value="zh-TW">繁體中文</option>
+      <option value="zh-CN">简体中文</option>
       <option value="en">English</option>
     </select>
   </div>
   <div class="mode-indicator" id="mode-indicator">当前模式: 编辑模式</div>
-  <div id="auto-save-indicator">✓ 已自动保存</div>
+  <div id="auto-save-indicator" data-i18n="autoSaved">✓ 已自动保存</div>
   <div class="info-panel">
     <h4 data-i18n="instructions">操作说明</h4>
     <p><strong data-i18n="editModeDesc">编辑模式:</strong> <span data-i18n="editModeTip">点击空白处新建节点，点击节点开始连接</span></p>
@@ -219,7 +217,7 @@
   <div id="node-form-panel">
     <h3 id="form-title" data-i18n="newCustomer">新建客户节点</h3>
     <div class="form-row"><label data-i18n="name">姓名:</label><input type="text" id="field-name" data-i18n-placeholder="inputName" placeholder="请输入姓名" autofocus></div>
-    <div class="form-row"><label data-i18n="gender">性别:</label><select id="field-gender"><option value="" data-i18n="selectOption">请选择</option><option value="男">男</option><option value="女">女</option></select></div>
+    <div class="form-row"><label data-i18n="gender">性别:</label><select id="field-gender"><option value="" data-i18n="selectOption">请选择</option><option value="男" data-i18n="male">男</option><option value="女" data-i18n="female">女</option></select></div>
     <div class="form-row"><label data-i18n="age">年龄:</label><input type="number" id="field-age" data-i18n-placeholder="enterAge" placeholder="请输入年龄" min="0" max="120"></div>
     <div class="form-row"><label data-i18n="salary">薪金/年收入(万):</label><input type="number" id="field-salary" data-i18n-placeholder="enterSalary" placeholder="请输入薪金" min="0"></div>
     <div class="form-row" style="flex-direction:column;align-items:flex-start;">
@@ -336,7 +334,7 @@
       <div class="form-row"><label data-i18n="relation">关系:</label><select id="filter-relation"><option value="" data-i18n="all">全部</option><option value="同事" data-i18n="colleague">同事</option><option value="朋友" data-i18n="friend">朋友</option><option value="家人" data-i18n="family">家人</option><option value="亲戚" data-i18n="relative">亲戚</option><option value="客户" data-i18n="client">客户</option></select></div>
       <div class="form-row"><label data-i18n="marriage">婚姻:</label><select id="filter-marriage"><option value="" data-i18n="all">全部</option><option value="已婚" data-i18n="married">已婚</option><option value="未婚" data-i18n="unmarried">未婚</option><option value="离异" data-i18n="divorced">离异</option></select></div>
     </div>
-    <div class="form-row" style="margin-top:10px;"><label data-i18n="nodeType">节点类型:</label><select id="filter-template"><option value="" data-i18n="all">全部</option><option value="insurance" data-i18n="insurance">保险类</option><option value="product" data-i18n="product">商品类</option><option value="service" data-i18n="service">服务类</option><option value="self" data-i18n="self">自己</option></select></div>
+    <div class="form-row" style="margin-top:10px;"><label data-i18n="nodeType">节点类型:</label><select id="filter-template"><option value="" data-i18n="all">全部</option><option value="insurance" data-i18n="insurance">保险类</option><option value="self" data-i18n="self">自己</option></select></div>
     <div style="display:flex;justify-content:center;gap:10px;margin-top:15px;">
       <button id="apply-filter" data-i18n="applyFilter" style="padding:8px 25px;background:#00cc88;color:white;border:none;border-radius:5px;cursor:pointer;">应用筛选</button>
       <button id="clear-filter" data-i18n="clearFilter" style="padding:8px 25px;background:#ff9500;color:white;border:none;border-radius:5px;cursor:pointer;">清除筛选</button>
@@ -498,6 +496,7 @@
         contactMobile: '手机',
         contactWechat: '微信',
         contactQq: 'QQ',
+        contactWhatsapp: 'WhatsApp',
         contactEmail: '邮箱',
         contactAddress: '地址',
         yes: '是',
@@ -509,7 +508,12 @@
         relationCount: '关系网络',
         exported: '✓ 导出成功',
         imported: '✓ 导入成功',
-        templateLoaded: '模板已加载',
+        loadTemplateFailed: '加载模板失败，请确保 templates/template_100people.json 文件存在',
+        templateLoaded: '✓ 模板已加载',
+        templateSaved: '✓ 模板已保存',
+        settingsSaved: '✓ 设置已保存',
+        elements: '个元素',
+        people: '人',
         settings: '⚙️ 设置',
         uiTheme: '🖥️ UI主题',
         darkTheme: '深色主题（默认）',
@@ -631,7 +635,19 @@
         noArchives: '暂无存档',
         deleteConfirm: '确定要删除这个存档吗？',
         ageRange: '年龄段',
-        nodeType: '节点类型'
+        nodeType: '节点类型',
+        insuranceRecommendation: '保险建议（基于客户信息分析）',
+        medicalInsurance: '医疗保险',
+        medicalReason: '医疗保障为基础',
+        criticalInsurance: '危疾保险',
+        criticalReason: '危疾保障重要',
+        lifeInsurance: '人寿保险',
+        lifeReason: '开始建立家庭保障',
+        savingsInsurance: '储蓄保险',
+        savingsReason: '储蓄规划未来',
+        femaleInsuranceTip: '女性通常寿命更长，医疗和危疾保障更重要',
+        parentHealthNote: '注意: 父母健康状况影响保险规划',
+        maleInsuranceTip: '男性家庭责任通常较重，人寿保障需加强'
       },
       'zh-TW': {
         title: '客戶關係網絡',
@@ -728,6 +744,7 @@
         contactMobile: '手機',
         contactWechat: '微信',
         contactQq: 'QQ',
+        contactWhatsapp: 'WhatsApp',
         contactEmail: '郵箱',
         contactAddress: '地址',
         yes: '是',
@@ -739,7 +756,12 @@
         relationCount: '關係網絡',
         exported: '✓ 導出成功',
         imported: '✓ 導入成功',
-        templateLoaded: '模板已載入',
+        loadTemplateFailed: '載入模板失敗，請確保 templates/template_100people.json 檔案存在',
+        templateLoaded: '✓ 模板已載入',
+        templateSaved: '✓ 模板已保存',
+        settingsSaved: '✓ 設置已保存',
+        elements: '個元素',
+        people: '人',
         settings: '⚙️ 設置',
         uiTheme: '🖥️ UI主題',
         darkTheme: '深色主題（預設）',
@@ -861,7 +883,19 @@
         noArchives: '暫無存檔',
         deleteConfirm: '確定要刪除這個存檔嗎？',
         ageRange: '年齡段',
-        nodeType: '節點類型'
+        nodeType: '節點類型',
+        insuranceRecommendation: '保險建議（基於客戶信息分析）',
+        medicalInsurance: '醫療保險',
+        medicalReason: '醫療保障為基礎',
+        criticalInsurance: '危疾保險',
+        criticalReason: '危疾保障重要',
+        lifeInsurance: '人壽保險',
+        lifeReason: '開始建立家庭保障',
+        savingsInsurance: '儲蓄保險',
+        savingsReason: '儲蓄規劃未來',
+        femaleInsuranceTip: '女性通常壽命更長，醫療和危疾保障更重要',
+        parentHealthNote: '注意: 父母健康狀況影響保險規劃',
+        maleInsuranceTip: '男性家庭責任通常較重，人壽保障需加強'
       },
       'en': {
         title: 'Customer Relationship Network',
@@ -904,6 +938,7 @@
         parents: 'Parents Status:',
         needProtection: 'Need Protection Insurance:',
         confirmCreate: 'Confirm',
+        confirm: 'Confirm',
         cancel: 'Cancel',
         selectRelation: 'Select Relation Type',
         bloodRelation: '★ Blood Relation (Core)',
@@ -959,6 +994,7 @@
         contactMobile: 'Mobile',
         contactWechat: 'WeChat',
         contactQq: 'QQ',
+        contactWhatsapp: 'WhatsApp',
         contactEmail: 'Email',
         contactAddress: 'Address',
         yes: 'Yes',
@@ -970,7 +1006,12 @@
         relationCount: 'Relations',
         exported: '✓ Export successful',
         imported: '✓ Import successful',
-        templateLoaded: 'Template loaded',
+        loadTemplateFailed: 'Failed to load template, please ensure templates/template_100people.json file exists',
+        templateLoaded: '✓ Template loaded',
+        templateSaved: '✓ Template saved',
+        settingsSaved: '✓ Settings saved',
+        elements: ' elements',
+        people: ' people',
         settings: '⚙️ Settings',
         uiTheme: '🖥️ UI Theme',
         darkTheme: 'Dark (Default)',
@@ -1092,16 +1133,55 @@
         noArchives: 'No archives',
         deleteConfirm: 'Delete this archive?',
         ageRange: 'Age Range',
-        nodeType: 'Node Type'
+        nodeType: 'Node Type',
+        insuranceRecommendation: 'Insurance Recommendation (Based on Customer Analysis)',
+        medicalInsurance: 'Medical Insurance',
+        medicalReason: 'Medical protection is fundamental',
+        criticalInsurance: 'Critical Illness Insurance',
+        criticalReason: 'Critical illness protection is important',
+        lifeInsurance: 'Life Insurance',
+        lifeReason: 'Start building family protection',
+        savingsInsurance: 'Savings Insurance',
+        savingsReason: 'Savings for future planning',
+        femaleInsuranceTip: 'Women typically have longer lifespans, so medical and critical illness protection is more important',
+        parentHealthNote: 'Note: Parents\' health status affects insurance planning',
+        maleInsuranceTip: 'Men typically have heavier family responsibilities, so life insurance protection needs to be strengthened'
       }
     };
 
-    var currentLang = 'zh-CN';
+    var currentLang = 'zh-TW';
+    var appVersion = null;
+    var initialLoadComplete = false;
+
+    // 接收版本号
+    if (typeof window.electronAPI !== 'undefined') {
+      window.electronAPI.onVersion(function(version) {
+        appVersion = version;
+        console.log('[INDEX] Received version:', version);
+        // 版本号更新后重新设置标题
+        if (initialLoadComplete) {
+          updateTitle();
+        }
+      });
+    }
+
+    function updateTitle() {
+      var version = appVersion || '1.0.0';
+      if (currentLang === 'en') {
+        document.title = 'WeaveGraph v' + version;
+      } else if (currentLang === 'zh-TW') {
+        document.title = '人脈織圖 v' + version;
+      } else if (currentLang === 'zh-CN') {
+        document.title = '人脉织图 v' + version;
+      } else {
+        document.title = '人脈織圖 v' + version;
+      }
+    }
 
     function setLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('mindmap-lang', lang);
-      var texts = i18n[lang] || i18n['zh-CN'];
+      var texts = i18n[lang] || i18n['zh-TW'];
       document.querySelectorAll('[data-i18n]').forEach(function(el) {
         var key = el.getAttribute('data-i18n');
         if (texts[key]) {
@@ -1114,6 +1194,10 @@
           el.placeholder = texts[key];
         }
       });
+      // 更新页面标题（只有收到版本号后才更新）
+      if (appVersion !== null) {
+        updateTitle();
+      }
       if (cy && typeof cy.edges === 'function') {
         cy.edges().style('label', function(ele) { return translateRelation(ele.data('label')) || ''; });
       }
@@ -1157,11 +1241,15 @@
       setLanguage(e.target.value);
     });
 
+    // 页面加载时立即加载翻译
+    var savedLang = localStorage.getItem('mindmap-lang') || 'zh-TW';
+    document.getElementById('lang-select').value = savedLang;
+    setLanguage(savedLang);
+    
     document.addEventListener('DOMContentLoaded', function() {
-      var savedLang = localStorage.getItem('mindmap-lang');
-      if (savedLang) {
-        document.getElementById('lang-select').value = savedLang;
-        setLanguage(savedLang);
+      initialLoadComplete = true;
+      if (appVersion !== null) {
+        updateTitle();
       }
     });
   </script>
@@ -1437,13 +1525,14 @@
 
       function showConfirm(message, onConfirm, onCancel) {
         var overlay = document.getElementById('panel-overlay');
+        var texts = i18n[currentLang] || i18n['zh-CN'];
         var confirmBox = document.createElement('div');
         confirmBox.id = 'confirm-box';
         confirmBox.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:30px;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);z-index:1000;min-width:300px;text-align:center;';
         confirmBox.innerHTML = '<p style="margin:0 0 20px;font-size:16px;color:#333;">' + message + '</p>' +
           '<div style="display:flex;gap:15px;justify-content:center;">' +
-          '<button id="confirm-yes" style="padding:10px 30px;background:#00cc88;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;">确定</button>' +
-          '<button id="confirm-no" style="padding:10px 30px;background:#666;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;">取消</button></div>';
+          '<button id="confirm-yes" style="padding:10px 30px;background:#00cc88;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;">' + (texts.confirm || '确定') + '</button>' +
+          '<button id="confirm-no" style="padding:10px 30px;background:#666;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;">' + (texts.cancel || '取消') + '</button></div>';
         document.body.appendChild(confirmBox);
         overlay.style.display = 'block';
         document.getElementById('confirm-yes').onclick = function() {
@@ -1810,7 +1899,7 @@
 
               var indicator = document.getElementById('auto-save-indicator');
               var texts = i18n[currentLang] || i18n['zh-CN'];
-              indicator.textContent = texts.imported || '✓ 导入成功，共' + importData.elements.length + '个元素';
+              indicator.textContent = texts.imported + ',' + importData.elements.length + texts.elements;
               indicator.style.display = 'block';
               setTimeout(function() { indicator.style.display = 'none'; }, 3000);
             }
@@ -1947,12 +2036,13 @@
             var indicator = document.getElementById('auto-save-indicator');
             var texts = i18n[currentLang] || i18n['zh-CN'];
             var nodeCount = templateData.elements.filter(function(el) { return /^node\d+$/.test(el.data.id); }).length;
-            indicator.textContent = '✓ ' + (texts.templateLoaded || '模板已加载') + ' ' + nodeCount + '人';
+            indicator.textContent = texts.templateLoaded + ' ' + nodeCount + texts.people;
             indicator.style.display = 'block';
             setTimeout(function() { indicator.style.display = 'none'; }, 3000);
           })
           .catch(function(err) {
-            showToast('加载模板失败，请确保 templates/template_100people.json 文件存在', 4000);
+            var texts = i18n[currentLang] || i18n['zh-CN'];
+            showToast(texts.loadTemplateFailed || '加载模板失败，请确保 templates/template_100people.json 文件存在', 4000);
           });
         }
       });
@@ -2172,7 +2262,8 @@
         document.getElementById('settings-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
         var indicator = document.getElementById('auto-save-indicator');
-        indicator.textContent = '✓ 设置已保存';
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        indicator.textContent = texts.settingsSaved;
         indicator.style.display = 'block';
         setTimeout(function() { indicator.style.display = 'none'; }, 3000);
       });
@@ -2322,7 +2413,8 @@
         localStorage.setItem('customFields', JSON.stringify(customFields));
         document.getElementById('template-edit-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
-        showToast('✓ 模板已保存');
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        showToast(texts.templateSaved);
       });
 
       window.addEventListener('beforeunload', function() {
@@ -2452,6 +2544,7 @@
           { value: 'mobile', label: texts.contactMobile || '手机' },
           { value: 'wechat', label: texts.contactWechat || '微信' },
           { value: 'qq', label: texts.contactQq || 'QQ' },
+          { value: 'whatsapp', label: 'WhatsApp' },
           { value: 'email', label: texts.contactEmail || '邮箱' },
           { value: 'address', label: texts.contactAddress || '地址' }
         ];
@@ -2843,6 +2936,43 @@
 
       document.getElementById('field-relation').addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('confirm-edge').click(); }});
 
+      function translateValue(val, key) {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        if (!val) return texts.unknown || '未知';
+        
+        // 性别翻译
+        if (key === 'gender') {
+          if (val === '男') return texts.male || '男';
+          if (val === '女') return texts.female || '女';
+        }
+        
+        // 婚姻状态翻译
+        if (key === 'marriage') {
+          if (val === '未婚') return texts.unmarried || '未婚';
+          if (val === '已婚') return texts.married || '已婚';
+          if (val === '离异') return texts.divorced || '离异';
+          if (val === '丧偶') return texts.widowed || '丧偶';
+        }
+        
+        // 父母状态翻译
+        if (key === 'parents') {
+          if (val === '双亲健在') return texts.bothParentsAlive || '双亲健在';
+          if (val === '父亲已故') return texts.fatherDeceased || '父亲已故';
+          if (val === '母亲已故') return texts.motherDeceased || '母亲已故';
+          if (val === '双亲已故') return texts.bothDeceased || '双亲已故';
+        }
+        
+        // 子女数量翻译
+        if (key === 'children') {
+          if (val === '0') return texts.noChildren || '无子女';
+          if (val === '1') return texts.oneChild || '1个子女';
+          if (val === '2') return texts.twoChildren || '2个子女';
+          if (val === '3') return texts.threeOrMoreChildren || '3个或以上';
+        }
+        
+        return val;
+      }
+
       function getDisplayValue(val) { return val && val.trim() ? val.trim() : '未知'; }
 
       function escapeHtml(str) {
@@ -2973,6 +3103,25 @@
           } else if (action === 'copy') {
             copyToClipboard(value, '微信: ' + value + ' ' + (texts.copied || '已复制'));
           }
+        } else if (type === 'whatsapp') {
+          if (action === 'open') {
+            copyToClipboard(value, 'WhatsApp: ' + value + ' ' + (texts.copied || '已复制'));
+            if (window.electronAPI && typeof window.electronAPI.launchWhatsapp === 'function') {
+              window.electronAPI.launchWhatsapp().then(function(result) {
+                if (result.success) {
+                  showToast(result.message);
+                } else {
+                  showToast('WhatsApp已复制，请手动打开WhatsApp');
+                }
+              }).catch(function() {
+                showToast('WhatsApp已复制，请手动打开WhatsApp');
+              });
+            } else {
+              showToast('WhatsApp已复制，请手动打开WhatsApp');
+            }
+          } else if (action === 'copy') {
+            copyToClipboard(value, 'WhatsApp: ' + value + ' ' + (texts.copied || '已复制'));
+          }
         } else if (type === 'address') {
           if (action === 'map') {
             copyToClipboard(value, value + ' ' + (texts.copied || '已复制'));
@@ -2993,6 +3142,7 @@
       }
 
       function calculateInsuranceRecommendation(data) {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
         var age = parseInt(data.age) || 0;
         var salary = parseFloat(data.salary) || 0;
         var gender = data.gender || '';
@@ -3069,12 +3219,12 @@
             if (r.name === '医疗') r.percent = Math.min(45, r.percent + 5);
             if (r.name === '危疾') r.percent = Math.min(35, r.percent + 5);
           });
-          reasons.genderNote = '女性通常寿命更长，医疗和危疾保障更重要';
+          reasons.genderNote = texts.femaleInsuranceTip;
         } else if (gender === '男') {
           recommendations.forEach(function(r) {
             if (r.name === '人寿') r.percent = Math.min(40, r.percent + 5);
           });
-          reasons.genderNote = '男性家庭责任通常较重，人寿保障需加强';
+          reasons.genderNote = texts.maleInsuranceTip;
         }
 
         var total = recommendations.reduce(function(sum, r) { return sum + r.percent; }, 0);
@@ -3125,16 +3275,23 @@
         var texts = i18n[currentLang] || i18n['zh-CN'];
         var details = [
           { label: texts.name || '姓名', value: getDisplayValue(data.name), key: 'name' },
-          { label: texts.gender || '性别', value: getDisplayValue(data.gender), key: 'gender' },
-          { label: texts.age || '年龄', value: data.age ? data.age + '岁' : '未知', key: 'age' },
-          { label: texts.salary || '薪金', value: data.salary ? data.salary + '万' : '未知', key: 'salary' },
+          { label: texts.gender || '性别', value: translateValue(data.gender, 'gender'), key: 'gender' },
+          { label: texts.age || '年龄', value: data.age ? data.age + (currentLang === 'en' ? ' years old' : '岁') : texts.unknown || '未知', key: 'age' },
+          { label: texts.salary || '薪金', value: data.salary ? data.salary + (currentLang === 'en' ? '0k' : '万') : texts.unknown || '未知', key: 'salary' },
           { label: texts.occupation || '工作职业', value: getDisplayValue(data.occupation), key: 'occupation' },
-          { label: texts.marriage || '婚姻状态', value: getDisplayValue(data.marriage), key: 'marriage' },
-          { label: texts.parents || '父母状态', value: getDisplayValue(data.parents), key: 'parents' }
+          { label: texts.marriage || '婚姻状态', value: translateValue(data.marriage, 'marriage'), key: 'marriage' },
+          { label: texts.parents || '父母状态', value: translateValue(data.parents, 'parents'), key: 'parents' }
         ];
         if (data.marriage === '已婚') {
-          details.push({ label: texts.children || '子女数量', value: data.children || '未知', key: 'children' });
-          if (data.childrenAge) details.push({ label: texts.childrenAge || '子女年龄', value: data.childrenAge, key: 'childrenAge' });
+          details.push({ label: texts.children || '子女数量', value: translateValue(data.children, 'children'), key: 'children' });
+          if (data.childrenAge) {
+            // 翻译子女年龄格式
+            var ageText = data.childrenAge;
+            if (currentLang === 'en') {
+              ageText = ageText.replace(/岁/g, ' years old');
+            }
+            details.push({ label: texts.childrenAge || '子女年龄', value: ageText, key: 'childrenAge' });
+          }
         }
 
         var contacts = [];
@@ -3170,6 +3327,7 @@
             if (c.type === 'mobile') { icon = '📱'; typeLabel = texts.contactMobile || '手机'; }
             else if (c.type === 'wechat') { icon = '💚'; typeLabel = texts.contactWechat || '微信'; }
             else if (c.type === 'qq') { icon = '💬'; typeLabel = texts.contactQq || 'QQ'; }
+            else if (c.type === 'whatsapp') { icon = '💬'; typeLabel = texts.contactWhatsapp || 'WhatsApp'; }
             else if (c.type === 'email') { icon = '✉️'; typeLabel = texts.contactEmail || '邮箱'; }
             else if (c.type === 'address') { icon = '📍'; typeLabel = texts.contactAddress || '地址'; }
 
@@ -3186,6 +3344,9 @@
               detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'copy\')">📋</button>';
             } else if (c.type === 'wechat') {
               detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'open\')">💚</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'copy\')">📋</button>';
+            } else if (c.type === 'whatsapp') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'open\')">💬</button>';
               detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'copy\')">📋</button>';
             } else if (c.type === 'email') {
               detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(\'' + safeValue + '\', \'' + c.type + '\', \'send\')">✉️</button>';
@@ -3240,12 +3401,21 @@
         if (data.template === 'insurance' && data.age) {
           var rec = calculateInsuranceRecommendation(data);
           if (rec.recommendations.length > 0) {
-            var recHtml = '<div class="insurance-recommendation"><h5>💡 保险建议（基于客户信息分析）</h5>';
+            var recHtml = '<div class="insurance-recommendation"><h5>💡 ' + texts.insuranceRecommendation + '</h5>';
             rec.recommendations.forEach(function(r) {
-              recHtml += '<div class="insurance-item"><div><div class="insurance-name">' + r.name + '保险</div><div class="insurance-reason">' + r.reason + '</div></div><div><div class="insurance-percent">' + r.percent + '%</div><div class="insurance-bar"><div class="insurance-bar-fill" style="width:' + r.percent + '%;"></div></div></div></div>';
+              var insuranceName = '';
+              var insuranceReason = '';
+              switch(r.name) {
+                case '医疗': insuranceName = texts.medicalInsurance; insuranceReason = texts.medicalReason; break;
+                case '危疾': insuranceName = texts.criticalInsurance; insuranceReason = texts.criticalReason; break;
+                case '人寿': insuranceName = texts.lifeInsurance; insuranceReason = texts.lifeReason; break;
+                case '储蓄': insuranceName = texts.savingsInsurance; insuranceReason = texts.savingsReason; break;
+                default: insuranceName = r.name + '保险'; insuranceReason = r.reason;
+              }
+              recHtml += '<div class="insurance-item"><div><div class="insurance-name">' + insuranceName + '</div><div class="insurance-reason">' + insuranceReason + '</div></div><div><div class="insurance-percent">' + r.percent + '%</div><div class="insurance-bar"><div class="insurance-bar-fill" style="width:' + r.percent + '%;"></div></div></div></div>';
             });
             if (rec.reasons.parentNote) {
-              recHtml += '<p style="margin-top:10px;font-size:11px;color:#e65100;">' + rec.reasons.parentNote + '</p>';
+              recHtml += '<p style="margin-top:10px;font-size:11px;color:#e65100;">' + texts.parentHealthNote + '</p>';
             }
             if (rec.reasons.genderNote) {
               recHtml += '<p style="margin-top:5px;font-size:11px;color:#1565c0;">' + rec.reasons.genderNote + '</p>';

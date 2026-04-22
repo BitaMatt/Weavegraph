@@ -1,11 +1,11 @@
 {
-  "name": "mindmapinterface",
-  "version": "1.0.3",
+  "name": "weavegraph",
+  "version": "1.1.1",
   "description": "客户关系网络思维导图工具",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-builder --win --mac",
+    "start": "chcp 65001 && electron .",
+    "build": "electron-builder --win",
     "build:win": "powershell -command \"$env:BUILD_DATE = Get-Date -Format 'yyyy-MM-dd'; electron-builder --win\"",
     "build:mac": "electron-builder --mac",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +17,7 @@
     "visualization",
     "crm"
   ],
-  "author": "曹振威",
+  "author": "曹振威（Tom Chou）",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
@@ -28,26 +28,40 @@
     "electron-builder": "^24.0.0"
   },
   "build": {
-    "appId": "com.mindmap.interface",
-    "productName": "MindMapInterface",
+    "appId": "com.weavegraph.app",
+    "productName": "人脈織圖(WeaveGraph)",
     "electronVersion": "41.2.0",
+    "icon": "icon/logo.png",
     "directories": {
-      "output": "dist"
+      "output": "build",
+      "buildResources": "build"
     },
     "files": [
-      "**/*",
-      "!node_modules/**/*",
-      "!dist/**/*",
-      "!\\.trae/**/*"
+      "index.html",
+      "main.js",
+      "preload.js",
+      "package.json",
+      "splash.html",
+      "icon/**/*",
+      "templates/**/*"
     ],
+    "extraResources": [],
     "win": {
       "target": [
         {
           "target": "zip",
           "arch": ["x64"]
+        },
+        {
+          "target": "nsis",
+          "arch": ["x64"]
         }
       ],
-      "artifactName": "${productName}-${version}-win64.${ext}"
+      "artifactName": "${productName}-${version}-win64.${ext}",
+      "asar": true,
+      "asarUnpack": [
+        "templates/**/*"
+      ]
     },
     "mac": {
       "target": [
@@ -64,11 +78,14 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "MindMapInterface",
+      "include": "build/installer.nsh",
+      "shortcutName": "人脈織圖(WeaveGraph)",
       "installerLanguages": ["zh_CN", "zh_TW", "en_US", "ja_JP"],
       "language": "0804",
       "perMachine": false,
-      "differentialPackage": false
+      "differentialPackage": false,
+      "warningsAsErrors": false,
+      "include": "build/installer.nsh"
     },
     "dmg": {
       "contents": [

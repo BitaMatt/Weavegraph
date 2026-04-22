@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading - WeaveGraph</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, rgba(15, 15, 35, 1) 0%, rgba(5, 5, 15, 1) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            user-select: none; /* 禁用文本选择 */
+        }
+
+        .network-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(0, 123, 255, 0.8);
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
+            animation: node-pulse 3s ease-in-out infinite;
+        }
+
+        .link {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(0, 123, 255, 0.5), transparent);
+            transform-origin: 0 0;
+            animation: link-fade 4s ease-in-out infinite;
+        }
+
+        .glow-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.2) 0%, transparent 70%);
+            animation: glow-pulse 3s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .loading-container {
+            text-align: center;
+            padding: 60px 60px 60px;
+            border-radius: 24px;
+            background: rgba(20, 20, 30, 0.95);
+            backdrop-filter: blur(15px);
+            box-shadow:
+                0 0 50px rgba(0, 123, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            width: 480px;
+            max-width: 95%;
+            z-index: 100;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #ffffff;
+            font-size: 56px;
+            margin: 0;
+            background: linear-gradient(45deg, #007bff, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 123, 255, 0.7);
+            letter-spacing: 2px;
+        }
+
+        .logo p {
+            color: #a0a0ff;
+            font-size: 24px;
+            margin: 10px 0 0 0;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .loading-spinner {
+            width: 120px;
+            height: 120px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: #007bff;
+            border-bottom-color: #667eea;
+            animation: spin 1.5s linear infinite;
+            margin: 40px auto;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+        }
+
+        .loading-text {
+            color: #ffffff;
+            font-size: 22px;
+            margin-top: 30px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: text-pulse 2s ease-in-out infinite;
+        }
+
+        .loading-text span {
+            font-style: italic;
+            color: #a0a0ff;
+        }
+
+        .enter-button {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #007bff, #667eea);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: not-allowed;
+            opacity: 0.5;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .enter-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.6);
+        }
+
+        .enter-button:active {
+            transform: translateY(0);
+        }
+
+        .countdown {
+            color: #00cc88;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .version-info {
+            color: #a0a0ff;
+            font-size: 14px;
+            margin-top: 20px;
+            text-shadow: 0 0 10px rgba(160, 160, 255, 0.5);
+        }
+
+        .version-info div {
+            margin: 5px 0;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 0.7; transform: scale(0.98); }
+        }
+
+        @keyframes node-pulse {
+            0% { transform: scale(1); opacity: 0.6; box-shadow: 0 0 10px rgba(0, 123, 255, 0.8); }
+            50% { transform: scale(1.8); opacity: 1; box-shadow: 0 0 20px rgba(0, 123, 255, 1); }
+            100% { transform: scale(1); opacity: 0.6; box-shadow: 0 0 10px rgba(0, 123, 255, 0.8); }
+        }
+
+        @keyframes link-fade {
+            0% { opacity: 0; transform: scaleX(0.8); }
+            50% { opacity: 0.8; transform: scaleX(1); }
+            100% { opacity: 0; transform: scaleX(0.8); }
+        }
+
+        @keyframes glow-pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+        }
+
+        @keyframes text-pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        .pulse {
+            animation: pulse 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-effect"></div>
+    <div class="network-bg" id="network-bg"></div>
+    <div class="loading-container pulse">
+        <div class="logo">
+            <h1>人脈織圖</h1>
+            <p>WeaveGraph</p>
+        </div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">載入中... <span>(Loading...)</span></div>
+        <div class="version-info">
+            <div id="author-info">作者: 曹振威</div>
+            <div id="version-info-text">版本: 1.0.0</div>
+            <div id="build-date-info">更新日期: 2026-01-01</div>
+        </div>
+        <button class="enter-button" id="enter-button" disabled style="opacity:0.5;cursor:not-allowed;">進入（Start）</button>
+    </div>
+    <script>
+        const { ipcRenderer } = require('electron');
+        const fs = require('fs');
+        const path = require('path');
+        
+        let author = '曹振威';
+        let version = '1.0.0';
+        let buildDate = new Date().toISOString().split('T')[0];
+        
+        function updatePackageInfo(info) {
+            author = info.author || author;
+            version = info.version || version;
+            buildDate = info.buildDate || buildDate;
+            
+            document.getElementById('author-info').textContent = '作者: ' + author;
+            document.getElementById('version-info-text').textContent = '版本: ' + version;
+            document.getElementById('build-date-info').textContent = '更新日期: ' + buildDate;
+        }
+        
+        ipcRenderer.on('package-info', (event, info) => {
+            console.log('[SPLASH] Received package info via IPC:', info);
+            updatePackageInfo(info);
+        });
+        
+        try {
+            let packageJsonPath;
+            if (typeof process !== 'undefined' && process.resourcesPath) {
+                packageJsonPath = path.join(process.resourcesPath, 'app.asar', 'package.json');
+            } else {
+                packageJsonPath = path.join(__dirname, '..', 'package.json');
+            }
+            console.log('[SPLASH] Trying to read package.json from:', packageJsonPath);
+            
+            if (fs.existsSync(packageJsonPath)) {
+                const packageData = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+                const envBuildDate = process.env.BUILD_DATE || new Date().toISOString().split('T')[0];
+                console.log('[SPLASH] Read package.json successfully:', packageData);
+                updatePackageInfo({
+                    author: packageData.author,
+                    version: packageData.version,
+                    buildDate: envBuildDate
+                });
+            } else {
+                console.log('[SPLASH] package.json not found at:', packageJsonPath);
+            }
+        } catch (e) {
+            console.log('[SPLASH] Could not read package.json:', e);
+        }
+        
+        // 倒计时功能
+        let countdown = 3;
+        let countdownInterval;
+        let translationReady = false;
+        
+        function startCountdown() {
+            countdownInterval = setInterval(() => {
+                countdown--;
+                const btn = document.getElementById('enter-button');
+                if (countdown <= 0) {
+                    btn.textContent = '進入（Start）';
+                } else {
+                    btn.textContent = '進入（Start）（' + countdown + '）';
+                }
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    enterApp();
+                }
+            }, 1000);
+        }
+        
+        function enterApp() {
+            ipcRenderer.send('enter-app');
+        }
+        
+        document.getElementById('enter-button').addEventListener('click', () => {
+            clearInterval(countdownInterval);
+            enterApp();
+        });
+        
+        document.addEventListener('click', () => {
+            clearInterval(countdownInterval);
+        });
+        
+        // 监听翻译加载完成的消息
+        ipcRenderer.on('translation-ready', () => {
+            console.log('[SPLASH] Translation ready, activating enter button and starting countdown');
+            translationReady = true;
+            const enterButton = document.getElementById('enter-button');
+            enterButton.removeAttribute('disabled');
+            enterButton.style.opacity = '1';
+            enterButton.style.cursor = 'pointer';
+            enterButton.style.transition = 'opacity 0.3s ease';
+            // 开始倒计时
+            startCountdown();
+        });
+        
+        function createNetwork() {
+            const bg = document.getElementById('network-bg');
+            const nodes = [];
+            const links = [];
+            
+            for (let i = 0; i < 30; i++) {
+                const node = document.createElement('div');
+                node.className = 'node';
+                node.style.left = Math.random() * 100 + '%';
+                node.style.top = Math.random() * 100 + '%';
+                node.style.animationDelay = Math.random() * 3 + 's';
+                bg.appendChild(node);
+                nodes.push(node);
+            }
+            
+            for (let i = 0; i < 50; i++) {
+                const link = document.createElement('div');
+                link.className = 'link';
+                
+                const startX = Math.random() * 100;
+                const startY = Math.random() * 100;
+                const endX = Math.random() * 100;
+                const endY = Math.random() * 100;
+                
+                const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+                const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+                
+                link.style.left = startX + '%';
+                link.style.top = startY + '%';
+                link.style.width = length + '%';
+                link.style.height = '2px';
+                link.style.transform = 'rotate(' + angle + 'deg)';
+                link.style.animationDelay = Math.random() * 4 + 's';
+                
+                bg.appendChild(link);
+                links.push(link);
+            }
+        }
+        
+        createNetwork();
+        // 不再自动开始倒计时，等待翻译加载完成
+    </script>
+</body>
+</html>

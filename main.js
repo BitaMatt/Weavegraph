@@ -2,25 +2,125 @@ const { app, BrowserWindow, Menu, globalShortcut, ipcMain, shell } = require('el
 const path = require('path');
 const { exec } = require('child_process');
 const os = require('os');
+const fs = require('fs');
 
 let win;
+let splashWindow;
+
+// 获取package.json信息
+function getPackageInfo() {
+  try {
+    const packageJsonPath = path.join(__dirname, 'package.json');
+    const packageData = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    console.log("packageData.author:",packageData.author)
+    console.log("packageData.version:",packageData.version)
+    return {
+      author: packageData.author || '曹振威',
+      version: packageData.version || '1.0.0',
+      buildDate: process.env.BUILD_DATE || new Date().toISOString().split('T')[0]
+    };
+  } catch (e) {
+    console.log("getPackageInfo error:",e)
+    return {
+      author: '曹振威',
+      version: '1.0.0',
+      buildDate: new Date().toISOString().split('T')[0]
+    };
+  }
+}
+
+function createSplashWindow() {
+  const packageInfo = getPackageInfo();
+  console.log('[MAIN] Package info for splash:', packageInfo);
+  console.log('[MAIN] __dirname:', __dirname);
+  console.log('[MAIN] app.isPackaged:', app.isPackaged);
+  
+  const splashPath = app.isPackaged 
+    ? path.join(process.resourcesPath, 'app.asar', 'splash.html')
+    : path.join(__dirname, 'splash.html');
+  console.log('[MAIN] Splash path:', splashPath);
+  
+  splashWindow = new BrowserWindow({
+    width: 500,
+    height: 600,
+    frame: false,
+    transparent: true,
+    alwaysOnTop: true,
+    resizable: false,
+    maximizable: false,
+    minimizable: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+
+  splashWindow.loadFile(splashPath);
+
+  splashWindow.webContents.on('did-finish-load', () => {
+    console.log('[MAIN] Splash window loaded, sending package info');
+    splashWindow.webContents.send('package-info', packageInfo);
+  });
+
+  splashWindow.on('closed', function () {
+    splashWindow = null;
+  });
+}
 
 function createWindow() {
   const version = app.getVersion();
+  
+  let iconPath;
+  if (app.isPackaged) {
+    iconPath = path.join(process.resourcesPath, 'app.asar', 'icon', 'logo.png');
+  } else {
+    iconPath = path.join(__dirname, 'icon', 'logo.png');
+  }
+  console.log('[MAIN] Icon path:', iconPath);
+  
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
-    title: 'MindMapInterface v' + version,
+    title: '人脈織圖 (WeaveGraph) v' + version,
+    icon: iconPath,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true
-    }
+    },
+    show: false
   });
 
   Menu.setApplicationMenu(null);
   win.loadFile('index.html');
-  win.setTitle('MindMapInterface v' + version);
+
+  // 立即发送版本信息给渲染进程，让它可以提前加载翻译
+  win.webContents.on('did-finish-load', () => {
+    console.log('[MAIN] Window content loaded, sending version:', version);
+    win.setTitle('人脈織圖 (WeaveGraph) v' + version);
+    win.webContents.send('version', version);
+    
+    // 通知splash窗口翻译已加载完成
+    console.log('[MAIN] Checking splashWindow:', splashWindow);
+    if (splashWindow && splashWindow.webContents) {
+      console.log('[MAIN] Notifying splash window that translation is ready');
+      splashWindow.webContents.send('translation-ready');
+    } else {
+      console.log('[MAIN] splashWindow not available or webContents not ready');
+    }
+  });
+
+  // 处理splash窗口的enter-app消息
+  ipcMain.on('enter-app', () => {
+    if (splashWindow) {
+      splashWindow.close();
+    }
+    win.show();
+  });
+
+  win.on('ready-to-show', function () {
+    // 不再自动关闭splash窗口，由splash窗口发送消息来控制
+  });
 
   globalShortcut.register('CommandOrControl+Shift+I', () => {
     if (win.webContents.isDevToolsOpened()) {
@@ -28,10 +128,6 @@ function createWindow() {
     } else {
       win.webContents.openDevTools();
     }
-  });
-
-  win.webContents.on('did-finish-load', () => {
-    console.log('[MAIN] Window loaded, DevTools shortcut: Ctrl+Shift+I');
   });
 }
 
@@ -107,6 +203,88 @@ ipcMain.handle('launch-wechat', async () => {
               resolve({ success: false, message: '启动微信失败' });
             } else {
               resolve({ success: true, alreadyRunning: false, message: '已启动微信' });
+            }
+          });
+        }
+      });
+    } else {
+      resolve({ success: false, message: '不支持的平台' });
+    }
+  });
+});
+
+ipcMain.handle('launch-whatsapp', async () => {
+  console.log('[MAIN] launch-whatsapp called');
+  return new Promise((resolve, reject) => {
+    const platform = os.platform();
+    console.log('[MAIN] WhatsApp platform:', platform);
+
+    if (platform === 'win32') {
+      console.log('[MAIN] Checking WhatsApp process...');
+      exec('tasklist /FI "IMAGENAME eq WhatsApp.exe" /NH', (err, stdout) => {
+        console.log('[MAIN] WhatsApp tasklist result - err:', err, 'stdout:', stdout);
+        if (err) {
+          resolve({ success: false, message: '检查WhatsApp状态失败' });
+          return;
+        }
+
+        if (stdout.toLowerCase().includes('whatsapp.exe')) {
+          console.log('[MAIN] WhatsApp is running, activating...');
+          exec('powershell -command "Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.Interaction]::AppActivate(\'WhatsApp\')"', (activateErr) => {
+            resolve({ success: true, alreadyRunning: true, message: 'WhatsApp已在运行，已聚焦窗口' });
+          });
+        } else {
+          console.log('[MAIN] WhatsApp not running, searching for exe...');
+          const whatsappPaths = [
+            path.join(process.env.LOCALAPPDATA || '', 'WhatsApp', 'WhatsApp.exe'),
+            path.join(process.env.PROGRAMFILES || '', 'WhatsApp', 'WhatsApp.exe'),
+            path.join(process.env['PROGRAMFILES(X86)'] || '', 'WhatsApp', 'WhatsApp.exe')
+          ];
+
+          let foundPath = null;
+          for (const p of whatsappPaths) {
+            try {
+              if (require('fs').existsSync(p)) {
+                foundPath = p;
+                break;
+              }
+            } catch (e) {}
+          }
+
+          if (foundPath) {
+            exec(`"${foundPath}"`, (launchErr) => {
+              if (launchErr) {
+                resolve({ success: false, message: '启动WhatsApp失败' });
+              } else {
+                setTimeout(() => {
+                  exec('powershell -command "Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.Interaction]::AppActivate(\'WhatsApp\')"', () => {});
+                }, 2000);
+                resolve({ success: true, alreadyRunning: false, message: '已启动WhatsApp' });
+              }
+            });
+          } else {
+            exec('start whatsapp://', (urlErr) => {
+              if (urlErr) {
+                resolve({ success: false, message: '未找到WhatsApp，请安装WhatsApp' });
+              } else {
+                resolve({ success: true, alreadyRunning: false, message: '已通过URL启动WhatsApp' });
+              }
+            });
+          }
+        }
+      });
+    } else if (platform === 'darwin') {
+      exec('pgrep -x WhatsApp', (err, stdout) => {
+        if (!err && stdout.trim()) {
+          exec('osascript -e \'tell application "WhatsApp" to activate\'', () => {
+            resolve({ success: true, alreadyRunning: true, message: 'WhatsApp已在运行，已聚焦窗口' });
+          });
+        } else {
+          exec('open -a WhatsApp', (launchErr) => {
+            if (launchErr) {
+              resolve({ success: false, message: '启动WhatsApp失败' });
+            } else {
+              resolve({ success: true, alreadyRunning: false, message: '已启动WhatsApp' });
             }
           });
         }
@@ -361,10 +539,12 @@ ipcMain.handle('open-external', async (event, url) => {
 });
 
 app.whenReady().then(() => {
+  createSplashWindow();
   createWindow();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
+      createSplashWindow();
       createWindow();
     }
   });
