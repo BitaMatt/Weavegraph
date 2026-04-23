@@ -1,7 +1,11 @@
 {
   "name": "weavegraph",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "客户关系网络思维导图工具",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BitaMatt/Weavegraph.git"
+  },
   "main": "main.js",
   "scripts": {
     "start": "chcp 65001 && electron .",
@@ -100,6 +104,12 @@
           "path": "/Applications"
         }
       ]
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "BitaMatt",
+      "repo": "Weavegraph",
+      "releaseType": "release"
     }
   }
 }

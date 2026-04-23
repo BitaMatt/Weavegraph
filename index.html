@@ -694,6 +694,11 @@
         maleLabel: '男性:',
         femaleLabel: '女性:',
         statsTitle: '📊 统计数据',
+        updateAvailable: '发现新版本',
+        currentVersion: '当前版本',
+        newVersion: '最新版本',
+        downloadUpdate: '下载更新',
+        later: '稍后',
         totalNodes: '总节点数:',
         totalEdges: '总连接数:',
         relationDistribution: '关系类型分布',
@@ -959,6 +964,11 @@
         maleLabel: '男性:',
         femaleLabel: '女性:',
         statsTitle: '📊 統計數據',
+        updateAvailable: '發現新版本',
+        currentVersion: '當前版本',
+        newVersion: '最新版本',
+        downloadUpdate: '下載更新',
+        later: '稍後',
         totalNodes: '總節點數:',
         totalEdges: '總連接數:',
         relationDistribution: '關係類型分佈',
@@ -1225,6 +1235,11 @@
         maleLabel: 'Male:',
         femaleLabel: 'Female:',
         statsTitle: '📊 Statistics',
+        updateAvailable: 'Update Available',
+        currentVersion: 'Current Version',
+        newVersion: 'New Version',
+        downloadUpdate: 'Download Update',
+        later: 'Later',
         totalNodes: 'Total Nodes:',
         totalEdges: 'Total Edges:',
         relationDistribution: 'Relation Distribution',
@@ -4106,7 +4121,63 @@
       });
 
       initAutoSave();
+      
+      // 检查更新函数
+      function checkForUpdate() {
+        if (typeof window.electronAPI !== 'undefined' && window.electronAPI.checkUpdate) {
+          window.electronAPI.checkUpdate().then(function(result) {
+            if (result.hasUpdate && result.info) {
+              showUpdateDialog(result.info);
+            }
+          }).catch(function(err) {
+            console.log('Update check failed:', err);
+          });
+        }
+      }
+      
+      // 显示更新对话框
+      function showUpdateDialog(info) {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        document.getElementById('update-version').textContent = 
+          texts.currentVersion + ': ' + info.currentVersion + ' → ' + texts.newVersion + ': ' + info.latestVersion;
+        document.getElementById('update-notes').textContent = info.releaseNotes || '';
+        document.getElementById('update-dialog').style.display = 'block';
+        document.getElementById('panel-overlay').style.display = 'block';
+      }
+      
+      // 更新对话框按钮事件
+      document.getElementById('update-download').addEventListener('click', function() {
+        if (typeof window.electronAPI !== 'undefined' && window.electronAPI.downloadUpdate) {
+          window.electronAPI.downloadUpdate().then(function(result) {
+            if (result.success) {
+              document.getElementById('update-dialog').style.display = 'none';
+              document.getElementById('panel-overlay').style.display = 'none';
+            }
+          });
+        }
+      });
+      
+      document.getElementById('update-later').addEventListener('click', function() {
+        document.getElementById('update-dialog').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+      });
+      
+      // 自动检查更新
+      setTimeout(function() {
+        checkForUpdate();
+      }, 3000);
     });
   </script>
+  
+  <!-- 更新对话框 -->
+  <div id="update-dialog" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:30px;border-radius:16px;box-shadow:rgba(0,0,0,0.5) 0px 20px 60px;z-index:3000;min-width:350px;text-align:center;">
+    <h3 style="margin:0 0 20px;color:#1a1a2e;" data-i18n="updateAvailable">发现新版本</h3>
+    <p id="update-version" style="margin:0 0 15px;font-size:14px;color:#666;"></p>
+    <p id="update-notes" style="margin:0 0 20px;font-size:12px;color:#888;max-height:150px;overflow-y:auto;text-align:left;"></p>
+    <div style="display:flex;gap:15px;justify-content:center;">
+      <button id="update-download" style="padding:10px 30px;background:#00cc88;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;" data-i18n="downloadUpdate">下载更新</button>
+      <button id="update-later" style="padding:10px 30px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;" data-i18n="later">稍后</button>
+    </div>
+  </div>
 </body>
 </html>

@@ -3,11 +3,95 @@ const path = require('path');
 const { exec } = require('child_process');
 const os = require('os');
 const fs = require('fs');
+const https = require('https');
+const http = require('http');
 
 let win;
 let splashWindow;
+let updateInfo = null;
 
-// 获取package.json信息
+// GitHub 配置 - 请修改为您的仓库信息
+const GITHUB_OWNER = 'BitaMatt';
+const GITHUB_REPO = 'Weavegraph';
+
+// 版本比较函数
+function compareVersions(current, latest) {
+  const currentParts = current.replace(/^v/, '').split('.').map(Number);
+  const latestParts = latest.replace(/^v/, '').split('.').map(Number);
+  
+  for (let i = 0; i < Math.max(currentParts.length, latestParts.length); i++) {
+    const a = currentParts[i] || 0;
+    const b = latestParts[i] || 0;
+    if (a < b) return -1;
+    if (a > b) return 1;
+  }
+  return 0;
+}
+
+// 获取最新的 GitHub Release 信息
+function getLatestRelease() {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'api.github.com',
+      path: `/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/latest`,
+      method: 'GET',
+      headers: {
+        'User-Agent': 'WeaveGraph-AutoUpdate'
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        try {
+          const release = JSON.parse(data);
+          resolve({
+            version: release.tag_name || release.name,
+            downloadUrl: release.html_url,
+            body: release.body || ''
+          });
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
+
+    req.on('error', reject);
+    req.end();
+  });
+}
+
+// 检查更新的函数
+async function checkForUpdate() {
+  try {
+    const currentVersion = app.getVersion();
+    console.log('[MAIN] Current version:', currentVersion);
+    
+    const release = await getLatestRelease();
+    console.log('[MAIN] Latest release:', release);
+    
+    const comparison = compareVersions(currentVersion, release.version);
+    console.log('[MAIN] Version comparison result:', comparison);
+    
+    if (comparison < 0) {
+      // 发现新版本
+      updateInfo = {
+        currentVersion: currentVersion,
+        latestVersion: release.version,
+        downloadUrl: release.downloadUrl,
+        releaseNotes: release.body
+      };
+      console.log('[MAIN] New version available:', updateInfo);
+      return updateInfo;
+    }
+    return null;
+  } catch (e) {
+    console.log('[MAIN] Update check failed:', e.message);
+    return null;
+  }
+}
+
 function getPackageInfo() {
   try {
     const packageJsonPath = path.join(__dirname, 'package.json');
@@ -535,6 +619,45 @@ ipcMain.handle('open-external', async (event, url) => {
   } catch (err) {
     console.error('[MAIN] open-external error:', err);
     return { success: false, message: err.message };
+  }
+});
+
+// 检查更新
+ipcMain.handle('check-update', async () => {
+  console.log('[MAIN] check-update called');
+  try {
+    const result = await checkForUpdate();
+    return { hasUpdate: result !== null, info: result };
+  } catch (e) {
+    console.error('[MAIN] check-update error:', e);
+    return { hasUpdate: false, error: e.message };
+  }
+});
+
+// 获取更新信息
+ipcMain.handle('get-update-info', async () => {
+  return updateInfo;
+});
+
+// 下载更新
+ipcMain.handle('download-update', async () => {
+  console.log('[MAIN] download-update called');
+  if (!updateInfo || !updateInfo.downloadUrl) {
+    return { success: false, message: 'No update available' };
+  }
+  
+  try {
+    // 构建下载页面URL（GitHub Release 页面）
+    const downloadPageUrl = updateInfo.downloadUrl;
+    console.log('[MAIN] Opening download page:', downloadPageUrl);
+    
+    // 使用 shell 打开 GitHub Release 页面，让用户手动下载
+    await shell.openExternal(downloadPageUrl);
+    
+    return { success: true, message: 'Please download from the opened page' };
+  } catch (e) {
+    console.error('[MAIN] download-update error:', e);
+    return { success: false, message: e.message };
   }
 });
 

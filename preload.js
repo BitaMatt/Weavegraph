@@ -17,5 +17,14 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.on('version', (event, version) => {
       callback(version);
     });
+  },
+  checkUpdate: function() {
+    return ipcRenderer.invoke('check-update');
+  },
+  getUpdateInfo: function() {
+    return ipcRenderer.invoke('get-update-info');
+  },
+  downloadUpdate: function() {
+    return ipcRenderer.invoke('download-update');
   }
 });
