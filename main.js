@@ -18,7 +18,7 @@ const GITHUB_REPO = 'Weavegraph';
 function compareVersions(current, latest) {
   const currentParts = current.replace(/^v/, '').split('.').map(Number);
   const latestParts = latest.replace(/^v/, '').split('.').map(Number);
-  
+
   for (let i = 0; i < Math.max(currentParts.length, latestParts.length); i++) {
     const a = currentParts[i] || 0;
     const b = latestParts[i] || 0;
@@ -26,6 +26,46 @@ function compareVersions(current, latest) {
     if (a > b) return 1;
   }
   return 0;
+}
+
+// 获取最新的 GitHub Release 信息（包含assets）
+function getLatestReleaseWithAssets() {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: 'api.github.com',
+      path: `/repos/${GITHUB_OWNER}/${GITHUB_REPO}/releases/latest`,
+      method: 'GET',
+      headers: {
+        'User-Agent': 'WeaveGraph-AutoUpdate'
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        try {
+          const release = JSON.parse(data);
+          const exeAsset = release.assets && release.assets.find(asset =>
+            asset.name && asset.name.endsWith('.exe')
+          );
+          resolve({
+            version: release.tag_name || release.name,
+            downloadUrl: release.html_url,
+            body: release.body || '',
+            assets: release.assets || [],
+            exeDownloadUrl: exeAsset ? exeAsset.browser_download_url : null,
+            exeAssetName: exeAsset ? exeAsset.name : null
+          });
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
+
+    req.on('error', reject);
+    req.end();
+  });
 }
 
 // 获取最新的 GitHub Release 信息
@@ -67,20 +107,22 @@ async function checkForUpdate() {
   try {
     const currentVersion = app.getVersion();
     console.log('[MAIN] Current version:', currentVersion);
-    
-    const release = await getLatestRelease();
+
+    const release = await getLatestReleaseWithAssets();
     console.log('[MAIN] Latest release:', release);
-    
+
     const comparison = compareVersions(currentVersion, release.version);
     console.log('[MAIN] Version comparison result:', comparison);
-    
+
     if (comparison < 0) {
       // 发现新版本
       updateInfo = {
         currentVersion: currentVersion,
         latestVersion: release.version,
         downloadUrl: release.downloadUrl,
-        releaseNotes: release.body
+        releaseNotes: release.body,
+        exeDownloadUrl: release.exeDownloadUrl,
+        exeAssetName: release.exeAssetName
       };
       console.log('[MAIN] New version available:', updateInfo);
       return updateInfo;
@@ -90,6 +132,31 @@ async function checkForUpdate() {
     console.log('[MAIN] Update check failed:', e.message);
     return null;
   }
+}
+
+// 下载文件到临时目录
+function downloadFile(url, dest) {
+  return new Promise((resolve, reject) => {
+    const protocol = url.startsWith('https') ? https : http;
+    const file = fs.createWriteStream(dest);
+
+    protocol.get(url, (response) => {
+      if (response.statusCode === 301 || response.statusCode === 302) {
+        // 重定向
+        downloadFile(response.headers.location, dest).then(resolve).catch(reject);
+        return;
+      }
+
+      response.pipe(file);
+      file.on('finish', () => {
+        file.close();
+        resolve(dest);
+      });
+    }).on('error', (err) => {
+      fs.unlink(dest, () => {}); // 删除失败的文件
+      reject(err);
+    });
+  });
 }
 
 function getPackageInfo() {
@@ -118,12 +185,12 @@ function createSplashWindow() {
   console.log('[MAIN] Package info for splash:', packageInfo);
   console.log('[MAIN] __dirname:', __dirname);
   console.log('[MAIN] app.isPackaged:', app.isPackaged);
-  
-  const splashPath = app.isPackaged 
+
+  const splashPath = app.isPackaged
     ? path.join(process.resourcesPath, 'app.asar', 'splash.html')
     : path.join(__dirname, 'splash.html');
   console.log('[MAIN] Splash path:', splashPath);
-  
+
   splashWindow = new BrowserWindow({
     width: 500,
     height: 600,
@@ -153,7 +220,7 @@ function createSplashWindow() {
 
 function createWindow() {
   const version = app.getVersion();
-  
+
   let iconPath;
   if (app.isPackaged) {
     iconPath = path.join(process.resourcesPath, 'app.asar', 'icon', 'logo.png');
@@ -161,7 +228,7 @@ function createWindow() {
     iconPath = path.join(__dirname, 'icon', 'logo.png');
   }
   console.log('[MAIN] Icon path:', iconPath);
-  
+
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -183,7 +250,7 @@ function createWindow() {
     console.log('[MAIN] Window content loaded, sending version:', version);
     win.setTitle('人脈織圖 (WeaveGraph) v' + version);
     win.webContents.send('version', version);
-    
+
     // 通知splash窗口翻译已加载完成
     console.log('[MAIN] Checking splashWindow:', splashWindow);
     if (splashWindow && splashWindow.webContents) {
@@ -393,14 +460,14 @@ ipcMain.handle('launch-app', async (event, appType) => {
           console.log('[MAIN] tasklist result - err:', err, 'stdout:', stdout);
           if (!err && stdout.toLowerCase().includes('qq.exe')) {
             console.log('[MAIN] QQ is running, focusing window...');
-            
+
             exec('powershell -command "Get-Process QQ | Where-Object {$_.MainWindowHandle -ne 0} | Select-Object -First 1 | Select-Object -Property Id, MainWindowTitle | ConvertTo-Json"', (err, stdout) => {
               if (err) {
                 console.log('[MAIN] Failed to get QQ window info:', err);
                 resolve({ success: true, message: 'QQ已在运行' });
                 return;
               }
-              
+
               console.log('[MAIN] QQ window info:', stdout);
               let qqInfo;
               try {
@@ -410,22 +477,22 @@ ipcMain.handle('launch-app', async (event, appType) => {
                 resolve({ success: true, message: 'QQ已在运行' });
                 return;
               }
-              
+
               if (!qqInfo || !qqInfo.Id) {
                 console.log('[MAIN] No valid QQ window found');
                 resolve({ success: true, message: 'QQ已在运行' });
                 return;
               }
-              
+
               const qqPid = qqInfo.Id;
               const qqTitle = qqInfo.MainWindowTitle;
               console.log('[MAIN] QQ PID:', qqPid, 'Title:', qqTitle);
-              
+
               const focusMethods = [
                 // 方法1：使用进程ID + 最大化（唯一有效的方法）
                 `powershell -command "Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.Interaction]::AppActivate(${qqPid}); Start-Sleep -Milliseconds 100; Add-Type -MemberDefinition '[DllImport(\\\"user32.dll\\\")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow); [DllImport(\\\"user32.dll\\\")] public static extern bool SetForegroundWindow(IntPtr hWnd);' -Name Win32 -Namespace User32 -PassThru; $h = (Get-Process -Id ${qqPid}).MainWindowHandle; if ($h -ne 0) { $w = [User32.Win32]; $w::ShowWindow($h, 3); $w::SetForegroundWindow($h) }"`
               ];
-              
+
               let attemptIndex = 0;
               const tryNextMethod = () => {
                 if (attemptIndex >= focusMethods.length) {
@@ -433,14 +500,14 @@ ipcMain.handle('launch-app', async (event, appType) => {
                   resolve({ success: true, message: 'QQ已在运行' });
                   return;
                 }
-                
+
                 exec(focusMethods[attemptIndex], (activateErr) => {
                   console.log('[MAIN] QQ focus method', attemptIndex + 1, 'result:', activateErr ? 'error' : 'success');
                   attemptIndex++;
                   setTimeout(tryNextMethod, 300);
                 });
               };
-              
+
               tryNextMethod();
             });
           } else {
@@ -496,7 +563,7 @@ ipcMain.handle('launch-app', async (event, appType) => {
       console.log('[MAIN] Handling email app');
       if (platform === 'win32') {
         console.log('[MAIN] Windows platform detected, trying WScript.Shell method...');
-        
+
         // 方法1：智能查找Outlook路径并启动
         const methods = [
           // 方法1：使用PowerShell查找Windows Store版Outlook
@@ -512,7 +579,7 @@ ipcMain.handle('launch-app', async (event, appType) => {
           // 方法6：使用Electron shell.openExternal
           'shell'
         ];
-        
+
         let methodIndex = 0;
         const tryNextMethod = () => {
           if (methodIndex >= methods.length) {
@@ -520,10 +587,10 @@ ipcMain.handle('launch-app', async (event, appType) => {
             resolve({ success: false, message: '启动Outlook失败，请检查是否已安装' });
             return;
           }
-          
+
           const method = methods[methodIndex];
           console.log('[MAIN] Trying method', methodIndex + 1, ':', method);
-          
+
           if (method === 'shell') {
             // 使用Electron的shell.openExternal
             shell.openExternal('mailto:').then(() => {
@@ -548,7 +615,7 @@ ipcMain.handle('launch-app', async (event, appType) => {
             });
           }
         };
-        
+
         tryNextMethod();
       } else if (platform === 'darwin') {
         exec('osascript -e \'tell application "Mail" to activate\'', (err) => {
@@ -639,22 +706,38 @@ ipcMain.handle('get-update-info', async () => {
   return updateInfo;
 });
 
-// 下载更新
-ipcMain.handle('download-update', async () => {
+// 下载并安装更新
+ipcMain.handle('download-update', async (event) => {
   console.log('[MAIN] download-update called');
-  if (!updateInfo || !updateInfo.downloadUrl) {
-    return { success: false, message: 'No update available' };
+  if (!updateInfo || !updateInfo.exeDownloadUrl) {
+    return { success: false, message: 'No update available or no download URL' };
   }
-  
+
   try {
-    // 构建下载页面URL（GitHub Release 页面）
-    const downloadPageUrl = updateInfo.downloadUrl;
-    console.log('[MAIN] Opening download page:', downloadPageUrl);
-    
-    // 使用 shell 打开 GitHub Release 页面，让用户手动下载
-    await shell.openExternal(downloadPageUrl);
-    
-    return { success: true, message: 'Please download from the opened page' };
+    const downloadUrl = updateInfo.exeDownloadUrl;
+    const tempDir = app.getPath('temp');
+    const exeFileName = updateInfo.exeAssetName || `WeaveGraph-Update-${updateInfo.latestVersion}.exe`;
+    const destPath = path.join(tempDir, exeFileName);
+
+    console.log('[MAIN] Downloading update from:', downloadUrl);
+    console.log('[MAIN] Saving to:', destPath);
+
+    // 下载文件
+    await downloadFile(downloadUrl, destPath);
+    console.log('[MAIN] Download complete, running installer...');
+
+    // 运行安装程序
+    exec(`"${destPath}"`, (err) => {
+      if (err) {
+        console.error('[MAIN] Failed to run installer:', err);
+        return { success: false, message: err.message };
+      }
+      console.log('[MAIN] Installer started successfully');
+      // 退出当前应用，让安装程序可以更新
+      app.quit();
+    });
+
+    return { success: true, message: 'Download complete, installing...' };
   } catch (e) {
     console.error('[MAIN] download-update error:', e);
     return { success: false, message: e.message };
