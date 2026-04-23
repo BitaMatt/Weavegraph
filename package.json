@@ -88,8 +88,7 @@
       "language": "0804",
       "perMachine": false,
       "differentialPackage": false,
-      "warningsAsErrors": false,
-      "include": "build/installer.nsh"
+      "warningsAsErrors": false
     },
     "dmg": {
       "contents": [
