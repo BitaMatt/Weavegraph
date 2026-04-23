@@ -301,6 +301,7 @@
         
         document.addEventListener('click', () => {
             clearInterval(countdownInterval);
+            document.getElementById('enter-button').textContent = '進入（Start）';
         });
         
         // 监听翻译加载完成的消息

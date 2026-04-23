@@ -23,11 +23,18 @@
     #save-btn { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; }
     #load-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
     #lang-select { min-width: 120px; }
-    #auto-save-indicator { position: absolute; top: 80px; right: 20px; background: rgba(0, 0, 0, 0.8); color: #00cc88; padding: 8px 16px; border-radius: 20px; font-size: 12px; z-index: 100; display: none; }
+    #auto-save-indicator { position: absolute; top: 80px; right: 20px; background: rgba(0, 0, 0, 0.8); color: #00cc88; padding: 8px 16px; border-radius: 20px; font-size: 12px; z-index: 1000; display: none; box-shadow: 0 4px 12px rgba(0, 204, 136, 0.3); }
     .info-panel { position: absolute; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.95); padding: 20px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 100; max-width: 280px; }
     .info-panel h4 { margin: 0 0 12px 0; color: #1a1a2e; font-size: 15px; font-weight: 600; border-bottom: 2px solid #00cc88; padding-bottom: 8px; }
     .info-panel p { margin: 6px 0; font-size: 12px; color: #555; line-height: 1.4; }
     .mode-indicator { position: absolute; top: 80px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 500; z-index: 100; display: none; }
+    .stats-panel { position: absolute; bottom: 20px; left: 20px; background: rgba(255, 255, 255, 0.95); padding: 15px 20px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 100; min-width: 200px; display: none; }
+    .stats-panel h4 { margin: 0 0 10px 0; color: #1a1a2e; font-size: 14px; font-weight: 600; border-bottom: 2px solid #667eea; padding-bottom: 8px; }
+    .stats-item { margin: 6px 0; font-size: 12px; color: #555; display: flex; justify-content: space-between; }
+    .stats-item .label { font-weight: 500; }
+    .stats-item .value { color: #667eea; font-weight: 600; }
+    .stats-section { margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
+    .stats-section-title { font-size: 11px; color: #888; margin-bottom: 5px; }
     .panel-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 150; display: none; }
     #node-form-panel, #edge-form-panel, #node-detail-panel, #save-panel, #load-panel, #settings-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 200; max-width: 95vw; max-height: 85vh; overflow-y: auto; display: none; }
     #node-form-panel h3, #edge-form-panel h3, #node-detail-panel h3, #save-panel h3, #load-panel h3, #settings-panel h3 { margin: 0 0 20px 0; color: #1a1a2e; font-size: 20px; font-weight: 600; text-align: center; border-bottom: 3px solid #00d4ff; padding-bottom: 15px; }
@@ -188,6 +195,8 @@
     <button id="search-btn" title="搜索 Ctrl+F">🔎</button>
     <button id="save-btn" data-i18n="save">存档</button>
     <button id="load-btn" data-i18n="load">读档</button>
+    <button id="arrange-btn" title="自动整理">🧠</button>
+    <button id="stats-btn" title="统计数据">📊</button>
     <button id="debug-btn">🔧</button>
     <button id="export-btn">📤</button>
     <button id="import-btn">📥</button>
@@ -213,12 +222,44 @@
     <p><span style="background:#667eea;padding:2px 6px;color:white;border-radius:3px;" data-i18n="drag">拖拽</span> <span data-i18n="dragTip">移动节点</span></p>
     <p><span style="background:#9c27b0;padding:2px 6px;color:white;border-radius:3px;" data-i18n="dblclick">双击</span> <span data-i18n="dblclickTip">快速编辑节点</span></p>
   </div>
+  <div class="stats-panel" id="stats-panel">
+    <h4 data-i18n="statsTitle">📊 统计数据</h4>
+    <div class="stats-item"><span class="label" data-i18n="totalNodes">总节点数:</span><span class="value" id="stats-total-nodes">0</span></div>
+    <div class="stats-item"><span class="label" data-i18n="totalEdges">总连接数:</span><span class="value" id="stats-total-edges">0</span></div>
+    <div class="stats-section">
+      <div class="stats-section-title" data-i18n="relationDistribution">关系类型分布</div>
+      <div class="stats-item"><span class="label" data-i18n="bloodRelation">★ 生理关系:</span><span class="value" id="stats-blood-count">0</span></div>
+      <div class="stats-item"><span class="label" data-i18n="socialRelation">○ 社交关系:</span><span class="value" id="stats-social-count">0</span></div>
+      <div class="stats-item"><span class="label" data-i18n="referralRelation">◇ 推荐关系:</span><span class="value" id="stats-referral-count">0</span></div>
+    </div>
+    <div class="stats-section" id="node-type-stats-section">
+      <div class="stats-section-title" data-i18n="nodeTypeDistribution">节点类型分布</div>
+      <div class="stats-item" id="stats-insurance-row"><span class="label" data-i18n="insuranceClient">保险类客户:</span><span class="value" id="stats-insurance-count">0</span></div>
+      <div class="stats-item" id="stats-product-row" style="display:none;"><span class="label" data-i18n="productNode">商品类节点:</span><span class="value" id="stats-product-count">0</span></div>
+      <div class="stats-item" id="stats-service-row" style="display:none;"><span class="label" data-i18n="serviceNode">服务类节点:</span><span class="value" id="stats-service-count">0</span></div>
+    </div>
+    <div class="stats-section" id="basic-stats-section">
+      <div class="stats-section-title" data-i18n="basicDistribution">基本分布</div>
+      <div class="stats-item"><span class="label" data-i18n="maleLabel">男性:</span><span class="value" id="stats-male-count">0</span></div>
+      <div class="stats-item"><span class="label" data-i18n="femaleLabel">女性:</span><span class="value" id="stats-female-count">0</span></div>
+      <div class="stats-item"><span class="label" data-i18n="ageGroup">年龄分布:</span><span class="value" id="stats-age-dist">-</span></div>
+      <div class="stats-item"><span class="label" data-i18n="incomeGroup">收入分布:</span><span class="value" id="stats-income-dist">-</span></div>
+      <div class="stats-item"><span class="label" data-i18n="marriageStatus">婚姻状况:</span><span class="value" id="stats-marriage-dist">-</span></div>
+    </div>
+  </div>
   <div id="cy"></div>
   <div id="node-form-panel">
     <h3 id="form-title" data-i18n="newCustomer">新建客户节点</h3>
     <div class="form-row"><label data-i18n="name">姓名:</label><input type="text" id="field-name" data-i18n-placeholder="inputName" placeholder="请输入姓名" autofocus></div>
     <div class="form-row"><label data-i18n="gender">性别:</label><select id="field-gender"><option value="" data-i18n="selectOption">请选择</option><option value="男" data-i18n="male">男</option><option value="女" data-i18n="female">女</option></select></div>
-    <div class="form-row"><label data-i18n="age">年龄:</label><input type="number" id="field-age" data-i18n-placeholder="enterAge" placeholder="请输入年龄" min="0" max="120"></div>
+    <div class="form-row">
+      <label data-i18n="age">年龄:</label>
+      <div style="display: flex; gap: 10px; flex: 1;">
+        <input type="number" id="field-age" data-i18n-placeholder="enterAge" placeholder="请输入年龄" min="0" max="120" style="flex: 1;">
+        <input type="number" id="field-birth-year" placeholder="出生年份" min="1900" max="2100" style="flex: 1;">
+        <button type="button" id="calculate-age-btn" style="padding: 0 15px; background: #00cc88; color: white; border: none; border-radius: 5px; cursor: pointer;">计算</button>
+      </div>
+    </div>
     <div class="form-row"><label data-i18n="salary">薪金/年收入(万):</label><input type="number" id="field-salary" data-i18n-placeholder="enterSalary" placeholder="请输入薪金" min="0"></div>
     <div class="form-row" style="flex-direction:column;align-items:flex-start;">
       <label data-i18n="contact" style="margin-bottom:5px;">联系方式:</label>
@@ -239,6 +280,8 @@
     <div class="relation-section blood">
       <h5 data-i18n="bloodRelation">★ 生理关系（核心基础关系）</h5>
       <div class="relation-checkboxes" id="blood-relations">
+        <label><input type="checkbox" value="兄妹">兄妹</label>
+        <label><input type="checkbox" value="姐弟">姐弟</label>
         <label><input type="checkbox" value="父亲"><span data-i18n="father">父亲</span></label>
         <label><input type="checkbox" value="母亲"><span data-i18n="mother">母亲</span></label>
         <label><input type="checkbox" value="配偶"><span data-i18n="spouse">配偶</span></label>
@@ -647,7 +690,23 @@
         savingsReason: '储蓄规划未来',
         femaleInsuranceTip: '女性通常寿命更长，医疗和危疾保障更重要',
         parentHealthNote: '注意: 父母健康状况影响保险规划',
-        maleInsuranceTip: '男性家庭责任通常较重，人寿保障需加强'
+        maleInsuranceTip: '男性家庭责任通常较重，人寿保障需加强',
+        maleLabel: '男性:',
+        femaleLabel: '女性:',
+        statsTitle: '📊 统计数据',
+        totalNodes: '总节点数:',
+        totalEdges: '总连接数:',
+        relationDistribution: '关系类型分布',
+        nodeTypeDistribution: '节点类型分布',
+        basicDistribution: '基本分布',
+        insuranceClient: '保险类客户:',
+        productNode: '商品类节点:',
+        serviceNode: '服务类节点:',
+        male: '男性:',
+        female: '女性:',
+        ageGroup: '年龄分布:',
+        incomeGroup: '收入分布:',
+        marriageStatus: '婚姻状况:'
       },
       'zh-TW': {
         title: '客戶關係網絡',
@@ -729,6 +788,7 @@
         copy: '複製到剪貼板',
         copied: '已複製!',
         autoSaved: '✓ 自動保存',
+        quickSaved: '✓ 快速保存成功!',
         currentMode: '當前模式:',
         male: '男',
         female: '女',
@@ -895,7 +955,23 @@
         savingsReason: '儲蓄規劃未來',
         femaleInsuranceTip: '女性通常壽命更長，醫療和危疾保障更重要',
         parentHealthNote: '注意: 父母健康狀況影響保險規劃',
-        maleInsuranceTip: '男性家庭責任通常較重，人壽保障需加強'
+        maleInsuranceTip: '男性家庭責任通常較重，人壽保障需加強',
+        maleLabel: '男性:',
+        femaleLabel: '女性:',
+        statsTitle: '📊 統計數據',
+        totalNodes: '總節點數:',
+        totalEdges: '總連接數:',
+        relationDistribution: '關係類型分佈',
+        nodeTypeDistribution: '節點類型分佈',
+        basicDistribution: '基本分佈',
+        insuranceClient: '保險類客戶:',
+        productNode: '商品類節點:',
+        serviceNode: '服務類節點:',
+        male: '男性:',
+        female: '女性:',
+        ageGroup: '年齡分佈:',
+        incomeGroup: '收入分佈:',
+        marriageStatus: '婚姻狀況:'
       },
       'en': {
         title: 'Customer Relationship Network',
@@ -1145,7 +1221,23 @@
         savingsReason: 'Savings for future planning',
         femaleInsuranceTip: 'Women typically have longer lifespans, so medical and critical illness protection is more important',
         parentHealthNote: 'Note: Parents\' health status affects insurance planning',
-        maleInsuranceTip: 'Men typically have heavier family responsibilities, so life insurance protection needs to be strengthened'
+        maleInsuranceTip: 'Men typically have heavier family responsibilities, so life insurance protection needs to be strengthened',
+        maleLabel: 'Male:',
+        femaleLabel: 'Female:',
+        statsTitle: '📊 Statistics',
+        totalNodes: 'Total Nodes:',
+        totalEdges: 'Total Edges:',
+        relationDistribution: 'Relation Distribution',
+        nodeTypeDistribution: 'Node Type Distribution',
+        basicDistribution: 'Basic Distribution',
+        insuranceClient: 'Insurance Client:',
+        productNode: 'Product Node:',
+        serviceNode: 'Service Node:',
+        male: 'Male:',
+        female: 'Female:',
+        ageGroup: 'Age Distribution:',
+        incomeGroup: 'Income Distribution:',
+        marriageStatus: 'Marriage Status:'
       }
     };
 
@@ -1254,7 +1346,72 @@
     });
   </script>
   <script>
+    // 计算年龄函数
+    function calculateAge(birthYear) {
+      var currentYear = new Date().getFullYear();
+      return currentYear - birthYear;
+    }
+    
+    // 自动更新年龄函数（根据创建日期）
+    function updateAgeAutomatically(data) {
+      if (data.createdDate && data.age) {
+        var createdDate = new Date(data.createdDate);
+        var currentDate = new Date();
+        var yearsDiff = currentDate.getFullYear() - createdDate.getFullYear();
+        var monthsDiff = currentDate.getMonth() - createdDate.getMonth();
+        var daysDiff = currentDate.getDate() - createdDate.getDate();
+        
+        if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0)) {
+          yearsDiff--;
+        }
+        
+        if (yearsDiff > 0) {
+          return parseInt(data.age) + yearsDiff;
+        }
+      }
+      return data.age;
+    }
+    
+    // 自动更新子女年龄函数
+    function updateChildrenAgeAutomatically(data) {
+      if (data.createdDate && data.childrenAge) {
+        var createdDate = new Date(data.createdDate);
+        var currentDate = new Date();
+        var yearsDiff = currentDate.getFullYear() - createdDate.getFullYear();
+        var monthsDiff = currentDate.getMonth() - createdDate.getMonth();
+        var daysDiff = currentDate.getDate() - createdDate.getDate();
+        
+        if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0)) {
+          yearsDiff--;
+        }
+        
+        if (yearsDiff > 0) {
+          // 解析子女年龄字符串，如 "8岁,5岁"
+          var childrenAges = data.childrenAge.split(',');
+          var updatedAges = childrenAges.map(function(ageStr) {
+            var ageMatch = ageStr.match(/(\d+)岁/);
+            if (ageMatch) {
+              var age = parseInt(ageMatch[1]) + yearsDiff;
+              return age + '岁';
+            }
+            return ageStr;
+          });
+          return updatedAges.join(',');
+        }
+      }
+      return data.childrenAge;
+    }
+    
     document.addEventListener('DOMContentLoaded', function() {
+      // 年龄计算按钮事件
+      document.getElementById('calculate-age-btn').addEventListener('click', function() {
+        var birthYear = parseInt(document.getElementById('field-birth-year').value);
+        if (birthYear) {
+          var age = calculateAge(birthYear);
+          document.getElementById('field-age').value = age;
+        }
+      });
+      
       var isEditMode = true;
       var isDragging = false;
       var sourceNodeForEdge = null;
@@ -1416,6 +1573,7 @@
           { selector: 'node.product', style: { 'background-color': '#660033', 'border-color': '#ff6b6b' }},
           { selector: 'node.service', style: { 'background-color': '#1a1a4e', 'border-color': '#00d4ff' }},
           { selector: 'node.self', style: { 'background-color': '#ff6b6b', 'border-color': '#ff5e3a', 'width': 180, 'height': 80 }},
+          { selector: 'node.deceased', style: { 'opacity': 0.5, 'filter': 'grayscale(70%)' }},
           { selector: 'node:selected', style: { 'border-width': 12, 'border-color': '#ff9500' }},
           { selector: 'node.source-node', style: { 'border-width': 12, 'border-color': '#ff5e3a' }},
           { selector: 'node:active', style: { 'overlay-opacity': 0 }},
@@ -1594,6 +1752,7 @@
             localStorage.setItem(CURRENT_SLOT_KEY, slotName);
             currentLoadedSlot = slotName;
             cy.fit(100);
+            updateStats();
             document.getElementById('load-panel').style.display = 'none';
             document.getElementById('panel-overlay').style.display = 'none';
             var texts = i18n[currentLang] || i18n['zh-CN'];
@@ -1814,7 +1973,7 @@
               var minSpacingImport = 30;
               var baseRadiusImport = 375;
               var ringSpacingImport = 525;
-              var bloodRelationsImport = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '祖父母', '外祖父母', '孙子女'];
+              var bloodRelationsImport = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '兄妹', '姐弟', '祖父母', '外祖父母', '孙子女'];
               var socialRelationsImport = ['朋友', '小学同学', '中学同学', '大学同学', '同事', '上司', '下属', '邻居', '老师', '学生'];
               var casualRelationsImport = ['工作合作伙伴', '商业竞争对手', '朋友转介绍', '客户推荐', '公司分配', '孤儿单', '主动咨询', '活动认识'];
               var getRelationLevelImport = function(label) {
@@ -1895,6 +2054,7 @@
                   cy.zoom(1);
                   cy.center(selfNodeImport);
                 }
+                updateStats();
               }, 900);
 
               var indicator = document.getElementById('auto-save-indicator');
@@ -1951,7 +2111,7 @@
             var minSpacing = 30;
             var baseRadius = 375;
             var ringSpacing = 525;
-            var bloodRelations = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '祖父母', '外祖父母', '孙子女'];
+            var bloodRelations = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '兄妹', '姐弟', '祖父母', '外祖父母', '孙子女'];
             var socialRelations = ['朋友', '小学同学', '中学同学', '大学同学', '同事', '上司', '下属', '邻居', '老师', '学生'];
             var casualRelations = ['工作合作伙伴', '商业竞争对手', '朋友转介绍', '客户推荐', '公司分配', '孤儿单', '主动咨询', '活动认识'];
             var getRelationLevel = function(label) {
@@ -2090,6 +2250,33 @@
         cy.center();
         cy.zoom(1);
       });
+      
+      document.getElementById('arrange-btn').addEventListener('click', function() {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        showConfirm('确定要自动整理关系网络吗？', function() {
+          // 保存状态用于撤销
+          saveStateForUndo();
+          
+          // 执行智能整理
+          arrangeNodesByRelation();
+          
+          // 显示成功消息
+          var indicator = document.getElementById('auto-save-indicator');
+          indicator.textContent = '关系网络已整理';
+          indicator.style.display = 'block';
+          setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+        });
+      });
+      
+      document.getElementById('stats-btn').addEventListener('click', function() {
+        var panel = document.getElementById('stats-panel');
+        if (panel.style.display === 'none') {
+          updateStats();
+          panel.style.display = 'block';
+        } else {
+          panel.style.display = 'none';
+        }
+      });
 
       document.getElementById('clear-btn').addEventListener('click', function() {
         var texts = i18n[currentLang] || i18n['zh-CN'];
@@ -2102,6 +2289,7 @@
             undoStack = [];
             redoStack = [];
             saveStateForUndo();
+            updateStats();
             showToast(texts.cleared);
           });
         } else {
@@ -2484,7 +2672,7 @@
         var marriage = document.getElementById('field-marriage').value;
         var rowChildren = document.getElementById('row-children');
         var rowChildrenAge = document.getElementById('row-children-age');
-        if (marriage === '已婚') {
+        if (marriage === '已婚' || marriage === '离异' || marriage === '丧偶') {
           rowChildren.classList.add('visible');
           rowChildrenAge.classList.add('visible');
         } else {
@@ -2755,6 +2943,7 @@
           cy.center(newNode);
         }
         closeNodeForm();
+        updateStats();
       }
 
       function closeNodeForm() {
@@ -2880,13 +3069,288 @@
       });
 
       function getRelationCategory(relation) {
-        var blood = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '祖父母', '外祖父母', '孙子女'];
+        var blood = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '兄妹', '姐弟', '祖父母', '外祖父母', '孙子女'];
         var social = ['朋友', '小学同学', '中学同学', '大学同学', '同事', '上司', '下属', '邻居', '老师', '学生', '工作合作伙伴', '商业竞争对手'];
         var referral = ['朋友转介绍', '客户推荐', '公司分配', '孤儿单', '主动咨询', '活动认识'];
         if (blood.indexOf(relation) !== -1) return 'blood';
         if (social.indexOf(relation) !== -1) return 'social';
         if (referral.indexOf(relation) !== -1) return 'referral';
         return 'social';
+      }
+      
+      function arrangeNodesByRelation() {
+        // 智能整理节点布局
+        var baseRadius = 375;
+        var ringSpacing = 450;
+        var templateSpacing = 200;
+        
+        // 关系层级定义
+        var getRelationLevel = function(label) {
+          var bloodRelations = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '兄妹', '姐弟'];
+          var extendedBloodRelations = ['祖父母', '外祖父母', '孙子女'];
+          var closeSocialRelations = ['朋友', '同事', '邻居'];
+          var distantSocialRelations = ['小学同学', '中学同学', '大学同学', '上司', '下属', '老师', '学生'];
+          var referralRelations = ['朋友转介绍', '客户推荐', '公司分配', '孤儿单', '主动咨询', '活动认识'];
+          
+          if (bloodRelations.indexOf(label) !== -1) return 1;
+          if (extendedBloodRelations.indexOf(label) !== -1) return 2;
+          if (closeSocialRelations.indexOf(label) !== -1) return 3;
+          if (distantSocialRelations.indexOf(label) !== -1) return 4;
+          if (referralRelations.indexOf(label) !== -1) return 5;
+          return 5;
+        };
+        
+        // 找到中心节点（自己）
+        var centerNode = null;
+        if (selfNodeId) {
+          centerNode = cy.$('#' + selfNodeId);
+        }
+        
+        // 如果没有自己节点，使用第一个节点作为中心
+        if (!centerNode || centerNode.length === 0) {
+          centerNode = cy.nodes().first();
+        }
+        
+        if (centerNode && centerNode.length > 0) {
+          var centerX = 0;
+          var centerY = 0;
+          
+          // 设置中心节点位置
+          centerNode.position({ x: centerX, y: centerY });
+          
+          // 计算每个节点到中心节点的最短关系层级
+          var nodeLevels = {};
+          var allNodes = cy.nodes();
+          
+          // 初始化所有节点层级为最大
+          allNodes.forEach(function(node) {
+            if (node.id() !== centerNode.id()) {
+              nodeLevels[node.id()] = 6; // 默认最远
+            }
+          });
+          
+          // 使用BFS计算最短路径层级
+          var visited = {};
+          visited[centerNode.id()] = true;
+          var queue = [{ node: centerNode, level: 0 }];
+          
+          while (queue.length > 0) {
+            var current = queue.shift();
+            var currentNode = current.node;
+            var currentLevel = current.level;
+            
+            var edges = currentNode.connectedEdges();
+            edges.forEach(function(edge) {
+              var source = edge.source();
+              var target = edge.target();
+              var neighbor = source.id() === currentNode.id() ? target : source;
+              
+              if (!visited[neighbor.id()]) {
+                visited[neighbor.id()] = true;
+                var relation = edge.data('label');
+                var edgeLevel = getRelationLevel(relation);
+                var newLevel = Math.min(nodeLevels[neighbor.id()] || 6, edgeLevel + 1);
+                nodeLevels[neighbor.id()] = newLevel;
+                queue.push({ node: neighbor, level: newLevel });
+              }
+            });
+          }
+          
+          // 按层级和模板分组节点
+          var levelTemplateNodes = {};
+          allNodes.forEach(function(node) {
+            if (node.id() === centerNode.id()) return;
+            
+            var level = nodeLevels[node.id()] || 5;
+            var template = node.data('template') || 'insurance';
+            var key = level + '_' + template;
+            
+            if (!levelTemplateNodes[key]) {
+              levelTemplateNodes[key] = [];
+            }
+            levelTemplateNodes[key].push(node);
+          });
+          
+          // 对每个分组进行圆形布局
+          var processedNodes = {};
+          processedNodes[centerNode.id()] = true;
+          
+          // 排序层级
+          var sortedLevels = Object.keys(levelTemplateNodes).map(function(key) {
+            return parseInt(key.split('_')[0]);
+          }).sort(function(a, b) { return a - b; });
+          
+          var currentAngle = 0;
+          
+          sortedLevels.forEach(function(level) {
+            var templates = ['insurance', 'service', 'product']; // 模板优先级
+            
+            templates.forEach(function(template) {
+              var key = level + '_' + template;
+              var nodes = levelTemplateNodes[key];
+              
+              if (nodes && nodes.length > 0) {
+                var radius = baseRadius + (level - 1) * ringSpacing;
+                var count = nodes.length;
+                var angleStep = (2 * Math.PI) / (count + 1);
+                
+                // 子环偏移
+                var templateIndex = templates.indexOf(template);
+                var angleOffset = (templateIndex - 1) * (angleStep * 0.3);
+                
+                nodes.forEach(function(node, index) {
+                  if (processedNodes[node.id()]) return;
+                  processedNodes[node.id()] = true;
+                  
+                  var angle = currentAngle + index * angleStep + angleOffset;
+                  var x = centerX + radius * Math.cos(angle);
+                  var y = centerY + radius * Math.sin(angle);
+                  
+                  node.animate({
+                    position: { x: x, y: y }
+                  }, {
+                    duration: 800,
+                    easing: 'ease-out'
+                  });
+                });
+                
+                currentAngle += angleStep * count;
+              }
+            });
+          });
+          
+          // 调整缩放以适应所有节点
+          setTimeout(function() {
+            var bounds = cy.elements().boundingBox();
+            var padding = 50;
+            cy.fit(bounds.x1 - padding, bounds.y1 - padding, bounds.w + padding * 2, bounds.h + padding * 2);
+            cy.zoom(Math.min(1.2, cy.zoom()));
+            cy.center(centerNode);
+          }, 900);
+        }
+      }
+      
+      function updateStats() {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        var totalNodes = cy.nodes().length;
+        var totalEdges = cy.edges().length;
+        
+        // 统计关系类型
+        var bloodCount = 0;
+        var socialCount = 0;
+        var referralCount = 0;
+        
+        var bloodRelations = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '兄妹', '姐弟', '祖父母', '外祖父母', '孙子女'];
+        var socialRelations = ['朋友', '小学同学', '中学同学', '大学同学', '同事', '上司', '下属', '邻居', '老师', '学生', '工作合作伙伴', '商业竞争对手'];
+        var referralRelations = ['朋友转介绍', '客户推荐', '公司分配', '孤儿单', '主动咨询', '活动认识'];
+        
+        cy.edges().forEach(function(edge) {
+          var label = edge.data('label');
+          if (bloodRelations.indexOf(label) !== -1) {
+            bloodCount++;
+          } else if (socialRelations.indexOf(label) !== -1) {
+            socialCount++;
+          } else if (referralRelations.indexOf(label) !== -1) {
+            referralCount++;
+          }
+        });
+        
+        // 统计节点类型
+        var insuranceCount = cy.nodes('[template="insurance"]').length;
+        var productCount = cy.nodes('[template="product"]').length;
+        var serviceCount = cy.nodes('[template="service"]').length;
+        
+        // 统计基本分布
+        var maleCount = 0;
+        var femaleCount = 0;
+        var ageGroups = { under25: 0, '26to40': 0, '41to55': 0, over56: 0 };
+        var incomeGroups = { none: 0, under10: 0, '10to30': 0, '30to50': 0, over50: 0 };
+        var marriageStats = {};
+        
+        cy.nodes().forEach(function(node) {
+          var data = node.data();
+          
+          // 性别统计
+          if (data.gender === '男') maleCount++;
+          else if (data.gender === '女') femaleCount++;
+          
+          // 年龄段统计
+          if (data.age) {
+            var age = parseInt(data.age);
+            if (age < 25) ageGroups.under25++;
+            else if (age <= 40) ageGroups['26to40']++;
+            else if (age <= 55) ageGroups['41to55']++;
+            else ageGroups.over56++;
+          }
+          
+          // 收入区间统计
+          if (data.salary) {
+            var salary = parseFloat(data.salary);
+            if (salary <= 0 || !data.salary) incomeGroups.none++;
+            else if (salary < 10) incomeGroups.under10++;
+            else if (salary <= 30) incomeGroups['10to30']++;
+            else if (salary <= 50) incomeGroups['30to50']++;
+            else incomeGroups.over50++;
+          } else {
+            incomeGroups.none++;
+          }
+          
+          // 婚姻状态统计
+          if (data.marriage) {
+            if (!marriageStats[data.marriage]) marriageStats[data.marriage] = 0;
+            marriageStats[data.marriage]++;
+          }
+        });
+        
+        // 构建年龄分布字符串
+        var ageDistParts = [];
+        if (ageGroups.under25 > 0) ageDistParts.push('25↓:' + ageGroups.under25);
+        if (ageGroups['26to40'] > 0) ageDistParts.push('26-40:' + ageGroups['26to40']);
+        if (ageGroups['41to55'] > 0) ageDistParts.push('41-55:' + ageGroups['41to55']);
+        if (ageGroups.over56 > 0) ageDistParts.push('56↑:' + ageGroups.over56);
+        var ageDist = ageDistParts.length > 0 ? ageDistParts.join(', ') : '-';
+        
+        // 构建收入分布字符串
+        var incomeDistParts = [];
+        if (incomeGroups.none > 0) incomeDistParts.push('未填:' + incomeGroups.none);
+        if (incomeGroups.under10 > 0) incomeDistParts.push('10万↓:' + incomeGroups.under10);
+        if (incomeGroups['10to30'] > 0) incomeDistParts.push('10-30万:' + incomeGroups['10to30']);
+        if (incomeGroups['30to50'] > 0) incomeDistParts.push('30-50万:' + incomeGroups['30to50']);
+        if (incomeGroups.over50 > 0) incomeDistParts.push('50万↑:' + incomeGroups.over50);
+        var incomeDist = incomeDistParts.length > 0 ? incomeDistParts.join(', ') : '-';
+        
+        // 构建婚姻状况字符串
+        var marriageDistParts = [];
+        for (var key in marriageStats) {
+          marriageDistParts.push(key + ':' + marriageStats[key]);
+        }
+        var marriageDist = marriageDistParts.length > 0 ? marriageDistParts.join(', ') : '-';
+        
+        // 更新显示
+        document.getElementById('stats-total-nodes').textContent = totalNodes;
+        document.getElementById('stats-total-edges').textContent = totalEdges;
+        document.getElementById('stats-blood-count').textContent = bloodCount;
+        document.getElementById('stats-social-count').textContent = socialCount;
+        document.getElementById('stats-referral-count').textContent = referralCount;
+        
+        // 条件显示节点类型
+        document.getElementById('stats-insurance-count').textContent = insuranceCount;
+        document.getElementById('stats-product-count').textContent = productCount;
+        document.getElementById('stats-service-count').textContent = serviceCount;
+        document.getElementById('stats-insurance-row').style.display = insuranceCount > 0 ? 'flex' : 'none';
+        document.getElementById('stats-product-row').style.display = productCount > 0 ? 'flex' : 'none';
+        document.getElementById('stats-service-row').style.display = serviceCount > 0 ? 'flex' : 'none';
+        
+        // 隐藏节点类型分部如果全部为0
+        var hasAnyNodeType = insuranceCount > 0 || productCount > 0 || serviceCount > 0;
+        document.getElementById('node-type-stats-section').style.display = hasAnyNodeType ? 'block' : 'none';
+        
+        // 更新基本分布
+        document.getElementById('stats-male-count').textContent = maleCount;
+        document.getElementById('stats-female-count').textContent = femaleCount;
+        document.getElementById('stats-age-dist').textContent = ageDist;
+        document.getElementById('stats-income-dist').textContent = incomeDist;
+        document.getElementById('stats-marriage-dist').textContent = marriageDist;
       }
 
       function showEdgeForm(targetNode) {
@@ -2926,6 +3390,7 @@
           }
           sourceNodeForEdge = null;
           debugLog('sourceNodeForEdge is now: ' + sourceNodeForEdge);
+          updateStats();
         };
       }
 
@@ -3316,6 +3781,20 @@
 
         var detailHtml = '<div class="detail-grid">';
         details.forEach(function(d) {
+          // 自动更新年龄显示
+          if (d.label === '年龄' && node.data().createdDate && node.data().age) {
+            var updatedAge = updateAgeAutomatically(node.data());
+            if (updatedAge) {
+              d.value = updatedAge + '岁';
+            }
+          }
+          // 自动更新子女年龄显示
+          if (d.label === '子女年龄' && node.data().createdDate && node.data().childrenAge) {
+            var updatedChildrenAge = updateChildrenAgeAutomatically(node.data());
+            if (updatedChildrenAge) {
+              d.value = updatedChildrenAge;
+            }
+          }
           detailHtml += '<div class="detail-item"><span class="detail-label">' + d.label + '</span> <span class="detail-value">' + d.value + '</span></div>';
         });
 
@@ -3500,15 +3979,44 @@
       cy.on('dragfree', 'node', function() { isDragging = false; });
       cy.on('drag', 'node', function() { isDragging = true; });
 
+      // 右键点击状态管理
+      var rightClickState = {
+        lastNode: null,
+        lastTime: 0,
+        clickCount: 0
+      };
+      
       cy.on('cxttap', 'node', function(event) {
+        var node = event.target;
+        var currentTime = Date.now();
         var texts = i18n[currentLang] || i18n['zh-CN'];
-        if (!isEditMode) return;
-        showConfirm(texts.confirmDelete, function() {
+        
+        // 检测双击右键
+        if (node.id() === rightClickState.lastNode && currentTime - rightClickState.lastTime < 500) {
+          // 双击右键：切换已故状态
           saveStateForUndo();
           incrementOperationAndCheckAutoSave();
-          if (event.target.data('template') === 'self') { selfNodeId = null; }
-          event.target.remove();
-        });
+          if (node.hasClass('deceased')) {
+            node.removeClass('deceased');
+          } else {
+            node.addClass('deceased');
+          }
+          rightClickState.clickCount = 0;
+        } else {
+          // 单击右键：删除节点
+          if (!isEditMode) return;
+          showConfirm(texts.confirmDelete, function() {
+            saveStateForUndo();
+            incrementOperationAndCheckAutoSave();
+            if (node.data('template') === 'self') { selfNodeId = null; }
+            node.remove();
+            updateStats();
+          });
+          rightClickState.clickCount = 1;
+        }
+        
+        rightClickState.lastNode = node.id();
+        rightClickState.lastTime = currentTime;
       });
 
       cy.on('cxttap', 'edge', function(event) {
@@ -3518,6 +4026,7 @@
           saveStateForUndo();
           incrementOperationAndCheckAutoSave();
           event.target.remove();
+          updateStats();
         });
       });
 
