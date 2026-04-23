@@ -82,7 +82,6 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "include": "build/installer.nsh",
       "shortcutName": "人脈織圖(WeaveGraph)",
       "installerLanguages": ["zh_CN", "zh_TW", "en_US", "ja_JP"],
       "language": "0804",
