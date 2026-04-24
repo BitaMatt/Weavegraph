@@ -209,7 +209,7 @@
       <option value="en">English</option>
     </select>
   </div>
-  <div class="mode-indicator" id="mode-indicator">当前模式: 编辑模式</div>
+  <div class="mode-indicator" id="mode-indicator"><span data-i18n="currentMode">当前模式:</span> <span id="current-mode-text" data-i18n="editMode">编辑模式</span></div>
   <div id="auto-save-indicator" data-i18n="autoSaved">✓ 已自动保存</div>
   <div class="info-panel">
     <h4 data-i18n="instructions">操作说明</h4>
@@ -256,8 +256,8 @@
       <label data-i18n="age">年龄:</label>
       <div style="display: flex; gap: 10px; flex: 1;">
         <input type="number" id="field-age" data-i18n-placeholder="enterAge" placeholder="请输入年龄" min="0" max="120" style="flex: 1;">
-        <input type="number" id="field-birth-year" placeholder="出生年份" min="1900" max="2100" style="flex: 1;">
-        <button type="button" id="calculate-age-btn" style="padding: 0 15px; background: #00cc88; color: white; border: none; border-radius: 5px; cursor: pointer;">计算</button>
+        <input type="number" id="field-birth-year" data-i18n-placeholder="birthYearPlaceholder" placeholder="出生年份" min="1900" max="2100" style="flex: 1;">
+        <button type="button" id="calculate-age-btn" data-i18n="calculate" style="padding: 0 15px; background: #00cc88; color: white; border: none; border-radius: 5px; cursor: pointer;">计算</button>
       </div>
     </div>
     <div class="form-row"><label data-i18n="salary">薪金/年收入(万):</label><input type="number" id="field-salary" data-i18n-placeholder="enterSalary" placeholder="请输入薪金" min="0"></div>
@@ -280,8 +280,8 @@
     <div class="relation-section blood">
       <h5 data-i18n="bloodRelation">★ 生理关系（核心基础关系）</h5>
       <div class="relation-checkboxes" id="blood-relations">
-        <label><input type="checkbox" value="兄妹">兄妹</label>
-        <label><input type="checkbox" value="姐弟">姐弟</label>
+        <label><input type="checkbox" value="兄妹"><span data-i18n="siblingBrother">兄妹</span></label>
+        <label><input type="checkbox" value="姐弟"><span data-i18n="siblingSister">姐弟</span></label>
         <label><input type="checkbox" value="父亲"><span data-i18n="father">父亲</span></label>
         <label><input type="checkbox" value="母亲"><span data-i18n="mother">母亲</span></label>
         <label><input type="checkbox" value="配偶"><span data-i18n="spouse">配偶</span></label>
@@ -343,8 +343,8 @@
     <h3 data-i18n="saveArchive">保存存档</h3>
     <div class="new-save-form" id="new-save-form">
       <h4 data-i18n="newArchive">新建存档</h4>
-      <div class="form-row"><label data-i18n="archiveName">存档名称:</label><input type="text" id="save-name" placeholder="例如: 2024年客户档案"></div>
-      <div class="form-row"><label data-i18n="archiveDesc">存档描述:</label><textarea id="save-desc" rows="3" placeholder="可选，描述这个存档的内容..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;resize:none;"></textarea></div>
+      <div class="form-row"><label data-i18n="archiveName">存档名称:</label><input type="text" id="save-name" data-i18n-placeholder="saveNamePlaceholder" placeholder="例如: 2024年客户档案"></div>
+      <div class="form-row"><label data-i18n="archiveDesc">存档描述:</label><textarea id="save-desc" data-i18n-placeholder="saveDescPlaceholder" rows="3" placeholder="可选，描述这个存档的内容..." style="width:100%;padding:10px;border:2px solid #ddd;border-radius:6px;font-size:13px;resize:none;"></textarea></div>
       <div class="form-buttons"><button class="btn-confirm" id="confirm-save" data-i18n="confirmSave">保存存档</button></div>
     </div>
   </div>
@@ -361,7 +361,7 @@
   <div id="debug-panel" style="position:absolute;top:80px;left:20px;background:rgba(0,0,0,0.9);color:#0f0;border:2px solid #0f0;border-radius:10px;padding:15px;z-index:9999;display:none;min-width:350px;max-height:400px;overflow:auto;font-family:monospace;font-size:12px;">
     <h4 style="margin:0 0 10px 0;color:#0f0;">🔧 Debug Panel</h4>
     <div id="debug-content"></div>
-    <button id="close-debug" style="margin-top:10px;padding:5px 15px;background:#333;color:#0f0;border:1px solid #0f0;cursor:pointer;">关闭</button>
+    <button id="close-debug" data-i18n="closeDebug" style="margin-top:10px;padding:5px 15px;background:#333;color:#0f0;border:1px solid #0f0;cursor:pointer;">关闭</button>
   </div>
   <div id="search-panel" style="position:absolute;top:80px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.98);padding:20px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.3);z-index:300;display:none;min-width:350px;">
     <h3 style="margin:0 0 15px 0;text-align:center;" data-i18n="searchNode">🔎 搜索节点</h3>
@@ -400,11 +400,11 @@
     <div class="settings-section">
       <h4 data-i18n="shortcutSettings">⌨️ 快捷键设置</h4>
       <p style="font-size:11px;color:#999;margin-bottom:8px;" data-i18n="shortcutHint">点击输入框后按下你想要设置的快捷键（如：Ctrl+K, Alt+S, F12）</p>
-      <div class="form-row"><label data-i18n="switchMode">切换模式:</label><input type="text" id="setting-key-mode" placeholder="Ctrl+M"></div>
-      <div class="form-row"><label data-i18n="quickSave">快速保存:</label><input type="text" id="setting-key-save" placeholder="Ctrl+S"></div>
-      <div class="form-row"><label data-i18n="quickLoad">快速读取:</label><input type="text" id="setting-key-load" placeholder="Ctrl+L"></div>
-      <div class="form-row"><label data-i18n="undo">撤销:</label><input type="text" id="setting-key-undo" placeholder="Ctrl+Z"></div>
-      <div class="form-row"><label data-i18n="redo">重做:</label><input type="text" id="setting-key-redo" placeholder="Ctrl+Y"></div>
+      <div class="form-row"><label data-i18n="switchMode">切换模式:</label><input type="text" id="setting-key-mode" data-i18n-placeholder="shortcutPlaceholder" placeholder="Ctrl+M"></div>
+      <div class="form-row"><label data-i18n="quickSave">快速保存:</label><input type="text" id="setting-key-save" data-i18n-placeholder="shortcutPlaceholder" placeholder="Ctrl+S"></div>
+      <div class="form-row"><label data-i18n="quickLoad">快速读取:</label><input type="text" id="setting-key-load" data-i18n-placeholder="shortcutPlaceholder" placeholder="Ctrl+L"></div>
+      <div class="form-row"><label data-i18n="undo">撤销:</label><input type="text" id="setting-key-undo" data-i18n-placeholder="shortcutPlaceholder" placeholder="Ctrl+Z"></div>
+      <div class="form-row"><label data-i18n="redo">重做:</label><input type="text" id="setting-key-redo" data-i18n-placeholder="shortcutPlaceholder" placeholder="Ctrl+Y"></div>
       <p style="font-size:11px;color:#e65100;margin-top:8px;" data-i18n="shortcutWarning">注意: 部分快捷键可能与浏览器默认快捷键冲突</p>
     </div>
     <div class="settings-section">
@@ -433,9 +433,9 @@
     <div id="template-fields-list" style="margin:10px 0;"></div>
     <div style="border-top:1px solid #ddd;padding-top:10px;margin-top:10px;">
       <h4 data-i18n="addNewField">➕ 添加新字段</h4>
-      <div class="form-row"><label data-i18n="fieldName">字段名称:</label><input type="text" id="new-field-name" placeholder="例如: 备注" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;"></div>
-      <div class="form-row"><label data-i18n="fieldType">字段类型:</label><select id="new-field-type" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;"><option value="text">文本</option><option value="number">数字</option><option value="select">下拉选项</option><option value="textarea">多行文本</option></select></div>
-      <div class="form-row" id="field-options-row" style="display:none;"><label data-i18n="fieldOptions">选项(逗号分隔):</label><input type="text" id="new-field-options" placeholder="选项1,选项2,选项3" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;"></div>
+      <div class="form-row"><label data-i18n="fieldName">字段名称:</label><input type="text" id="new-field-name" data-i18n-placeholder="fieldNamePlaceholder" placeholder="例如: 备注" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;"></div>
+      <div class="form-row"><label data-i18n="fieldType">字段类型:</label><select id="new-field-type" data-i18n-placeholder="fieldTypePlaceholder" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;"><option value="text" data-i18n="fieldTypeText">文本</option><option value="number" data-i18n="fieldTypeNumber">数字</option><option value="select" data-i18n="fieldTypeSelect">下拉选项</option><option value="textarea" data-i18n="fieldTypeTextarea">多行文本</option></select></div>
+      <div class="form-row" id="field-options-row" style="display:none;"><label data-i18n="fieldOptions">选项(逗号分隔):</label><input type="text" id="new-field-options" data-i18n-placeholder="fieldOptionsPlaceholder" placeholder="选项1,选项2,选项3" style="flex:1;padding:8px;border:1px solid #ddd;border-radius:4px;"></div>
       <button id="add-field-btn" style="margin-top:10px;padding:8px 20px;background:#4CAF50;color:white;border:none;border-radius:5px;cursor:pointer;" data-i18n="addField">添加字段</button>
     </div>
     <div class="form-buttons" style="margin-top:15px;"><button id="save-template-btn" style="padding:8px 20px;background:#4CAF50;color:white;border:none;border-radius:5px;cursor:pointer;margin-right:10px;" data-i18n="saveTemplate">保存模板</button><button class="btn-cancel" id="close-template-edit" data-i18n="close">关闭</button></div>
@@ -711,7 +711,22 @@
         female: '女性:',
         ageGroup: '年龄分布:',
         incomeGroup: '收入分布:',
-        marriageStatus: '婚姻状况:'
+        marriageStatus: '婚姻状况:',
+        currentMode: '当前模式:',
+        calculate: '计算',
+        birthYearPlaceholder: '出生年份',
+        siblingBrother: '兄妹',
+        siblingSister: '姐弟',
+        saveNamePlaceholder: '例如: 2024年客户档案',
+        saveDescPlaceholder: '可选，描述这个存档的内容...',
+        closeDebug: '关闭',
+        shortcutPlaceholder: 'Ctrl+K, Alt+S, F12',
+        fieldNamePlaceholder: '例如: 备注',
+        fieldTypeText: '文本',
+        fieldTypeNumber: '数字',
+        fieldTypeSelect: '下拉选项',
+        fieldTypeTextarea: '多行文本',
+        fieldOptionsPlaceholder: '选项1,选项2,选项3'
       },
       'zh-TW': {
         title: '客戶關係網絡',
@@ -981,7 +996,22 @@
         female: '女性:',
         ageGroup: '年齡分佈:',
         incomeGroup: '收入分佈:',
-        marriageStatus: '婚姻狀況:'
+        marriageStatus: '婚姻狀況:',
+        currentMode: '當前模式:',
+        calculate: '計算',
+        birthYearPlaceholder: '出生年份',
+        siblingBrother: '兄妹',
+        siblingSister: '姐弟',
+        saveNamePlaceholder: '例如: 2024年客戶檔案',
+        saveDescPlaceholder: '可選，描述這個存檔的內容...',
+        closeDebug: '關閉',
+        shortcutPlaceholder: 'Ctrl+K, Alt+S, F12',
+        fieldNamePlaceholder: '例如: 備註',
+        fieldTypeText: '文本',
+        fieldTypeNumber: '數字',
+        fieldTypeSelect: '下拉選項',
+        fieldTypeTextarea: '多行文本',
+        fieldOptionsPlaceholder: '選項1,選項2,選項3'
       },
       'en': {
         title: 'Customer Relationship Network',
@@ -1252,7 +1282,22 @@
         female: 'Female:',
         ageGroup: 'Age Distribution:',
         incomeGroup: 'Income Distribution:',
-        marriageStatus: 'Marriage Status:'
+        marriageStatus: 'Marriage Status:',
+        currentMode: 'Current Mode:',
+        calculate: 'Calculate',
+        birthYearPlaceholder: 'Birth Year',
+        siblingBrother: 'Sibling (Brother)',
+        siblingSister: 'Sibling (Sister)',
+        saveNamePlaceholder: 'e.g. 2024 Client Records',
+        saveDescPlaceholder: 'Optional, describe this archive...',
+        closeDebug: 'Close',
+        shortcutPlaceholder: 'Ctrl+K, Alt+S, F12',
+        fieldNamePlaceholder: 'e.g. Notes',
+        fieldTypeText: 'Text',
+        fieldTypeNumber: 'Number',
+        fieldTypeSelect: 'Dropdown',
+        fieldTypeTextarea: 'Multi-line Text',
+        fieldOptionsPlaceholder: 'Option1, Option2, Option3'
       }
     };
 
@@ -2629,17 +2674,18 @@
 
       function updateModeUI() {
         var indicator = document.getElementById('mode-indicator');
+        var modeText = document.getElementById('current-mode-text');
         var editBtn = document.getElementById('edit-mode-btn');
         var viewBtn = document.getElementById('view-mode-btn');
         var texts = i18n[currentLang] || i18n['zh-CN'];
         if (isEditMode) {
-          indicator.textContent = texts.currentMode + ' ' + texts.editMode;
+          modeText.textContent = texts.editMode;
           indicator.style.background = 'rgba(255, 149, 0, 0.9)';
           editBtn.classList.add('active');
           viewBtn.classList.remove('active');
           setFormFieldsDisabled(false);
         } else {
-          indicator.textContent = texts.currentMode + ' ' + texts.viewMode;
+          modeText.textContent = texts.viewMode;
           indicator.style.background = 'rgba(0, 204, 136, 0.9)';
           editBtn.classList.remove('active');
           viewBtn.classList.add('active');

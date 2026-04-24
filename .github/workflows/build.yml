@@ -5,61 +5,173 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
+    inputs:
+      skip_build:
+        description: '跳過建置，直接更新版本文件'
+        required: false
+        default: 'false'
 
 jobs:
+  version-check:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.package_version }}
+      tag_version: ${{ steps.version.outputs.tag_version }}
+      match: ${{ steps.version.outputs.match }}
+    steps:
+      - name: 檢出代碼
+        uses: actions/checkout@v4
+
+      - name: 獲取版本資訊
+        id: version
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          TAG_VERSION=${GITHUB_REF#refs/tags/v}
+          echo "package_version=$PACKAGE_VERSION" >> $GITHUB_OUTPUT
+          echo "tag_version=$TAG_VERSION" >> $GITHUB_OUTPUT
+          if [ "$PACKAGE_VERSION" = "$TAG_VERSION" ]; then
+            echo "match=true" >> $GITHUB_OUTPUT
+            echo "✅ 版本號匹配: $PACKAGE_VERSION"
+          else
+            echo "match=false" >> $GITHUB_OUTPUT
+            echo "❌ 版本號不匹配! package.json: $PACKAGE_VERSION, tag: $TAG_VERSION"
+            exit 1
+          fi
+
+  update-changelog:
+    needs: version-check
+    runs-on: ubuntu-latest
+    if: needs.version-check.outputs.match == 'true'
+    steps:
+      - name: 檢出代碼
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 更新 CHANGELOG.md
+        run: |
+          VERSION=${{ needs.version-check.outputs.version }}
+          DATE=$(date +'%Y-%m-%d')
+          
+          CHANGELOG_CONTENT="# Changelog
+
+## [$VERSION] - $DATE
+
+### 新增功能
+- 
+
+### 優化改進
+- 
+
+### 修復問題
+- 
+
+### 技術更新
+- 更新版本號到 $VERSION
+
+"
+          
+          if [ -f CHANGELOG.md ]; then
+            mv CHANGELOG.md CHANGELOG.md.bak
+            echo "$CHANGELOG_CONTENT" > CHANGELOG.md
+            cat CHANGELOG.md.bak >> CHANGELOG.md
+            rm CHANGELOG.md.bak
+          else
+            echo "$CHANGELOG_CONTENT" > CHANGELOG.md
+          fi
+
+      - name: 提交 CHANGELOG 更新
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+          git add CHANGELOG.md
+          git diff --cached --exit-code || git commit -m "docs: 更新 CHANGELOG.md 版本 ${{ needs.version-check.outputs.version }}"
+
+      - name: 推送 CHANGELOG 更新
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          message: "docs: 更新 CHANGELOG.md 版本 ${{ needs.version-check.outputs.version }}"
+
   build:
+    needs: version-check
     runs-on: windows-latest
+    if: needs.version-check.outputs.match == 'true' && github.event.inputs.skip_build != 'true'
     permissions:
       contents: write
     
     steps:
-      - name: Checkout code
+      - name: 檢出代碼
         uses: actions/checkout@v4
         
-      - name: Setup Node.js
+      - name: 設置 Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           
-      - name: Install dependencies
+      - name: 安裝依賴
         run: npm install
         
-      - name: Build Electron app
+      - name: 建置 Electron 應用
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run build
         
-      - name: Upload artifact
+      - name: 觸發本地打包 (repository_dispatch)
+        uses: repository_dispatch/invoke@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          event-type: trigger-local-build
+          client-payload: |
+            {
+              "version": "${{ needs.version-check.outputs.version }}",
+              "run_id": "${{ github.run_id }}",
+              "sha": "${{ github.sha }}"
+            }
+        continue-on-error: true
+
+      - name: 上傳建置產物
         uses: actions/upload-artifact@v4
         with:
-          name: weavegraph-installer
+          name: weavegraph-installer-${{ needs.version-check.outputs.version }}
           path: |
             build/*.exe
             build/*.zip
           retention-days: 30
           
   release:
-    needs: build
+    needs: [version-check, build]
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: needs.version-check.outputs.match == 'true' && github.event.inputs.skip_build != 'true'
     permissions:
       contents: write
     
     steps:
-      - name: Download artifact
+      - name: 下載建置產物
         uses: actions/download-artifact@v4
         with:
-          name: weavegraph-installer
+          name: weavegraph-installer-${{ needs.version-check.outputs.version }}
           path: artifacts
           
-      - name: Generate changelog
+      - name: 生成發布說明
         id: changelog
         run: |
           VERSION=${GITHUB_REF#refs/tags/v}
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "body=## Version $VERSION\n\n### Build Info\n- Build Date: $(date +'%Y-%m-%d')\n- Platform: Windows x64\n\n### Downloads\n- **Installer:** 人脈織圖(WeaveGraph)-${VERSION}-win64.exe\n- **Portable:** 人脈織圖(WeaveGraph)-${VERSION}-win64.zip" >> $GITHUB_OUTPUT
+          echo "body=## 版本 $VERSION
+
+### 下載資訊
+- **安裝程式:** 人脈織圖(WeaveGraph)-${VERSION}-win64.exe
+- **便攜版:** 人脈織圖(WeaveGraph)-${VERSION}-win64.zip
+
+### 建置資訊
+- 建置日期: $(date +'%Y-%m-%d')
+- 平台: Windows x64" >> $GITHUB_OUTPUT
           
-      - name: Create Release
+      - name: 建立 GitHub 發布
         uses: softprops/action-gh-release@v1
         with:
           files: |
@@ -68,5 +180,48 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: false
+          tag_name: ${{ github.ref }}
+          name: "人脈織圖(WeaveGraph) v${{ needs.version-check.outputs.version }}"
+          body: ${{ steps.changelog.outputs.body }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  update-readme:
+    needs: version-check
+    runs-on: ubuntu-latest
+    if: github.event.inputs.skip_build != 'true'
+    permissions:
+      contents: write
+    steps:
+      - name: 檢出代碼
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 檢查並更新 README.md 版本號
+        run: |
+          VERSION=${{ needs.version-check.outputs.version }}
+          
+          if grep -q "## \[$VERSION\]" README.md; then
+            echo "README.md 已包含版本 $VERSION 的記錄"
+          else
+            echo "準備更新 README.md 中的版本歷史..."
+            git log --oneline -10 > /tmp/changes.txt
+          fi
+
+      - name: 提交 README 更新（如有必要）
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions"
+          git add README.md
+          git diff --cached --exit-code || git commit -m "docs: 更新 README.md"
+        continue-on-error: true
+
+      - name: 推送 README 更新（如有必要）
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          message: "docs: 更新 README.md"
+        continue-on-error: true
