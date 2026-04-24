@@ -12,6 +12,8 @@
     "build": "electron-builder --win",
     "build:win": "powershell -command \"$env:BUILD_DATE = Get-Date -Format 'yyyy-MM-dd'; electron-builder --win\"",
     "build:mac": "electron-builder --mac",
+    "release:win": "powershell -command \"$v = 'v' + $env:npm_package_version; npm run build:win; git tag $v; git push WeaveGraph $v\"",
+    "release:all": "powershell -command \"$v = 'v' + $env:npm_package_version; npm run build; git add -A; git commit -m 'chore: Release $v'; git tag $v; git push WeaveGraph master; git push WeaveGraph $v\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
