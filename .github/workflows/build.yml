@@ -54,31 +54,32 @@ jobs:
           VERSION=${{ needs.version-check.outputs.version }}
           DATE=$(date +'%Y-%m-%d')
           
-          CHANGELOG_CONTENT="# Changelog
+          cat > /tmp/changelog_new.md << 'CHANGELOG_EOF'
+          # Changelog
 
-## [$VERSION] - $DATE
+          ## [VERSION_PLACEHOLDER] - DATE_PLACEHOLDER
 
-### 新增功能
-- 
+          ### 新增功能
+          - 
 
-### 優化改進
-- 
+          ### 優化改進
+          - 
 
-### 修復問題
-- 
+          ### 修復問題
+          - 
 
-### 技術更新
-- 更新版本號到 $VERSION
+          ### 技術更新
+          - 更新版本號到 VERSION_PLACEHOLDER
 
-"
+          CHANGELOG_EOF
+          
+          sed -e "s/VERSION_PLACEHOLDER/$VERSION/g" -e "s/DATE_PLACEHOLDER/$DATE/g" /tmp/changelog_new.md > /tmp/changelog_content.md
           
           if [ -f CHANGELOG.md ]; then
-            mv CHANGELOG.md CHANGELOG.md.bak
-            echo "$CHANGELOG_CONTENT" > CHANGELOG.md
-            cat CHANGELOG.md.bak >> CHANGELOG.md
-            rm CHANGELOG.md.bak
+            cat /tmp/changelog_content.md CHANGELOG.md > CHANGELOG.md.new
+            mv CHANGELOG.md.new CHANGELOG.md
           else
-            echo "$CHANGELOG_CONTENT" > CHANGELOG.md
+            mv /tmp/changelog_content.md CHANGELOG.md
           fi
 
       - name: 提交 CHANGELOG 更新
@@ -160,16 +161,23 @@ jobs:
         id: changelog
         run: |
           VERSION=${GITHUB_REF#refs/tags/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "body=## 版本 $VERSION
+          BUILD_DATE=$(date +'%Y-%m-%d')
+          cat > /tmp/release_body.md << 'BODY_EOF'
+          ## 版本 VERSION_PLACEHOLDER
 
-### 下載資訊
-- **安裝程式:** 人脈織圖(WeaveGraph)-${VERSION}-win64.exe
-- **便攜版:** 人脈織圖(WeaveGraph)-${VERSION}-win64.zip
+          ### 下載資訊
+          - **安裝程式:** 人脈織圖(WeaveGraph)-VERSION_PLACEHOLDER-win64.exe
+          - **便攜版:** 人脈織圖(WeaveGraph)-VERSION_PLACEHOLDER-win64.zip
 
-### 建置資訊
-- 建置日期: $(date +'%Y-%m-%d')
-- 平台: Windows x64" >> $GITHUB_OUTPUT
+          ### 建置資訊
+          - 建置日期: DATE_PLACEHOLDER
+          - 平台: Windows x64
+          BODY_EOF
+          sed -e "s/VERSION_PLACEHOLDER/$VERSION/g" -e "s/DATE_PLACEHOLDER/$BUILD_DATE/g" /tmp/release_body.md > /tmp/release_body_final.md
+          BODY=$(cat /tmp/release_body_final.md)
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
           
       - name: 建立 GitHub 發布
         uses: softprops/action-gh-release@v1
