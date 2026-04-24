@@ -54,32 +54,35 @@ jobs:
           VERSION=${{ needs.version-check.outputs.version }}
           DATE=$(date +'%Y-%m-%d')
           
-          cat > /tmp/changelog_new.md << 'CHANGELOG_EOF'
-          # Changelog
-
-          ## [VERSION_PLACEHOLDER] - DATE_PLACEHOLDER
-
-          ### 新增功能
-          - 
-
-          ### 優化改進
-          - 
-
-          ### 修復問題
-          - 
-
-          ### 技術更新
-          - 更新版本號到 VERSION_PLACEHOLDER
-
-          CHANGELOG_EOF
+          if [ -f CHANGELOG.md ]; then
+            head -1 CHANGELOG.md > /tmp/first_line.txt
+            if grep -q "^# Changelog" /tmp/first_line.txt; then
+              sed -i '1,/^## \[/d' CHANGELOG.md
+            fi
+          else
+            echo "# Changelog" > CHANGELOG.md
+          fi
           
-          sed -e "s/VERSION_PLACEHOLDER/$VERSION/g" -e "s/DATE_PLACEHOLDER/$DATE/g" /tmp/changelog_new.md > /tmp/changelog_content.md
+          echo "## [$VERSION] - $DATE" > /tmp/new_version.md
+          echo "" >> /tmp/new_version.md
+          echo "### 新增功能" >> /tmp/new_version.md
+          echo "- " >> /tmp/new_version.md
+          echo "" >> /tmp/new_version.md
+          echo "### 優化改進" >> /tmp/new_version.md
+          echo "- " >> /tmp/new_version.md
+          echo "" >> /tmp/new_version.md
+          echo "### 修復問題" >> /tmp/new_version.md
+          echo "- " >> /tmp/new_version.md
+          echo "" >> /tmp/new_version.md
+          echo "### 技術更新" >> /tmp/new_version.md
+          echo "- 更新版本號到 $VERSION" >> /tmp/new_version.md
+          echo "" >> /tmp/new_version.md
           
           if [ -f CHANGELOG.md ]; then
-            cat /tmp/changelog_content.md CHANGELOG.md > CHANGELOG.md.new
+            cat /tmp/new_version.md CHANGELOG.md > CHANGELOG.md.new
             mv CHANGELOG.md.new CHANGELOG.md
           else
-            mv /tmp/changelog_content.md CHANGELOG.md
+            cat /tmp/new_version.md > CHANGELOG.md
           fi
 
       - name: 提交 CHANGELOG 更新
@@ -94,7 +97,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-          message: "docs: 更新 CHANGELOG.md 版本 ${{ needs.version-check.outputs.version }}"
 
   build:
     needs: version-check
@@ -120,20 +122,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run build
         
-      - name: 觸發本地打包 (repository_dispatch)
-        uses: repository_dispatch/invoke@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          event-type: trigger-local-build
-          client-payload: |
-            {
-              "version": "${{ needs.version-check.outputs.version }}",
-              "run_id": "${{ github.run_id }}",
-              "sha": "${{ github.sha }}"
-            }
-        continue-on-error: true
-
       - name: 上傳建置產物
         uses: actions/upload-artifact@v4
         with:
@@ -161,23 +149,16 @@ jobs:
         id: changelog
         run: |
           VERSION=${GITHUB_REF#refs/tags/v}
-          BUILD_DATE=$(date +'%Y-%m-%d')
-          cat > /tmp/release_body.md << 'BODY_EOF'
-          ## 版本 VERSION_PLACEHOLDER
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "body=## 版本 $VERSION
 
-          ### 下載資訊
-          - **安裝程式:** 人脈織圖(WeaveGraph)-VERSION_PLACEHOLDER-win64.exe
-          - **便攜版:** 人脈織圖(WeaveGraph)-VERSION_PLACEHOLDER-win64.zip
+### 下載資訊
+- **安裝程式:** 人脈織圖(WeaveGraph)-${VERSION}-win64.exe
+- **便攜版:** 人脈織圖(WeaveGraph)-${VERSION}-win64.zip
 
-          ### 建置資訊
-          - 建置日期: DATE_PLACEHOLDER
-          - 平台: Windows x64
-          BODY_EOF
-          sed -e "s/VERSION_PLACEHOLDER/$VERSION/g" -e "s/DATE_PLACEHOLDER/$BUILD_DATE/g" /tmp/release_body.md > /tmp/release_body_final.md
-          BODY=$(cat /tmp/release_body_final.md)
-          echo "body<<EOF" >> $GITHUB_OUTPUT
-          echo "$BODY" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+### 建置資訊
+- 建置日期: $(date +'%Y-%m-%d')
+- 平台: Windows x64" >> $GITHUB_OUTPUT
           
       - name: 建立 GitHub 發布
         uses: softprops/action-gh-release@v1
@@ -231,5 +212,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
-          message: "docs: 更新 README.md"
         continue-on-error: true
