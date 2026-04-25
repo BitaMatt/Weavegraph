@@ -726,7 +726,22 @@
         fieldTypeNumber: '数字',
         fieldTypeSelect: '下拉选项',
         fieldTypeTextarea: '多行文本',
-        fieldOptionsPlaceholder: '选项1,选项2,选项3'
+        fieldOptionsPlaceholder: '选项1,选项2,选项3',
+        under25: '25岁以下',
+        over56: '56岁以上',
+        notFilled: '未填',
+        tenThousand: '万',
+        unmarriedText: '未婚',
+        marriedText: '已婚',
+        divorcedText: '离异',
+        widowedText: '丧偶',
+        centerSelf: '居中自己',
+        clearCanvas: '清除画板',
+        filterNodes: '筛选',
+        searchNodes: '搜索 Ctrl+F',
+        autoArrange: '自动整理',
+        showStats: '统计数据',
+        confirmArrange: '确定要自动整理关系网络吗？'
       },
       'zh-TW': {
         title: '客戶關係網絡',
@@ -1011,7 +1026,22 @@
         fieldTypeNumber: '數字',
         fieldTypeSelect: '下拉選項',
         fieldTypeTextarea: '多行文本',
-        fieldOptionsPlaceholder: '選項1,選項2,選項3'
+        fieldOptionsPlaceholder: '選項1,選項2,選項3',
+        under25: '25歲以下',
+        over56: '56歲以上',
+        notFilled: '未填',
+        tenThousand: '萬',
+        unmarriedText: '未婚',
+        marriedText: '已婚',
+        divorcedText: '離異',
+        widowedText: '喪偶',
+        centerSelf: '居中自己',
+        clearCanvas: '清除畫板',
+        filterNodes: '篩選',
+        searchNodes: '搜索 Ctrl+F',
+        autoArrange: '自動整理',
+        showStats: '統計數據',
+        confirmArrange: '確定要自動整理關係網絡嗎？'
       },
       'en': {
         title: 'Customer Relationship Network',
@@ -1297,7 +1327,22 @@
         fieldTypeNumber: 'Number',
         fieldTypeSelect: 'Dropdown',
         fieldTypeTextarea: 'Multi-line Text',
-        fieldOptionsPlaceholder: 'Option1, Option2, Option3'
+        fieldOptionsPlaceholder: 'Option1, Option2, Option3',
+        under25: 'Under 25',
+        over56: 'Over 56',
+        notFilled: 'Not filled',
+        tenThousand: 'k',
+        unmarriedText: 'Single',
+        marriedText: 'Married',
+        divorcedText: 'Divorced',
+        widowedText: 'Widowed',
+        centerSelf: 'Center Self',
+        clearCanvas: 'Clear Canvas',
+        filterNodes: 'Filter',
+        searchNodes: 'Search Ctrl+F',
+        autoArrange: 'Auto Arrange',
+        showStats: 'Statistics',
+        confirmArrange: 'Are you sure you want to auto arrange the relationship network?'
       }
     };
 
@@ -1346,6 +1391,13 @@
           el.placeholder = texts[key];
         }
       });
+      // 更新按钮标题
+      document.getElementById('center-btn').title = texts.centerSelf;
+      document.getElementById('clear-btn').title = texts.clearCanvas;
+      document.getElementById('filter-btn').title = texts.filterNodes;
+      document.getElementById('search-btn').title = texts.searchNodes;
+      document.getElementById('arrange-btn').title = texts.autoArrange;
+      document.getElementById('stats-btn').title = texts.showStats;
       // 更新页面标题（只有收到版本号后才更新）
       if (appVersion !== null) {
         updateTitle();
@@ -2313,7 +2365,7 @@
       
       document.getElementById('arrange-btn').addEventListener('click', function() {
         var texts = i18n[currentLang] || i18n['zh-CN'];
-        showConfirm('确定要自动整理关系网络吗？', function() {
+        showConfirm(texts.confirmArrange, function() {
           // 保存状态用于撤销
           saveStateForUndo();
           
@@ -3363,27 +3415,33 @@
           }
         });
         
+        var texts = i18n[currentLang] || i18n['zh-TW'];
         // 构建年龄分布字符串
         var ageDistParts = [];
-        if (ageGroups.under25 > 0) ageDistParts.push('25↓:' + ageGroups.under25);
+        if (ageGroups.under25 > 0) ageDistParts.push(texts.under25 + ':' + ageGroups.under25);
         if (ageGroups['26to40'] > 0) ageDistParts.push('26-40:' + ageGroups['26to40']);
         if (ageGroups['41to55'] > 0) ageDistParts.push('41-55:' + ageGroups['41to55']);
-        if (ageGroups.over56 > 0) ageDistParts.push('56↑:' + ageGroups.over56);
+        if (ageGroups.over56 > 0) ageDistParts.push(texts.over56 + ':' + ageGroups.over56);
         var ageDist = ageDistParts.length > 0 ? ageDistParts.join(', ') : '-';
         
         // 构建收入分布字符串
         var incomeDistParts = [];
-        if (incomeGroups.none > 0) incomeDistParts.push('未填:' + incomeGroups.none);
-        if (incomeGroups.under10 > 0) incomeDistParts.push('10万↓:' + incomeGroups.under10);
-        if (incomeGroups['10to30'] > 0) incomeDistParts.push('10-30万:' + incomeGroups['10to30']);
-        if (incomeGroups['30to50'] > 0) incomeDistParts.push('30-50万:' + incomeGroups['30to50']);
-        if (incomeGroups.over50 > 0) incomeDistParts.push('50万↑:' + incomeGroups.over50);
+        if (incomeGroups.none > 0) incomeDistParts.push(texts.notFilled + ':' + incomeGroups.none);
+        if (incomeGroups.under10 > 0) incomeDistParts.push('10' + texts.tenThousand + '↓:' + incomeGroups.under10);
+        if (incomeGroups['10to30'] > 0) incomeDistParts.push('10-30' + texts.tenThousand + ':' + incomeGroups['10to30']);
+        if (incomeGroups['30to50'] > 0) incomeDistParts.push('30-50' + texts.tenThousand + ':' + incomeGroups['30to50']);
+        if (incomeGroups.over50 > 0) incomeDistParts.push('50' + texts.tenThousand + '↑:' + incomeGroups.over50);
         var incomeDist = incomeDistParts.length > 0 ? incomeDistParts.join(', ') : '-';
         
         // 构建婚姻状况字符串
         var marriageDistParts = [];
         for (var key in marriageStats) {
-          marriageDistParts.push(key + ':' + marriageStats[key]);
+          var translatedKey = key;
+          if (key === '未婚') translatedKey = texts.unmarriedText;
+          if (key === '已婚') translatedKey = texts.marriedText;
+          if (key === '离异') translatedKey = texts.divorcedText;
+          if (key === '丧偶') translatedKey = texts.widowedText;
+          marriageDistParts.push(translatedKey + ':' + marriageStats[key]);
         }
         var marriageDist = marriageDistParts.length > 0 ? marriageDistParts.join(', ') : '-';
         
