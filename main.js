@@ -710,6 +710,7 @@ ipcMain.handle('get-update-info', async () => {
 ipcMain.handle('download-update', async (event) => {
   console.log('[MAIN] download-update called');
   if (!updateInfo || !updateInfo.exeDownloadUrl) {
+    console.log('[MAIN] No update info or download URL');
     return { success: false, message: 'No update available or no download URL' };
   }
 
@@ -727,15 +728,22 @@ ipcMain.handle('download-update', async (event) => {
     console.log('[MAIN] Download complete, running installer...');
 
     // 运行安装程序
-    exec(`"${destPath}"`, (err) => {
-      if (err) {
-        console.error('[MAIN] Failed to run installer:', err);
-        return { success: false, message: err.message };
-      }
-      console.log('[MAIN] Installer started successfully');
-      // 退出当前应用，让安装程序可以更新
+    console.log('[MAIN] Running installer:', destPath);
+    
+    // 使用 shell.openPath 来运行安装程序，这样可以获得更好的错误处理
+    const result = await shell.openPath(destPath);
+    
+    if (result) {
+      console.error('[MAIN] Failed to open installer:', result);
+      return { success: false, message: `Failed to run installer: ${result}` };
+    }
+    
+    console.log('[MAIN] Installer started successfully');
+    
+    // 延迟退出，让安装程序有时间启动
+    setTimeout(() => {
       app.quit();
-    });
+    }, 2000);
 
     return { success: true, message: 'Download complete, installing...' };
   } catch (e) {
