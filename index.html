@@ -750,7 +750,8 @@
         filterAgeRange: '年龄段',
         filterRelation: '关系',
         filterMarriage: '婚姻',
-        filterNodeType: '节点类型'
+        filterNodeType: '节点类型',
+        enterFieldName: '请输入字段名称'
       },
       'zh-TW': {
         title: '客戶關係網絡',
@@ -1059,7 +1060,8 @@
         filterAgeRange: '年齡段',
         filterRelation: '關係',
         filterMarriage: '婚姻',
-        filterNodeType: '節點類型'
+        filterNodeType: '節點類型',
+        enterFieldName: '請輸入字段名稱'
       },
       'en': {
         title: 'Customer Relationship Network',
@@ -1369,7 +1371,8 @@
         filterAgeRange: 'Age Range',
         filterRelation: 'Relation',
         filterMarriage: 'Marriage',
-        filterNodeType: 'Node Type'
+        filterNodeType: 'Node Type',
+        enterFieldName: 'Please enter field name'
       }
     };
 
@@ -2714,7 +2717,8 @@
         var options = document.getElementById('new-field-options').value.trim();
 
         if (!name) {
-          showToast('请输入字段名称');
+          var texts = i18n[currentLang] || i18n['zh-CN'];
+          showToast(texts.enterFieldName || '请输入字段名称');
           return;
         }
 
