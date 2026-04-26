@@ -743,7 +743,9 @@
         showStats: '统计数据',
         confirmArrange: '确定要自动整理关系网络吗？',
         currentVersion: '当前版本',
-        newVersion: '最新版本'
+        newVersion: '最新版本',
+        searchResults: '找到 {count} 个匹配:',
+        noSearchResults: '没有找到匹配的节点'
       },
       'zh-TW': {
         title: '客戶關係網絡',
@@ -1045,7 +1047,9 @@
         showStats: '統計數據',
         confirmArrange: '確定要自動整理關係網絡嗎？',
         currentVersion: '當前版本',
-        newVersion: '最新版本'
+        newVersion: '最新版本',
+        searchResults: '找到 {count} 個匹配:',
+        noSearchResults: '沒有找到匹配的節點'
       },
       'en': {
         title: 'Customer Relationship Network',
@@ -1348,7 +1352,9 @@
         showStats: 'Statistics',
         confirmArrange: 'Are you sure you want to auto arrange the relationship network?',
         currentVersion: 'Current Version',
-        newVersion: 'New Version'
+        newVersion: 'New Version',
+        searchResults: 'Found {count} matches:',
+        noSearchResults: 'No matching nodes found'
       }
     };
 
@@ -2463,13 +2469,13 @@
           matchedNodes.addClass('highlight search-match');
           matchedNodes.connectedEdges().removeClass('dimmed').addClass('highlight');
           matchedNodes.connectedEdges().connectedNodes().removeClass('dimmed').addClass('highlight');
-          resultsDiv.innerHTML = '<div style="color:#666;font-size:12px;">找到 ' + matchedNodes.length + ' 个匹配:</div>';
+          resultsDiv.innerHTML = '<div style="color:#666;font-size:12px;">' + texts.searchResults.replace('{count}', matchedNodes.length) + '</div>';
           matchedNodes.forEach(function(node) {
             var data = node.data();
             resultsDiv.innerHTML += '<div style="padding:8px;cursor:pointer;border-bottom:1px solid #eee;" onclick="focusNode(\'' + node.id() + '\')"><b>' + data.name + '</b> <span style="color:#666;">' + (data.occupation || '') + '</span></div>';
           });
         } else {
-          resultsDiv.innerHTML = '<div style="color:#999;">没有找到匹配的节点</div>';
+          resultsDiv.innerHTML = '<div style="color:#999;">' + texts.noSearchResults + '</div>';
         }
       });
 
