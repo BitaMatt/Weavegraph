@@ -4273,8 +4273,19 @@
       // 显示更新对话框
       function showUpdateDialog(info) {
         var texts = i18n[currentLang] || i18n['zh-CN'];
-        document.getElementById('update-version').textContent = 
-          texts.currentVersion + ': ' + info.currentVersion + ' → ' + texts.newVersion + ': ' + info.latestVersion;
+        console.log('Show update dialog - texts:', texts);
+        console.log('Show update dialog - info:', info);
+        
+        var versionText = '';
+        if (texts && texts.currentVersion && texts.newVersion) {
+          versionText = texts.currentVersion + ': ' + info.currentVersion + ' → ' + texts.newVersion + ': ' + info.latestVersion;
+        } else {
+          // 降级处理，确保显示版本信息
+          versionText = 'Current Version: ' + info.currentVersion + ' → New Version: ' + info.latestVersion;
+          console.log('Fallback to English version text');
+        }
+        
+        document.getElementById('update-version').textContent = versionText;
         document.getElementById('update-notes').textContent = info.releaseNotes || '';
         document.getElementById('update-dialog').style.display = 'block';
         document.getElementById('panel-overlay').style.display = 'block';
@@ -4282,13 +4293,25 @@
       
       // 更新对话框按钮事件
       document.getElementById('update-download').addEventListener('click', function() {
+        console.log('Download update button clicked');
         if (typeof window.electronAPI !== 'undefined' && window.electronAPI.downloadUpdate) {
+          console.log('Calling electronAPI.downloadUpdate()');
           window.electronAPI.downloadUpdate().then(function(result) {
+            console.log('Download update result:', result);
             if (result.success) {
               document.getElementById('update-dialog').style.display = 'none';
               document.getElementById('panel-overlay').style.display = 'none';
+            } else {
+              console.error('Download failed:', result.message);
+              alert('下载失败: ' + result.message);
             }
+          }).catch(function(err) {
+            console.error('Download update error:', err);
+            alert('下载更新时发生错误: ' + err.message);
           });
+        } else {
+          console.error('electronAPI or downloadUpdate not available');
+          alert('下载更新功能不可用');
         }
       });
       
