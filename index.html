@@ -751,7 +751,19 @@
         filterRelation: '关系',
         filterMarriage: '婚姻',
         filterNodeType: '节点类型',
-        enterFieldName: '请输入字段名称'
+        enterFieldName: '请输入字段名称',
+        networkArranged: '关系网络已整理',
+        saveNotFound: '存档不存在',
+        enterSaveName: '请输入存档名称',
+        saveUpdated: '存档已更新',
+        importFailed: '导入失败：文件格式不正确',
+        fieldUpdated: '已更新字段',
+        defaultFieldCannotEdit: '默认字段不能编辑',
+        fieldAdded: '已添加字段: ',
+        emailCopied: '已复制邮箱，请手动打开发件客户端',
+        qqCopied: '已复制QQ号，请手动打开QQ',
+        wechatCopied: '微信号已复制，请手动打开微信搜索',
+        whatsappCopied: 'WhatsApp已复制，请手动打开WhatsApp'
       },
       'zh-TW': {
         title: '客戶關係網絡',
@@ -1061,7 +1073,19 @@
         filterRelation: '關係',
         filterMarriage: '婚姻',
         filterNodeType: '節點類型',
-        enterFieldName: '請輸入字段名稱'
+        enterFieldName: '請輸入字段名稱',
+        networkArranged: '關係網絡已整理',
+        saveNotFound: '存檔不存在',
+        enterSaveName: '請輸入存檔名稱',
+        saveUpdated: '存檔已更新',
+        importFailed: '導入失敗：文件格式不正確',
+        fieldUpdated: '已更新字段',
+        defaultFieldCannotEdit: '默認字段不能編輯',
+        fieldAdded: '已添加字段: ',
+        emailCopied: '已複製郵箱，請手動打開發件客戶端',
+        qqCopied: '已複製QQ號，請手動打開QQ',
+        wechatCopied: '微信號已複製，請手動打開微信搜索',
+        whatsappCopied: 'WhatsApp已複製，請手動打開WhatsApp'
       },
       'en': {
         title: 'Customer Relationship Network',
@@ -1372,7 +1396,19 @@
         filterRelation: 'Relation',
         filterMarriage: 'Marriage',
         filterNodeType: 'Node Type',
-        enterFieldName: 'Please enter field name'
+        enterFieldName: 'Please enter field name',
+        networkArranged: 'Relationship network arranged',
+        saveNotFound: 'Save not found',
+        enterSaveName: 'Please enter save name',
+        saveUpdated: 'Save updated',
+        importFailed: 'Import failed: incorrect file format',
+        fieldUpdated: 'Field updated',
+        defaultFieldCannotEdit: 'Default field cannot be edited',
+        fieldAdded: 'Field added: ',
+        emailCopied: 'Email copied, please open email client manually',
+        qqCopied: 'QQ number copied, please open QQ manually',
+        wechatCopied: 'WeChat ID copied, please open WeChat and search',
+        whatsappCopied: 'WhatsApp copied, please open WhatsApp manually'
       }
     };
 
@@ -1928,7 +1964,8 @@
         var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
         var slot = saveList.find(function(s) { return s.slot === slotName; });
         if (!slot) {
-          showToast('存档不存在');
+          var texts = i18n[currentLang] || i18n['zh-CN'];
+          showToast(texts.saveNotFound);
           return;
         }
         document.getElementById('edit-save-slot').value = slotName;
@@ -1944,7 +1981,8 @@
         var newName = document.getElementById('edit-save-name').value.trim();
         var newDesc = document.getElementById('edit-save-desc').value.trim();
         if (!newName) {
-          showToast('请输入存档名称');
+          var texts = i18n[currentLang] || i18n['zh-CN'];
+          showToast(texts.enterSaveName);
           return;
         }
         var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
@@ -1954,7 +1992,8 @@
           saveList[slotIndex].description = newDesc;
           saveList[slotIndex].timestamp = Date.now();
           localStorage.setItem(SAVE_LIST_KEY, JSON.stringify(saveList));
-          showToast('存档已更新');
+          var texts = i18n[currentLang] || i18n['zh-CN'];
+          showToast(texts.saveUpdated);
         }
         document.getElementById('edit-save-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
@@ -2206,7 +2245,8 @@
               setTimeout(function() { indicator.style.display = 'none'; }, 3000);
             }
           } catch (err) {
-            showToast('导入失败：文件格式不正确', 4000);
+            var texts = i18n[currentLang] || i18n['zh-CN'];
+            showToast(texts.importFailed, 4000);
           }
         };
         reader.readAsText(file);
@@ -2404,7 +2444,8 @@
           
           // 显示成功消息
           var indicator = document.getElementById('auto-save-indicator');
-          indicator.textContent = '关系网络已整理';
+          var texts = i18n[currentLang] || i18n['zh-CN'];
+          indicator.textContent = texts.networkArranged;
           indicator.style.display = 'block';
           setTimeout(function() { indicator.style.display = 'none'; }, 3000);
         });
@@ -2677,10 +2718,12 @@
               if (newName && newName.trim()) {
                 customFields[idx - defaultFields.length].name = newName.trim();
                 renderTemplateFieldsList();
-                showToast('已更新字段');
+                var texts = i18n[currentLang] || i18n['zh-CN'];
+                showToast(texts.fieldUpdated);
               }
             } else if (idx < defaultFields.length) {
-              showToast('默认字段不能编辑');
+              var texts = i18n[currentLang] || i18n['zh-CN'];
+              showToast(texts.defaultFieldCannotEdit);
             }
           };
         });
@@ -2737,7 +2780,8 @@
         document.getElementById('new-field-name').value = '';
         document.getElementById('new-field-options').value = '';
         renderTemplateFieldsList();
-        showToast('已添加字段: ' + name);
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        showToast(texts.fieldAdded + name);
       });
 
       document.getElementById('save-template-btn').addEventListener('click', function() {
@@ -3669,13 +3713,13 @@
                 if (result.success) {
                   showToast(result.message);
                 } else {
-                  showToast('已复制邮箱，请手动打开发件客户端');
+                  showToast(texts.emailCopied);
                 }
               }).catch(function() {
-                showToast('已复制邮箱，请手动打开发件客户端');
+                showToast(texts.emailCopied);
               });
             } else {
-              showToast('已复制邮箱，请手动打开发件客户端');
+              showToast(texts.emailCopied);
             }
           } else if (action === 'copy') {
             copyToClipboard(value, value + ' ' + (texts.copied || '已复制'));
@@ -3688,13 +3732,13 @@
                 if (result.success) {
                   showToast(result.message);
                 } else {
-                  showToast('已复制QQ号，请手动打开QQ');
+                  showToast(texts.qqCopied);
                 }
               }).catch(function() {
-                showToast('已复制QQ号，请手动打开QQ');
+                showToast(texts.qqCopied);
               });
             } else {
-              showToast('已复制QQ号，请手动打开QQ');
+              showToast(texts.qqCopied);
             }
           } else if (action === 'copy') {
             copyToClipboard(value, 'QQ: ' + value + ' ' + (texts.copied || '已复制'));
@@ -3707,13 +3751,13 @@
                 if (result.success) {
                   showToast(result.message);
                 } else {
-                  showToast('微信号已复制，请手动打开微信搜索');
+                  showToast(texts.wechatCopied);
                 }
               }).catch(function() {
-                showToast('微信号已复制，请手动打开微信搜索');
+                showToast(texts.wechatCopied);
               });
             } else {
-              showToast('微信号已复制，请在微信中搜索添加');
+              showToast(texts.wechatCopied);
             }
           } else if (action === 'copy') {
             copyToClipboard(value, '微信: ' + value + ' ' + (texts.copied || '已复制'));
@@ -3726,13 +3770,13 @@
                 if (result.success) {
                   showToast(result.message);
                 } else {
-                  showToast('WhatsApp已复制，请手动打开WhatsApp');
+                  showToast(texts.whatsappCopied);
                 }
               }).catch(function() {
-                showToast('WhatsApp已复制，请手动打开WhatsApp');
+                showToast(texts.whatsappCopied);
               });
             } else {
-              showToast('WhatsApp已复制，请手动打开WhatsApp');
+              showToast(texts.whatsappCopied);
             }
           } else if (action === 'copy') {
             copyToClipboard(value, 'WhatsApp: ' + value + ' ' + (texts.copied || '已复制'));
