@@ -5,6 +5,8 @@
 ### 修复问题
 - 修复搜索结果中没有翻译的问题
 - 添加 "找到 X 个匹配" 和 "没有找到匹配的节点" 的多语言支持
+- 修复筛选面板中关系、性别等标签带冒号的问题
+- 为筛选面板添加专门的翻译键（filterGender、filterAgeRange、filterRelation、filterMarriage、filterNodeType）
 
 ### 技术更新
 - 更新版本号到 1.5.10

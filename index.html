@@ -372,12 +372,12 @@
   <div id="filter-panel" style="position:absolute;top:80px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.98);padding:20px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.3);z-index:300;display:none;min-width:450px;">
     <h3 style="margin:0 0 15px 0;text-align:center;" data-i18n="filterNode">🔍 筛选节点</h3>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <div class="form-row"><label data-i18n="gender">性别:</label><select id="filter-gender"><option value="" data-i18n="all">全部</option><option value="男" data-i18n="male">男</option><option value="女" data-i18n="female">女</option></select></div>
-      <div class="form-row"><label data-i18n="ageRange">年龄段:</label><select id="filter-age"><option value="" data-i18n="all">全部</option><option value="0-25" data-i18n="under25">25岁以下</option><option value="26-40" data-i18n="26to40">26-40岁</option><option value="41-55" data-i18n="41to55">41-55岁</option><option value="56+" data-i18n="over56">56岁以上</option></select></div>
-      <div class="form-row"><label data-i18n="relation">关系:</label><select id="filter-relation"><option value="" data-i18n="all">全部</option><option value="同事" data-i18n="colleague">同事</option><option value="朋友" data-i18n="friend">朋友</option><option value="家人" data-i18n="family">家人</option><option value="亲戚" data-i18n="relative">亲戚</option><option value="客户" data-i18n="client">客户</option></select></div>
-      <div class="form-row"><label data-i18n="marriage">婚姻:</label><select id="filter-marriage"><option value="" data-i18n="all">全部</option><option value="已婚" data-i18n="married">已婚</option><option value="未婚" data-i18n="unmarried">未婚</option><option value="离异" data-i18n="divorced">离异</option></select></div>
+      <div class="form-row"><label data-i18n="filterGender">性别</label><select id="filter-gender"><option value="" data-i18n="all">全部</option><option value="男" data-i18n="male">男</option><option value="女" data-i18n="female">女</option></select></div>
+      <div class="form-row"><label data-i18n="filterAgeRange">年龄段</label><select id="filter-age"><option value="" data-i18n="all">全部</option><option value="0-25" data-i18n="under25">25岁以下</option><option value="26-40" data-i18n="26to40">26-40岁</option><option value="41-55" data-i18n="41to55">41-55岁</option><option value="56+" data-i18n="over56">56岁以上</option></select></div>
+      <div class="form-row"><label data-i18n="filterRelation">关系</label><select id="filter-relation"><option value="" data-i18n="all">全部</option><option value="同事" data-i18n="colleague">同事</option><option value="朋友" data-i18n="friend">朋友</option><option value="家人" data-i18n="family">家人</option><option value="亲戚" data-i18n="relative">亲戚</option><option value="客户" data-i18n="client">客户</option></select></div>
+      <div class="form-row"><label data-i18n="filterMarriage">婚姻</label><select id="filter-marriage"><option value="" data-i18n="all">全部</option><option value="已婚" data-i18n="married">已婚</option><option value="未婚" data-i18n="unmarried">未婚</option><option value="离异" data-i18n="divorced">离异</option></select></div>
     </div>
-    <div class="form-row" style="margin-top:10px;"><label data-i18n="nodeType">节点类型:</label><select id="filter-template"><option value="" data-i18n="all">全部</option><option value="insurance" data-i18n="insurance">保险类</option><option value="self" data-i18n="self">自己</option></select></div>
+    <div class="form-row" style="margin-top:10px;"><label data-i18n="filterNodeType">节点类型</label><select id="filter-template"><option value="" data-i18n="all">全部</option><option value="insurance" data-i18n="insurance">保险类</option><option value="self" data-i18n="self">自己</option></select></div>
     <div style="display:flex;justify-content:center;gap:10px;margin-top:15px;">
       <button id="apply-filter" data-i18n="applyFilter" style="padding:8px 25px;background:#00cc88;color:white;border:none;border-radius:5px;cursor:pointer;">应用筛选</button>
       <button id="clear-filter" data-i18n="clearFilter" style="padding:8px 25px;background:#ff9500;color:white;border:none;border-radius:5px;cursor:pointer;">清除筛选</button>
@@ -745,7 +745,12 @@
         currentVersion: '当前版本',
         newVersion: '最新版本',
         searchResults: '找到 {count} 个匹配:',
-        noSearchResults: '没有找到匹配的节点'
+        noSearchResults: '没有找到匹配的节点',
+        filterGender: '性别',
+        filterAgeRange: '年龄段',
+        filterRelation: '关系',
+        filterMarriage: '婚姻',
+        filterNodeType: '节点类型'
       },
       'zh-TW': {
         title: '客戶關係網絡',
@@ -1049,7 +1054,12 @@
         currentVersion: '當前版本',
         newVersion: '最新版本',
         searchResults: '找到 {count} 個匹配:',
-        noSearchResults: '沒有找到匹配的節點'
+        noSearchResults: '沒有找到匹配的節點',
+        filterGender: '性別',
+        filterAgeRange: '年齡段',
+        filterRelation: '關係',
+        filterMarriage: '婚姻',
+        filterNodeType: '節點類型'
       },
       'en': {
         title: 'Customer Relationship Network',
@@ -1354,7 +1364,12 @@
         currentVersion: 'Current Version',
         newVersion: 'New Version',
         searchResults: 'Found {count} matches:',
-        noSearchResults: 'No matching nodes found'
+        noSearchResults: 'No matching nodes found',
+        filterGender: 'Gender',
+        filterAgeRange: 'Age Range',
+        filterRelation: 'Relation',
+        filterMarriage: 'Marriage',
+        filterNodeType: 'Node Type'
       }
     };
 
