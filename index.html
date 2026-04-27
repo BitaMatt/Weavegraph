@@ -4332,8 +4332,9 @@
       // 显示更新对话框
       function showUpdateDialog(info) {
         var texts = i18n[currentLang] || i18n['zh-CN'];
-        console.log('Show update dialog - texts:', texts);
-        console.log('Show update dialog - info:', info);
+        console.log('[UPDATE] Show update dialog - currentLang:', currentLang);
+        console.log('[UPDATE] Show update dialog - texts:', texts);
+        console.log('[UPDATE] Show update dialog - info:', info);
         
         var versionText = '';
         if (texts && texts.currentVersion && texts.newVersion) {
@@ -4341,11 +4342,21 @@
         } else {
           // 降级处理，确保显示版本信息
           versionText = 'Current Version: ' + info.currentVersion + ' → New Version: ' + info.latestVersion;
-          console.log('Fallback to English version text');
+          console.log('[UPDATE] Fallback to English version text - texts.currentVersion:', texts.currentVersion, ', texts.newVersion:', texts.newVersion);
         }
         
         document.getElementById('update-version').textContent = versionText;
         document.getElementById('update-notes').textContent = info.releaseNotes || '';
+        
+        // 更新对话框中的所有文本（确保正确翻译）
+        document.getElementById('update-download').textContent = texts.downloadUpdate || 'Download Update';
+        document.getElementById('update-later').textContent = texts.later || 'Later';
+        document.getElementById('update-progress-label').textContent = texts.downloadProgress || 'Download Progress';
+        document.getElementById('update-progress-status').textContent = texts.downloading || 'Downloading...';
+        document.getElementById('update-error').textContent = texts.downloadError || 'Download failed';
+        
+        console.log('[UPDATE] Dialog texts updated - downloadUpdate:', texts.downloadUpdate, ', later:', texts.later);
+        
         document.getElementById('update-dialog').style.display = 'block';
         document.getElementById('panel-overlay').style.display = 'block';
       }

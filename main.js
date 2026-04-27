@@ -760,9 +760,17 @@ ipcMain.handle('set-download-progress-callback', (event) => {
 // 下载并安装更新
 ipcMain.handle('download-update', async (event) => {
   console.log('[MAIN] download-update called');
-  if (!updateInfo || !updateInfo.exeDownloadUrl) {
-    console.log('[MAIN] No update info or download URL');
-    return { success: false, message: 'No update available or no download URL' };
+  
+  // 检查更新信息
+  if (!updateInfo) {
+    console.error('[MAIN] No update info available');
+    return { success: false, message: 'No update info available' };
+  }
+  
+  if (!updateInfo.exeDownloadUrl) {
+    console.error('[MAIN] No download URL available');
+    console.error('[MAIN] Update info:', JSON.stringify(updateInfo));
+    return { success: false, message: 'Download URL not found, please try again later' };
   }
 
   try {
@@ -771,26 +779,32 @@ ipcMain.handle('download-update', async (event) => {
     const exeFileName = updateInfo.exeAssetName || `WeaveGraph-Update-${updateInfo.latestVersion}.exe`;
     const destPath = path.join(tempDir, exeFileName);
 
-    console.log('[MAIN] Downloading update from:', downloadUrl);
-    console.log('[MAIN] Saving to:', destPath);
+    console.log('[MAIN] ===== Download Update Started =====');
+    console.log('[MAIN] Current version:', app.getVersion());
+    console.log('[MAIN] Target version:', updateInfo.latestVersion);
+    console.log('[MAIN] Download URL:', downloadUrl);
+    console.log('[MAIN] Save path:', destPath);
+    console.log('[MAIN] Asset name:', updateInfo.exeAssetName);
+    console.log('[MAIN] ===================================');
 
     // 发送开始下载消息
     if (downloadProgressCallback) {
       downloadProgressCallback({
         percent: 0,
-        status: 'Preparing download...'
+        status: 'Connecting to GitHub...'
       });
     }
 
     // 下载文件（带进度回调）
+    console.log('[MAIN] Starting download...');
     await downloadFile(downloadUrl, destPath, (progress) => {
-      console.log('[MAIN] Download progress:', progress);
+      console.log('[MAIN] Download progress:', progress.percent + '%', '-', progress.status);
       if (downloadProgressCallback) {
         downloadProgressCallback(progress);
       }
     });
     
-    console.log('[MAIN] Download complete, running installer...');
+    console.log('[MAIN] Download complete, file saved to:', destPath);
     
     // 发送下载完成消息
     if (downloadProgressCallback) {
@@ -820,16 +834,34 @@ ipcMain.handle('download-update', async (event) => {
 
     return { success: true, message: 'Download complete, installing...' };
   } catch (e) {
-    console.error('[MAIN] download-update error:', e);
+    console.error('[MAIN] ===== Download Error =====');
+    console.error('[MAIN] Error type:', e.name);
+    console.error('[MAIN] Error message:', e.message);
+    console.error('[MAIN] Error stack:', e.stack);
+    console.error('[MAIN] Update info available:', !!updateInfo);
+    console.error('[MAIN] Download URL available:', !!updateInfo?.exeDownloadUrl);
+    console.error('[MAIN] ===========================');
+    
+    // 提供更友好的错误信息
+    let userMessage = e.message;
+    if (e.message && e.message.includes('ETIMEDOUT')) {
+      userMessage = '网络连接超时，请检查网络连接后重试。如果问题持续存在，请直接从GitHub Releases下载最新版本。';
+    } else if (e.message && e.message.includes('ECONNREFUSED')) {
+      userMessage = '无法连接到服务器，请检查网络连接后重试。';
+    } else if (e.message && e.message.includes('connect')) {
+      userMessage = '网络连接失败，请检查网络连接或稍后再试。您也可以直接访问 GitHub Releases 手动下载最新版本。';
+    }
+    
     // 发送错误消息
     if (downloadProgressCallback) {
       downloadProgressCallback({
         percent: 0,
-        status: `Error: ${e.message}`,
-        error: e.message
+        status: `Error: ${userMessage}`,
+        error: userMessage
       });
     }
-    return { success: false, message: e.message };
+    
+    return { success: false, message: userMessage };
   }
 });
 
