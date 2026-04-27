@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.14] - 2026-04-27
+
+### 修复问题
+- 修复GitHub Actions workflow，支持手动workflow_dispatch触发构建
+- workflow现在可以正确区分tag触发和手动触发
+
+### 技术更新
+- 更新版本号到 1.5.14
+- 优化workflow配置，添加is_tag输出用于区分触发方式
+
 ## [1.5.13] - 2026-04-27
 
 ### 修复问题
