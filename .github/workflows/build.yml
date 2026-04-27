@@ -5,11 +5,6 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
-    inputs:
-      skip_build:
-        description: 'Skip build, only update version files'
-        required: false
-        default: 'false'
 
 jobs:
   version-check:
@@ -17,6 +12,7 @@ jobs:
     outputs:
       version: ${{ steps.check.outputs.package_version }}
       match: ${{ steps.check.outputs.match }}
+      is-tag: ${{ steps.check.outputs.is_tag }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,15 +21,27 @@ jobs:
         id: check
         run: |
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
-          TAG_VERSION=${GITHUB_REF#refs/tags/v}
           echo "package_version=$PACKAGE_VERSION" >> $GITHUB_OUTPUT
-          if [ "$PACKAGE_VERSION" = "$TAG_VERSION" ]; then
-            echo "match=true" >> $GITHUB_OUTPUT
-            echo "Version match: $PACKAGE_VERSION"
+          
+          # Check if this is a tag push
+          IS_TAG=false
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            IS_TAG=true
+            TAG_VERSION=${GITHUB_REF#refs/tags/v}
+            echo "is_tag=true" >> $GITHUB_OUTPUT
+            echo "Tag version: $TAG_VERSION"
+            if [ "$PACKAGE_VERSION" = "$TAG_VERSION" ]; then
+              echo "match=true" >> $GITHUB_OUTPUT
+              echo "Version match: $PACKAGE_VERSION"
+            else
+              echo "match=false" >> $GITHUB_OUTPUT
+              echo "Version mismatch! package.json: $PACKAGE_VERSION, tag: $TAG_VERSION"
+              exit 1
+            fi
           else
-            echo "match=false" >> $GITHUB_OUTPUT
-            echo "Version mismatch! package.json: $PACKAGE_VERSION, tag: $TAG_VERSION"
-            exit 1
+            echo "is_tag=false" >> $GITHUB_OUTPUT
+            echo "match=true" >> $GITHUB_OUTPUT
+            echo "Manual workflow dispatch - skipping version check"
           fi
 
   build:
@@ -46,6 +54,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.version-check.outputs.is_tag == 'true' && github.ref || 'master' }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -72,7 +83,7 @@ jobs:
   release:
     needs: [version-check, build]
     runs-on: ubuntu-latest
-    if: needs.version-check.outputs.match == 'true'
+    if: needs.version-check.outputs.match == 'true' && needs.version-check.outputs.is_tag == 'true'
     permissions:
       contents: write
 

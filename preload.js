@@ -26,5 +26,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   },
   downloadUpdate: function() {
     return ipcRenderer.invoke('download-update');
+  },
+  onDownloadProgress: function(callback) {
+    ipcRenderer.on('download-progress', (event, progress) => {
+      callback(progress);
+    });
   }
 });

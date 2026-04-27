@@ -763,7 +763,12 @@
         emailCopied: '已复制邮箱，请手动打开发件客户端',
         qqCopied: '已复制QQ号，请手动打开QQ',
         wechatCopied: '微信号已复制，请手动打开微信搜索',
-        whatsappCopied: 'WhatsApp已复制，请手动打开WhatsApp'
+        whatsappCopied: 'WhatsApp已复制，请手动打开WhatsApp',
+        downloadProgress: '下载进度',
+        downloading: '正在下载...',
+        installing: '正在安装...',
+        downloadError: '下载失败',
+        updateNotAvailable: '更新功能不可用'
       },
       'zh-TW': {
         title: '客戶關係網絡',
@@ -1085,7 +1090,12 @@
         emailCopied: '已複製郵箱，請手動打開發件客戶端',
         qqCopied: '已複製QQ號，請手動打開QQ',
         wechatCopied: '微信號已複製，請手動打開微信搜索',
-        whatsappCopied: 'WhatsApp已複製，請手動打開WhatsApp'
+        whatsappCopied: 'WhatsApp已複製，請手動打開WhatsApp',
+        downloadProgress: '下載進度',
+        downloading: '正在下載...',
+        installing: '正在安裝...',
+        downloadError: '下載失敗',
+        updateNotAvailable: '更新功能不可用'
       },
       'en': {
         title: 'Customer Relationship Network',
@@ -1408,7 +1418,12 @@
         emailCopied: 'Email copied, please open email client manually',
         qqCopied: 'QQ number copied, please open QQ manually',
         wechatCopied: 'WeChat ID copied, please open WeChat and search',
-        whatsappCopied: 'WhatsApp copied, please open WhatsApp manually'
+        whatsappCopied: 'WhatsApp copied, please open WhatsApp manually',
+        downloadProgress: 'Download Progress',
+        downloading: 'Downloading...',
+        installing: 'Installing...',
+        downloadError: 'Download failed',
+        updateNotAvailable: 'Update feature not available'
       }
     };
 
@@ -4335,27 +4350,103 @@
         document.getElementById('panel-overlay').style.display = 'block';
       }
       
+      var isDownloading = false;
+
       // 更新对话框按钮事件
       document.getElementById('update-download').addEventListener('click', function() {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        var downloadBtn = document.getElementById('update-download');
+        var laterBtn = document.getElementById('update-later');
+        var progressContainer = document.getElementById('update-progress-container');
+        var progressBar = document.getElementById('update-progress-bar');
+        var progressText = document.getElementById('update-progress-text');
+        var progressStatus = document.getElementById('update-progress-status');
+        var errorElement = document.getElementById('update-error');
+        
+        // 防止重复点击
+        if (isDownloading) {
+          console.log('Download already in progress, ignoring click');
+          return;
+        }
+        
         console.log('Download update button clicked');
-        if (typeof window.electronAPI !== 'undefined' && window.electronAPI.downloadUpdate) {
+        
+        // 设置下载状态
+        isDownloading = true;
+        downloadBtn.disabled = true;
+        laterBtn.disabled = true;
+        downloadBtn.style.opacity = '0.7';
+        downloadBtn.style.cursor = 'not-allowed';
+        downloadBtn.textContent = texts.downloading || 'Downloading...';
+        
+        // 显示进度条
+        progressContainer.style.display = 'block';
+        progressBar.style.width = '0%';
+        progressText.textContent = '0%';
+        errorElement.style.display = 'none';
+        
+        // 设置进度回调
+        if (typeof window.electronAPI !== 'undefined') {
+          // 设置下载进度监听
+          window.electronAPI.onDownloadProgress(function(progress) {
+            console.log('Download progress:', progress);
+            if (progress && progress.percent !== undefined) {
+              progressBar.style.width = progress.percent + '%';
+              progressText.textContent = progress.percent + '%';
+              if (progress.status) {
+                progressStatus.textContent = progress.status;
+              }
+            }
+          });
+          
           console.log('Calling electronAPI.downloadUpdate()');
           window.electronAPI.downloadUpdate().then(function(result) {
             console.log('Download update result:', result);
             if (result.success) {
-              document.getElementById('update-dialog').style.display = 'none';
-              document.getElementById('panel-overlay').style.display = 'none';
+              progressStatus.textContent = texts.installing || 'Installing...';
+              progressBar.style.width = '100%';
+              progressText.textContent = '100%';
+              setTimeout(function() {
+                document.getElementById('update-dialog').style.display = 'none';
+                document.getElementById('panel-overlay').style.display = 'none';
+              }, 1000);
             } else {
               console.error('Download failed:', result.message);
-              alert('下载失败: ' + result.message);
+              // 显示错误信息
+              isDownloading = false;
+              downloadBtn.disabled = false;
+              laterBtn.disabled = false;
+              downloadBtn.style.opacity = '1';
+              downloadBtn.style.cursor = 'pointer';
+              downloadBtn.textContent = texts.downloadUpdate || 'Download Update';
+              progressContainer.style.display = 'none';
+              errorElement.textContent = (texts.downloadError || 'Download failed') + ': ' + result.message;
+              errorElement.style.display = 'block';
             }
           }).catch(function(err) {
             console.error('Download update error:', err);
-            alert('下载更新时发生错误: ' + err.message);
+            // 显示错误信息
+            isDownloading = false;
+            downloadBtn.disabled = false;
+            laterBtn.disabled = false;
+            downloadBtn.style.opacity = '1';
+            downloadBtn.style.cursor = 'pointer';
+            downloadBtn.textContent = texts.downloadUpdate || 'Download Update';
+            progressContainer.style.display = 'none';
+            errorElement.textContent = (texts.downloadError || 'Download failed') + ': ' + err.message;
+            errorElement.style.display = 'block';
           });
         } else {
-          console.error('electronAPI or downloadUpdate not available');
-          alert('下载更新功能不可用');
+          console.error('electronAPI not available');
+          isDownloading = false;
+          downloadBtn.disabled = false;
+          laterBtn.disabled = false;
+          downloadBtn.style.opacity = '1';
+          downloadBtn.style.cursor = 'pointer';
+          downloadBtn.textContent = texts.downloadUpdate || 'Download Update';
+          progressContainer.style.display = 'none';
+          errorElement.textContent = texts.updateNotAvailable || 'Update feature not available';
+          errorElement.style.display = 'block';
         }
       });
       
@@ -4376,10 +4467,26 @@
     <h3 style="margin:0 0 20px;color:#1a1a2e;" data-i18n="updateAvailable">发现新版本</h3>
     <p id="update-version" style="margin:0 0 15px;font-size:14px;color:#666;"></p>
     <p id="update-notes" style="margin:0 0 20px;font-size:12px;color:#888;max-height:150px;overflow-y:auto;text-align:left;"></p>
-    <div style="display:flex;gap:15px;justify-content:center;">
-      <button id="update-download" style="padding:10px 30px;background:#00cc88;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;" data-i18n="downloadUpdate">下载更新</button>
-      <button id="update-later" style="padding:10px 30px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;" data-i18n="later">稍后</button>
+    
+    <!-- 下载进度条区域 -->
+    <div id="update-progress-container" style="display:none;margin-bottom:20px;">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:#666;margin-bottom:8px;">
+        <span id="update-progress-label" data-i18n="downloadProgress">下载进度</span>
+        <span id="update-progress-text">0%</span>
+      </div>
+      <div style="width:100%;height:6px;background:#eee;border-radius:3px;overflow:hidden;">
+        <div id="update-progress-bar" style="height:100%;background:linear-gradient(90deg,#00cc88,#00d4ff);width:0%;transition:width 0.3s ease;"></div>
+      </div>
+      <p id="update-progress-status" style="margin:10px 0 0;font-size:12px;color:#888;" data-i18n="downloading">正在下载...</p>
     </div>
+    
+    <div id="update-buttons" style="display:flex;gap:15px;justify-content:center;">
+      <button id="update-download" style="padding:10px 30px;background:#00cc88;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;transition:all 0.3s;" data-i18n="downloadUpdate">下载更新</button>
+      <button id="update-later" style="padding:10px 30px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;transition:all 0.3s;" data-i18n="later">稍后</button>
+    </div>
+    
+    <!-- 错误提示 -->
+    <p id="update-error" style="display:none;margin-top:15px;font-size:12px;color:#e53935;" data-i18n="downloadError">下载失败，请稍后重试</p>
   </div>
 </body>
 </html>

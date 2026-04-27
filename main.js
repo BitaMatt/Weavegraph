@@ -134,22 +134,63 @@ async function checkForUpdate() {
   }
 }
 
-// 下载文件到临时目录
-function downloadFile(url, dest) {
+// 下载文件到临时目录（带进度回调）
+function downloadFile(url, dest, progressCallback) {
   return new Promise((resolve, reject) => {
     const protocol = url.startsWith('https') ? https : http;
     const file = fs.createWriteStream(dest);
+    
+    let totalBytes = 0;
+    let downloadedBytes = 0;
 
     protocol.get(url, (response) => {
       if (response.statusCode === 301 || response.statusCode === 302) {
         // 重定向
-        downloadFile(response.headers.location, dest).then(resolve).catch(reject);
+        downloadFile(response.headers.location, dest, progressCallback).then(resolve).catch(reject);
         return;
       }
+
+      if (response.statusCode !== 200) {
+        reject(new Error(`HTTP error: ${response.statusCode}`));
+        return;
+      }
+
+      // 获取文件大小
+      totalBytes = parseInt(response.headers['content-length'] || '0', 10);
+      
+      if (progressCallback) {
+        progressCallback({
+          percent: 0,
+          status: 'Starting download...',
+          downloaded: downloadedBytes,
+          total: totalBytes
+        });
+      }
+
+      response.on('data', (chunk) => {
+        downloadedBytes += chunk.length;
+        if (totalBytes > 0 && progressCallback) {
+          const percent = Math.round((downloadedBytes / totalBytes) * 100);
+          progressCallback({
+            percent: percent,
+            status: `Downloading... ${downloadedBytes}/${totalBytes} bytes`,
+            downloaded: downloadedBytes,
+            total: totalBytes
+          });
+        }
+      });
 
       response.pipe(file);
       file.on('finish', () => {
         file.close();
+        if (progressCallback) {
+          progressCallback({
+            percent: 100,
+            status: 'Download complete',
+            downloaded: downloadedBytes,
+            total: totalBytes
+          });
+        }
         resolve(dest);
       });
     }).on('error', (err) => {
@@ -706,6 +747,16 @@ ipcMain.handle('get-update-info', async () => {
   return updateInfo;
 });
 
+// 下载进度回调函数（用于通知渲染进程）
+let downloadProgressCallback = null;
+
+// 设置下载进度回调
+ipcMain.handle('set-download-progress-callback', (event) => {
+  downloadProgressCallback = (progress) => {
+    event.sender.send('download-progress', progress);
+  };
+});
+
 // 下载并安装更新
 ipcMain.handle('download-update', async (event) => {
   console.log('[MAIN] download-update called');
@@ -723,9 +774,31 @@ ipcMain.handle('download-update', async (event) => {
     console.log('[MAIN] Downloading update from:', downloadUrl);
     console.log('[MAIN] Saving to:', destPath);
 
-    // 下载文件
-    await downloadFile(downloadUrl, destPath);
+    // 发送开始下载消息
+    if (downloadProgressCallback) {
+      downloadProgressCallback({
+        percent: 0,
+        status: 'Preparing download...'
+      });
+    }
+
+    // 下载文件（带进度回调）
+    await downloadFile(downloadUrl, destPath, (progress) => {
+      console.log('[MAIN] Download progress:', progress);
+      if (downloadProgressCallback) {
+        downloadProgressCallback(progress);
+      }
+    });
+    
     console.log('[MAIN] Download complete, running installer...');
+    
+    // 发送下载完成消息
+    if (downloadProgressCallback) {
+      downloadProgressCallback({
+        percent: 100,
+        status: 'Starting installer...'
+      });
+    }
 
     // 运行安装程序
     console.log('[MAIN] Running installer:', destPath);
@@ -748,6 +821,14 @@ ipcMain.handle('download-update', async (event) => {
     return { success: true, message: 'Download complete, installing...' };
   } catch (e) {
     console.error('[MAIN] download-update error:', e);
+    // 发送错误消息
+    if (downloadProgressCallback) {
+      downloadProgressCallback({
+        percent: 0,
+        status: `Error: ${e.message}`,
+        error: e.message
+      });
+    }
     return { success: false, message: e.message };
   }
 });
