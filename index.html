@@ -4355,7 +4355,13 @@
         document.getElementById('update-progress-status').textContent = texts.downloading || 'Downloading...';
         document.getElementById('update-error').textContent = texts.downloadError || 'Download failed';
         
-        console.log('[UPDATE] Dialog texts updated - downloadUpdate:', texts.downloadUpdate, ', later:', texts.later);
+        // 更新标题（这是缺失的）
+        var updateTitleElement = document.querySelector('[data-i18n="updateAvailable"]');
+        if (updateTitleElement && texts.updateAvailable) {
+          updateTitleElement.textContent = texts.updateAvailable;
+        }
+        
+        console.log('[UPDATE] Dialog texts updated - downloadUpdate:', texts.downloadUpdate, ', later:', texts.later, ', updateAvailable:', texts.updateAvailable);
         
         document.getElementById('update-dialog').style.display = 'block';
         document.getElementById('panel-overlay').style.display = 'block';

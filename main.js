@@ -46,9 +46,32 @@ function getLatestReleaseWithAssets() {
       res.on('end', () => {
         try {
           const release = JSON.parse(data);
-          const exeAsset = release.assets && release.assets.find(asset =>
-            asset.name && asset.name.endsWith('.exe')
-          );
+          console.log('[MAIN] Got release from GitHub:', JSON.stringify({
+            tag_name: release.tag_name,
+            name: release.name,
+            asset_count: release.assets ? release.assets.length : 0
+          }));
+          
+          // 更智能地查找 exe 文件
+          let exeAsset = null;
+          if (release.assets) {
+            console.log('[MAIN] Found assets:', release.assets.map(a => a.name));
+            
+            // 优先查找包含 'setup' 的 exe（通常是安装程序）
+            exeAsset = release.assets.find(asset =>
+              asset.name && asset.name.toLowerCase().includes('setup') && asset.name.toLowerCase().endsWith('.exe')
+            );
+            
+            // 如果没找到，再查找所有 exe 文件
+            if (!exeAsset) {
+              exeAsset = release.assets.find(asset =>
+                asset.name && asset.name.endsWith('.exe')
+              );
+            }
+          }
+          
+          console.log('[MAIN] Selected exe asset:', exeAsset ? exeAsset.name : 'none');
+          
           resolve({
             version: release.tag_name || release.name,
             downloadUrl: release.html_url,
@@ -58,12 +81,18 @@ function getLatestReleaseWithAssets() {
             exeAssetName: exeAsset ? exeAsset.name : null
           });
         } catch (e) {
+          console.error('[MAIN] Error parsing release data:', e);
           reject(e);
         }
       });
     });
 
-    req.on('error', reject);
+    req.on('error', (err) => {
+      console.error('[MAIN] Request error:', err);
+      reject(err);
+    });
+    
+    console.log('[MAIN] Sending request to GitHub API...');
     req.end();
   });
 }
