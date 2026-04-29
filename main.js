@@ -839,27 +839,34 @@ ipcMain.handle('download-update', async (event) => {
     if (downloadProgressCallback) {
       downloadProgressCallback({
         percent: 100,
-        status: 'Starting installer...'
+        status: 'Closing app and starting installer...'
       });
     }
 
-    // 运行安装程序
+    // 先最小化窗口
+    if (win) {
+      win.minimize();
+    }
+
+    // 延迟一小段时间确保窗口最小化
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // 使用 exec 来启动安装程序（后台运行）
     console.log('[MAIN] Running installer:', destPath);
     
-    // 使用 shell.openPath 来运行安装程序，这样可以获得更好的错误处理
-    const result = await shell.openPath(destPath);
-    
-    if (result) {
-      console.error('[MAIN] Failed to open installer:', result);
-      return { success: false, message: `Failed to run installer: ${result}` };
-    }
-    
-    console.log('[MAIN] Installer started successfully');
-    
-    // 延迟退出，让安装程序有时间启动
+    // 使用 start 命令在后台运行安装程序，不等待完成
+    exec(`start "" "${destPath}"`, (error, stdout, stderr) => {
+      if (error) {
+        console.error('[MAIN] Failed to start installer:', error);
+        return;
+      }
+      console.log('[MAIN] Installer started successfully');
+    });
+
+    // 立即退出应用，让安装程序能够替换文件
     setTimeout(() => {
       app.quit();
-    }, 2000);
+    }, 1000);
 
     return { success: true, message: 'Download complete, installing...' };
   } catch (e) {

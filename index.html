@@ -4331,6 +4331,12 @@
       
       // 显示更新对话框
       function showUpdateDialog(info) {
+        // 确保当前语言已设置
+        if (!currentLang) {
+          currentLang = localStorage.getItem('language') || 'zh-CN';
+          console.log('[UPDATE] currentLang not set, defaulting to:', currentLang);
+        }
+        
         var texts = i18n[currentLang] || i18n['zh-CN'];
         console.log('[UPDATE] Show update dialog - currentLang:', currentLang);
         console.log('[UPDATE] Show update dialog - texts:', texts);
@@ -4340,7 +4346,6 @@
         if (texts && texts.currentVersion && texts.newVersion) {
           versionText = texts.currentVersion + ': ' + info.currentVersion + ' → ' + texts.newVersion + ': ' + info.latestVersion;
         } else {
-          // 降级处理，确保显示版本信息
           versionText = 'Current Version: ' + info.currentVersion + ' → New Version: ' + info.latestVersion;
           console.log('[UPDATE] Fallback to English version text - texts.currentVersion:', texts.currentVersion, ', texts.newVersion:', texts.newVersion);
         }
@@ -4355,7 +4360,7 @@
         document.getElementById('update-progress-status').textContent = texts.downloading || 'Downloading...';
         document.getElementById('update-error').textContent = texts.downloadError || 'Download failed';
         
-        // 更新标题（这是缺失的）
+        // 更新标题
         var updateTitleElement = document.querySelector('[data-i18n="updateAvailable"]');
         if (updateTitleElement && texts.updateAvailable) {
           updateTitleElement.textContent = texts.updateAvailable;
