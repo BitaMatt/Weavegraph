@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.20] - 2026-04-29
+
+### 修复问题
+- 修复 GitHub Actions 构建失败问题，添加国内镜像源配置
+- 创建 .npmrc 文件配置 Electron 和 Electron Builder 镜像源
+- 在 GitHub Actions 工作流中添加镜像源配置
+
 ## [1.5.19] - 2026-04-29
 
 ### 测试更新

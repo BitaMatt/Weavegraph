@@ -63,6 +63,12 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Configure npm mirrors
+        run: |
+          echo "electron_mirror=https://npmmirror.com/mirrors/electron/" > .npmrc
+          echo "electron_builder_binaries_mirror=https://npmmirror.com/mirrors/electron-builder-binaries/" >> .npmrc
+        shell: bash
+
       - name: Install dependencies
         run: npm install
 
