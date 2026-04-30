@@ -52,7 +52,7 @@ function getLatestReleaseWithAssets() {
             asset_count: release.assets ? release.assets.length : 0
           }));
           
-          // 更智能地查找 exe 文件
+          // 更智能地查找安装文件
           let exeAsset = null;
           if (release.assets) {
             console.log('[MAIN] Found assets:', release.assets.map(a => a.name));
@@ -68,9 +68,16 @@ function getLatestReleaseWithAssets() {
                 asset.name && asset.name.endsWith('.exe')
               );
             }
+            
+            // 如果还是没有，尝试查找 zip 文件作为备选
+            if (!exeAsset) {
+              exeAsset = release.assets.find(asset =>
+                asset.name && asset.name.endsWith('.zip')
+              );
+            }
           }
           
-          console.log('[MAIN] Selected exe asset:', exeAsset ? exeAsset.name : 'none');
+          console.log('[MAIN] Selected asset:', exeAsset ? exeAsset.name : 'none');
           
           resolve({
             version: release.tag_name || release.name,
@@ -851,24 +858,36 @@ ipcMain.handle('download-update', async (event) => {
     // 延迟一小段时间确保窗口最小化
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    // 使用 exec 来启动安装程序（后台运行）
-    console.log('[MAIN] Running installer:', destPath);
+    // 检查文件类型（exe 或 zip）
+    const isZip = destPath.toLowerCase().endsWith('.zip');
     
-    // 使用 start 命令在后台运行安装程序，不等待完成
-    exec(`start "" "${destPath}"`, (error, stdout, stderr) => {
-      if (error) {
-        console.error('[MAIN] Failed to start installer:', error);
-        return;
-      }
-      console.log('[MAIN] Installer started successfully');
-    });
+    if (isZip) {
+      // 如果是 zip 文件，用 explorer 打开文件夹
+      console.log('[MAIN] Opening zip file with explorer:', destPath);
+      shell.openPath(destPath);
+      
+      // 显示友好消息，告诉用户需要手动解压
+      return { success: true, message: 'Download complete! Please extract the zip file manually.' };
+    } else {
+      // 如果是 exe 文件，启动安装程序
+      console.log('[MAIN] Running installer:', destPath);
+      
+      // 使用 start 命令在后台运行安装程序，不等待完成
+      exec(`start "" "${destPath}"`, (error, stdout, stderr) => {
+        if (error) {
+          console.error('[MAIN] Failed to start installer:', error);
+          return;
+        }
+        console.log('[MAIN] Installer started successfully');
+      });
 
-    // 立即退出应用，让安装程序能够替换文件
-    setTimeout(() => {
-      app.quit();
-    }, 1000);
+      // 立即退出应用，让安装程序能够替换文件
+      setTimeout(() => {
+        app.quit();
+      }, 1000);
 
-    return { success: true, message: 'Download complete, installing...' };
+      return { success: true, message: 'Download complete, installing...' };
+    }
   } catch (e) {
     console.error('[MAIN] ===== Download Error =====');
     console.error('[MAIN] Error type:', e.name);
