@@ -28,6 +28,14 @@
     .info-panel h4 { margin: 0 0 12px 0; color: #1a1a2e; font-size: 15px; font-weight: 600; border-bottom: 2px solid #00cc88; padding-bottom: 8px; }
     .info-panel p { margin: 6px 0; font-size: 12px; color: #555; line-height: 1.4; }
     .mode-indicator { position: absolute; top: 80px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.8); color: white; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 500; z-index: 100; display: none; }
+    .current-save-panel { position: absolute; top: 80px; right: 20px; background: rgba(255, 255, 255, 0.96); padding: 12px 14px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.22); z-index: 120; min-width: 250px; max-width: 340px; display: none; }
+    .current-save-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .current-save-meta { min-width: 0; }
+    .current-save-label { display: block; font-size: 11px; color: #667eea; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+    .current-save-name { display: block; font-size: 14px; color: #222; font-weight: 600; word-break: break-word; }
+    .current-save-toggle { flex-shrink: 0; padding: 5px 10px; border: 1px solid #d9e1f2; background: #f5f7fb; color: #445; border-radius: 999px; cursor: pointer; font-size: 12px; }
+    .current-save-toggle:hover { background: #eef3ff; }
+    .current-save-desc { margin-top: 10px; padding-top: 10px; border-top: 1px solid #e8ebf2; font-size: 12px; line-height: 1.5; color: #666; word-break: break-word; display: none; }
     .stats-panel { position: absolute; bottom: 20px; left: 20px; background: rgba(255, 255, 255, 0.95); padding: 15px 20px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); z-index: 100; min-width: 200px; display: none; }
     .stats-panel h4 { margin: 0 0 10px 0; color: #1a1a2e; font-size: 14px; font-weight: 600; border-bottom: 2px solid #667eea; padding-bottom: 8px; }
     .stats-item { margin: 6px 0; font-size: 12px; color: #555; display: flex; justify-content: space-between; }
@@ -145,6 +153,7 @@
     body.theme-light #cy { background: #e8e8e8; }
     body.theme-light #toolbar { background: rgba(255, 255, 255, 0.98); box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
     body.theme-light #toolbar h3 { color: #333; }
+    body.theme-light .current-save-panel { background: rgba(255, 255, 255, 0.98); }
     body.theme-light .info-panel { background: rgba(255, 255, 255, 0.98); }
     body.theme-light .info-panel h4 { color: #333; }
     body.theme-light .info-panel p { color: #666; }
@@ -157,6 +166,11 @@
     body.theme-blue #cy { background: #0f1a2e; }
     body.theme-blue #toolbar { background: rgba(30, 60, 100, 0.95); }
     body.theme-blue #toolbar h3 { color: #aac4ff; }
+    body.theme-blue .current-save-panel { background: rgba(30, 60, 100, 0.95); }
+    body.theme-blue .current-save-label { color: #aaccff; }
+    body.theme-blue .current-save-name { color: #fff; }
+    body.theme-blue .current-save-toggle { background: #1f3458; border-color: #4a6a9a; color: #dce8ff; }
+    body.theme-blue .current-save-desc { color: #dce8ff; border-top-color: #4a6a9a; }
     body.theme-blue .info-panel { background: rgba(30, 60, 100, 0.95); }
     body.theme-blue .info-panel h4 { color: #aac4ff; }
     body.theme-blue .info-panel p { color: #ccd9f5; }
@@ -169,6 +183,11 @@
     body.theme-green #cy { background: #0f1a1e; }
     body.theme-green #toolbar { background: rgba(20, 60, 50, 0.95); }
     body.theme-green #toolbar h3 { color: #aaffcc; }
+    body.theme-green .current-save-panel { background: rgba(20, 60, 50, 0.95); }
+    body.theme-green .current-save-label { color: #aaffcc; }
+    body.theme-green .current-save-name { color: #fff; }
+    body.theme-green .current-save-toggle { background: #183c33; border-color: #4a8a6a; color: #d8fff0; }
+    body.theme-green .current-save-desc { color: #d8fff0; border-top-color: #4a8a6a; }
     body.theme-green .info-panel { background: rgba(20, 60, 50, 0.95); }
     body.theme-green .info-panel h4 { color: #aaffcc; }
     body.theme-green .info-panel p { color: #ccf5e5; }
@@ -210,6 +229,16 @@
     </select>
   </div>
   <div class="mode-indicator" id="mode-indicator"><span data-i18n="currentMode">当前模式:</span> <span id="current-mode-text" data-i18n="editMode">编辑模式</span></div>
+  <div class="current-save-panel" id="current-save-panel">
+    <div class="current-save-header">
+      <div class="current-save-meta">
+        <span class="current-save-label" data-i18n="currentArchive">Current Archive</span>
+        <span class="current-save-name" id="current-save-name"></span>
+      </div>
+      <button type="button" class="current-save-toggle" id="toggle-current-save-desc"></button>
+    </div>
+    <div class="current-save-desc" id="current-save-desc"></div>
+  </div>
   <div id="auto-save-indicator" data-i18n="autoSaved">✓ 已自动保存</div>
   <div class="info-panel">
     <h4 data-i18n="instructions">操作说明</h4>
@@ -599,6 +628,13 @@
         divorced: '离异',
         importConfirm: '导入将覆盖当前所有数据。是否继续？',
         templateConfirm: '加载模板将覆盖当前所有数据。是否继续？',
+        currentArchive: '当前存档',
+        showDescription: '展开描述',
+        hideDescription: '收起描述',
+        noArchiveDescription: '暂无描述',
+        templateSaveBeforeLoad: '加载模板会导致当前存档编辑的内容被覆盖，是否另存新存档再加载模板？',
+        saveAsNewArchive: '另存新存档',
+        loadTemplateDirectly: '直接加载模板',
         filterResult: '筛选结果',
         nodes: '个节点',
         father: '父亲',
@@ -926,6 +962,13 @@
         divorced: '離異',
         importConfirm: '導入將覆蓋當前所有數據。是否繼續？',
         templateConfirm: '加載模板將覆蓋當前所有數據。是否繼續？',
+        currentArchive: '當前存檔',
+        showDescription: '展開描述',
+        hideDescription: '收起描述',
+        noArchiveDescription: '暫無描述',
+        templateSaveBeforeLoad: '加載模板會導致當前存檔編輯的內容被覆蓋，是否另存新存檔再加載模板？',
+        saveAsNewArchive: '另存新存檔',
+        loadTemplateDirectly: '直接加載模板',
         filterResult: '篩選結果',
         nodes: '個節點',
         father: '父親',
@@ -1254,6 +1297,13 @@
         divorced: 'Divorced',
         importConfirm: 'Import will overwrite all current data. Continue?',
         templateConfirm: 'Loading template will overwrite all current data. Continue?',
+        currentArchive: 'Current Archive',
+        showDescription: 'Show Description',
+        hideDescription: 'Hide Description',
+        noArchiveDescription: 'No description',
+        templateSaveBeforeLoad: 'Loading a template will overwrite the current archive. Save as a new archive before loading?',
+        saveAsNewArchive: 'Save as New',
+        loadTemplateDirectly: 'Load Template Now',
         filterResult: 'Filter Result',
         nodes: 'nodes',
         father: 'Father',
@@ -1486,6 +1536,9 @@
       if (cy && typeof cy.edges === 'function') {
         cy.edges().style('label', function(ele) { return translateRelation(ele.data('label')) || ''; });
       }
+      if (typeof updateCurrentSaveDisplay === 'function') {
+        updateCurrentSaveDisplay();
+      }
     }
 
     function translateRelation(label) {
@@ -1643,7 +1696,9 @@
       var CURRENT_SLOT_KEY = 'mindmap-current-slot';
       var INSURANCE_WEIGHTS_KEY = 'mindmap-insurance-weights';
       var currentLoadedSlot = null; // 跟踪用户是否明确加载了存档
-
+      var pendingAfterManualSave = null;
+      var currentSaveDescExpanded = false;
+      
       var customInsuranceWeights = { medical: 30, critical: 25, life: 25, savings: 20 };
 
       function loadInsuranceWeights() {
@@ -1873,6 +1928,8 @@
 
       function initAutoSave() {
         lastSaveTime = Date.now();
+        currentLoadedSlot = localStorage.getItem(CURRENT_SLOT_KEY) || null;
+        updateCurrentSaveDisplay();
       }
 
       function showAutoSaveIndicator() {
@@ -1920,6 +1977,91 @@
         };
       }
 
+      function getCurrentSaveTexts() {
+        return i18n[currentLang] || i18n['zh-CN'];
+      }
+
+      function getSaveSlotSummary(slotName) {
+        if (!slotName) return null;
+        var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
+        var listItem = saveList.find(function(item) { return item.slot === slotName; });
+        var rawData = localStorage.getItem(SAVE_KEY_PREFIX + slotName);
+        var saveData = null;
+        if (rawData) {
+          try {
+            saveData = JSON.parse(rawData);
+          } catch (error) {}
+        }
+        return {
+          slot: slotName,
+          name: (listItem && listItem.name) || (saveData && saveData.name) || slotName,
+          description: (listItem && listItem.description) || (saveData && saveData.description) || ''
+        };
+      }
+
+      function updateCurrentSaveDisplay() {
+        var panel = document.getElementById('current-save-panel');
+        var nameEl = document.getElementById('current-save-name');
+        var descEl = document.getElementById('current-save-desc');
+        var toggleEl = document.getElementById('toggle-current-save-desc');
+        var texts = getCurrentSaveTexts();
+        var slotName = currentLoadedSlot || localStorage.getItem(CURRENT_SLOT_KEY);
+        var summary = getSaveSlotSummary(slotName);
+
+        if (!panel || !nameEl || !descEl || !toggleEl) {
+          return;
+        }
+
+        if (!summary) {
+          panel.style.display = 'none';
+          descEl.style.display = 'none';
+          currentSaveDescExpanded = false;
+          return;
+        }
+
+        panel.style.display = 'block';
+        nameEl.textContent = summary.name;
+        descEl.textContent = summary.description || texts.noArchiveDescription || 'No description';
+        toggleEl.style.display = summary.description ? 'inline-flex' : 'none';
+        toggleEl.textContent = currentSaveDescExpanded ? (texts.hideDescription || 'Hide Description') : (texts.showDescription || 'Show Description');
+        descEl.style.display = currentSaveDescExpanded ? 'block' : 'none';
+      }
+
+      function showTemplateLoadDialog(onSaveAsNew, onLoadDirectly) {
+        var overlay = document.getElementById('panel-overlay');
+        var texts = getCurrentSaveTexts();
+        var dialog = document.createElement('div');
+        dialog.id = 'template-load-dialog';
+        dialog.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:30px;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);z-index:1000;min-width:340px;max-width:420px;text-align:center;';
+        dialog.innerHTML = '<p style="margin:0 0 20px;font-size:15px;color:#333;line-height:1.6;">' + (texts.templateSaveBeforeLoad || 'Loading a template will overwrite the current archive. Save as a new archive before loading?') + '</p>' +
+          '<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">' +
+          '<button id="template-save-new" style="padding:10px 18px;background:#00cc88;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;">' + (texts.saveAsNewArchive || 'Save as New') + '</button>' +
+          '<button id="template-load-direct" style="padding:10px 18px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;">' + (texts.loadTemplateDirectly || 'Load Template Now') + '</button>' +
+          '<button id="template-load-cancel" style="padding:10px 18px;background:#666;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;">' + (texts.cancel || 'Cancel') + '</button>' +
+          '</div>';
+        document.body.appendChild(dialog);
+        overlay.style.display = 'block';
+
+        function closeDialog() {
+          if (dialog.parentNode) {
+            dialog.parentNode.removeChild(dialog);
+          }
+          overlay.style.display = 'none';
+        }
+
+        document.getElementById('template-save-new').onclick = function() {
+          closeDialog();
+          if (onSaveAsNew) onSaveAsNew();
+        };
+        document.getElementById('template-load-direct').onclick = function() {
+          closeDialog();
+          if (onLoadDirectly) onLoadDirectly();
+        };
+        document.getElementById('template-load-cancel').onclick = function() {
+          closeDialog();
+        };
+      }
+
       function performSave(slotName, displayName, description, isAuto) {
         var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
         var saveData = {
@@ -1945,6 +2087,7 @@
         localStorage.setItem(CURRENT_SLOT_KEY, slotName);
         currentLoadedSlot = slotName; // 标记用户已加载存档
         lastSaveTime = Date.now();
+        updateCurrentSaveDisplay();
       }
 
       function loadSaveSlot(slotName) {
@@ -1979,6 +2122,7 @@
             indicator.style.display = 'block';
             setTimeout(function() { indicator.style.display = 'none'; }, 3000);
             setTimeout(function() { forceEnableFields(); }, 100);
+            updateCurrentSaveDisplay();
           }
         } catch (error) { showToast(i18n[currentLang].loadFailed, 4000); }
       }
@@ -1992,7 +2136,10 @@
           localStorage.removeItem(SAVE_KEY_PREFIX + slotName);
           if (localStorage.getItem(CURRENT_SLOT_KEY) === slotName) {
             localStorage.removeItem(CURRENT_SLOT_KEY);
+            currentLoadedSlot = null;
+            currentSaveDescExpanded = false;
           }
+          updateCurrentSaveDisplay();
           renderSaveSlotList();
         });
       }
@@ -2035,6 +2182,7 @@
         document.getElementById('edit-save-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
         document.getElementById('new-save-form').style.display = 'block';
+        updateCurrentSaveDisplay();
         renderSaveSlotList();
       });
 
@@ -2079,9 +2227,11 @@
         document.getElementById('node-form-panel').style.display = 'none';
         document.getElementById('node-detail-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
+        pendingAfterManualSave = null;
       });
 
       document.getElementById('save-btn').addEventListener('click', function() {
+        pendingAfterManualSave = null;
         document.getElementById('save-name').value = '';
         document.getElementById('save-desc').value = '';
         document.getElementById('save-panel').style.display = 'block';
@@ -2101,6 +2251,19 @@
         indicator.textContent = texts.saved + ' ' + name;
         indicator.style.display = 'block';
         setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+        if (pendingAfterManualSave) {
+          var callback = pendingAfterManualSave;
+          pendingAfterManualSave = null;
+          callback();
+        }
+      });
+
+      document.getElementById('toggle-current-save-desc').addEventListener('click', function() {
+        if (!currentLoadedSlot && !localStorage.getItem(CURRENT_SLOT_KEY)) {
+          return;
+        }
+        currentSaveDescExpanded = !currentSaveDescExpanded;
+        updateCurrentSaveDisplay();
       });
 
       document.getElementById('load-btn').addEventListener('click', function() {
@@ -2292,7 +2455,19 @@
 
       document.getElementById('template-btn').addEventListener('click', function() {
         var texts = i18n[currentLang] || i18n['zh-CN'];
-        if (cy.elements().length > 0) {
+        if (cy.elements().length > 0 && currentLoadedSlot) {
+          showTemplateLoadDialog(function() {
+            pendingAfterManualSave = function() {
+              loadTemplate();
+            };
+            document.getElementById('save-name').value = '';
+            document.getElementById('save-desc').value = '';
+            document.getElementById('save-panel').style.display = 'block';
+            document.getElementById('panel-overlay').style.display = 'block';
+          }, function() {
+            loadTemplate();
+          });
+        } else if (cy.elements().length > 0) {
           showConfirm(texts.templateConfirm || '加载模板将覆盖当前所有数据。是否继续？', function() {
             loadTemplate();
           });
@@ -2321,6 +2496,10 @@
             });
             nodeId = maxNodeId;
             edgeId = maxEdgeId;
+            currentLoadedSlot = null;
+            currentSaveDescExpanded = false;
+            localStorage.removeItem(CURRENT_SLOT_KEY);
+            updateCurrentSaveDisplay();
             debugLog('Template loaded: nodeId=' + nodeId + ', edgeId=' + edgeId);
 
             var selfNode = selfNodeId ? cy.$('#' + selfNodeId) : cy.nodes().first();
