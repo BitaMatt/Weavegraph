@@ -416,6 +416,20 @@
   <div id="settings-panel">
     <h3 data-i18n="settings">⚙️ 设置</h3>
     <div class="settings-section">
+      <h4 data-i18n="startupArchive">🗂️ 启动存档</h4>
+      <p style="font-size:12px;color:#666;margin-bottom:10px;" data-i18n="startupArchiveHint">设置应用启动时自动加载的默认存档；未设置时将打开空白画布。</p>
+      <div class="form-row">
+        <label data-i18n="defaultArchive">默认存档:</label>
+        <div style="flex:1;">
+          <div id="default-archive-name" style="font-size:14px;color:#333;font-weight:600;">未设置</div>
+          <div id="default-archive-desc" style="font-size:12px;color:#888;margin-top:4px;">启动时打开空白画布</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:10px;">
+        <button id="clear-default-archive" type="button" style="padding:8px 15px;background:#666;color:white;border:none;border-radius:6px;cursor:pointer;" data-i18n="clearDefaultArchive">清除默认存档</button>
+      </div>
+    </div>
+    <div class="settings-section">
       <h4 data-i18n="uiTheme">🖥️ UI主题</h4>
       <div class="form-row">
         <select id="setting-theme">
@@ -635,6 +649,16 @@
         templateSaveBeforeLoad: '加载模板会导致当前存档编辑的内容被覆盖，是否另存新存档再加载模板？',
         saveAsNewArchive: '另存新存档',
         loadTemplateDirectly: '直接加载模板',
+        startupArchive: '🗂️ 启动存档',
+        startupArchiveHint: '设置应用启动时自动加载的默认存档；未设置时将打开空白画布。',
+        defaultArchive: '默认存档',
+        noDefaultArchive: '未设置',
+        noDefaultArchiveHint: '启动时打开空白画布',
+        setDefaultArchive: '设为默认',
+        defaultArchiveSet: '✓ 已设为默认启动存档',
+        clearDefaultArchive: '清除默认存档',
+        defaultArchiveCleared: '✓ 已清除默认启动存档',
+        defaultArchiveLoaded: '✓ 已加载默认存档',
         filterResult: '筛选结果',
         nodes: '个节点',
         father: '父亲',
@@ -969,6 +993,16 @@
         templateSaveBeforeLoad: '加載模板會導致當前存檔編輯的內容被覆蓋，是否另存新存檔再加載模板？',
         saveAsNewArchive: '另存新存檔',
         loadTemplateDirectly: '直接加載模板',
+        startupArchive: '🗂️ 啟動存檔',
+        startupArchiveHint: '設置應用啟動時自動加載的默認存檔；未設置時將打開空白畫布。',
+        defaultArchive: '默認存檔',
+        noDefaultArchive: '未設置',
+        noDefaultArchiveHint: '啟動時打開空白畫布',
+        setDefaultArchive: '設為默認',
+        defaultArchiveSet: '✓ 已設為默認啟動存檔',
+        clearDefaultArchive: '清除默認存檔',
+        defaultArchiveCleared: '✓ 已清除默認啟動存檔',
+        defaultArchiveLoaded: '✓ 已加載默認存檔',
         filterResult: '篩選結果',
         nodes: '個節點',
         father: '父親',
@@ -1304,6 +1338,16 @@
         templateSaveBeforeLoad: 'Loading a template will overwrite the current archive. Save as a new archive before loading?',
         saveAsNewArchive: 'Save as New',
         loadTemplateDirectly: 'Load Template Now',
+        startupArchive: '🗂️ Startup Archive',
+        startupArchiveHint: 'Choose a default archive to load at startup. If not set, the app opens with a blank canvas.',
+        defaultArchive: 'Default Archive',
+        noDefaultArchive: 'Not set',
+        noDefaultArchiveHint: 'Open with a blank canvas at startup',
+        setDefaultArchive: 'Set as Default',
+        defaultArchiveSet: '✓ Default startup archive set',
+        clearDefaultArchive: 'Clear Default Archive',
+        defaultArchiveCleared: '✓ Default startup archive cleared',
+        defaultArchiveLoaded: '✓ Default archive loaded',
         filterResult: 'Filter Result',
         nodes: 'nodes',
         father: 'Father',
@@ -1539,6 +1583,9 @@
       if (typeof updateCurrentSaveDisplay === 'function') {
         updateCurrentSaveDisplay();
       }
+      if (typeof updateDefaultArchiveStatus === 'function') {
+        updateDefaultArchiveStatus();
+      }
     }
 
     function translateRelation(label) {
@@ -1694,6 +1741,7 @@
       var SAVE_KEY_PREFIX = 'mindmap-save-';
       var SAVE_LIST_KEY = 'mindmap-save-list';
       var CURRENT_SLOT_KEY = 'mindmap-current-slot';
+      var DEFAULT_SLOT_KEY = 'mindmap-default-slot';
       var INSURANCE_WEIGHTS_KEY = 'mindmap-insurance-weights';
       var currentLoadedSlot = null; // 跟踪用户是否明确加载了存档
       var pendingAfterManualSave = null;
@@ -1928,8 +1976,9 @@
 
       function initAutoSave() {
         lastSaveTime = Date.now();
-        currentLoadedSlot = localStorage.getItem(CURRENT_SLOT_KEY) || null;
+        currentLoadedSlot = null;
         updateCurrentSaveDisplay();
+        updateDefaultArchiveStatus();
       }
 
       function showAutoSaveIndicator() {
@@ -1999,13 +2048,59 @@
         };
       }
 
+      function getDefaultSaveSlot() {
+        return localStorage.getItem(DEFAULT_SLOT_KEY) || null;
+      }
+
+      function updateDefaultArchiveStatus() {
+        var nameEl = document.getElementById('default-archive-name');
+        var descEl = document.getElementById('default-archive-desc');
+        if (!nameEl || !descEl) {
+          return;
+        }
+        var texts = getCurrentSaveTexts();
+        var defaultSlot = getDefaultSaveSlot();
+        var summary = getSaveSlotSummary(defaultSlot);
+
+        if (!summary) {
+          nameEl.textContent = texts.noDefaultArchive || 'Not set';
+          descEl.textContent = texts.noDefaultArchiveHint || 'Open with a blank canvas at startup';
+          return;
+        }
+
+        nameEl.textContent = summary.name;
+        descEl.textContent = summary.description || (texts.noArchiveDescription || 'No description');
+      }
+
+      function setDefaultSaveSlot(slotName) {
+        var texts = getCurrentSaveTexts();
+        var summary = getSaveSlotSummary(slotName);
+        if (!summary) {
+          return;
+        }
+        localStorage.setItem(DEFAULT_SLOT_KEY, slotName);
+        updateDefaultArchiveStatus();
+        renderSaveSlotList();
+        showToast(texts.defaultArchiveSet || 'Default startup archive set');
+      }
+
+      function clearDefaultSaveSlot(showFeedback) {
+        localStorage.removeItem(DEFAULT_SLOT_KEY);
+        updateDefaultArchiveStatus();
+        renderSaveSlotList();
+        if (showFeedback) {
+          var texts = getCurrentSaveTexts();
+          showToast(texts.defaultArchiveCleared || 'Default startup archive cleared');
+        }
+      }
+
       function updateCurrentSaveDisplay() {
         var panel = document.getElementById('current-save-panel');
         var nameEl = document.getElementById('current-save-name');
         var descEl = document.getElementById('current-save-desc');
         var toggleEl = document.getElementById('toggle-current-save-desc');
         var texts = getCurrentSaveTexts();
-        var slotName = currentLoadedSlot || localStorage.getItem(CURRENT_SLOT_KEY);
+        var slotName = currentLoadedSlot;
         var summary = getSaveSlotSummary(slotName);
 
         if (!panel || !nameEl || !descEl || !toggleEl) {
@@ -2062,6 +2157,26 @@
         };
       }
 
+      function autoLoadDefaultSave() {
+        var defaultSlot = getDefaultSaveSlot();
+        var summary = getSaveSlotSummary(defaultSlot);
+        if (!defaultSlot) {
+          currentLoadedSlot = null;
+          localStorage.removeItem(CURRENT_SLOT_KEY);
+          updateCurrentSaveDisplay();
+          updateDefaultArchiveStatus();
+          return;
+        }
+        if (!summary) {
+          clearDefaultSaveSlot(false);
+          currentLoadedSlot = null;
+          localStorage.removeItem(CURRENT_SLOT_KEY);
+          updateCurrentSaveDisplay();
+          return;
+        }
+        loadSaveSlot(defaultSlot, { startup: true, resetHistory: true });
+      }
+
       function performSave(slotName, displayName, description, isAuto) {
         var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
         var saveData = {
@@ -2088,9 +2203,11 @@
         currentLoadedSlot = slotName; // 标记用户已加载存档
         lastSaveTime = Date.now();
         updateCurrentSaveDisplay();
+        updateDefaultArchiveStatus();
       }
 
-      function loadSaveSlot(slotName) {
+      function loadSaveSlot(slotName, options) {
+        options = options || {};
         try {
           var data = localStorage.getItem(SAVE_KEY_PREFIX + slotName);
           if (data) {
@@ -2107,6 +2224,11 @@
             });
             nodeId = maxNodeId;
             edgeId = maxEdgeId;
+            if (options.resetHistory) {
+              undoStack = [];
+              redoStack = [];
+              saveStateForUndo();
+            }
             localStorage.setItem(CURRENT_SLOT_KEY, slotName);
             currentLoadedSlot = slotName;
             cy.fit(100);
@@ -2118,9 +2240,11 @@
             var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
             var slotInfo = saveList.find(function(s) { return s.slot === slotName; });
             var displayName = slotInfo ? slotInfo.name : (saveData.name || slotName);
-            indicator.textContent = texts.loaded + ' ' + displayName;
-            indicator.style.display = 'block';
-            setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+            if (!options.silent) {
+              indicator.textContent = (options.startup ? (texts.defaultArchiveLoaded || texts.loaded) : texts.loaded) + ' ' + displayName;
+              indicator.style.display = 'block';
+              setTimeout(function() { indicator.style.display = 'none'; }, 3000);
+            }
             setTimeout(function() { forceEnableFields(); }, 100);
             updateCurrentSaveDisplay();
           }
@@ -2134,6 +2258,9 @@
           saveList = saveList.filter(function(s) { return s.slot !== slotName; });
           localStorage.setItem(SAVE_LIST_KEY, JSON.stringify(saveList));
           localStorage.removeItem(SAVE_KEY_PREFIX + slotName);
+          if (getDefaultSaveSlot() === slotName) {
+            clearDefaultSaveSlot(false);
+          }
           if (localStorage.getItem(CURRENT_SLOT_KEY) === slotName) {
             localStorage.removeItem(CURRENT_SLOT_KEY);
             currentLoadedSlot = null;
@@ -2202,17 +2329,24 @@
           container.innerHTML = '<p style="text-align:center;color:#999;padding:30px;">' + texts.noSaveYet + '</p>';
           return;
         }
-        var currentSlot = localStorage.getItem(CURRENT_SLOT_KEY);
+        var currentSlot = currentLoadedSlot;
+        var defaultSlot = getDefaultSaveSlot();
         container.innerHTML = saveList.map(function(slot) {
           var date = new Date(slot.timestamp);
           var dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+          var defaultBadgeText = (texts.defaultArchive || 'Default Archive').replace(/[:：]\s*$/, '');
+          var defaultBadge = slot.slot === defaultSlot ? '<span style="display:inline-block;margin-left:8px;padding:2px 8px;background:#ff9500;color:white;border-radius:999px;font-size:11px;">' + defaultBadgeText + '</span>' : '';
+          var defaultButton = slot.slot === defaultSlot
+            ? '<button class="btn-default-slot" style="padding:5px 12px;background:#ff9500;color:white;border:none;border-radius:15px;cursor:pointer;font-size:12px;" disabled>' + (texts.setDefaultArchive || 'Set as Default') + '</button>'
+            : '<button class="btn-default-slot" onclick="setDefaultSaveSlot(\'' + slot.slot + '\')" style="padding:5px 12px;background:#ff9500;color:white;border:none;border-radius:15px;cursor:pointer;font-size:12px;">' + (texts.setDefaultArchive || 'Set as Default') + '</button>';
           return '<div class="save-slot-item' + (slot.slot === currentSlot ? ' active' : '') + '">' +
-            '<div class="save-slot-name">' + slot.name + '</div>' +
+            '<div class="save-slot-name">' + slot.name + defaultBadge + '</div>' +
             (slot.description ? '<div class="save-slot-desc">' + slot.description + '</div>' : '') +
             '<div class="save-slot-time">' + dateStr + '</div>' +
             '<div class="save-slot-actions">' +
             '<button class="btn-load-slot" onclick="loadSaveSlot(\'' + slot.slot + '\')">' + texts.load + '</button>' +
             '<button class="btn-edit-slot" onclick="editSaveSlot(\'' + slot.slot + '\')" style="padding:5px 12px;background:#667eea;color:white;border:none;border-radius:15px;cursor:pointer;font-size:12px;">' + texts.editSlot + '</button>' +
+            defaultButton +
             '<button class="btn-delete-slot" onclick="deleteSaveSlot(\'' + slot.slot + '\')">'+ texts.close.replace('关闭', '删除') +'</button>' +
             '</div></div>';
         }).join('');
@@ -2220,6 +2354,7 @@
 
       window.loadSaveSlot = loadSaveSlot;
       window.deleteSaveSlot = deleteSaveSlot;
+      window.setDefaultSaveSlot = setDefaultSaveSlot;
 
       document.getElementById('panel-overlay').addEventListener('click', function() {
         document.getElementById('save-panel').style.display = 'none';
@@ -2832,8 +2967,13 @@
         loadInsuranceWeights();
         loadKeyboardShortcuts();
         document.getElementById('setting-theme').value = currentTheme;
+        updateDefaultArchiveStatus();
         document.getElementById('settings-panel').style.display = 'block';
         document.getElementById('panel-overlay').style.display = 'block';
+      });
+
+      document.getElementById('clear-default-archive').addEventListener('click', function() {
+        clearDefaultSaveSlot(true);
       });
 
       document.getElementById('cancel-settings').addEventListener('click', function() {
@@ -4459,7 +4599,11 @@
       loadInsuranceWeights();
       loadTheme();
       loadKeyboardShortcuts();
-      saveStateForUndo();
+      initAutoSave();
+      autoLoadDefaultSave();
+      if (undoStack.length === 0) {
+        saveStateForUndo();
+      }
       debugLog('App initialized');
 
       document.addEventListener('keydown', function(e) {
@@ -4515,8 +4659,6 @@
         }
       });
 
-      initAutoSave();
-      
       // 检查更新函数
             function checkForUpdate() {
         if (typeof window.electronAPI !== 'undefined' && window.electronAPI.checkUpdate) {
