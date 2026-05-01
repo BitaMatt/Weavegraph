@@ -1,6 +1,6 @@
 {
   "name": "weavegraph",
-  "version": "1.5.23",
+  "version": "1.5.24",
   "description": "客户关系网络思维导图工具",
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
   "build": {
     "appId": "com.weavegraph.app",
     "productName": "人脈織圖(WeaveGraph)",
+    "compression": "store",
     "electronVersion": "41.2.0",
     "icon": "icon/logo.png",
     "directories": {
@@ -92,7 +93,7 @@
       "artifactName": "weavegraph-setup-${version}.${ext}",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
+      "createDesktopShortcut": false,
       "createStartMenuShortcut": true,
       "shortcutName": "人脈織圖(WeaveGraph)",
       "installerLanguages": [

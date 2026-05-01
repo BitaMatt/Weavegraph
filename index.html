@@ -4375,6 +4375,35 @@
         progressStatus.textContent = texts.downloading || 'Downloading...';
         errorElement.style.display = 'none';
       }
+      function formatReleaseNotes(notesHtml) {
+        if (!notesHtml) {
+          return '';
+        }
+
+        var template = document.createElement('template');
+        template.innerHTML = notesHtml;
+
+        Array.from(template.content.querySelectorAll('script,style,iframe,object,embed')).forEach(function(node) {
+          node.remove();
+        });
+
+        Array.from(template.content.querySelectorAll('*')).forEach(function(node) {
+          Array.from(node.attributes).forEach(function(attr) {
+            var name = attr.name.toLowerCase();
+            if (name !== 'href' && name !== 'target' && name !== 'rel') {
+              node.removeAttribute(attr.name);
+            }
+          });
+
+          if (node.tagName === 'A') {
+            node.setAttribute('target', '_blank');
+            node.setAttribute('rel', 'noreferrer noopener');
+          }
+        });
+
+        return template.innerHTML.trim();
+      }
+
       function showUpdateDialog(info) {
         var texts = getUpdateTexts();
         latestUpdateInfo = info;
@@ -4382,7 +4411,7 @@
         document.getElementById('update-version').textContent =
           (texts.currentVersion || 'Current Version') + ': ' + info.currentVersion + ' -> ' +
           (texts.newVersion || 'New Version') + ': ' + info.latestVersion;
-        document.getElementById('update-notes').textContent = info.releaseNotes || '';
+        document.getElementById('update-notes').innerHTML = formatReleaseNotes(info.releaseNotes);
         document.getElementById('update-progress-label').textContent = texts.downloadProgress || 'Download Progress';
         document.getElementById('update-progress-status').textContent = texts.downloading || 'Downloading...';
         document.getElementById('update-error').textContent = texts.updateFailed || texts.downloadError || 'Update failed';
@@ -4496,7 +4525,7 @@
   <div id="update-dialog" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:30px;border-radius:16px;box-shadow:rgba(0,0,0,0.5) 0px 20px 60px;z-index:3000;min-width:350px;text-align:center;">
     <h3 style="margin:0 0 20px;color:#1a1a2e;" data-i18n="updateAvailable">发现新版本</h3>
     <p id="update-version" style="margin:0 0 15px;font-size:14px;color:#666;"></p>
-    <p id="update-notes" style="margin:0 0 20px;font-size:12px;color:#888;max-height:150px;overflow-y:auto;text-align:left;"></p>
+    <div id="update-notes" style="margin:0 0 20px;font-size:12px;color:#888;max-height:180px;overflow-y:auto;text-align:left;line-height:1.6;"></div>
     
     <!-- 下载进度条区域 -->
     <div id="update-progress-container" style="display:none;margin-bottom:20px;">

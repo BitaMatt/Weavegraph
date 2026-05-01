@@ -1087,7 +1087,7 @@ ipcMain.handle('install-update-v2', async () => {
   }
 
   setImmediate(() => {
-    autoUpdater.quitAndInstall(false, true);
+    autoUpdater.quitAndInstall(true, true);
   });
 
   return { success: true };
