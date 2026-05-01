@@ -1522,6 +1522,28 @@
       return relationMap[label] || label;
     }
 
+    Object.assign(i18n['zh-CN'], {
+      autoUpdate: '\u81ea\u52a8\u66f4\u65b0',
+      checkingUpdate: '\u6b63\u5728\u68c0\u67e5\u66f4\u65b0...',
+      updateReadyToInstall: '\u66f4\u65b0\u5df2\u4e0b\u8f7d\uff0c\u6b63\u5728\u5b89\u88c5\u5e76\u91cd\u542f...',
+      installAndRestart: '\u5b89\u88c5\u5e76\u91cd\u542f',
+      updateFailed: '\u66f4\u65b0\u5931\u8d25'
+    });
+    Object.assign(i18n['zh-TW'], {
+      autoUpdate: '\u81ea\u52d5\u66f4\u65b0',
+      checkingUpdate: '\u6b63\u5728\u6aa2\u67e5\u66f4\u65b0...',
+      updateReadyToInstall: '\u66f4\u65b0\u5df2\u4e0b\u8f09\uff0c\u6b63\u5728\u5b89\u88dd\u4e26\u91cd\u65b0\u555f\u52d5...',
+      installAndRestart: '\u5b89\u88dd\u4e26\u91cd\u65b0\u555f\u52d5',
+      updateFailed: '\u66f4\u65b0\u5931\u6557'
+    });
+    Object.assign(i18n['en'], {
+      autoUpdate: 'Auto Update',
+      checkingUpdate: 'Checking for updates...',
+      updateReadyToInstall: 'Update downloaded, installing and restarting...',
+      installAndRestart: 'Install and Restart',
+      updateFailed: 'Update failed'
+    });
+
     document.getElementById('lang-select').addEventListener('change', function(e) {
       setLanguage(e.target.value);
     });
@@ -4317,66 +4339,21 @@
       initAutoSave();
       
       // 检查更新函数
-      function checkForUpdate() {
+            function checkForUpdate() {
         if (typeof window.electronAPI !== 'undefined' && window.electronAPI.checkUpdate) {
-          window.electronAPI.checkUpdate().then(function(result) {
-            if (result.hasUpdate && result.info) {
-              showUpdateDialog(result.info);
-            }
-          }).catch(function(err) {
+          window.electronAPI.checkUpdate().catch(function(err) {
             console.log('Update check failed:', err);
           });
         }
       }
-      
-      // 显示更新对话框
-      function showUpdateDialog(info) {
-        // 确保当前语言已设置
+      function getUpdateTexts() {
         if (!currentLang) {
           currentLang = localStorage.getItem('language') || 'zh-CN';
-          console.log('[UPDATE] currentLang not set, defaulting to:', currentLang);
         }
-        
-        var texts = i18n[currentLang] || i18n['zh-CN'];
-        console.log('[UPDATE] Show update dialog - currentLang:', currentLang);
-        console.log('[UPDATE] Show update dialog - texts:', texts);
-        console.log('[UPDATE] Show update dialog - info:', info);
-        
-        var versionText = '';
-        if (texts && texts.currentVersion && texts.newVersion) {
-          versionText = texts.currentVersion + ': ' + info.currentVersion + ' → ' + texts.newVersion + ': ' + info.latestVersion;
-        } else {
-          versionText = 'Current Version: ' + info.currentVersion + ' → New Version: ' + info.latestVersion;
-          console.log('[UPDATE] Fallback to English version text - texts.currentVersion:', texts.currentVersion, ', texts.newVersion:', texts.newVersion);
-        }
-        
-        document.getElementById('update-version').textContent = versionText;
-        document.getElementById('update-notes').textContent = info.releaseNotes || '';
-        
-        // 更新对话框中的所有文本（确保正确翻译）
-        document.getElementById('update-download').textContent = texts.downloadUpdate || 'Download Update';
-        document.getElementById('update-later').textContent = texts.later || 'Later';
-        document.getElementById('update-progress-label').textContent = texts.downloadProgress || 'Download Progress';
-        document.getElementById('update-progress-status').textContent = texts.downloading || 'Downloading...';
-        document.getElementById('update-error').textContent = texts.downloadError || 'Download failed';
-        
-        // 更新标题
-        var updateTitleElement = document.querySelector('[data-i18n="updateAvailable"]');
-        if (updateTitleElement && texts.updateAvailable) {
-          updateTitleElement.textContent = texts.updateAvailable;
-        }
-        
-        console.log('[UPDATE] Dialog texts updated - downloadUpdate:', texts.downloadUpdate, ', later:', texts.later, ', updateAvailable:', texts.updateAvailable);
-        
-        document.getElementById('update-dialog').style.display = 'block';
-        document.getElementById('panel-overlay').style.display = 'block';
+        return i18n[currentLang] || i18n['zh-CN'];
       }
-      
-      var isDownloading = false;
-
-      // 更新对话框按钮事件
-      document.getElementById('update-download').addEventListener('click', function() {
-        var texts = i18n[currentLang] || i18n['zh-CN'];
+      function resetUpdateDialogState() {
+        var texts = getUpdateTexts();
         var downloadBtn = document.getElementById('update-download');
         var laterBtn = document.getElementById('update-later');
         var progressContainer = document.getElementById('update-progress-container');
@@ -4384,92 +4361,123 @@
         var progressText = document.getElementById('update-progress-text');
         var progressStatus = document.getElementById('update-progress-status');
         var errorElement = document.getElementById('update-error');
-        
-        // 防止重复点击
-        if (isDownloading) {
-          console.log('Download already in progress, ignoring click');
+        isDownloading = false;
+        installTriggered = false;
+        downloadBtn.disabled = false;
+        laterBtn.disabled = false;
+        downloadBtn.style.opacity = '1';
+        downloadBtn.style.cursor = 'pointer';
+        downloadBtn.textContent = texts.autoUpdate || texts.downloadUpdate || 'Auto Update';
+        laterBtn.textContent = texts.later || 'Later';
+        progressContainer.style.display = 'none';
+        progressBar.style.width = '0%';
+        progressText.textContent = '0%';
+        progressStatus.textContent = texts.downloading || 'Downloading...';
+        errorElement.style.display = 'none';
+      }
+      function showUpdateDialog(info) {
+        var texts = getUpdateTexts();
+        latestUpdateInfo = info;
+        resetUpdateDialogState();
+        document.getElementById('update-version').textContent =
+          (texts.currentVersion || 'Current Version') + ': ' + info.currentVersion + ' -> ' +
+          (texts.newVersion || 'New Version') + ': ' + info.latestVersion;
+        document.getElementById('update-notes').textContent = info.releaseNotes || '';
+        document.getElementById('update-progress-label').textContent = texts.downloadProgress || 'Download Progress';
+        document.getElementById('update-progress-status').textContent = texts.downloading || 'Downloading...';
+        document.getElementById('update-error').textContent = texts.updateFailed || texts.downloadError || 'Update failed';
+        var updateTitleElement = document.querySelector('[data-i18n="updateAvailable"]');
+        if (updateTitleElement) {
+          updateTitleElement.textContent = texts.updateAvailable || 'Update Available';
+        }
+        document.getElementById('update-dialog').style.display = 'block';
+        document.getElementById('panel-overlay').style.display = 'block';
+      }
+      function renderUpdateError(message) {
+        var texts = getUpdateTexts();
+        var downloadBtn = document.getElementById('update-download');
+        var laterBtn = document.getElementById('update-later');
+        var progressContainer = document.getElementById('update-progress-container');
+        var errorElement = document.getElementById('update-error');
+        isDownloading = false;
+        downloadBtn.disabled = false;
+        laterBtn.disabled = false;
+        downloadBtn.style.opacity = '1';
+        downloadBtn.style.cursor = 'pointer';
+        downloadBtn.textContent = texts.autoUpdate || texts.downloadUpdate || 'Auto Update';
+        progressContainer.style.display = 'none';
+        errorElement.textContent = (texts.updateFailed || texts.downloadError || 'Update failed') + ': ' + message;
+        errorElement.style.display = 'block';
+      }
+      function handleUpdateStatus(payload) {
+        var texts = getUpdateTexts();
+        if (!payload || !payload.status) {
           return;
         }
-        
-        console.log('Download update button clicked');
-        
-        // 设置下载状态
+        if (payload.status === 'update-available' && payload.info) {
+          showUpdateDialog(payload.info);
+          return;
+        }
+        if (payload.status === 'download-progress') {
+          document.getElementById('update-progress-container').style.display = 'block';
+          document.getElementById('update-progress-bar').style.width = payload.percent + '%';
+          document.getElementById('update-progress-text').textContent = payload.percent + '%';
+          document.getElementById('update-progress-status').textContent = texts.downloading || 'Downloading...';
+          return;
+        }
+        if (payload.status === 'update-downloaded') {
+          document.getElementById('update-progress-container').style.display = 'block';
+          document.getElementById('update-progress-bar').style.width = '100%';
+          document.getElementById('update-progress-text').textContent = '100%';
+          document.getElementById('update-progress-status').textContent = texts.updateReadyToInstall || texts.installing || 'Installing...';
+          if (!installTriggered && window.electronAPI && window.electronAPI.installUpdate) {
+            installTriggered = true;
+            setTimeout(function() {
+              window.electronAPI.installUpdate().catch(function(err) {
+                renderUpdateError(err.message || 'Install failed');
+              });
+            }, 800);
+          }
+          return;
+        }
+        if (payload.status === 'error') {
+          renderUpdateError(payload.message || 'Unknown error');
+        }
+      }
+      var isDownloading = false;
+      var installTriggered = false;
+      var latestUpdateInfo = null;
+      if (typeof window.electronAPI !== 'undefined' && window.electronAPI.onUpdateStatus) {
+        window.electronAPI.onUpdateStatus(handleUpdateStatus);
+      }
+      document.getElementById('update-download').addEventListener('click', function() {
+        var texts = getUpdateTexts();
+        var downloadBtn = document.getElementById('update-download');
+        var laterBtn = document.getElementById('update-later');
+        var progressContainer = document.getElementById('update-progress-container');
+        var errorElement = document.getElementById('update-error');
+        if (isDownloading || !latestUpdateInfo) {
+          return;
+        }
+        if (typeof window.electronAPI === 'undefined' || !window.electronAPI.downloadUpdate) {
+          renderUpdateError(texts.updateNotAvailable || 'Update feature not available');
+          return;
+        }
         isDownloading = true;
         downloadBtn.disabled = true;
         laterBtn.disabled = true;
         downloadBtn.style.opacity = '0.7';
         downloadBtn.style.cursor = 'not-allowed';
-        downloadBtn.textContent = texts.downloading || 'Downloading...';
-        
-        // 显示进度条
+        downloadBtn.textContent = texts.checkingUpdate || texts.downloading || 'Downloading...';
         progressContainer.style.display = 'block';
-        progressBar.style.width = '0%';
-        progressText.textContent = '0%';
         errorElement.style.display = 'none';
-        
-        // 设置进度回调
-        if (typeof window.electronAPI !== 'undefined') {
-          // 设置下载进度监听
-          window.electronAPI.onDownloadProgress(function(progress) {
-            console.log('Download progress:', progress);
-            if (progress && progress.percent !== undefined) {
-              progressBar.style.width = progress.percent + '%';
-              progressText.textContent = progress.percent + '%';
-              if (progress.status) {
-                progressStatus.textContent = progress.status;
-              }
-            }
-          });
-          
-          console.log('Calling electronAPI.downloadUpdate()');
-          window.electronAPI.downloadUpdate().then(function(result) {
-            console.log('Download update result:', result);
-            if (result.success) {
-              progressStatus.textContent = texts.installing || 'Installing...';
-              progressBar.style.width = '100%';
-              progressText.textContent = '100%';
-              setTimeout(function() {
-                document.getElementById('update-dialog').style.display = 'none';
-                document.getElementById('panel-overlay').style.display = 'none';
-              }, 1000);
-            } else {
-              console.error('Download failed:', result.message);
-              // 显示错误信息
-              isDownloading = false;
-              downloadBtn.disabled = false;
-              laterBtn.disabled = false;
-              downloadBtn.style.opacity = '1';
-              downloadBtn.style.cursor = 'pointer';
-              downloadBtn.textContent = texts.downloadUpdate || 'Download Update';
-              progressContainer.style.display = 'none';
-              errorElement.textContent = (texts.downloadError || 'Download failed') + ': ' + result.message;
-              errorElement.style.display = 'block';
-            }
-          }).catch(function(err) {
-            console.error('Download update error:', err);
-            // 显示错误信息
-            isDownloading = false;
-            downloadBtn.disabled = false;
-            laterBtn.disabled = false;
-            downloadBtn.style.opacity = '1';
-            downloadBtn.style.cursor = 'pointer';
-            downloadBtn.textContent = texts.downloadUpdate || 'Download Update';
-            progressContainer.style.display = 'none';
-            errorElement.textContent = (texts.downloadError || 'Download failed') + ': ' + err.message;
-            errorElement.style.display = 'block';
-          });
-        } else {
-          console.error('electronAPI not available');
-          isDownloading = false;
-          downloadBtn.disabled = false;
-          laterBtn.disabled = false;
-          downloadBtn.style.opacity = '1';
-          downloadBtn.style.cursor = 'pointer';
-          downloadBtn.textContent = texts.downloadUpdate || 'Download Update';
-          progressContainer.style.display = 'none';
-          errorElement.textContent = texts.updateNotAvailable || 'Update feature not available';
-          errorElement.style.display = 'block';
-        }
+        window.electronAPI.downloadUpdate().then(function(result) {
+          if (!result || !result.success) {
+            renderUpdateError(result && result.message ? result.message : 'Download failed');
+          }
+        }).catch(function(err) {
+          renderUpdateError(err.message || 'Download failed');
+        });
       });
       
       document.getElementById('update-later').addEventListener('click', function() {

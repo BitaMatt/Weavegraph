@@ -5,10 +5,15 @@ const os = require('os');
 const fs = require('fs');
 const https = require('https');
 const http = require('http');
+const { autoUpdater } = require('electron-updater');
 
 let win;
 let splashWindow;
 let updateInfo = null;
+let autoUpdaterConfigured = false;
+let isUpdateDownloading = false;
+let isUpdateDownloaded = false;
+let hasStartedAutoUpdateCheck = false;
 
 // GitHub 配置 - 请修改为您的仓库信息
 const GITHUB_OWNER = 'BitaMatt';
@@ -236,6 +241,123 @@ function downloadFile(url, dest, progressCallback) {
   });
 }
 
+function isAutoUpdateSupported() {
+  return process.platform === 'win32' && app.isPackaged;
+}
+
+function normalizeReleaseNotes(releaseNotes) {
+  if (Array.isArray(releaseNotes)) {
+    return releaseNotes
+      .map((entry) => entry.note || '')
+      .filter(Boolean)
+      .join('\n\n');
+  }
+
+  return typeof releaseNotes === 'string' ? releaseNotes : '';
+}
+
+function sendUpdateStatus(payload) {
+  if (!win || win.isDestroyed()) {
+    return;
+  }
+
+  win.webContents.send('update-status', payload);
+}
+
+function createUpdateInfo(info) {
+  return {
+    currentVersion: app.getVersion(),
+    latestVersion: info.version,
+    releaseName: info.releaseName || '',
+    releaseNotes: normalizeReleaseNotes(info.releaseNotes)
+  };
+}
+
+function configureAutoUpdater() {
+  if (autoUpdaterConfigured || !isAutoUpdateSupported()) {
+    return;
+  }
+
+  autoUpdaterConfigured = true;
+  autoUpdater.logger = console;
+  autoUpdater.autoDownload = false;
+  autoUpdater.autoInstallOnAppQuit = true;
+
+  autoUpdater.on('checking-for-update', () => {
+    console.log('[MAIN] Checking for updates...');
+    sendUpdateStatus({ status: 'checking-for-update' });
+  });
+
+  autoUpdater.on('update-available', (info) => {
+    updateInfo = createUpdateInfo(info);
+    isUpdateDownloaded = false;
+    console.log('[MAIN] Update available:', updateInfo);
+    sendUpdateStatus({ status: 'update-available', info: updateInfo });
+  });
+
+  autoUpdater.on('update-not-available', () => {
+    updateInfo = null;
+    isUpdateDownloading = false;
+    isUpdateDownloaded = false;
+    console.log('[MAIN] No update available.');
+    sendUpdateStatus({ status: 'update-not-available' });
+  });
+
+  autoUpdater.on('download-progress', (progress) => {
+    isUpdateDownloading = true;
+    sendUpdateStatus({
+      status: 'download-progress',
+      percent: Math.round(progress.percent || 0),
+      transferred: progress.transferred || 0,
+      total: progress.total || 0,
+      bytesPerSecond: progress.bytesPerSecond || 0
+    });
+  });
+
+  autoUpdater.on('update-downloaded', (info) => {
+    updateInfo = createUpdateInfo(info);
+    isUpdateDownloading = false;
+    isUpdateDownloaded = true;
+    console.log('[MAIN] Update downloaded:', updateInfo);
+    sendUpdateStatus({ status: 'update-downloaded', info: updateInfo });
+  });
+
+  autoUpdater.on('error', (error) => {
+    isUpdateDownloading = false;
+    isUpdateDownloaded = false;
+    console.error('[MAIN] Auto updater error:', error);
+    sendUpdateStatus({
+      status: 'error',
+      message: error ? error.message : 'Unknown update error'
+    });
+  });
+}
+
+function startAutoUpdateCheck() {
+  if (!isAutoUpdateSupported()) {
+    console.log('[MAIN] Auto update skipped: only enabled for packaged Windows builds.');
+    return { started: false, reason: 'unsupported-environment' };
+  }
+
+  configureAutoUpdater();
+
+  if (hasStartedAutoUpdateCheck) {
+    return { started: false, reason: 'already-started' };
+  }
+
+  hasStartedAutoUpdateCheck = true;
+  autoUpdater.checkForUpdates().catch((error) => {
+    hasStartedAutoUpdateCheck = false;
+    console.error('[MAIN] Failed to check for updates:', error);
+    sendUpdateStatus({
+      status: 'error',
+      message: error ? error.message : 'Failed to check for updates'
+    });
+  });
+
+  return { started: true };
+}
+
 function getPackageInfo() {
   try {
     const packageJsonPath = path.join(__dirname, 'package.json');
@@ -306,7 +428,7 @@ function createWindow() {
   }
   console.log('[MAIN] Icon path:', iconPath);
 
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 1200,
     height: 800,
     title: '人脈織圖 (WeaveGraph) v' + version,
@@ -344,6 +466,9 @@ function createWindow() {
       splashWindow.close();
     }
     win.show();
+    setTimeout(() => {
+      startAutoUpdateCheck();
+    }, 1500);
   });
 
   win.on('ready-to-show', function () {
@@ -918,6 +1043,54 @@ ipcMain.handle('download-update', async (event) => {
     
     return { success: false, message: userMessage };
   }
+});
+
+ipcMain.handle('check-update-v2', async () => {
+  console.log('[MAIN] check-update-v2 called');
+  return startAutoUpdateCheck();
+});
+
+ipcMain.handle('download-update-v2', async () => {
+  console.log('[MAIN] download-update-v2 called');
+
+  if (!isAutoUpdateSupported()) {
+    return { success: false, message: 'Auto update is only available in packaged Windows builds.' };
+  }
+
+  if (!updateInfo) {
+    return { success: false, message: 'No update is available right now.' };
+  }
+
+  if (isUpdateDownloading) {
+    return { success: true, message: 'Update download already in progress.' };
+  }
+
+  try {
+    isUpdateDownloading = true;
+    await autoUpdater.downloadUpdate();
+    return { success: true };
+  } catch (error) {
+    isUpdateDownloading = false;
+    console.error('[MAIN] download-update-v2 error:', error);
+    return {
+      success: false,
+      message: error ? error.message : 'Failed to download update.'
+    };
+  }
+});
+
+ipcMain.handle('install-update-v2', async () => {
+  console.log('[MAIN] install-update-v2 called');
+
+  if (!isUpdateDownloaded) {
+    return { success: false, message: 'No downloaded update is ready to install.' };
+  }
+
+  setImmediate(() => {
+    autoUpdater.quitAndInstall(false, true);
+  });
+
+  return { success: true };
 });
 
 app.whenReady().then(() => {

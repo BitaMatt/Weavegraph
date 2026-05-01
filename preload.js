@@ -19,17 +19,17 @@ contextBridge.exposeInMainWorld('electronAPI', {
     });
   },
   checkUpdate: function() {
-    return ipcRenderer.invoke('check-update');
-  },
-  getUpdateInfo: function() {
-    return ipcRenderer.invoke('get-update-info');
+    return ipcRenderer.invoke('check-update-v2');
   },
   downloadUpdate: function() {
-    return ipcRenderer.invoke('download-update');
+    return ipcRenderer.invoke('download-update-v2');
   },
-  onDownloadProgress: function(callback) {
-    ipcRenderer.on('download-progress', (event, progress) => {
-      callback(progress);
+  installUpdate: function() {
+    return ipcRenderer.invoke('install-update-v2');
+  },
+  onUpdateStatus: function(callback) {
+    ipcRenderer.on('update-status', (event, payload) => {
+      callback(payload);
     });
   }
 });
