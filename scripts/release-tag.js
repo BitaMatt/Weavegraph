@@ -7,6 +7,7 @@ const version = packageJson.version;
 const tagName = `v${version}`;
 const remoteName = 'WeaveGraph';
 const shouldPublish = process.argv.includes('--publish');
+const syncNotesScript = path.join(__dirname, 'sync-release-notes.js');
 
 function run(command, args) {
   execFileSync(command, args, {
@@ -46,4 +47,6 @@ if (shouldPublish) {
 
   console.log('[release-tag] Publishing Windows artifacts to GitHub Releases...');
   run(npmCommand, ['run', 'publish:win']);
+  console.log('[release-tag] Syncing bilingual release notes from CHANGELOG.md...');
+  run(process.execPath, [syncNotesScript, '--tag', tagName]);
 }

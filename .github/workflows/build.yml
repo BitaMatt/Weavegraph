@@ -80,6 +80,14 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -87,18 +95,8 @@ jobs:
           path: artifacts
 
       - name: Create release notes
+        run: node scripts/generate-release-notes.js --version "${GITHUB_REF#refs/tags/v}" --output release-body.md
         shell: bash
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          cat <<EOF > release-body.md
-          ## WeaveGraph ${VERSION}
-
-          - Version: ${VERSION}
-          - Platform: Windows x64
-          - Includes installer, portable zip, and auto-update metadata
-
-          See CHANGELOG.md in the repository for full details.
-          EOF
 
       - name: Publish GitHub Release assets
         uses: softprops/action-gh-release@v2
