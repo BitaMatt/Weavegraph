@@ -1,6 +1,6 @@
 {
   "name": "weavegraph",
-  "version": "1.5.31",
+  "version": "1.5.32",
   "description": "客户关系网络思维导图工具",
   "repository": {
     "type": "git",
@@ -71,7 +71,7 @@
           ]
         }
       ],
-      "artifactName": "${productName}-${version}-win64.${ext}",
+      "artifactName": "WeaveGraph-${version}-win64.${ext}",
       "asar": true,
       "asarUnpack": [
         "templates/**/*"
@@ -91,7 +91,7 @@
       "category": "public.app-category.productivity"
     },
     "nsis": {
-      "artifactName": "${productName}-${version}-win64.${ext}",
+      "artifactName": "WeaveGraph-${version}-win64.${ext}",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": "always",

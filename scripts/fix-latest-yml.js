@@ -8,7 +8,7 @@ const version = packageJson.version;
 const latestYmlPath = path.join(buildDir, 'latest.yml');
 
 function getExpectedInstallerName() {
-  return `人脈織圖(WeaveGraph)-${version}-win64.exe`;
+  return `WeaveGraph-${version}-win64.exe`;
 }
 
 function main() {
