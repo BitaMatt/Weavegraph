@@ -2011,14 +2011,41 @@
       'violet-focus': { labelKey: 'themeVioletFocus', description: 'Focused violet with calmer contrast', body: '#f3f0ff', toolbar: 'rgba(250,248,255,0.98)', panel: 'rgba(255,253,255,0.98)', input: '#ffffff', border: '#b5a2ef', heading: '#5b43b5', text: '#4b3f72', muted: '#7b74a0', card: 'rgba(255,255,255,0.88)' }
     };
     var DEFAULT_POLICY_TEMPLATES = [
-      { id: 'tpl-medical', name: '医疗保险', category: 'medical', builtin: true },
-      { id: 'tpl-critical', name: '危疾保险', category: 'critical', builtin: true },
-      { id: 'tpl-life', name: '人寿保险', category: 'life', builtin: true },
-      { id: 'tpl-savings', name: '储蓄保险', category: 'savings', builtin: true }
+      { id: 'tpl-medical', category: 'medical', builtin: true },
+      { id: 'tpl-critical', category: 'critical', builtin: true },
+      { id: 'tpl-life', category: 'life', builtin: true },
+      { id: 'tpl-savings', category: 'savings', builtin: true }
     ];
 
     function getTexts() {
       return i18n[currentLang] || i18n['zh-CN'];
+    }
+
+    function getBuiltinPolicyTemplateName(templateId, category) {
+      var texts = getTexts();
+      var map = {
+        'tpl-medical': texts.medicalInsurance || 'Medical Insurance',
+        'tpl-critical': texts.criticalInsurance || 'Critical Illness Insurance',
+        'tpl-life': texts.lifeInsurance || 'Life Insurance',
+        'tpl-savings': texts.savingsInsurance || 'Savings Insurance'
+      };
+      return map[templateId] || getPolicyCategoryLabel(category || 'custom');
+    }
+
+    function isBuiltinPolicyTemplate(templateId) {
+      return DEFAULT_POLICY_TEMPLATES.some(function(template) {
+        return template.id === templateId;
+      });
+    }
+
+    function getLocalizedPolicyTemplate(template) {
+      template = template || {};
+      if (!template.builtin || !isBuiltinPolicyTemplate(template.id)) {
+        return Object.assign({}, template);
+      }
+      return Object.assign({}, template, {
+        name: getBuiltinPolicyTemplateName(template.id, template.category)
+      });
     }
 
     function safeNumber(value) {
@@ -2079,10 +2106,20 @@
       if (!Array.isArray(policies)) return [];
       return policies.map(function(policy, index) {
         policy = policy || {};
+        var normalizedProductName = policy.productName || '';
+        if (policy.templateId && isBuiltinPolicyTemplate(policy.templateId)) {
+          var builtinName = getBuiltinPolicyTemplateName(policy.templateId, policy.category);
+          var legacyNames = DEFAULT_POLICY_TEMPLATES.map(function(template) {
+            return getBuiltinPolicyTemplateName(template.id, template.category);
+          }).concat(['医疗保险', '危疾保险', '人寿保险', '储蓄保险', '醫療保險', '危疾保險', '人壽保險', '儲蓄保險', 'Medical Insurance', 'Critical Illness Insurance', 'Life Insurance', 'Savings Insurance']);
+          if (!normalizedProductName || legacyNames.indexOf(normalizedProductName) !== -1) {
+            normalizedProductName = builtinName;
+          }
+        }
         return {
           id: policy.id || ('policy_' + Date.now() + '_' + index),
           templateId: policy.templateId || '',
-          productName: policy.productName || '',
+          productName: normalizedProductName,
           category: policy.category || 'custom',
           sumAssured: policy.sumAssured !== undefined && policy.sumAssured !== null ? String(policy.sumAssured) : '',
           premium: policy.premium !== undefined && policy.premium !== null ? String(policy.premium) : '',
@@ -2210,7 +2247,7 @@
 
     function loadPolicyTemplates() {
       var savedTemplates = readJsonStorage(POLICY_TEMPLATE_KEY, []);
-      var builtins = DEFAULT_POLICY_TEMPLATES.map(function(template) { return Object.assign({}, template); });
+      var builtins = DEFAULT_POLICY_TEMPLATES.map(function(template) { return getLocalizedPolicyTemplate(template); });
       var customs = (savedTemplates || []).filter(function(template) {
         return !DEFAULT_POLICY_TEMPLATES.some(function(builtin) { return builtin.id === template.id; });
       });
@@ -2238,7 +2275,8 @@
       var texts = getTexts();
       var options = ['<option value="">' + (texts.policyTemplateDefault || 'Choose a policy template') + '</option>'];
       policyTemplates.forEach(function(template) {
-        options.push('<option value="' + template.id + '">' + template.name + ' · ' + getPolicyCategoryLabel(template.category) + '</option>');
+        var displayTemplate = getLocalizedPolicyTemplate(template);
+        options.push('<option value="' + displayTemplate.id + '">' + displayTemplate.name + ' · ' + getPolicyCategoryLabel(displayTemplate.category) + '</option>');
       });
       select.innerHTML = options.join('');
     }
@@ -2247,7 +2285,8 @@
       var list = document.getElementById('policy-template-list');
       if (!list) return;
       list.innerHTML = policyTemplates.map(function(template) {
-        return '<div class="policy-row"><div class="field-stack"><label>' + escapeHtml(getTexts().policyProductName || 'Product Name') + '</label><input type="text" data-template-id="' + template.id + '" class="policy-template-name" value="' + escapeHtml(template.name) + '"></div><div class="field-stack"><label>' + escapeHtml(getTexts().policyCategory || 'Category') + '</label><select data-template-id="' + template.id + '" class="policy-template-category"><option value="medical"' + (template.category === 'medical' ? ' selected' : '') + '>medical</option><option value="critical"' + (template.category === 'critical' ? ' selected' : '') + '>critical</option><option value="life"' + (template.category === 'life' ? ' selected' : '') + '>life</option><option value="savings"' + (template.category === 'savings' ? ' selected' : '') + '>savings</option><option value="custom"' + (template.category === 'custom' ? ' selected' : '') + '>custom</option></select></div><div class="field-stack"><label>&nbsp;</label><button type="button" class="compact-btn muted-btn delete-policy-template" data-template-id="' + template.id + '"' + (template.builtin ? ' disabled style="opacity:0.5;cursor:not-allowed;"' : '') + '>' + escapeHtml(getTexts().close || 'Close') + '</button></div></div>';
+        var displayTemplate = getLocalizedPolicyTemplate(template);
+        return '<div class="policy-row"><div class="field-stack"><label>' + escapeHtml(getTexts().policyProductName || 'Product Name') + '</label><input type="text" data-template-id="' + displayTemplate.id + '" class="policy-template-name" value="' + escapeHtml(displayTemplate.name) + '"></div><div class="field-stack"><label>' + escapeHtml(getTexts().policyCategory || 'Category') + '</label><select data-template-id="' + displayTemplate.id + '" class="policy-template-category"><option value="medical"' + (displayTemplate.category === 'medical' ? ' selected' : '') + '>medical</option><option value="critical"' + (displayTemplate.category === 'critical' ? ' selected' : '') + '>critical</option><option value="life"' + (displayTemplate.category === 'life' ? ' selected' : '') + '>life</option><option value="savings"' + (displayTemplate.category === 'savings' ? ' selected' : '') + '>savings</option><option value="custom"' + (displayTemplate.category === 'custom' ? ' selected' : '') + '>custom</option></select></div><div class="field-stack"><label>&nbsp;</label><button type="button" class="compact-btn muted-btn delete-policy-template" data-template-id="' + displayTemplate.id + '"' + (displayTemplate.builtin ? ' disabled style="opacity:0.5;cursor:not-allowed;"' : '') + '>' + escapeHtml(getTexts().close || 'Close') + '</button></div></div>';
       }).join('');
     }
 
@@ -2308,10 +2347,14 @@
 
     function createEmptyPolicy(template) {
       template = template || {};
+      var localizedName = template.name || '';
+      if (template.id && isBuiltinPolicyTemplate(template.id)) {
+        localizedName = getBuiltinPolicyTemplateName(template.id, template.category);
+      }
       return {
         id: 'policy_' + Date.now() + '_' + Math.random().toString(16).slice(2, 6),
         templateId: template.id || '',
-        productName: template.name || '',
+        productName: localizedName,
         category: template.category || 'custom',
         sumAssured: '',
         premium: '',
@@ -2414,16 +2457,18 @@
     }
 
     function getSmartRelationCandidates(sourceNode, targetNode, relation) {
-      var texts = getTexts();
       var candidates = [];
       var reverseLabel = smartRelationReverseLabel(relation);
+      var reverseDisplayLabel = translateRelation(reverseLabel);
+      var relationDisplayLabel = translateRelation(relation);
       if (reverseLabel && !relationExists(targetNode.id(), sourceNode.id(), reverseLabel, false)) {
         candidates.push({
           id: 'reverse_' + sourceNode.id() + '_' + targetNode.id() + '_' + relation,
           source: targetNode.id(),
           target: sourceNode.id(),
           label: reverseLabel,
-          description: targetNode.data('name') + ' -> ' + sourceNode.data('name') + ' (' + reverseLabel + ')'
+          displayLabel: reverseDisplayLabel,
+          description: targetNode.data('name') + ' -> ' + sourceNode.data('name') + ' (' + reverseDisplayLabel + ')'
         });
       }
       if (relation === '邻居' || relation === '同事') {
@@ -2440,7 +2485,8 @@
               source: peerNode.id(),
               target: targetNode.id(),
               label: relation,
-              description: peerNode.data('name') + ' -> ' + targetNode.data('name') + ' (' + relation + ')'
+              displayLabel: relationDisplayLabel,
+              description: peerNode.data('name') + ' -> ' + targetNode.data('name') + ' (' + relationDisplayLabel + ')'
             });
           }
         });
@@ -2456,7 +2502,7 @@
       smartRelationState = { onApply: onApply, onSkip: onSkip, candidates: candidates };
       summary.textContent = texts.smartRelationSummary || 'These relations can be inferred from the current edge and existing links.';
       list.innerHTML = candidates.map(function(candidate) {
-        return '<label class="smart-relation-option"><input type="checkbox" class="smart-relation-checkbox" value="' + candidate.id + '"><div><strong>' + escapeHtml(candidate.label) + '</strong><span>' + escapeHtml(candidate.description) + '</span></div></label>';
+        return '<label class="smart-relation-option"><input type="checkbox" class="smart-relation-checkbox" value="' + candidate.id + '"><div><strong>' + escapeHtml(candidate.displayLabel || translateRelation(candidate.label)) + '</strong><span>' + escapeHtml(candidate.description) + '</span></div></label>';
       }).join('');
       dialog.style.display = 'block';
       document.getElementById('panel-overlay').style.display = 'block';
