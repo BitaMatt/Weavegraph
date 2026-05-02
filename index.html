@@ -5855,7 +5855,45 @@
         if (contacts.length > 0) {
           detailHtml += '<div class="detail-section">' + (texts.contact || '联系方式') + '</div>';
           contacts.forEach(function(c) {
-            detailHtml += '<div class="detail-item"><span class="detail-value">' + escapeHtml((c.type || 'phone') + ': ' + (c.value || '')) + '</span></div>';
+            var icon = '📞';
+            var typeLabel = texts.contactPhone || '电话';
+            if (c.type === 'mobile') { icon = '📱'; typeLabel = texts.contactMobile || '手机'; }
+            else if (c.type === 'wechat') { icon = '💚'; typeLabel = texts.contactWechat || '微信'; }
+            else if (c.type === 'qq') { icon = '💬'; typeLabel = texts.contactQq || 'QQ'; }
+            else if (c.type === 'whatsapp') { icon = '💬'; typeLabel = texts.contactWhatsapp || 'WhatsApp'; }
+            else if (c.type === 'email') { icon = '✉️'; typeLabel = texts.contactEmail || '邮箱'; }
+            else if (c.type === 'address') { icon = '📍'; typeLabel = texts.contactAddress || '地址'; }
+
+            var rawValue = String(c.value || '');
+            var safeValue = escapeHtml(rawValue);
+            var jsValue = JSON.stringify(rawValue);
+            var jsType = JSON.stringify(c.type || 'phone');
+            detailHtml += '<div class="contact-display-item">';
+            detailHtml += '<span class="contact-display-icon">' + icon + '</span>';
+            detailHtml += '<span class="contact-display-type">' + typeLabel + ':</span>';
+            detailHtml += '<span class="contact-display-value">' + safeValue + '</span>';
+            if (c.type === 'phone' || c.type === 'mobile') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'call\')">📞</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'copy\')">📋</button>';
+            } else if (c.type === 'qq') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'open\')">💬</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'copy\')">📋</button>';
+            } else if (c.type === 'wechat') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'open\')">💚</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'copy\')">📋</button>';
+            } else if (c.type === 'whatsapp') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'open\')">💬</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'copy\')">📋</button>';
+            } else if (c.type === 'email') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'send\')">✉️</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'copy\')">📋</button>';
+            } else if (c.type === 'address') {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'map\')">📍</button>';
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'copy\')">📋</button>';
+            } else {
+              detailHtml += '<button class="contact-action-btn" onclick="handleContactAction(' + jsValue + ', ' + jsType + ', \'copy\')">📋</button>';
+            }
+            detailHtml += '</div>';
           });
         }
         if (data.ownedPolicies.length) {
