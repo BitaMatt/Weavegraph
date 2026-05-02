@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://open.er-api.com; font-src 'self' data:; object-src 'none'; base-uri 'self';">
   <title>人脈織圖</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -351,14 +352,14 @@
       </div>
     </div>
     <div class="form-row" id="income-module-row" style="flex-direction:column;align-items:flex-start;">
-      <label data-i18n="salary">薪金/年收入(万):</label>
+      <label data-i18n="salary">年收入:</label>
       <div class="income-module">
         <div class="inline-input-row">
           <input type="number" id="field-salary-monthly" data-i18n-placeholder="enterMonthlyIncome" placeholder="请输入月收入" min="0" step="0.01">
           <button type="button" id="calculate-income-btn" class="compact-btn secondary-btn" data-i18n="calculateAnnualIncome">计算年收入</button>
         </div>
         <div class="inline-input-row">
-          <input type="number" id="field-salary" data-i18n-placeholder="enterSalary" placeholder="请输入薪金" min="0" step="0.01">
+          <input type="number" id="field-salary" data-i18n-placeholder="enterSalary" placeholder="请输入年收入" min="0" step="0.01">
           <select id="field-income-currency">
             <option value="MOP">MOP</option>
             <option value="HKD">HKD</option>
@@ -651,7 +652,7 @@
         name: '姓名:',
         gender: '性别:',
         age: '年龄:',
-        salary: '薪金/年收入(万):',
+        salary: '年收入:',
         contact: '联系方式:',
         occupation: '工作职业:',
         marriage: '婚姻状态:',
@@ -831,7 +832,7 @@
         saveTemplate: '保存模板',
         gender: '性别',
         age: '年龄',
-        salary: '薪金/年收入(万)',
+        salary: '年收入',
         occupation: '工作职业',
         marriage: '婚姻状态',
         children: '子女数量',
@@ -844,7 +845,7 @@
         enterContact: '请输入...',
         selectOption: '请选择',
         enterAge: '请输入年龄',
-        enterSalary: '请输入薪金',
+        enterSalary: '请输入年收入',
         enterOccupation: '请输入职业',
         selectGender: '请选择',
         noChildren: '无子女',
@@ -995,7 +996,7 @@
         name: '姓名:',
         gender: '性別:',
         age: '年齡:',
-        salary: '薪金/年收入(萬):',
+        salary: '年收入:',
         contact: '聯繫方式:',
         occupation: '工作職業:',
         marriage: '婚姻狀態:',
@@ -1175,7 +1176,7 @@
         saveTemplate: '保存模板',
         gender: '性別',
         age: '年齡',
-        salary: '薪金/年收入(萬)',
+        salary: '年收入',
         occupation: '工作職業',
         marriage: '婚姻狀態',
         children: '子女數量',
@@ -1188,7 +1189,7 @@
         enterContact: '請輸入...',
         selectOption: '請選擇',
         enterAge: '請輸入年齡',
-        enterSalary: '請輸入薪金',
+        enterSalary: '請輸入年收入',
         enterOccupation: '請輸入職業',
         selectGender: '請選擇',
         noChildren: '無子女',
@@ -1339,7 +1340,7 @@
         name: 'Name:',
         gender: 'Gender:',
         age: 'Age:',
-        salary: 'Salary/Income (10k):',
+        salary: 'Annual Income:',
         contact: 'Contact:',
         occupation: 'Occupation:',
         marriage: 'Marriage:',
@@ -1520,7 +1521,7 @@
         saveTemplate: 'Save Template',
         gender: 'Gender',
         age: 'Age',
-        salary: 'Salary/Income (10k)',
+        salary: 'Annual Income',
         occupation: 'Occupation',
         marriage: 'Marriage',
         children: 'Children',
@@ -1533,7 +1534,7 @@
         enterContact: 'Enter...',
         selectOption: 'Select',
         enterAge: 'Enter age',
-        enterSalary: 'Enter salary',
+        enterSalary: 'Enter annual income',
         enterOccupation: 'Enter occupation',
         selectGender: 'Select',
         noChildren: 'No children',
@@ -1823,7 +1824,7 @@
       exchangeRateUnknown: '尚未获取汇率',
       incomeUnit: '收入单位',
       monthlyIncome: '月收入',
-      annualIncome: '年收入(万)',
+      annualIncome: '年收入',
       addChildRow: '新增子女',
       childName: '子女姓名',
       childAge: '年龄',
@@ -1879,7 +1880,7 @@
       exchangeRateUnknown: '尚未取得匯率',
       incomeUnit: '收入單位',
       monthlyIncome: '月收入',
-      annualIncome: '年收入(萬)',
+      annualIncome: '年收入',
       addChildRow: '新增子女',
       childName: '子女姓名',
       childAge: '年齡',
@@ -1933,7 +1934,7 @@
       exchangeRateUnknown: 'No exchange rates loaded yet',
       incomeUnit: 'Income Currency',
       monthlyIncome: 'Monthly Income',
-      annualIncome: 'Annual Income (10k)',
+      annualIncome: 'Annual Income',
       addChildRow: 'Add Child',
       childName: 'Child Name',
       childAge: 'Age',
@@ -1987,6 +1988,7 @@
 
     var THEME_KEY = 'mindmap-theme';
     var currentTheme = 'dark';
+    var currentDetailNode = null;
     var FX_CACHE_KEY = 'mindmap-exchange-rates';
     var POLICY_TEMPLATE_KEY = 'mindmap-policy-templates';
     var DEFAULT_INCOME_CURRENCY = 'MOP';
@@ -1999,14 +2001,14 @@
     var policyTemplates = [];
     var smartRelationState = null;
     var THEME_CONFIGS = {
-      dark: { labelKey: 'darkTheme', description: 'Classic dark workspace', body: '#0f0f23', toolbar: 'rgba(26, 26, 46, 0.96)', panel: 'rgba(32, 36, 68, 0.96)', input: '#11162f', border: '#40496d', heading: '#cfd8ff', text: '#ffffff', muted: '#b8c0e0', card: 'rgba(23, 28, 54, 0.85)' },
-      light: { labelKey: 'lightTheme', description: 'Bright neutral workspace', body: '#f5f5f5', toolbar: 'rgba(255,255,255,0.98)', panel: 'rgba(255,255,255,0.98)', input: '#ffffff', border: '#cfd5df', heading: '#333333', text: '#333333', muted: '#666666', card: 'rgba(255,255,255,0.82)' },
-      'tech-blue': { labelKey: 'themeTechBlue', description: 'Cool technical contrast', body: '#0e1830', toolbar: 'rgba(18, 40, 78, 0.96)', panel: 'rgba(16, 31, 64, 0.96)', input: '#0b1730', border: '#446aa2', heading: '#b6d8ff', text: '#edf5ff', muted: '#bfd1ec', card: 'rgba(12, 26, 54, 0.86)' },
-      'eye-care-green': { labelKey: 'themeEyeCareGreen', description: 'Soft low-strain green', body: '#e9f4ec', toolbar: 'rgba(239,248,242,0.98)', panel: 'rgba(250,253,250,0.98)', input: '#ffffff', border: '#9fc6a8', heading: '#2f5d3c', text: '#35503d', muted: '#6b8571', card: 'rgba(247,252,247,0.88)' },
-      'rose-feminine': { labelKey: 'themeRoseFeminine', description: 'Warm rose and plum accents', body: '#fff2f7', toolbar: 'rgba(255,244,249,0.98)', panel: 'rgba(255,250,252,0.98)', input: '#fffefe', border: '#dca4bb', heading: '#8f355c', text: '#64364a', muted: '#956678', card: 'rgba(255,248,251,0.88)' },
-      'graphite-masculine': { labelKey: 'themeGraphiteMasculine', description: 'Graphite and steel palette', body: '#1f252d', toolbar: 'rgba(35, 42, 50, 0.98)', panel: 'rgba(44, 50, 58, 0.98)', input: '#2d333b', border: '#65707c', heading: '#d5dde6', text: '#eef2f7', muted: '#b4bcc6', card: 'rgba(52,58,66,0.84)' },
-      'warm-paper': { labelKey: 'themeWarmPaper', description: 'Warm beige paper-like surface', body: '#f6efe3', toolbar: 'rgba(251,245,235,0.98)', panel: 'rgba(255,250,243,0.98)', input: '#fffdfa', border: '#d8c5a6', heading: '#6f5132', text: '#5d4a34', muted: '#8b765d', card: 'rgba(255,250,244,0.88)' },
-      'violet-focus': { labelKey: 'themeVioletFocus', description: 'Deep violet focus board', body: '#1d1630', toolbar: 'rgba(39, 27, 72, 0.97)', panel: 'rgba(46, 32, 82, 0.97)', input: '#24193f', border: '#7552b7', heading: '#eadcff', text: '#f7f2ff', muted: '#d3c4f0', card: 'rgba(40,28,72,0.86)' }
+      dark: { labelKey: 'darkTheme', description: 'Balanced dark workspace', body: '#111827', toolbar: 'rgba(17, 24, 39, 0.96)', panel: 'rgba(30, 41, 59, 0.96)', input: '#0f172a', border: '#475569', heading: '#e5eefc', text: '#f8fafc', muted: '#cbd5e1', card: 'rgba(15, 23, 42, 0.84)' },
+      light: { labelKey: 'lightTheme', description: 'Clean neutral workspace', body: '#f3f4f6', toolbar: 'rgba(255,255,255,0.98)', panel: 'rgba(255,255,255,0.98)', input: '#ffffff', border: '#d0d7e2', heading: '#1f2937', text: '#374151', muted: '#6b7280', card: 'rgba(255,255,255,0.9)' },
+      'tech-blue': { labelKey: 'themeTechBlue', description: 'Google-like cool blue contrast', body: '#eaf2ff', toolbar: 'rgba(255,255,255,0.97)', panel: 'rgba(248,251,255,0.97)', input: '#ffffff', border: '#9ab6f3', heading: '#174ea6', text: '#1f3b68', muted: '#5f7aa3', card: 'rgba(255,255,255,0.88)' },
+      'eye-care-green': { labelKey: 'themeEyeCareGreen', description: 'Soft green, easy on the eyes', body: '#edf5ef', toolbar: 'rgba(248,251,248,0.98)', panel: 'rgba(252,253,252,0.98)', input: '#ffffff', border: '#a9c6b1', heading: '#2f5d50', text: '#3f5145', muted: '#708274', card: 'rgba(255,255,255,0.86)' },
+      'rose-feminine': { labelKey: 'themeRoseFeminine', description: 'Refined rose with soft plum accents', body: '#fbf1f5', toolbar: 'rgba(255,250,252,0.98)', panel: 'rgba(255,252,253,0.98)', input: '#ffffff', border: '#d8b1c1', heading: '#9b3d63', text: '#6f4256', muted: '#9a7384', card: 'rgba(255,255,255,0.86)' },
+      'graphite-masculine': { labelKey: 'themeGraphiteMasculine', description: 'Apple-style graphite and steel', body: '#1c1c1e', toolbar: 'rgba(44,44,46,0.98)', panel: 'rgba(58,58,60,0.98)', input: '#2c2c2e', border: '#636366', heading: '#f5f5f7', text: '#f2f2f7', muted: '#c7c7cc', card: 'rgba(72,72,74,0.84)' },
+      'warm-paper': { labelKey: 'themeWarmPaper', description: 'Warm paper-inspired planning surface', body: '#f6f1e8', toolbar: 'rgba(252,248,241,0.98)', panel: 'rgba(255,252,247,0.98)', input: '#fffdfa', border: '#d6c3a5', heading: '#6b4f35', text: '#5f4b38', muted: '#8b755d', card: 'rgba(255,255,252,0.86)' },
+      'violet-focus': { labelKey: 'themeVioletFocus', description: 'Focused violet with calmer contrast', body: '#f3f0ff', toolbar: 'rgba(250,248,255,0.98)', panel: 'rgba(255,253,255,0.98)', input: '#ffffff', border: '#b5a2ef', heading: '#5b43b5', text: '#4b3f72', muted: '#7b74a0', card: 'rgba(255,255,255,0.88)' }
     };
     var DEFAULT_POLICY_TEMPLATES = [
       { id: 'tpl-medical', name: '医疗保险', category: 'medical', builtin: true },
@@ -2138,7 +2140,10 @@
     }
 
     function formatMoney(value, currency) {
-      return currency + ' ' + safeNumber(value).toFixed(2);
+      return currency + ' ' + safeNumber(value).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
     }
 
     function updateExchangeRateStatus(statusKey, extra) {
@@ -2489,6 +2494,16 @@
       backfillCoreRelationData(payload);
     }
 
+    function getRelationCategory(relation) {
+      var blood = ['父亲', '母亲', '配偶', '子女', '兄弟', '姐妹', '兄妹', '姐弟', '祖父母', '外祖父母', '孙子女', '父親', '母親', '孫子女'];
+      var social = ['朋友', '小学同学', '中学同学', '大学同学', '同事', '上司', '下属', '邻居', '老师', '学生', '工作合作伙伴', '商业竞争对手', '小學同學', '中學同學', '大學同學', '下屬', '鄰居', '工作合作夥伴', '商業競爭對手'];
+      var referral = ['朋友转介绍', '客户推荐', '公司分配', '孤儿单', '主动咨询', '活动认识', '朋友轉介紹', '客戶推薦', '孤兒單', '主動咨詢', '活動認識'];
+      if (blood.indexOf(relation) !== -1) return 'blood';
+      if (social.indexOf(relation) !== -1) return 'social';
+      if (referral.indexOf(relation) !== -1) return 'referral';
+      return 'social';
+    }
+
     document.getElementById('lang-select').addEventListener('change', function(e) {
       setLanguage(e.target.value);
     });
@@ -2577,7 +2592,6 @@
       var sourceNodeForEdge = null;
       var lastTemplate = 'insurance';
       var pendingPosition = null;
-      var currentDetailNode = null;
       var selfNodeId = null;
       var autoSaveInterval = null;
       var lastSaveTime = null;
@@ -4027,7 +4041,7 @@
         { id: 'name', name: '姓名', type: 'text', required: true },
         { id: 'gender', name: '性别', type: 'select', options: ['男', '女'], required: false },
         { id: 'age', name: '年龄', type: 'number', required: false },
-        { id: 'salary', name: '薪金/年收入(万)', type: 'number', required: false },
+        { id: 'salary', name: '年收入', type: 'number', required: false },
         { id: 'contact', name: '联系方式', type: 'contact', required: false },
         { id: 'occupation', name: '工作职业', type: 'text', required: false },
         { id: 'marriage', name: '婚姻状态', type: 'select', options: ['未婚', '已婚', '离异', '丧偶'], required: false },
@@ -4821,9 +4835,9 @@
           if (data.salary) {
             var salary = convertIncome(parseFloat(data.salary), data.incomeCurrency || DEFAULT_INCOME_CURRENCY, DEFAULT_INCOME_CURRENCY);
             if (salary <= 0 || !data.salary) incomeGroups.none++;
-            else if (salary < 10) incomeGroups.under10++;
-            else if (salary <= 30) incomeGroups['10to30']++;
-            else if (salary <= 50) incomeGroups['30to50']++;
+            else if (salary < 100000) incomeGroups.under10++;
+            else if (salary <= 300000) incomeGroups['10to30']++;
+            else if (salary <= 500000) incomeGroups['30to50']++;
             else incomeGroups.over50++;
           } else {
             incomeGroups.none++;
@@ -5140,7 +5154,7 @@
       function calculateInsuranceRecommendation(data) {
         var texts = i18n[currentLang] || i18n['zh-CN'];
         var age = parseInt(data.age) || 0;
-        var salary = parseFloat(data.salary) || 0;
+        var salary = convertIncome(parseFloat(data.salary) || 0, data.incomeCurrency || DEFAULT_INCOME_CURRENCY, DEFAULT_INCOME_CURRENCY);
         var gender = data.gender || '';
         var marriage = data.marriage || '';
         var children = data.children || '';
@@ -5155,12 +5169,12 @@
         }
 
         if (age >= 20 && age <= 35) {
-          if (salary < 10) {
+          if (salary < 100000) {
             recommendations.push({ name: '医疗', percent: 45, reason: '低收入群体，医疗保障优先' });
             recommendations.push({ name: '危疾', percent: 30, reason: '年轻人危疾保障重要' });
             recommendations.push({ name: '储蓄', percent: 15, reason: '开始建立储蓄习惯' });
             recommendations.push({ name: '人寿', percent: 10, reason: '经济责任较轻' });
-          } else if (salary < 30) {
+          } else if (salary < 300000) {
             recommendations.push({ name: '医疗', percent: 35, reason: '医疗保障为基础' });
             recommendations.push({ name: '危疾', percent: 25, reason: '危疾保障重要' });
             recommendations.push({ name: '人寿', percent: 20, reason: '开始建立家庭保障' });
@@ -5687,7 +5701,7 @@
         document.getElementById('field-gender').value = data.gender || '';
         document.getElementById('field-age').value = data.age || '';
         document.getElementById('field-salary').value = data.salary || '';
-        document.getElementById('field-salary-monthly').value = data.salary ? (safeNumber(data.salary) * 10000 / 12).toFixed(2) : '';
+        document.getElementById('field-salary-monthly').value = data.salary ? (safeNumber(data.salary) / 12).toFixed(2) : '';
         document.getElementById('field-income-currency').value = data.incomeCurrency || DEFAULT_INCOME_CURRENCY;
         document.getElementById('field-occupation').value = data.occupation || '';
         document.getElementById('field-marriage').value = data.marriage || '';
@@ -5759,7 +5773,7 @@
         var data = normalizeNodeData(node.data());
         node.data(data);
         var texts = i18n[currentLang] || i18n['zh-CN'];
-        var salaryText = data.salary ? (formatMoney(safeNumber(data.salary), data.incomeCurrency || DEFAULT_INCOME_CURRENCY) + ' / ' + (texts.annualIncome || 'Annual Income (10k)')) : (texts.unknown || '未知');
+        var salaryText = data.salary ? formatMoney(safeNumber(data.salary), data.incomeCurrency || DEFAULT_INCOME_CURRENCY) : (texts.unknown || '未知');
         var details = [
           { label: texts.name || '姓名', value: getDisplayValue(data.name), key: 'name' },
           { label: texts.gender || '性别', value: translateValue(data.gender, 'gender'), key: 'gender' },
@@ -5987,7 +6001,7 @@
 
       document.getElementById('calculate-income-btn').addEventListener('click', function() {
         var monthlyIncome = safeNumber(document.getElementById('field-salary-monthly').value);
-        document.getElementById('field-salary').value = monthlyIncome ? (monthlyIncome * 12 / 10000).toFixed(2) : '';
+        document.getElementById('field-salary').value = monthlyIncome ? (monthlyIncome * 12).toFixed(2) : '';
         renderIncomeConversions();
       });
       document.getElementById('field-salary').addEventListener('input', renderIncomeConversions);
