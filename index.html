@@ -1985,6 +1985,8 @@
         .replace(/'/g, '&#39;');
     }
 
+    var THEME_KEY = 'mindmap-theme';
+    var currentTheme = 'dark';
     var FX_CACHE_KEY = 'mindmap-exchange-rates';
     var POLICY_TEMPLATE_KEY = 'mindmap-policy-templates';
     var DEFAULT_INCOME_CURRENCY = 'MOP';
@@ -2613,9 +2615,6 @@
         localStorage.setItem(INSURANCE_WEIGHTS_KEY, JSON.stringify(customInsuranceWeights));
       }
 
-      var THEME_KEY = 'mindmap-theme';
-      var currentTheme = 'dark';
-
       function applyTheme(theme) {
         document.body.classList.remove('theme-dark', 'theme-light', 'theme-blue', 'theme-green');
         document.body.classList.add('theme-' + theme);
@@ -2755,8 +2754,7 @@
         panningEnabled: true,
         userPanningEnabled: true,
         autounselectify: false,
-        autoungrabify: false,
-        wheelSensitivity: 1
+        autoungrabify: false
       });
 
       var nodeId = 1, edgeId = 1;

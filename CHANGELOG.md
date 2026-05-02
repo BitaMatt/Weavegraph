@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2] - 2026-05-03
+
+### 修复 Fixed
+- 修复 `1.6.1` 启动时 `renderThemeGrid()` 提前执行却拿不到 `currentTheme` 的作用域问题。
+- 将主题持久化键与当前主题状态提升到全局初始化阶段，避免主界面、设置面板与语言切换时再次触发 `ReferenceError`。
+- 移除 Cytoscape 配置中残留的 `wheelSensitivity` 自定义项，彻底消除对应启动警告。
+
 ## [1.6.1] - 2026-05-03
 
 ### 修复 Fixed
