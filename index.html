@@ -1582,6 +1582,9 @@
       }
       if (typeof updateCurrentSaveDisplay === 'function') {
         updateCurrentSaveDisplay();
+        requestAnimationFrame(function() {
+          updateCurrentSaveDisplay();
+        });
       }
       if (typeof updateDefaultArchiveStatus === 'function') {
         updateDefaultArchiveStatus();
