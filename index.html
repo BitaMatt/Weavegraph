@@ -195,6 +195,67 @@
     body.theme-green .form-row label { color: #aaffcc; }
     body.theme-green .form-row input, body.theme-green .form-row select { background: #0f1a1e; border-color: #4a8a6a; color: #ffffff; }
     body.theme-green #relation-panel { background: rgba(20, 60, 50, 0.95); }
+    .income-module, .children-editor, .policies-editor { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+    .inline-input-row { display: flex; gap: 10px; flex-wrap: wrap; width: 100%; }
+    .inline-input-row > * { flex: 1; min-width: 120px; }
+    .compact-btn { padding: 8px 14px; border: none; border-radius: 6px; cursor: pointer; color: white; background: #00cc88; font-size: 12px; }
+    .secondary-btn { background: #667eea; }
+    .muted-btn { background: #666; }
+    .income-conversion-grid { display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 8px; width: 100%; }
+    .income-conversion-card, .child-row, .policy-row, .theme-card { background: rgba(255,255,255,0.72); border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 10px; }
+    .income-conversion-card strong { display: block; font-size: 12px; margin-bottom: 4px; color: #333; }
+    .income-status, .section-hint, .policy-meta { font-size: 12px; color: #666; }
+    .child-row, .policy-row { display: grid; gap: 8px; }
+    .child-row { grid-template-columns: minmax(120px, 1.2fr) repeat(2, minmax(90px, 1fr)) auto auto; align-items: end; }
+    .policy-row { grid-template-columns: repeat(3, minmax(120px, 1fr)); }
+    .policy-row .full-span, .child-row .full-span { grid-column: 1 / -1; }
+    .field-stack { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .field-stack label { font-size: 12px; font-weight: 600; }
+    .field-stack input, .field-stack select, .field-stack textarea { width: 100%; }
+    .policy-actions, .children-actions, .theme-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .theme-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+    .theme-card { cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease; }
+    .theme-card.active { border-color: #00cc88; box-shadow: 0 0 0 2px rgba(0,204,136,0.2); }
+    .theme-swatch { height: 48px; border-radius: 6px; margin-bottom: 8px; border: 1px solid rgba(0,0,0,0.08); }
+    .theme-card h5 { margin: 0 0 4px; font-size: 13px; }
+    .theme-card p { margin: 0; font-size: 11px; color: #666; }
+    .mode-indicator.persistent { display: block !important; top: 84px; right: 20px; left: auto; transform: none; border-radius: 12px; padding: 8px 14px; }
+    .detail-item .detail-label { font-weight: 600; color: #0066ff; display: block; font-size: 12px; margin-bottom: 3px; }
+    .detail-item .detail-value { display: block; color: #555; font-size: 15px; font-weight: 500; }
+    .smart-relation-list { display: flex; flex-direction: column; gap: 10px; max-height: 260px; overflow-y: auto; text-align: left; }
+    .smart-relation-option { display: flex; gap: 10px; align-items: flex-start; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+    .smart-relation-option strong { display: block; font-size: 13px; color: #1a1a2e; }
+    .smart-relation-option span { font-size: 12px; color: #666; }
+    body[class^="theme-"] #toolbar, body[class*=" theme-"] #toolbar { background: var(--toolbar-bg, rgba(255,255,255,0.95)) !important; }
+    body[class^="theme-"] #toolbar h3, body[class*=" theme-"] #toolbar h3,
+    body[class^="theme-"] .info-panel h4, body[class*=" theme-"] .info-panel h4 { color: var(--theme-heading, #1a1a2e) !important; }
+    body[class^="theme-"] .info-panel, body[class*=" theme-"] .info-panel,
+    body[class^="theme-"] .current-save-panel, body[class*=" theme-"] .current-save-panel,
+    body[class^="theme-"] #node-form-panel, body[class*=" theme-"] #node-form-panel,
+    body[class^="theme-"] #edge-form-panel, body[class*=" theme-"] #edge-form-panel,
+    body[class^="theme-"] #node-detail-panel, body[class*=" theme-"] #node-detail-panel,
+    body[class^="theme-"] #save-panel, body[class*=" theme-"] #save-panel,
+    body[class^="theme-"] #load-panel, body[class*=" theme-"] #load-panel,
+    body[class^="theme-"] #settings-panel, body[class*=" theme-"] #settings-panel,
+    body[class^="theme-"] #relation-panel, body[class*=" theme-"] #relation-panel,
+    body[class^="theme-"] #policy-template-panel, body[class*=" theme-"] #policy-template-panel { background: var(--panel-bg, rgba(255,255,255,0.96)) !important; color: var(--theme-text, #333) !important; }
+    body[class^="theme-"] .info-panel p, body[class*=" theme-"] .info-panel p,
+    body[class^="theme-"] .current-save-desc, body[class*=" theme-"] .current-save-desc,
+    body[class^="theme-"] .section-hint, body[class*=" theme-"] .section-hint,
+    body[class^="theme-"] .policy-meta, body[class*=" theme-"] .policy-meta,
+    body[class^="theme-"] .income-status, body[class*=" theme-"] .income-status { color: var(--theme-muted, #666) !important; }
+    body[class^="theme-"] .form-row label, body[class*=" theme-"] .form-row label,
+    body[class^="theme-"] .field-stack label, body[class*=" theme-"] .field-stack label { color: var(--theme-heading, #333) !important; }
+    body[class^="theme-"] .form-row input, body[class*=" theme-"] .form-row input,
+    body[class^="theme-"] .form-row select, body[class*=" theme-"] .form-row select,
+    body[class^="theme-"] .form-row textarea, body[class*=" theme-"] .form-row textarea,
+    body[class^="theme-"] .field-stack input, body[class*=" theme-"] .field-stack input,
+    body[class^="theme-"] .field-stack select, body[class*=" theme-"] .field-stack select,
+    body[class^="theme-"] .field-stack textarea, body[class*=" theme-"] .field-stack textarea { background: var(--input-bg, #fff) !important; color: var(--theme-text, #333) !important; border-color: var(--input-border, #ccc) !important; }
+    body[class^="theme-"] .income-conversion-card, body[class*=" theme-"] .income-conversion-card,
+    body[class^="theme-"] .child-row, body[class*=" theme-"] .child-row,
+    body[class^="theme-"] .policy-row, body[class*=" theme-"] .policy-row,
+    body[class^="theme-"] .theme-card, body[class*=" theme-"] .theme-card { background: var(--card-bg, rgba(255,255,255,0.72)) !important; border-color: var(--card-border, rgba(0,0,0,0.08)) !important; }
   </style>
 </head>
 <body>
@@ -289,7 +350,27 @@
         <button type="button" id="calculate-age-btn" data-i18n="calculate" style="padding: 0 15px; background: #00cc88; color: white; border: none; border-radius: 5px; cursor: pointer;">计算</button>
       </div>
     </div>
-    <div class="form-row"><label data-i18n="salary">薪金/年收入(万):</label><input type="number" id="field-salary" data-i18n-placeholder="enterSalary" placeholder="请输入薪金" min="0"></div>
+    <div class="form-row" id="income-module-row" style="flex-direction:column;align-items:flex-start;">
+      <label data-i18n="salary">薪金/年收入(万):</label>
+      <div class="income-module">
+        <div class="inline-input-row">
+          <input type="number" id="field-salary-monthly" data-i18n-placeholder="enterMonthlyIncome" placeholder="请输入月收入" min="0" step="0.01">
+          <button type="button" id="calculate-income-btn" class="compact-btn secondary-btn" data-i18n="calculateAnnualIncome">计算年收入</button>
+        </div>
+        <div class="inline-input-row">
+          <input type="number" id="field-salary" data-i18n-placeholder="enterSalary" placeholder="请输入薪金" min="0" step="0.01">
+          <select id="field-income-currency">
+            <option value="MOP">MOP</option>
+            <option value="HKD">HKD</option>
+            <option value="RMB">RMB</option>
+            <option value="USD">USD</option>
+          </select>
+          <button type="button" id="refresh-exchange-rates" class="compact-btn" data-i18n="refreshRates">刷新汇率</button>
+        </div>
+        <div class="income-status" id="exchange-rate-status"></div>
+        <div class="income-conversion-grid" id="income-conversion-grid"></div>
+      </div>
+    </div>
     <div class="form-row" style="flex-direction:column;align-items:flex-start;">
       <label data-i18n="contact" style="margin-bottom:5px;">联系方式:</label>
       <div id="contact-list" style="width:100%;"></div>
@@ -298,9 +379,29 @@
     <div class="form-row"><label data-i18n="occupation">工作职业:</label><input type="text" id="field-occupation" data-i18n-placeholder="enterOccupation" placeholder="请输入职业"></div>
     <div class="form-row"><label data-i18n="marriage">婚姻状态:</label><select id="field-marriage"><option value="" data-i18n="selectOption">请选择</option><option value="未婚" data-i18n="unmarried">未婚</option><option value="已婚" data-i18n="married">已婚</option><option value="离异" data-i18n="divorced">离异</option><option value="丧偶" data-i18n="widowed">丧偶</option></select></div>
     <div class="form-row conditional" id="row-children"><label data-i18n="children">子女数量:</label><select id="field-children"><option value="" data-i18n="selectOption">请选择</option><option value="0" data-i18n="noChildren">无子女</option><option value="1" data-i18n="oneChild">1个子女</option><option value="2" data-i18n="twoChildren">2个子女</option><option value="3" data-i18n="threeOrMoreChildren">3个或以上</option></select></div>
-    <div class="form-row conditional" id="row-children-age"><label data-i18n="childrenAge">子女年龄:</label><input type="text" id="field-children-age" data-i18n-placeholder="childrenAgePlaceholder" placeholder="例如: 8岁,5岁"></div>
+    <div class="form-row conditional" id="row-children-age" style="flex-direction:column;align-items:flex-start;">
+      <label data-i18n="childrenAge">子女年龄:</label>
+      <input type="hidden" id="field-children-age" data-i18n-placeholder="childrenAgePlaceholder" placeholder="例如: 8岁,5岁">
+      <div class="children-editor">
+        <div id="children-list-editor"></div>
+        <div class="children-actions">
+          <button type="button" id="add-child-row" class="compact-btn" data-i18n="addChildRow">新增子女</button>
+        </div>
+      </div>
+    </div>
     <div class="form-row"><label data-i18n="parents">父母状态:</label><select id="field-parents"><option value="" data-i18n="selectOption">请选择</option><option value="双亲健在" data-i18n="bothParentsAlive">双亲健在</option><option value="父亲已故" data-i18n="fatherDeceased">父亲已故</option><option value="母亲已故" data-i18n="motherDeceased">母亲已故</option><option value="双亲已故" data-i18n="bothParentsDeceased">双亲已故</option></select></div>
     <div class="form-row conditional" id="row-protection"><label data-i18n="needProtection">是否需要保障型保险:</label><select id="field-protection"><option value="" data-i18n="selectOption">请选择</option><option value="是" data-i18n="yes">是</option><option value="否" data-i18n="no">否</option><option value="不确定" data-i18n="uncertain">不确定</option></select></div>
+    <div class="form-row" style="flex-direction:column;align-items:flex-start;">
+      <label data-i18n="ownedPolicies">已购保单清单:</label>
+      <div class="policies-editor">
+        <div class="policy-actions">
+          <select id="policy-template-select" style="min-width:220px;"></select>
+          <button type="button" id="add-policy-from-template" class="compact-btn secondary-btn" data-i18n="addPolicyFromTemplate">从模板新增</button>
+          <button type="button" id="add-custom-policy" class="compact-btn" data-i18n="addCustomPolicy">新增自定义保单</button>
+        </div>
+        <div id="owned-policies-editor"></div>
+      </div>
+    </div>
     <div id="custom-fields-container"></div>
     <div class="form-buttons"><button class="btn-confirm" id="confirm-node" data-i18n="confirmCreate">确认创建</button><button class="btn-cancel" id="cancel-node" data-i18n="cancel">取消</button></div>
   </div>
@@ -431,13 +532,23 @@
     </div>
     <div class="settings-section">
       <h4 data-i18n="uiTheme">🖥️ UI主题</h4>
-      <div class="form-row">
-        <select id="setting-theme">
-          <option value="dark" data-i18n="darkTheme">深色主题（默认）</option>
-          <option value="light" data-i18n="lightTheme">浅色主题</option>
-          <option value="blue" data-i18n="blueTheme">蓝色主题</option>
-          <option value="green" data-i18n="greenTheme">绿色主题</option>
-        </select>
+      <div class="form-row" style="display:none;">
+        <select id="setting-theme"></select>
+      </div>
+      <div class="theme-grid" id="theme-grid"></div>
+    </div>
+    <div class="settings-section">
+      <h4 data-i18n="exchangeRates">汇率设置</h4>
+      <p class="section-hint" id="settings-exchange-rate-status"></p>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:10px;">
+        <button id="refresh-rates-settings" type="button" class="compact-btn" data-i18n="refreshRates">刷新汇率</button>
+      </div>
+    </div>
+    <div class="settings-section">
+      <h4 data-i18n="policyTemplateLibrary">保单模板库</h4>
+      <p class="section-hint" data-i18n="policyTemplateHint">维护可复用的默认和自定义保单模板。</p>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:10px;">
+        <button id="manage-policy-templates" type="button" class="compact-btn secondary-btn" data-i18n="managePolicyTemplates">管理保单模板</button>
       </div>
     </div>
     <div class="settings-section">
@@ -482,6 +593,28 @@
       <button id="add-field-btn" style="margin-top:10px;padding:8px 20px;background:#4CAF50;color:white;border:none;border-radius:5px;cursor:pointer;" data-i18n="addField">添加字段</button>
     </div>
     <div class="form-buttons" style="margin-top:15px;"><button id="save-template-btn" style="padding:8px 20px;background:#4CAF50;color:white;border:none;border-radius:5px;cursor:pointer;margin-right:10px;" data-i18n="saveTemplate">保存模板</button><button class="btn-cancel" id="close-template-edit" data-i18n="close">关闭</button></div>
+  </div>
+  <div id="policy-template-panel" style="position:absolute;top:80px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.98);padding:20px;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.3);z-index:450;display:none;min-width:560px;max-width:90vw;max-height:70vh;overflow:auto;">
+    <h3 data-i18n="policyTemplateLibrary">保单模板库</h3>
+    <p class="section-hint" data-i18n="policyTemplateHint">维护可复用的默认和自定义保单模板。</p>
+    <div id="policy-template-list" style="display:flex;flex-direction:column;gap:10px;margin:15px 0;"></div>
+    <div style="border-top:1px solid #ddd;padding-top:10px;margin-top:10px;">
+      <h4 data-i18n="addPolicyTemplate">新增保单模板</h4>
+      <div class="inline-input-row">
+        <input type="text" id="new-policy-template-name" data-i18n-placeholder="policyNamePlaceholder" placeholder="产品名称">
+        <select id="new-policy-template-category">
+          <option value="medical" data-i18n="medicalInsurance">医疗保险</option>
+          <option value="critical" data-i18n="criticalInsurance">危疾保险</option>
+          <option value="life" data-i18n="lifeInsurance">人寿保险</option>
+          <option value="savings" data-i18n="savingsInsurance">储蓄保险</option>
+          <option value="custom" data-i18n="customPolicy">自定义</option>
+        </select>
+      </div>
+      <div class="form-buttons" style="margin-top:15px;">
+        <button id="add-policy-template-btn" class="btn-confirm" data-i18n="addPolicyTemplate">新增保单模板</button>
+        <button id="close-policy-template-panel" class="btn-cancel" data-i18n="close">关闭</button>
+      </div>
+    </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.29.0/cytoscape.min.js"></script>
   <script>
@@ -1591,6 +1724,30 @@
       if (typeof updateDefaultArchiveStatus === 'function') {
         updateDefaultArchiveStatus();
       }
+      if (typeof renderThemeGrid === 'function') {
+        renderThemeGrid();
+      }
+      if (typeof renderIncomeConversions === 'function') {
+        renderIncomeConversions();
+      }
+      if (typeof renderPolicyTemplateSelect === 'function') {
+        renderPolicyTemplateSelect();
+      }
+      if (typeof renderPolicyTemplatePanel === 'function') {
+        renderPolicyTemplatePanel();
+      }
+      if (typeof renderChildrenListEditor === 'function' && document.getElementById('children-list-editor')) {
+        renderChildrenListEditor(getChildrenListFromForm());
+      }
+      if (typeof renderOwnedPoliciesEditor === 'function' && document.getElementById('owned-policies-editor')) {
+        renderOwnedPoliciesEditor(getOwnedPoliciesFromForm());
+      }
+      if (typeof updateModeUI === 'function') {
+        updateModeUI();
+      }
+      if (currentDetailNode && typeof showNodeDetail === 'function' && document.getElementById('node-detail-panel').style.display === 'block') {
+        showNodeDetail(currentDetailNode);
+      }
     }
 
     function translateRelation(label) {
@@ -1651,6 +1808,675 @@
       updateFailed: 'Update failed',
       cancelNewNodePrompt: 'You are creating a new node. Clicking the blank area will cancel it. Continue?'
     });
+
+    Object.assign(i18n['zh-CN'], {
+      male: '男',
+      female: '女',
+      bloodRelation: '生理关系（核心，几乎不变）',
+      enterMonthlyIncome: '请输入月收入',
+      calculateAnnualIncome: '计算年收入',
+      refreshRates: '刷新汇率',
+      exchangeRates: '汇率设置',
+      exchangeRateUpdated: '汇率已更新',
+      exchangeRateCached: '当前使用缓存汇率',
+      exchangeRateFailed: '汇率更新失败',
+      exchangeRateUnknown: '尚未获取汇率',
+      incomeUnit: '收入单位',
+      monthlyIncome: '月收入',
+      annualIncome: '年收入(万)',
+      addChildRow: '新增子女',
+      childName: '子女姓名',
+      childAge: '年龄',
+      childBirthYear: '出生年份',
+      removeChild: '删除子女',
+      childList: '子女列表',
+      ownedPolicies: '已购保单清单',
+      addPolicyFromTemplate: '从模板新增',
+      addCustomPolicy: '新增自定义保单',
+      policyTemplateLibrary: '保单模板库',
+      policyTemplateHint: '维护可复用的默认和自定义保单模板。',
+      managePolicyTemplates: '管理保单模板',
+      addPolicyTemplate: '新增保单模板',
+      customPolicy: '自定义保单',
+      policyNamePlaceholder: '产品名称',
+      policyProductName: '产品名称',
+      policyCategory: '产品类别',
+      policySumAssured: '保额',
+      policyPremium: '保费',
+      policyPremiumTerm: '供款年期',
+      policyPaymentMode: '缴费方式',
+      policyCurrency: '货币',
+      policyNotes: '备注',
+      policyNone: '暂无已购保单',
+      policyTemplateDefault: '选择保单模板',
+      smartRelationTitle: '智能关联建议',
+      smartRelationSummary: '以下关系可根据当前关系与现有关联推导生成，请勾选需要新增的关系线。',
+      applySelectedRelations: '新增所选关系',
+      skipSuggestions: '跳过建议',
+      smartRelationCreated: '已新增智能关联',
+      smartRelationBackfilled: '已智能补全关联资料',
+      currentModePinned: '当前模式',
+      themeTechBlue: '科技蓝',
+      themeEyeCareGreen: '护眼绿',
+      themeRoseFeminine: '玫瑰粉',
+      themeGraphiteMasculine: '石墨灰',
+      themeWarmPaper: '暖纸色',
+      themeVioletFocus: '专注紫',
+      incomeEquivalent: '折算',
+      useCachedRates: '使用缓存汇率'
+    });
+    Object.assign(i18n['zh-TW'], {
+      male: '男',
+      female: '女',
+      bloodRelation: '生理關係（核心，幾乎不變）',
+      enterMonthlyIncome: '請輸入月收入',
+      calculateAnnualIncome: '計算年收入',
+      refreshRates: '刷新匯率',
+      exchangeRates: '匯率設定',
+      exchangeRateUpdated: '匯率已更新',
+      exchangeRateCached: '目前使用快取匯率',
+      exchangeRateFailed: '匯率更新失敗',
+      exchangeRateUnknown: '尚未取得匯率',
+      incomeUnit: '收入單位',
+      monthlyIncome: '月收入',
+      annualIncome: '年收入(萬)',
+      addChildRow: '新增子女',
+      childName: '子女姓名',
+      childAge: '年齡',
+      childBirthYear: '出生年份',
+      removeChild: '刪除子女',
+      childList: '子女列表',
+      ownedPolicies: '已購保單清單',
+      addPolicyFromTemplate: '從模板新增',
+      addCustomPolicy: '新增自訂保單',
+      policyTemplateLibrary: '保單模板庫',
+      policyTemplateHint: '維護可重用的預設與自訂保單模板。',
+      managePolicyTemplates: '管理保單模板',
+      addPolicyTemplate: '新增保單模板',
+      customPolicy: '自訂保單',
+      policyNamePlaceholder: '產品名稱',
+      policyProductName: '產品名稱',
+      policyCategory: '產品類別',
+      policySumAssured: '保額',
+      policyPremium: '保費',
+      policyPremiumTerm: '供款年期',
+      policyPaymentMode: '繳費方式',
+      policyCurrency: '貨幣',
+      policyNotes: '備註',
+      policyNone: '暫無已購保單',
+      policyTemplateDefault: '選擇保單模板',
+      smartRelationTitle: '智能關聯建議',
+      smartRelationSummary: '以下關係可依據當前關係與現有關聯推導生成，請勾選需要新增的關係線。',
+      applySelectedRelations: '新增所選關係',
+      skipSuggestions: '跳過建議',
+      smartRelationCreated: '已新增智能關聯',
+      smartRelationBackfilled: '已智能補全關聯資料',
+      currentModePinned: '當前模式',
+      themeTechBlue: '科技藍',
+      themeEyeCareGreen: '護眼綠',
+      themeRoseFeminine: '玫瑰粉',
+      themeGraphiteMasculine: '石墨灰',
+      themeWarmPaper: '暖紙色',
+      themeVioletFocus: '專注紫',
+      incomeEquivalent: '折算',
+      useCachedRates: '使用快取匯率'
+    });
+    Object.assign(i18n['en'], {
+      bloodRelation: 'Biological Relations (Core, almost unchanged)',
+      enterMonthlyIncome: 'Enter monthly income',
+      calculateAnnualIncome: 'Calculate Annual Income',
+      refreshRates: 'Refresh Rates',
+      exchangeRates: 'Exchange Rates',
+      exchangeRateUpdated: 'Exchange rates updated',
+      exchangeRateCached: 'Using cached exchange rates',
+      exchangeRateFailed: 'Failed to update exchange rates',
+      exchangeRateUnknown: 'No exchange rates loaded yet',
+      incomeUnit: 'Income Currency',
+      monthlyIncome: 'Monthly Income',
+      annualIncome: 'Annual Income (10k)',
+      addChildRow: 'Add Child',
+      childName: 'Child Name',
+      childAge: 'Age',
+      childBirthYear: 'Birth Year',
+      removeChild: 'Remove Child',
+      childList: 'Children List',
+      ownedPolicies: 'Owned Policies',
+      addPolicyFromTemplate: 'Add from Template',
+      addCustomPolicy: 'Add Custom Policy',
+      policyTemplateLibrary: 'Policy Template Library',
+      policyTemplateHint: 'Manage reusable default and custom policy templates.',
+      managePolicyTemplates: 'Manage Policy Templates',
+      addPolicyTemplate: 'Add Policy Template',
+      customPolicy: 'Custom Policy',
+      policyNamePlaceholder: 'Product name',
+      policyProductName: 'Product Name',
+      policyCategory: 'Category',
+      policySumAssured: 'Sum Assured',
+      policyPremium: 'Premium',
+      policyPremiumTerm: 'Premium Term',
+      policyPaymentMode: 'Payment Mode',
+      policyCurrency: 'Currency',
+      policyNotes: 'Notes',
+      policyNone: 'No owned policies',
+      policyTemplateDefault: 'Choose a policy template',
+      smartRelationTitle: 'Smart Relation Suggestions',
+      smartRelationSummary: 'These relations can be inferred from the current edge and existing links. Check the ones you want to add.',
+      applySelectedRelations: 'Add Selected Relations',
+      skipSuggestions: 'Skip Suggestions',
+      smartRelationCreated: 'Smart relations added',
+      smartRelationBackfilled: 'Related data auto-filled',
+      currentModePinned: 'Current Mode',
+      themeTechBlue: 'Tech Blue',
+      themeEyeCareGreen: 'Eye Care Green',
+      themeRoseFeminine: 'Rose Feminine',
+      themeGraphiteMasculine: 'Graphite Masculine',
+      themeWarmPaper: 'Warm Paper',
+      themeVioletFocus: 'Violet Focus',
+      incomeEquivalent: 'Converted',
+      useCachedRates: 'Using cached rates'
+    });
+
+    var FX_CACHE_KEY = 'mindmap-exchange-rates';
+    var POLICY_TEMPLATE_KEY = 'mindmap-policy-templates';
+    var DEFAULT_INCOME_CURRENCY = 'MOP';
+    var currentExchangeRates = {
+      base: 'MOP',
+      rates: { MOP: 1, HKD: 0.97, RMB: 0.9, USD: 0.124 },
+      updatedAt: null,
+      isCached: true
+    };
+    var policyTemplates = [];
+    var smartRelationState = null;
+    var THEME_CONFIGS = {
+      dark: { labelKey: 'darkTheme', description: 'Classic dark workspace', body: '#0f0f23', toolbar: 'rgba(26, 26, 46, 0.96)', panel: 'rgba(32, 36, 68, 0.96)', input: '#11162f', border: '#40496d', heading: '#cfd8ff', text: '#ffffff', muted: '#b8c0e0', card: 'rgba(23, 28, 54, 0.85)' },
+      light: { labelKey: 'lightTheme', description: 'Bright neutral workspace', body: '#f5f5f5', toolbar: 'rgba(255,255,255,0.98)', panel: 'rgba(255,255,255,0.98)', input: '#ffffff', border: '#cfd5df', heading: '#333333', text: '#333333', muted: '#666666', card: 'rgba(255,255,255,0.82)' },
+      'tech-blue': { labelKey: 'themeTechBlue', description: 'Cool technical contrast', body: '#0e1830', toolbar: 'rgba(18, 40, 78, 0.96)', panel: 'rgba(16, 31, 64, 0.96)', input: '#0b1730', border: '#446aa2', heading: '#b6d8ff', text: '#edf5ff', muted: '#bfd1ec', card: 'rgba(12, 26, 54, 0.86)' },
+      'eye-care-green': { labelKey: 'themeEyeCareGreen', description: 'Soft low-strain green', body: '#e9f4ec', toolbar: 'rgba(239,248,242,0.98)', panel: 'rgba(250,253,250,0.98)', input: '#ffffff', border: '#9fc6a8', heading: '#2f5d3c', text: '#35503d', muted: '#6b8571', card: 'rgba(247,252,247,0.88)' },
+      'rose-feminine': { labelKey: 'themeRoseFeminine', description: 'Warm rose and plum accents', body: '#fff2f7', toolbar: 'rgba(255,244,249,0.98)', panel: 'rgba(255,250,252,0.98)', input: '#fffefe', border: '#dca4bb', heading: '#8f355c', text: '#64364a', muted: '#956678', card: 'rgba(255,248,251,0.88)' },
+      'graphite-masculine': { labelKey: 'themeGraphiteMasculine', description: 'Graphite and steel palette', body: '#1f252d', toolbar: 'rgba(35, 42, 50, 0.98)', panel: 'rgba(44, 50, 58, 0.98)', input: '#2d333b', border: '#65707c', heading: '#d5dde6', text: '#eef2f7', muted: '#b4bcc6', card: 'rgba(52,58,66,0.84)' },
+      'warm-paper': { labelKey: 'themeWarmPaper', description: 'Warm beige paper-like surface', body: '#f6efe3', toolbar: 'rgba(251,245,235,0.98)', panel: 'rgba(255,250,243,0.98)', input: '#fffdfa', border: '#d8c5a6', heading: '#6f5132', text: '#5d4a34', muted: '#8b765d', card: 'rgba(255,250,244,0.88)' },
+      'violet-focus': { labelKey: 'themeVioletFocus', description: 'Deep violet focus board', body: '#1d1630', toolbar: 'rgba(39, 27, 72, 0.97)', panel: 'rgba(46, 32, 82, 0.97)', input: '#24193f', border: '#7552b7', heading: '#eadcff', text: '#f7f2ff', muted: '#d3c4f0', card: 'rgba(40,28,72,0.86)' }
+    };
+    var DEFAULT_POLICY_TEMPLATES = [
+      { id: 'tpl-medical', name: '医疗保险', category: 'medical', builtin: true },
+      { id: 'tpl-critical', name: '危疾保险', category: 'critical', builtin: true },
+      { id: 'tpl-life', name: '人寿保险', category: 'life', builtin: true },
+      { id: 'tpl-savings', name: '储蓄保险', category: 'savings', builtin: true }
+    ];
+
+    function getTexts() {
+      return i18n[currentLang] || i18n['zh-CN'];
+    }
+
+    function safeNumber(value) {
+      var num = parseFloat(value);
+      return isNaN(num) ? 0 : num;
+    }
+
+    function readJsonStorage(key, fallback) {
+      try {
+        var raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (error) {
+        return fallback;
+      }
+    }
+
+    function writeJsonStorage(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function parseLegacyChildrenAge(childrenAge) {
+      if (!childrenAge || typeof childrenAge !== 'string') {
+        return [];
+      }
+      return childrenAge.split(',').map(function(part, index) {
+        var trimmed = String(part || '').trim();
+        if (!trimmed) return null;
+        var ageMatch = trimmed.match(/(\d+)/);
+        return {
+          id: 'child_legacy_' + index,
+          name: '',
+          age: ageMatch ? String(parseInt(ageMatch[1], 10)) : '',
+          birthYear: ''
+        };
+      }).filter(Boolean);
+    }
+
+    function serializeChildrenAge(childrenList) {
+      return (childrenList || []).map(function(child) {
+        return child && child.age ? String(child.age) + (currentLang === 'en' ? '' : '岁') : '';
+      }).filter(Boolean).join(',');
+    }
+
+    function normalizeChildrenList(childrenList, legacyChildrenAge) {
+      var list = Array.isArray(childrenList) ? childrenList.slice() : parseLegacyChildrenAge(legacyChildrenAge);
+      return list.map(function(child, index) {
+        child = child || {};
+        return {
+          id: child.id || ('child_' + Date.now() + '_' + index),
+          name: child.name || '',
+          age: child.age !== undefined && child.age !== null ? String(child.age) : '',
+          birthYear: child.birthYear !== undefined && child.birthYear !== null ? String(child.birthYear) : ''
+        };
+      });
+    }
+
+    function normalizeOwnedPolicies(policies) {
+      if (!Array.isArray(policies)) return [];
+      return policies.map(function(policy, index) {
+        policy = policy || {};
+        return {
+          id: policy.id || ('policy_' + Date.now() + '_' + index),
+          templateId: policy.templateId || '',
+          productName: policy.productName || '',
+          category: policy.category || 'custom',
+          sumAssured: policy.sumAssured !== undefined && policy.sumAssured !== null ? String(policy.sumAssured) : '',
+          premium: policy.premium !== undefined && policy.premium !== null ? String(policy.premium) : '',
+          premiumTerm: policy.premiumTerm !== undefined && policy.premiumTerm !== null ? String(policy.premiumTerm) : '',
+          paymentMode: policy.paymentMode || '',
+          currency: policy.currency || DEFAULT_INCOME_CURRENCY,
+          notes: policy.notes || ''
+        };
+      });
+    }
+
+    function normalizeNodeData(nodeData) {
+      nodeData = nodeData || {};
+      if (!nodeData.createdDate) {
+        nodeData.createdDate = new Date().toISOString();
+      }
+      nodeData.incomeCurrency = nodeData.incomeCurrency || DEFAULT_INCOME_CURRENCY;
+      nodeData.childrenList = normalizeChildrenList(nodeData.childrenList, nodeData.childrenAge);
+      if (!nodeData.children && nodeData.childrenList.length) {
+        nodeData.children = String(Math.min(nodeData.childrenList.length, 3));
+      }
+      nodeData.childrenAge = serializeChildrenAge(nodeData.childrenList);
+      nodeData.ownedPolicies = normalizeOwnedPolicies(nodeData.ownedPolicies);
+      return nodeData;
+    }
+
+    function normalizeAllGraphNodes() {
+      if (!cy || typeof cy.nodes !== 'function') return;
+      cy.nodes().forEach(function(node) {
+        node.data(normalizeNodeData(node.data()));
+      });
+    }
+
+    function loadExchangeRatesFromStorage() {
+      var saved = readJsonStorage(FX_CACHE_KEY, null);
+      if (saved && saved.rates) {
+        currentExchangeRates = saved;
+      }
+    }
+
+    function saveExchangeRatesToStorage() {
+      writeJsonStorage(FX_CACHE_KEY, currentExchangeRates);
+    }
+
+    function convertIncome(amount, fromCurrency, toCurrency) {
+      amount = safeNumber(amount);
+      fromCurrency = fromCurrency || DEFAULT_INCOME_CURRENCY;
+      toCurrency = toCurrency || DEFAULT_INCOME_CURRENCY;
+      var rates = currentExchangeRates.rates || {};
+      if (!rates[fromCurrency] || !rates[toCurrency]) {
+        return amount;
+      }
+      var amountInMop = amount / rates[fromCurrency];
+      return amountInMop * rates[toCurrency];
+    }
+
+    function formatMoney(value, currency) {
+      return currency + ' ' + safeNumber(value).toFixed(2);
+    }
+
+    function updateExchangeRateStatus(statusKey, extra) {
+      var texts = getTexts();
+      var statusEl = document.getElementById('exchange-rate-status');
+      var settingsStatusEl = document.getElementById('settings-exchange-rate-status');
+      var suffix = currentExchangeRates.updatedAt ? (' · ' + new Date(currentExchangeRates.updatedAt).toLocaleString()) : '';
+      var text = (texts[statusKey] || extra || '') + suffix;
+      if (statusEl) statusEl.textContent = text;
+      if (settingsStatusEl) settingsStatusEl.textContent = text;
+    }
+
+    function renderIncomeConversions() {
+      var grid = document.getElementById('income-conversion-grid');
+      var salaryEl = document.getElementById('field-salary');
+      var currencyEl = document.getElementById('field-income-currency');
+      if (!grid || !salaryEl || !currencyEl) return;
+      var texts = getTexts();
+      var annualIncome = safeNumber(salaryEl.value);
+      var fromCurrency = currencyEl.value || DEFAULT_INCOME_CURRENCY;
+      var currencies = ['MOP', 'HKD', 'RMB', 'USD'];
+      grid.innerHTML = currencies.map(function(currency) {
+        return '<div class="income-conversion-card"><strong>' + currency + '</strong><span>' + formatMoney(convertIncome(annualIncome, fromCurrency, currency), currency) + '</span></div>';
+      }).join('');
+      if (!currentExchangeRates.updatedAt) {
+        updateExchangeRateStatus('exchangeRateUnknown');
+      } else if (currentExchangeRates.isCached) {
+        updateExchangeRateStatus('exchangeRateCached');
+      } else {
+        updateExchangeRateStatus('exchangeRateUpdated');
+      }
+    }
+
+    function fetchExchangeRates(silent) {
+      return fetch('https://open.er-api.com/v6/latest/MOP').then(function(response) {
+        return response.json();
+      }).then(function(payload) {
+        if (!payload || payload.result !== 'success' || !payload.rates) {
+          throw new Error('bad rates payload');
+        }
+        currentExchangeRates = {
+          base: 'MOP',
+          rates: {
+            MOP: 1,
+            HKD: payload.rates.HKD || currentExchangeRates.rates.HKD,
+            RMB: payload.rates.CNY || currentExchangeRates.rates.RMB,
+            USD: payload.rates.USD || currentExchangeRates.rates.USD
+          },
+          updatedAt: new Date().toISOString(),
+          isCached: false
+        };
+        saveExchangeRatesToStorage();
+        renderIncomeConversions();
+        updateExchangeRateStatus('exchangeRateUpdated');
+      }).catch(function() {
+        currentExchangeRates.isCached = true;
+        renderIncomeConversions();
+        updateExchangeRateStatus(currentExchangeRates.updatedAt ? 'exchangeRateCached' : 'exchangeRateFailed');
+        if (!silent) {
+          showToast((getTexts().exchangeRateFailed || 'Failed to update exchange rates'));
+        }
+      });
+    }
+
+    function loadPolicyTemplates() {
+      var savedTemplates = readJsonStorage(POLICY_TEMPLATE_KEY, []);
+      var builtins = DEFAULT_POLICY_TEMPLATES.map(function(template) { return Object.assign({}, template); });
+      var customs = (savedTemplates || []).filter(function(template) {
+        return !DEFAULT_POLICY_TEMPLATES.some(function(builtin) { return builtin.id === template.id; });
+      });
+      policyTemplates = builtins.concat(customs);
+    }
+
+    function savePolicyTemplates() {
+      writeJsonStorage(POLICY_TEMPLATE_KEY, policyTemplates);
+    }
+
+    function getPolicyCategoryLabel(category) {
+      var texts = getTexts();
+      return {
+        medical: texts.medicalInsurance || '医疗保险',
+        critical: texts.criticalInsurance || '危疾保险',
+        life: texts.lifeInsurance || '人寿保险',
+        savings: texts.savingsInsurance || '储蓄保险',
+        custom: texts.customPolicy || '自定义保单'
+      }[category] || (texts.customPolicy || '自定义保单');
+    }
+
+    function renderPolicyTemplateSelect() {
+      var select = document.getElementById('policy-template-select');
+      if (!select) return;
+      var texts = getTexts();
+      var options = ['<option value="">' + (texts.policyTemplateDefault || 'Choose a policy template') + '</option>'];
+      policyTemplates.forEach(function(template) {
+        options.push('<option value="' + template.id + '">' + template.name + ' · ' + getPolicyCategoryLabel(template.category) + '</option>');
+      });
+      select.innerHTML = options.join('');
+    }
+
+    function renderPolicyTemplatePanel() {
+      var list = document.getElementById('policy-template-list');
+      if (!list) return;
+      list.innerHTML = policyTemplates.map(function(template) {
+        return '<div class="policy-row"><div class="field-stack"><label>' + escapeHtml(getTexts().policyProductName || 'Product Name') + '</label><input type="text" data-template-id="' + template.id + '" class="policy-template-name" value="' + escapeHtml(template.name) + '"></div><div class="field-stack"><label>' + escapeHtml(getTexts().policyCategory || 'Category') + '</label><select data-template-id="' + template.id + '" class="policy-template-category"><option value="medical"' + (template.category === 'medical' ? ' selected' : '') + '>medical</option><option value="critical"' + (template.category === 'critical' ? ' selected' : '') + '>critical</option><option value="life"' + (template.category === 'life' ? ' selected' : '') + '>life</option><option value="savings"' + (template.category === 'savings' ? ' selected' : '') + '>savings</option><option value="custom"' + (template.category === 'custom' ? ' selected' : '') + '>custom</option></select></div><div class="field-stack"><label>&nbsp;</label><button type="button" class="compact-btn muted-btn delete-policy-template" data-template-id="' + template.id + '"' + (template.builtin ? ' disabled style="opacity:0.5;cursor:not-allowed;"' : '') + '>' + escapeHtml(getTexts().close || 'Close') + '</button></div></div>';
+      }).join('');
+    }
+
+    function createEmptyChild() {
+      return { id: 'child_' + Date.now() + '_' + Math.random().toString(16).slice(2, 6), name: '', age: '', birthYear: '' };
+    }
+
+    function getChildrenListFromForm() {
+      return Array.from(document.querySelectorAll('.child-row')).map(function(row) {
+        return {
+          id: row.getAttribute('data-child-id') || createEmptyChild().id,
+          name: row.querySelector('.child-name').value.trim(),
+          age: row.querySelector('.child-age').value.trim(),
+          birthYear: row.querySelector('.child-birth-year').value.trim()
+        };
+      }).filter(function(child) {
+        return child.name || child.age || child.birthYear;
+      });
+    }
+
+    function syncLegacyChildrenAgeField() {
+      var hiddenField = document.getElementById('field-children-age');
+      if (!hiddenField) return;
+      hiddenField.value = serializeChildrenAge(getChildrenListFromForm());
+    }
+
+    function renderChildrenListEditor(childrenList) {
+      var editor = document.getElementById('children-list-editor');
+      if (!editor) return;
+      var texts = getTexts();
+      var list = normalizeChildrenList(childrenList || [], '');
+      editor.innerHTML = list.map(function(child) {
+        return '<div class="child-row" data-child-id="' + child.id + '"><div class="field-stack"><label>' + escapeHtml(texts.childName || 'Child Name') + '</label><input type="text" class="child-name" value="' + escapeHtml(child.name) + '"></div><div class="field-stack"><label>' + escapeHtml(texts.childAge || 'Age') + '</label><input type="number" min="0" class="child-age" value="' + escapeHtml(child.age) + '"></div><div class="field-stack"><label>' + escapeHtml(texts.childBirthYear || 'Birth Year') + '</label><input type="number" min="1900" max="2100" class="child-birth-year" value="' + escapeHtml(child.birthYear) + '"></div><button type="button" class="compact-btn secondary-btn calculate-child-age">' + escapeHtml(texts.calculate || 'Calculate') + '</button><button type="button" class="compact-btn muted-btn remove-child-row">' + escapeHtml(texts.removeChild || 'Remove Child') + '</button></div>';
+      }).join('');
+      syncLegacyChildrenAgeField();
+    }
+
+    function updateChildrenCountFromList() {
+      var select = document.getElementById('field-children');
+      if (!select) return;
+      var count = getChildrenListFromForm().length;
+      if (count === 0) select.value = '0';
+      else if (count === 1) select.value = '1';
+      else if (count === 2) select.value = '2';
+      else select.value = '3';
+      syncLegacyChildrenAgeField();
+    }
+
+    function reconcileChildrenRowsWithCount() {
+      var list = getChildrenListFromForm();
+      var countValue = document.getElementById('field-children').value;
+      var target = countValue === '' ? 0 : (countValue === '3' ? Math.max(3, list.length) : parseInt(countValue, 10));
+      while (list.length < target) list.push(createEmptyChild());
+      while (list.length > target && countValue !== '3') list.pop();
+      renderChildrenListEditor(list);
+      updateChildrenCountFromList();
+    }
+
+    function createEmptyPolicy(template) {
+      template = template || {};
+      return {
+        id: 'policy_' + Date.now() + '_' + Math.random().toString(16).slice(2, 6),
+        templateId: template.id || '',
+        productName: template.name || '',
+        category: template.category || 'custom',
+        sumAssured: '',
+        premium: '',
+        premiumTerm: '',
+        paymentMode: '',
+        currency: DEFAULT_INCOME_CURRENCY,
+        notes: ''
+      };
+    }
+
+    function getOwnedPoliciesFromForm() {
+      return Array.from(document.querySelectorAll('.policy-row[data-policy-id]')).map(function(row) {
+        return {
+          id: row.getAttribute('data-policy-id'),
+          templateId: row.querySelector('.policy-template-id').value,
+          productName: row.querySelector('.policy-product-name').value.trim(),
+          category: row.querySelector('.policy-category').value,
+          sumAssured: row.querySelector('.policy-sum-assured').value.trim(),
+          premium: row.querySelector('.policy-premium').value.trim(),
+          premiumTerm: row.querySelector('.policy-term').value.trim(),
+          paymentMode: row.querySelector('.policy-payment-mode').value.trim(),
+          currency: row.querySelector('.policy-currency').value,
+          notes: row.querySelector('.policy-notes').value.trim()
+        };
+      }).filter(function(policy) {
+        return policy.productName || policy.sumAssured || policy.premium || policy.notes;
+      });
+    }
+
+    function renderOwnedPoliciesEditor(policies) {
+      var editor = document.getElementById('owned-policies-editor');
+      if (!editor) return;
+      var texts = getTexts();
+      var list = normalizeOwnedPolicies(policies || []);
+      if (!list.length) {
+        editor.innerHTML = '<div class="policy-meta">' + escapeHtml(texts.policyNone || 'No owned policies') + '</div>';
+        return;
+      }
+      editor.innerHTML = list.map(function(policy) {
+        var categoryOptions = ['medical', 'critical', 'life', 'savings', 'custom'].map(function(category) {
+          return '<option value="' + category + '"' + (policy.category === category ? ' selected' : '') + '>' + escapeHtml(getPolicyCategoryLabel(category)) + '</option>';
+        }).join('');
+        return '<div class="policy-row" data-policy-id="' + policy.id + '"><input type="hidden" class="policy-template-id" value="' + escapeHtml(policy.templateId) + '"><div class="field-stack"><label>' + escapeHtml(texts.policyProductName || 'Product Name') + '</label><input type="text" class="policy-product-name" value="' + escapeHtml(policy.productName) + '"></div><div class="field-stack"><label>' + escapeHtml(texts.policyCategory || 'Category') + '</label><select class="policy-category">' + categoryOptions + '</select></div><div class="field-stack"><label>' + escapeHtml(texts.policyCurrency || 'Currency') + '</label><select class="policy-currency"><option value="MOP"' + (policy.currency === 'MOP' ? ' selected' : '') + '>MOP</option><option value="HKD"' + (policy.currency === 'HKD' ? ' selected' : '') + '>HKD</option><option value="RMB"' + (policy.currency === 'RMB' ? ' selected' : '') + '>RMB</option><option value="USD"' + (policy.currency === 'USD' ? ' selected' : '') + '>USD</option></select></div><div class="field-stack"><label>' + escapeHtml(texts.policySumAssured || 'Sum Assured') + '</label><input type="number" min="0" class="policy-sum-assured" value="' + escapeHtml(policy.sumAssured) + '"></div><div class="field-stack"><label>' + escapeHtml(texts.policyPremium || 'Premium') + '</label><input type="number" min="0" class="policy-premium" value="' + escapeHtml(policy.premium) + '"></div><div class="field-stack"><label>' + escapeHtml(texts.policyPremiumTerm || 'Premium Term') + '</label><input type="number" min="0" class="policy-term" value="' + escapeHtml(policy.premiumTerm) + '"></div><div class="field-stack"><label>' + escapeHtml(texts.policyPaymentMode || 'Payment Mode') + '</label><input type="text" class="policy-payment-mode" value="' + escapeHtml(policy.paymentMode) + '"></div><div class="field-stack full-span"><label>' + escapeHtml(texts.policyNotes || 'Notes') + '</label><textarea rows="2" class="policy-notes">' + escapeHtml(policy.notes) + '</textarea></div><div class="field-stack full-span"><button type="button" class="compact-btn muted-btn remove-policy-row">' + escapeHtml(texts.close || 'Close') + '</button></div></div>';
+      }).join('');
+    }
+
+    function renderThemeGrid() {
+      var themeGrid = document.getElementById('theme-grid');
+      var themeSelect = document.getElementById('setting-theme');
+      if (!themeGrid || !themeSelect) return;
+      var texts = getTexts();
+      themeSelect.innerHTML = Object.keys(THEME_CONFIGS).map(function(themeKey) {
+        return '<option value="' + themeKey + '">' + escapeHtml(texts[THEME_CONFIGS[themeKey].labelKey] || themeKey) + '</option>';
+      }).join('');
+      themeSelect.value = currentTheme;
+      themeGrid.innerHTML = Object.keys(THEME_CONFIGS).map(function(themeKey) {
+        var theme = THEME_CONFIGS[themeKey];
+        return '<div class="theme-card' + (themeKey === currentTheme ? ' active' : '') + '" data-theme-key="' + themeKey + '"><div class="theme-swatch" style="background:linear-gradient(135deg,' + theme.body + ',' + theme.toolbar + ');"></div><h5>' + escapeHtml(texts[theme.labelKey] || themeKey) + '</h5><p>' + escapeHtml(theme.description) + '</p></div>';
+      }).join('');
+    }
+
+    function smartRelationReverseLabel(label) {
+      return { '上司': '下属', '下属': '上司', '老师': '学生', '学生': '老师' }[label] || '';
+    }
+
+    function isEquivalentRelation(labelA, labelB) {
+      if (labelA === labelB) return true;
+      return smartRelationReverseLabel(labelA) === labelB || smartRelationReverseLabel(labelB) === labelA;
+    }
+
+    function relationExists(sourceId, targetId, label, treatSymmetric) {
+      return cy.edges().some(function(edge) {
+        var sameDirection = edge.source().id() === sourceId && edge.target().id() === targetId;
+        var reverseDirection = edge.source().id() === targetId && edge.target().id() === sourceId;
+        if (sameDirection && isEquivalentRelation(edge.data('label'), label)) return true;
+        if (treatSymmetric && reverseDirection && edge.data('label') === label) return true;
+        return false;
+      });
+    }
+
+    function getSmartRelationCandidates(sourceNode, targetNode, relation) {
+      var texts = getTexts();
+      var candidates = [];
+      var reverseLabel = smartRelationReverseLabel(relation);
+      if (reverseLabel && !relationExists(targetNode.id(), sourceNode.id(), reverseLabel, false)) {
+        candidates.push({
+          id: 'reverse_' + sourceNode.id() + '_' + targetNode.id() + '_' + relation,
+          source: targetNode.id(),
+          target: sourceNode.id(),
+          label: reverseLabel,
+          description: targetNode.data('name') + ' -> ' + sourceNode.data('name') + ' (' + reverseLabel + ')'
+        });
+      }
+      if (relation === '邻居' || relation === '同事') {
+        var peerNodes = sourceNode.connectedEdges().filter(function(edge) {
+          return edge.data('label') === relation;
+        }).map(function(edge) {
+          return edge.source().id() === sourceNode.id() ? edge.target() : edge.source();
+        });
+        peerNodes.forEach(function(peerNode) {
+          if (peerNode.id() === targetNode.id() || peerNode.id() === sourceNode.id()) return;
+          if (!relationExists(peerNode.id(), targetNode.id(), relation, true)) {
+            candidates.push({
+              id: 'group_' + peerNode.id() + '_' + targetNode.id() + '_' + relation,
+              source: peerNode.id(),
+              target: targetNode.id(),
+              label: relation,
+              description: peerNode.data('name') + ' -> ' + targetNode.data('name') + ' (' + relation + ')'
+            });
+          }
+        });
+      }
+      return candidates;
+    }
+
+    function openSmartRelationDialog(candidates, onApply, onSkip) {
+      var dialog = document.getElementById('smart-relation-dialog');
+      var list = document.getElementById('smart-relation-list');
+      var summary = document.getElementById('smart-relation-summary');
+      var texts = getTexts();
+      smartRelationState = { onApply: onApply, onSkip: onSkip, candidates: candidates };
+      summary.textContent = texts.smartRelationSummary || 'These relations can be inferred from the current edge and existing links.';
+      list.innerHTML = candidates.map(function(candidate) {
+        return '<label class="smart-relation-option"><input type="checkbox" class="smart-relation-checkbox" value="' + candidate.id + '"><div><strong>' + escapeHtml(candidate.label) + '</strong><span>' + escapeHtml(candidate.description) + '</span></div></label>';
+      }).join('');
+      dialog.style.display = 'block';
+      document.getElementById('panel-overlay').style.display = 'block';
+    }
+
+    function closeSmartRelationDialog() {
+      document.getElementById('smart-relation-dialog').style.display = 'none';
+      document.getElementById('panel-overlay').style.display = 'none';
+      smartRelationState = null;
+    }
+
+    function backfillCoreRelationData(edgeData) {
+      var label = edgeData.label;
+      var sourceNode = cy.getElementById(edgeData.source);
+      var targetNode = cy.getElementById(edgeData.target);
+      if (!sourceNode.length || !targetNode.length) return;
+      var recipient = null;
+      var childNode = null;
+      if (label === '母亲' || label === '父亲') {
+        recipient = targetNode;
+        childNode = sourceNode;
+      } else if (label === '子女') {
+        recipient = sourceNode;
+        childNode = targetNode;
+      } else {
+        return;
+      }
+      var data = normalizeNodeData(recipient.data());
+      var childrenList = data.childrenList.slice();
+      var existing = childrenList.find(function(child) {
+        return child.name && child.name === childNode.data('name');
+      });
+      var inferredAge = childNode.data('age') ? String(childNode.data('age')) : '';
+      if (!existing) {
+        childrenList.push({
+          id: 'child_auto_' + childNode.id(),
+          name: childNode.data('name') || '',
+          age: inferredAge,
+          birthYear: ''
+        });
+      } else if (!existing.age && inferredAge) {
+        existing.age = inferredAge;
+      }
+      data.childrenList = normalizeChildrenList(childrenList, '');
+      data.children = data.childrenList.length === 0 ? '0' : (data.childrenList.length >= 3 ? '3' : String(data.childrenList.length));
+      data.childrenAge = serializeChildrenAge(data.childrenList);
+      recipient.data(data);
+      showToast(getTexts().smartRelationBackfilled || 'Related data auto-filled');
+    }
+
+    function addEdgeWithMetadata(edgeData) {
+      var category = getRelationCategory(edgeData.label);
+      var payload = { id: 'edge' + edgeId, source: edgeData.source, target: edgeData.target, label: edgeData.label, classes: category };
+      cy.add({ data: payload });
+      edgeId++;
+      backfillCoreRelationData(payload);
+    }
 
     document.getElementById('lang-select').addEventListener('change', function(e) {
       setLanguage(e.target.value);
@@ -2051,6 +2877,15 @@
         document.getElementById('load-panel').style.display = 'none';
         document.getElementById('node-form-panel').style.display = 'none';
         document.getElementById('node-detail-panel').style.display = 'none';
+        document.getElementById('settings-panel').style.display = 'none';
+        document.getElementById('edge-form-panel').style.display = 'none';
+        document.getElementById('template-edit-panel').style.display = 'none';
+        document.getElementById('policy-template-panel').style.display = 'none';
+        document.getElementById('smart-relation-dialog').style.display = 'none';
+        if (sourceNodeForEdge) {
+          sourceNodeForEdge.removeClass('source-node');
+          sourceNodeForEdge = null;
+        }
         document.getElementById('panel-overlay').style.display = 'none';
         pendingAfterManualSave = null;
       }
@@ -2276,6 +3111,7 @@
       }
 
       function performSave(slotName, displayName, description, isAuto) {
+        normalizeAllGraphNodes();
         var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
         var saveData = {
           name: displayName || slotName,
@@ -2284,7 +3120,9 @@
           timestamp: Date.now(),
           isAuto: isAuto || false,
           elements: cy.elements().jsons(),
-          selfNodeId: selfNodeId
+          selfNodeId: selfNodeId,
+          exchangeRates: currentExchangeRates,
+          policyTemplates: policyTemplates
         };
         localStorage.setItem(SAVE_KEY_PREFIX + slotName, JSON.stringify(saveData));
         if (!isAuto) {
@@ -2314,6 +3152,17 @@
             selfNodeId = saveData.selfNodeId || null;
             cy.remove(cy.elements());
             cy.add(elements);
+            normalizeAllGraphNodes();
+            if (saveData.exchangeRates && saveData.exchangeRates.rates) {
+              currentExchangeRates = saveData.exchangeRates;
+              saveExchangeRatesToStorage();
+            }
+            if (saveData.policyTemplates && Array.isArray(saveData.policyTemplates)) {
+              policyTemplates = saveData.policyTemplates;
+              savePolicyTemplates();
+              renderPolicyTemplateSelect();
+              renderPolicyTemplatePanel();
+            }
             var maxNodeId = 1, maxEdgeId = 1;
             elements.forEach(function(el) {
               var id = parseInt(el.data.id.replace(/node|edge/, ''));
@@ -2455,8 +3304,16 @@
       window.setDefaultSaveSlot = setDefaultSaveSlot;
 
       document.getElementById('panel-overlay').addEventListener('click', function() {
-        if (isCreatingNewNode()) {
-          confirmDiscardNewNode(function() {
+        if (document.getElementById('smart-relation-dialog').style.display === 'block') {
+          if (smartRelationState && smartRelationState.onSkip) {
+            var skip = smartRelationState.onSkip;
+            closeSmartRelationDialog();
+            skip();
+          }
+          return;
+        }
+        if (hasNodeFormPendingChanges()) {
+          confirmDiscardNodeForm(function() {
             closeAllPanelsDirectly();
           });
           return;
@@ -2507,14 +3364,17 @@
       });
 
       document.getElementById('export-btn').addEventListener('click', function() {
+        normalizeAllGraphNodes();
         var exportData = {
-          version: '1.0',
+          version: '1.6.0',
           exportTime: new Date().toISOString(),
           elements: cy.elements().jsons(),
           selfNodeId: selfNodeId,
           insuranceWeights: customInsuranceWeights,
           theme: currentTheme,
-          language: currentLang
+          language: currentLang,
+          exchangeRates: currentExchangeRates,
+          policyTemplates: policyTemplates
         };
         var jsonStr = JSON.stringify(exportData, null, 2);
         var blob = new Blob([jsonStr], { type: 'application/json' });
@@ -2554,6 +3414,7 @@
               cy.remove(cy.elements());
               cy.add(importData.elements);
               selfNodeId = importData.selfNodeId || null;
+              normalizeAllGraphNodes();
               var maxNodeId = 1, maxEdgeId = 1;
               importData.elements.forEach(function(el) {
                 var nodeMatch = el.data.id.match(/^node(\d+)$/);
@@ -2579,6 +3440,17 @@
               if (importData.language) {
                 setLanguage(importData.language);
                 document.getElementById('lang-select').value = importData.language;
+              }
+              if (importData.exchangeRates && importData.exchangeRates.rates) {
+                currentExchangeRates = importData.exchangeRates;
+                saveExchangeRatesToStorage();
+                renderIncomeConversions();
+              }
+              if (importData.policyTemplates && Array.isArray(importData.policyTemplates)) {
+                policyTemplates = importData.policyTemplates;
+                savePolicyTemplates();
+                renderPolicyTemplateSelect();
+                renderPolicyTemplatePanel();
               }
 
               var selfNodeImport = selfNodeId ? cy.$('#' + selfNodeId) : cy.nodes().first();
@@ -3066,6 +3938,10 @@
         loadInsuranceWeights();
         loadKeyboardShortcuts();
         document.getElementById('setting-theme').value = currentTheme;
+        renderThemeGrid();
+        updateExchangeRateStatus(currentExchangeRates.updatedAt ? (currentExchangeRates.isCached ? 'exchangeRateCached' : 'exchangeRateUpdated') : 'exchangeRateUnknown');
+        renderPolicyTemplatePanel();
+        renderPolicyTemplateSelect();
         updateDefaultArchiveStatus();
         document.getElementById('settings-panel').style.display = 'block';
         document.getElementById('panel-overlay').style.display = 'block';
@@ -3085,6 +3961,7 @@
         saveTheme(theme);
         saveKeyboardShortcuts();
         saveInsuranceWeights();
+        savePolicyTemplates();
         document.getElementById('settings-panel').style.display = 'none';
         document.getElementById('panel-overlay').style.display = 'none';
         var indicator = document.getElementById('auto-save-indicator');
@@ -3130,6 +4007,13 @@
 
       document.getElementById('setting-theme').addEventListener('change', function(e) {
         saveTheme(e.target.value);
+      });
+      document.getElementById('theme-grid').addEventListener('click', function(e) {
+        var card = e.target.closest('.theme-card');
+        if (!card) return;
+        var themeKey = card.getAttribute('data-theme-key');
+        document.getElementById('setting-theme').value = themeKey;
+        saveTheme(themeKey);
       });
 
       var customFields = JSON.parse(localStorage.getItem('customFields') || '[]');
@@ -3325,7 +4209,7 @@
       }
 
       function setFormFieldsDisabled(disabled) {
-        var fields = ['field-name', 'field-gender', 'field-age', 'field-salary', 'field-occupation', 'field-marriage', 'field-children', 'field-children-age', 'field-parents', 'field-protection'];
+        var fields = ['field-name', 'field-gender', 'field-age', 'field-birth-year', 'field-salary', 'field-salary-monthly', 'field-income-currency', 'field-occupation', 'field-marriage', 'field-children', 'field-children-age', 'field-parents', 'field-protection'];
         fields.forEach(function(id) {
           var el = document.getElementById(id);
           if (el) {
@@ -3345,10 +4229,15 @@
           el.style.opacity = disabled ? '0.6' : '1';
           el.style.cursor = disabled ? 'not-allowed' : 'text';
         });
+        document.querySelectorAll('#children-list-editor input, #children-list-editor button, #owned-policies-editor input, #owned-policies-editor textarea, #owned-policies-editor select, #owned-policies-editor button, #policy-template-select, #calculate-income-btn, #refresh-exchange-rates, #add-child-row, #add-policy-from-template, #add-custom-policy').forEach(function(el) {
+          el.disabled = disabled;
+          el.style.pointerEvents = disabled ? 'none' : 'auto';
+          el.style.opacity = disabled ? '0.6' : '1';
+        });
       }
 
       function forceEnableFields() {
-        var fields = ['field-name', 'field-gender', 'field-age', 'field-salary', 'field-occupation', 'field-marriage', 'field-children', 'field-children-age', 'field-parents', 'field-protection'];
+        var fields = ['field-name', 'field-gender', 'field-age', 'field-birth-year', 'field-salary', 'field-salary-monthly', 'field-income-currency', 'field-occupation', 'field-marriage', 'field-children', 'field-children-age', 'field-parents', 'field-protection'];
         fields.forEach(function(id) {
           var el = document.getElementById(id);
           if (el) {
@@ -3365,6 +4254,11 @@
           el.style.pointerEvents = 'auto';
           el.style.opacity = '1';
           el.style.cursor = 'text';
+        });
+        document.querySelectorAll('#children-list-editor input, #children-list-editor button, #owned-policies-editor input, #owned-policies-editor textarea, #owned-policies-editor select, #owned-policies-editor button, #policy-template-select, #calculate-income-btn, #refresh-exchange-rates, #add-child-row, #add-policy-from-template, #add-custom-policy').forEach(function(el) {
+          el.disabled = false;
+          el.style.pointerEvents = 'auto';
+          el.style.opacity = '1';
         });
       }
 
@@ -3483,23 +4377,27 @@
             var div = document.createElement('div');
             div.className = 'form-row';
             div.innerHTML = '<label>' + field.name + ':</label>';
+            var sourceValue = editingNode && editingNode.data ? editingNode.data(field.id) : '';
             if (field.type === 'text') {
               var input = document.createElement('input');
               input.type = 'text';
               input.id = 'field_' + field.id;
               input.placeholder = texts.enterContact || '请输入...';
+              input.value = sourceValue || '';
               div.appendChild(input);
             } else if (field.type === 'number') {
               var input = document.createElement('input');
               input.type = 'number';
               input.id = 'field_' + field.id;
               input.placeholder = texts.enterContact || '请输入...';
+              input.value = sourceValue || '';
               div.appendChild(input);
             } else if (field.type === 'textarea') {
               var textarea = document.createElement('textarea');
               textarea.id = 'field_' + field.id;
               textarea.rows = 3;
               textarea.placeholder = texts.enterContact || '请输入...';
+              textarea.value = sourceValue || '';
               div.appendChild(textarea);
             } else if (field.type === 'select' && field.options) {
               var select = document.createElement('select');
@@ -3514,6 +4412,7 @@
                 opt.textContent = o;
                 select.appendChild(opt);
               });
+              select.value = sourceValue || '';
               div.appendChild(select);
             }
             container.appendChild(div);
@@ -3597,8 +4496,8 @@
 
       cy.on('tap', function(event) {
         if (event.target === cy && isEditMode) {
-          if (isCreatingNewNode()) {
-            confirmDiscardNewNode();
+          if (hasNodeFormPendingChanges()) {
+            confirmDiscardNodeForm();
             return;
           }
           if (sourceNodeForEdge) {
@@ -3618,23 +4517,12 @@
 
       function editNode(node) {
         var texts = i18n[currentLang] || i18n['zh-CN'];
-        var data = node.data();
+        var data = normalizeNodeData(node.data());
         editingNode = node;
         pendingPosition = node.position();
         document.getElementById('form-title').textContent = texts.edit || '编辑';
         document.getElementById('node-template').value = data.template || 'insurance';
-        document.getElementById('field-name').value = data.name || '';
-        document.getElementById('field-gender').value = data.gender || '';
-        document.getElementById('field-age').value = data.age || '';
-        document.getElementById('field-salary').value = data.salary || '';
-        document.getElementById('field-occupation').value = data.occupation || '';
-        document.getElementById('field-marriage').value = data.marriage || '';
-        document.getElementById('field-children').value = data.children || '';
-        document.getElementById('field-children-age').value = data.childrenAge || '';
-        document.getElementById('field-parents').value = data.parents || '';
-        document.getElementById('field-protection').value = data.protection || '';
-        setContactsData(data.contact);
-        updateConditionalFields();
+        fillNodeFormFromData(data);
         openNodeForm();
       }
 
@@ -3671,8 +4559,8 @@
 
       cy.on('dbltap', function(event) {
         if (event.target === cy && isEditMode) {
-          if (isCreatingNewNode()) {
-            confirmDiscardNewNode();
+          if (hasNodeFormPendingChanges()) {
+            confirmDiscardNodeForm();
             return;
           }
           pendingPosition = event.position;
@@ -3690,22 +4578,12 @@
         if (!isEditMode) return;
         var texts = i18n[currentLang] || i18n['zh-CN'];
         var node = event.target;
-        var data = node.data();
+        var data = normalizeNodeData(node.data());
         editingNode = node;
         pendingPosition = node.position();
         document.getElementById('form-title').textContent = texts.edit || '编辑';
         document.getElementById('node-template').value = data.template || 'insurance';
-        document.getElementById('field-name').value = data.name || '';
-        document.getElementById('field-gender').value = data.gender || '';
-        document.getElementById('field-age').value = data.age || '';
-        document.getElementById('field-salary').value = data.salary || '';
-        document.getElementById('field-occupation').value = data.occupation || '';
-        document.getElementById('field-marriage').value = data.marriage || '';
-        document.getElementById('field-children').value = data.children || '';
-        document.getElementById('field-children-age').value = data.childrenAge || '';
-        document.getElementById('field-parents').value = data.parents || '';
-        document.getElementById('field-protection').value = data.protection || '';
-        setContactsData(data.contact);
+        fillNodeFormFromData(data);
         var allFields = getAllFields();
         allFields.forEach(function(field) {
           if (field.id && field.id.startsWith('custom_')) {
@@ -3715,7 +4593,6 @@
             }
           }
         });
-        updateConditionalFields();
         openNodeForm();
       });
 
@@ -3936,7 +4813,7 @@
           
           // 收入区间统计
           if (data.salary) {
-            var salary = parseFloat(data.salary);
+            var salary = convertIncome(parseFloat(data.salary), data.incomeCurrency || DEFAULT_INCOME_CURRENCY, DEFAULT_INCOME_CURRENCY);
             if (salary <= 0 || !data.salary) incomeGroups.none++;
             else if (salary < 10) incomeGroups.under10++;
             else if (salary <= 30) incomeGroups['10to30']++;
@@ -4596,24 +5473,13 @@
         if (!currentDetailNode) return;
         var texts = i18n[currentLang] || i18n['zh-CN'];
         var node = currentDetailNode;
-        var data = node.data();
+        var data = normalizeNodeData(node.data());
         editingNode = node;
         pendingPosition = node.position();
         document.getElementById('form-title').textContent = texts.edit || '编辑';
         document.getElementById('node-template').value = data.template || 'insurance';
-        document.getElementById('field-name').value = data.name || '';
-        document.getElementById('field-gender').value = data.gender || '';
-        document.getElementById('field-age').value = data.age || '';
-        document.getElementById('field-salary').value = data.salary || '';
-        document.getElementById('field-occupation').value = data.occupation || '';
-        document.getElementById('field-marriage').value = data.marriage || '';
-        document.getElementById('field-children').value = data.children || '';
-        document.getElementById('field-children-age').value = data.childrenAge || '';
-        document.getElementById('field-parents').value = data.parents || '';
-        document.getElementById('field-protection').value = data.protection || '';
         document.getElementById('node-detail-panel').style.display = 'none';
-        setContactsData(data.contact);
-        updateConditionalFields();
+        fillNodeFormFromData(data);
         openNodeForm();
       });
 
@@ -4702,12 +5568,518 @@
         setContactsData('[]');
       }
 
+      function applyTheme(theme) {
+        var config = THEME_CONFIGS[theme] || THEME_CONFIGS.dark;
+        document.body.className = document.body.className.replace(/\btheme-[\w-]+\b/g, '').trim();
+        document.body.classList.add('theme-' + theme);
+        document.body.style.background = config.body;
+        var root = document.documentElement;
+        root.style.setProperty('--toolbar-bg', config.toolbar);
+        root.style.setProperty('--panel-bg', config.panel);
+        root.style.setProperty('--input-bg', config.input);
+        root.style.setProperty('--input-border', config.border);
+        root.style.setProperty('--theme-heading', config.heading);
+        root.style.setProperty('--theme-text', config.text);
+        root.style.setProperty('--theme-muted', config.muted);
+        root.style.setProperty('--card-bg', config.card);
+        root.style.setProperty('--card-border', config.border);
+        currentTheme = theme;
+        var cyEl = document.getElementById('cy');
+        if (cyEl) {
+          cyEl.style.background = config.body;
+        }
+        renderThemeGrid();
+      }
+
+      function loadTheme() {
+        var saved = localStorage.getItem(THEME_KEY) || 'dark';
+        if (!THEME_CONFIGS[saved]) {
+          saved = 'dark';
+        }
+        applyTheme(saved);
+        var select = document.getElementById('setting-theme');
+        if (select) {
+          select.value = currentTheme;
+        }
+      }
+
+      function saveTheme(theme) {
+        if (!THEME_CONFIGS[theme]) {
+          theme = 'dark';
+        }
+        localStorage.setItem(THEME_KEY, theme);
+        applyTheme(theme);
+      }
+
+      function hasNodeFormPendingChanges() {
+        return isNodeFormVisible();
+      }
+
+      function confirmDiscardNodeForm(onConfirm) {
+        if (!hasNodeFormPendingChanges()) {
+          if (onConfirm) onConfirm();
+          return;
+        }
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        showConfirm(
+          texts.cancelNewNodePrompt || 'You are creating a new node. Clicking the blank area will cancel it. Continue?',
+          function() {
+            closeNodeForm();
+            if (onConfirm) onConfirm();
+          }
+        );
+      }
+
+      function updateModeUI() {
+        var indicator = document.getElementById('mode-indicator');
+        var modeText = document.getElementById('current-mode-text');
+        var editBtn = document.getElementById('edit-mode-btn');
+        var viewBtn = document.getElementById('view-mode-btn');
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        indicator.classList.add('persistent');
+        indicator.style.display = 'block';
+        if (isEditMode) {
+          modeText.textContent = texts.editMode;
+          indicator.style.background = 'rgba(255, 149, 0, 0.92)';
+          editBtn.classList.add('active');
+          viewBtn.classList.remove('active');
+          setFormFieldsDisabled(false);
+        } else {
+          modeText.textContent = texts.viewMode;
+          indicator.style.background = 'rgba(0, 204, 136, 0.92)';
+          editBtn.classList.remove('active');
+          viewBtn.classList.add('active');
+          setFormFieldsDisabled(true);
+        }
+      }
+
+      function updateConditionalFields() {
+        var marriage = document.getElementById('field-marriage').value;
+        var rowChildren = document.getElementById('row-children');
+        var rowChildrenAge = document.getElementById('row-children-age');
+        if (marriage === '已婚' || marriage === '离异' || marriage === '丧偶') {
+          rowChildren.classList.add('visible');
+          rowChildrenAge.classList.add('visible');
+        } else {
+          rowChildren.classList.remove('visible');
+          rowChildrenAge.classList.remove('visible');
+        }
+        reconcileChildrenRowsWithCount();
+      }
+
+      function clearNodeForm() {
+        ['field-name', 'field-age', 'field-birth-year', 'field-salary', 'field-salary-monthly', 'field-occupation', 'field-children-age'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+        document.getElementById('field-gender').value = '';
+        document.getElementById('field-marriage').value = '';
+        document.getElementById('field-children').value = '0';
+        document.getElementById('field-parents').value = '';
+        document.getElementById('field-protection').value = '';
+        document.getElementById('field-income-currency').value = DEFAULT_INCOME_CURRENCY;
+        setContactsData('[]');
+        renderChildrenListEditor([]);
+        renderOwnedPoliciesEditor([]);
+        renderIncomeConversions();
+      }
+
+      function fillNodeFormFromData(data) {
+        data = normalizeNodeData(data || {});
+        document.getElementById('field-name').value = data.name || '';
+        document.getElementById('field-gender').value = data.gender || '';
+        document.getElementById('field-age').value = data.age || '';
+        document.getElementById('field-salary').value = data.salary || '';
+        document.getElementById('field-salary-monthly').value = data.salary ? (safeNumber(data.salary) * 10000 / 12).toFixed(2) : '';
+        document.getElementById('field-income-currency').value = data.incomeCurrency || DEFAULT_INCOME_CURRENCY;
+        document.getElementById('field-occupation').value = data.occupation || '';
+        document.getElementById('field-marriage').value = data.marriage || '';
+        document.getElementById('field-children').value = data.children || '0';
+        document.getElementById('field-children-age').value = data.childrenAge || '';
+        document.getElementById('field-parents').value = data.parents || '';
+        document.getElementById('field-protection').value = data.protection || '';
+        setContactsData(data.contact);
+        renderChildrenListEditor(data.childrenList || []);
+        renderOwnedPoliciesEditor(data.ownedPolicies || []);
+        updateConditionalFields();
+        renderIncomeConversions();
+      }
+
+      function createOrUpdateNode() {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        var name = document.getElementById('field-name').value.trim();
+        if (!name) { showToast(texts.inputName); document.getElementById('field-name').focus(); return; }
+        var template = document.getElementById('node-template').value;
+        var nodeData = normalizeNodeData({
+          id: editingNode ? editingNode.id() : ('node' + nodeId),
+          name: name,
+          template: template,
+          gender: document.getElementById('field-gender').value,
+          age: document.getElementById('field-age').value,
+          salary: document.getElementById('field-salary').value,
+          incomeCurrency: document.getElementById('field-income-currency').value || DEFAULT_INCOME_CURRENCY,
+          contact: getContactsData(),
+          occupation: document.getElementById('field-occupation').value,
+          marriage: document.getElementById('field-marriage').value,
+          children: document.getElementById('field-children').value,
+          childrenAge: document.getElementById('field-children-age').value,
+          childrenList: getChildrenListFromForm(),
+          parents: document.getElementById('field-parents').value,
+          protection: document.getElementById('field-protection').value,
+          ownedPolicies: getOwnedPoliciesFromForm(),
+          createdDate: editingNode ? ((editingNode.data() && editingNode.data().createdDate) || new Date().toISOString()) : new Date().toISOString()
+        });
+        var allFields = getAllFields();
+        allFields.forEach(function(field) {
+          if (field.id && field.id.startsWith('custom_')) {
+            var el = document.getElementById('field_' + field.id);
+            if (el) {
+              nodeData[field.id] = el.value;
+            }
+          }
+        });
+        if (template === 'self' && !editingNode) {
+          selfNodeId = nodeData.id;
+        }
+        saveStateForUndo();
+        incrementOperationAndCheckAutoSave();
+        if (editingNode) {
+          editingNode.data(nodeData);
+          editingNode.removeClass('insurance product service self').addClass(template);
+        } else {
+          var containerRect = cy.container().getBoundingClientRect();
+          var position = pendingPosition || { x: containerRect.width / 2, y: containerRect.height / 2 };
+          var newNode = cy.add({ data: nodeData, classes: template === 'self' ? 'self' : template, position: position });
+          nodeId++;
+          cy.center(newNode);
+        }
+        closeNodeForm();
+        updateStats();
+      }
+
+      function showNodeDetail(node) {
+        currentDetailNode = node;
+        var data = normalizeNodeData(node.data());
+        node.data(data);
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        var salaryText = data.salary ? (formatMoney(safeNumber(data.salary), data.incomeCurrency || DEFAULT_INCOME_CURRENCY) + ' / ' + (texts.annualIncome || 'Annual Income (10k)')) : (texts.unknown || '未知');
+        var details = [
+          { label: texts.name || '姓名', value: getDisplayValue(data.name), key: 'name' },
+          { label: texts.gender || '性别', value: translateValue(data.gender, 'gender'), key: 'gender' },
+          { label: texts.age || '年龄', value: data.age ? data.age + (currentLang === 'en' ? ' years old' : '岁') : texts.unknown || '未知', key: 'age' },
+          { label: texts.salary || '薪金', value: salaryText, key: 'salary' },
+          { label: texts.occupation || '工作职业', value: getDisplayValue(data.occupation), key: 'occupation' },
+          { label: texts.marriage || '婚姻状态', value: translateValue(data.marriage, 'marriage'), key: 'marriage' },
+          { label: texts.parents || '父母状态', value: translateValue(data.parents, 'parents'), key: 'parents' }
+        ];
+        if (data.childrenList.length) {
+          details.push({ label: texts.children || '子女数量', value: String(data.childrenList.length), key: 'children' });
+        }
+        var contacts = [];
+        try {
+          contacts = Array.isArray(data.contact) ? data.contact : JSON.parse(data.contact || '[]');
+        } catch (error) {
+          contacts = data.contact ? [{ type: 'phone', value: data.contact }] : [];
+        }
+        var templateName = data.template === 'self' ? (texts.self || '自己') : getTemplateName(data.template);
+        document.getElementById('detail-title').textContent = templateName + ' - ' + getDisplayValue(data.name);
+        var detailHtml = '<div class="detail-grid">';
+        details.forEach(function(d) {
+          detailHtml += '<div class="detail-item"><span class="detail-label">' + d.label + '</span><span class="detail-value">' + d.value + '</span></div>';
+        });
+        if (data.salary) {
+          detailHtml += '<div class="detail-item"><span class="detail-label">' + (texts.incomeEquivalent || 'Converted') + '</span><span class="detail-value">' + ['MOP', 'HKD', 'RMB', 'USD'].map(function(currency) {
+            return formatMoney(convertIncome(safeNumber(data.salary), data.incomeCurrency || DEFAULT_INCOME_CURRENCY, currency), currency);
+          }).join(' · ') + '</span></div>';
+        }
+        if (data.childrenList.length) {
+          detailHtml += '<div class="detail-section">' + (texts.childList || 'Children List') + '</div>';
+          data.childrenList.forEach(function(child) {
+            var childParts = [];
+            if (child.name) childParts.push(child.name);
+            if (child.age) childParts.push((texts.childAge || 'Age') + ': ' + child.age);
+            if (child.birthYear) childParts.push((texts.childBirthYear || 'Birth Year') + ': ' + child.birthYear);
+            detailHtml += '<div class="detail-item"><span class="detail-value">' + childParts.join(' · ') + '</span></div>';
+          });
+        }
+        if (contacts.length > 0) {
+          detailHtml += '<div class="detail-section">' + (texts.contact || '联系方式') + '</div>';
+          contacts.forEach(function(c) {
+            detailHtml += '<div class="detail-item"><span class="detail-value">' + escapeHtml((c.type || 'phone') + ': ' + (c.value || '')) + '</span></div>';
+          });
+        }
+        if (data.ownedPolicies.length) {
+          detailHtml += '<div class="detail-section">' + (texts.ownedPolicies || 'Owned Policies') + '</div>';
+          data.ownedPolicies.forEach(function(policy) {
+            detailHtml += '<div class="detail-item"><span class="detail-label">' + escapeHtml(policy.productName || getTexts().customPolicy || 'Policy') + '</span><span class="detail-value">' + [
+              policy.sumAssured ? ((texts.policySumAssured || 'Sum Assured') + ': ' + policy.sumAssured) : '',
+              policy.premium ? ((texts.policyPremium || 'Premium') + ': ' + policy.premium) : '',
+              policy.premiumTerm ? ((texts.policyPremiumTerm || 'Premium Term') + ': ' + policy.premiumTerm) : '',
+              policy.currency || ''
+            ].filter(Boolean).join(' · ') + (policy.notes ? ('<br>' + escapeHtml(policy.notes)) : '') + '</span></div>';
+          });
+        }
+        detailHtml += '</div>';
+        document.getElementById('detail-content').innerHTML = detailHtml;
+        var edges = node.connectedEdges();
+        var relationsByCategory = { blood: [], social: [], referral: [] };
+        edges.forEach(function(edge) {
+          var source = edge.source();
+          var target = edge.target();
+          var otherNode = source.id() === node.id() ? target : source;
+          var label = edge.data('label') || '关联';
+          var cat = getRelationCategory(label);
+          relationsByCategory[cat].push({ node: otherNode, edge: edge, label: getRelationLabelForNode(edge, node) });
+        });
+        var relContent = '';
+        var catNames = { blood: texts.bloodRelation || '生理关系', social: texts.socialRelation || '社交关系', referral: texts.referralRelation || '推荐关系' };
+        for (var cat in relationsByCategory) {
+          if (relationsByCategory[cat].length > 0) {
+            relContent += '<div class="relation-category ' + cat + '"><h5>' + catNames[cat] + '</h5><div class="relation-items">';
+            relationsByCategory[cat].forEach(function(item) {
+              relContent += '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + item.node.data('name') + '</span><span class="rel-type">(' + item.label + ')</span></div>';
+            });
+            relContent += '</div></div>';
+          }
+        }
+        if (!relContent) { relContent = '<p style="color:#999;text-align:center;">' + (texts.noRelation || '暂无关系') + '</p>'; }
+        document.getElementById('relation-content').innerHTML = '<h4 style="margin:15px 0 10px;font-size:14px;color:#333;">' + (texts.relationCount || '关系网络') + ' (' + edges.length + ')</h4>' + relContent;
+        if (data.template === 'insurance' && data.age) {
+          var rec = calculateInsuranceRecommendation(data);
+          if (rec.recommendations.length > 0) {
+            var recHtml = '<div class="insurance-recommendation"><h5>💡 ' + texts.insuranceRecommendation + '</h5>';
+            rec.recommendations.forEach(function(r) {
+              var insuranceName = '';
+              var insuranceReason = '';
+              switch(r.name) {
+                case '医疗': insuranceName = texts.medicalInsurance; insuranceReason = texts.medicalReason; break;
+                case '危疾': insuranceName = texts.criticalInsurance; insuranceReason = texts.criticalReason; break;
+                case '人寿': insuranceName = texts.lifeInsurance; insuranceReason = texts.lifeReason; break;
+                case '储蓄': insuranceName = texts.savingsInsurance; insuranceReason = texts.savingsReason; break;
+                default: insuranceName = r.name + '保险'; insuranceReason = r.reason;
+              }
+              recHtml += '<div class="insurance-item"><div><div class="insurance-name">' + insuranceName + '</div><div class="insurance-reason">' + insuranceReason + '</div></div><div><div class="insurance-percent">' + r.percent + '%</div><div class="insurance-bar"><div class="insurance-bar-fill" style="width:' + r.percent + '%;"></div></div></div></div>';
+            });
+            recHtml += '</div>';
+            document.getElementById('insurance-recommendation').innerHTML = recHtml;
+          } else {
+            document.getElementById('insurance-recommendation').innerHTML = '';
+          }
+        } else {
+          document.getElementById('insurance-recommendation').innerHTML = '';
+        }
+        document.querySelectorAll('.relation-item').forEach(function(el) {
+          el.addEventListener('click', function() {
+            var nodeIdToFocus = this.getAttribute('data-node-id');
+            var targetNode = cy.getElementById(nodeIdToFocus);
+            cy.animate({ fit: { eles: targetNode, padding: 150 }, duration: 300 });
+            setTimeout(function() { showNodeDetail(targetNode); }, 350);
+          });
+        });
+        document.getElementById('node-detail-panel').style.display = 'block';
+        document.getElementById('edit-hint').style.display = isEditMode ? 'none' : 'block';
+        document.getElementById('edit-detail').style.display = isEditMode ? 'inline-block' : 'none';
+        node.connectedEdges().addClass('highlight');
+        node.connectedEdges().connectedNodes().addClass('highlight');
+        cy.elements().difference(node.union(node.connectedEdges().connectedNodes())).style({ 'opacity': 0.15 });
+      }
+
+      function showEdgeForm(targetNode) {
+        document.querySelectorAll('#edge-form-panel input[type="checkbox"]').forEach(function(cb) { cb.checked = false; });
+        document.getElementById('field-relation').value = '';
+        document.getElementById('edge-form-panel').style.display = 'block';
+        document.getElementById('confirm-edge').onclick = function() {
+          var selectedRelations = [];
+          document.querySelectorAll('#edge-form-panel input[type="checkbox"]:checked').forEach(function(cb) {
+            selectedRelations.push(cb.value);
+          });
+          var customRelations = document.getElementById('field-relation').value.trim();
+          if (customRelations) {
+            customRelations.split(/[,，]/).forEach(function(part) {
+              if (part.trim()) selectedRelations.push(part.trim());
+            });
+          }
+          if (!selectedRelations.length) {
+            selectedRelations.push('关联');
+          }
+          saveStateForUndo();
+          var mainRelations = selectedRelations.map(function(relation) {
+            return { source: sourceNodeForEdge.id(), target: targetNode.id(), label: relation };
+          });
+          var candidates = [];
+          selectedRelations.forEach(function(relation) {
+            candidates = candidates.concat(getSmartRelationCandidates(sourceNodeForEdge, targetNode, relation));
+          });
+          var seen = {};
+          candidates = candidates.filter(function(candidate) {
+            var key = candidate.source + '|' + candidate.target + '|' + candidate.label;
+            if (seen[key]) return false;
+            seen[key] = true;
+            return true;
+          });
+          function finalize(selectedCandidates) {
+            mainRelations.forEach(addEdgeWithMetadata);
+            (selectedCandidates || []).forEach(addEdgeWithMetadata);
+            incrementOperationAndCheckAutoSave();
+            document.getElementById('edge-form-panel').style.display = 'none';
+            if (sourceNodeForEdge) {
+              sourceNodeForEdge.removeClass('source-node');
+            }
+            sourceNodeForEdge = null;
+            updateStats();
+            if (selectedCandidates && selectedCandidates.length) {
+              showToast(getTexts().smartRelationCreated || 'Smart relations added');
+            }
+          }
+          if (candidates.length) {
+            openSmartRelationDialog(candidates, finalize, function() { finalize([]); });
+          } else {
+            finalize([]);
+          }
+        };
+      }
+
+      document.getElementById('panel-overlay').onclick = null;
+
+      document.getElementById('smart-relation-confirm').addEventListener('click', function() {
+        if (!smartRelationState) return;
+        var selectedIds = Array.from(document.querySelectorAll('.smart-relation-checkbox:checked')).map(function(el) { return el.value; });
+        var selected = smartRelationState.candidates.filter(function(candidate) {
+          return selectedIds.indexOf(candidate.id) !== -1;
+        });
+        var apply = smartRelationState.onApply;
+        closeSmartRelationDialog();
+        apply(selected);
+      });
+
+      document.getElementById('smart-relation-skip').addEventListener('click', function() {
+        if (!smartRelationState) return;
+        var skip = smartRelationState.onSkip;
+        closeSmartRelationDialog();
+        skip();
+      });
+
+      document.getElementById('field-children').addEventListener('change', reconcileChildrenRowsWithCount);
+      document.getElementById('add-child-row').addEventListener('click', function() {
+        var list = getChildrenListFromForm();
+        list.push(createEmptyChild());
+        renderChildrenListEditor(list);
+        updateChildrenCountFromList();
+      });
+      document.getElementById('children-list-editor').addEventListener('click', function(e) {
+        var row = e.target.closest('.child-row');
+        if (!row) return;
+        if (e.target.classList.contains('remove-child-row')) {
+          row.remove();
+          updateChildrenCountFromList();
+          if (!document.querySelector('.child-row')) {
+            renderChildrenListEditor([]);
+          }
+        }
+        if (e.target.classList.contains('calculate-child-age')) {
+          var birthYearEl = row.querySelector('.child-birth-year');
+          var ageEl = row.querySelector('.child-age');
+          var birthYear = parseInt(birthYearEl.value, 10);
+          if (birthYear) {
+            ageEl.value = new Date().getFullYear() - birthYear;
+            syncLegacyChildrenAgeField();
+          }
+        }
+      });
+      document.getElementById('children-list-editor').addEventListener('input', syncLegacyChildrenAgeField);
+
+      document.getElementById('calculate-income-btn').addEventListener('click', function() {
+        var monthlyIncome = safeNumber(document.getElementById('field-salary-monthly').value);
+        document.getElementById('field-salary').value = monthlyIncome ? (monthlyIncome * 12 / 10000).toFixed(2) : '';
+        renderIncomeConversions();
+      });
+      document.getElementById('field-salary').addEventListener('input', renderIncomeConversions);
+      document.getElementById('field-income-currency').addEventListener('change', renderIncomeConversions);
+      document.getElementById('refresh-exchange-rates').addEventListener('click', function() { fetchExchangeRates(false); });
+      document.getElementById('refresh-rates-settings').addEventListener('click', function() { fetchExchangeRates(false); });
+
+      document.getElementById('add-custom-policy').addEventListener('click', function() {
+        var policies = getOwnedPoliciesFromForm();
+        policies.push(createEmptyPolicy());
+        renderOwnedPoliciesEditor(policies);
+      });
+      document.getElementById('add-policy-from-template').addEventListener('click', function() {
+        var templateId = document.getElementById('policy-template-select').value;
+        var template = policyTemplates.find(function(item) { return item.id === templateId; }) || {};
+        var policies = getOwnedPoliciesFromForm();
+        policies.push(createEmptyPolicy(template));
+        renderOwnedPoliciesEditor(policies);
+      });
+      document.getElementById('owned-policies-editor').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-policy-row')) {
+          var row = e.target.closest('.policy-row');
+          row.remove();
+          if (!document.querySelector('.policy-row[data-policy-id]')) {
+            renderOwnedPoliciesEditor([]);
+          }
+        }
+      });
+
+      document.getElementById('manage-policy-templates').addEventListener('click', function() {
+        renderPolicyTemplatePanel();
+        document.getElementById('policy-template-panel').style.display = 'block';
+        document.getElementById('panel-overlay').style.display = 'block';
+      });
+      document.getElementById('close-policy-template-panel').addEventListener('click', function() {
+        document.getElementById('policy-template-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+      });
+      document.getElementById('add-policy-template-btn').addEventListener('click', function() {
+        var name = document.getElementById('new-policy-template-name').value.trim();
+        var category = document.getElementById('new-policy-template-category').value;
+        if (!name) {
+          showToast(getTexts().inputName || 'Please enter name');
+          return;
+        }
+        policyTemplates.push({ id: 'tpl_' + Date.now(), name: name, category: category, builtin: false });
+        savePolicyTemplates();
+        renderPolicyTemplateSelect();
+        renderPolicyTemplatePanel();
+        document.getElementById('new-policy-template-name').value = '';
+      });
+      document.getElementById('policy-template-list').addEventListener('change', function(e) {
+        var templateId = e.target.getAttribute('data-template-id');
+        var template = policyTemplates.find(function(item) { return item.id === templateId; });
+        if (!template) return;
+        if (e.target.classList.contains('policy-template-name')) {
+          template.name = e.target.value.trim();
+        }
+        if (e.target.classList.contains('policy-template-category')) {
+          template.category = e.target.value;
+        }
+        savePolicyTemplates();
+        renderPolicyTemplateSelect();
+      });
+      document.getElementById('policy-template-list').addEventListener('click', function(e) {
+        if (!e.target.classList.contains('delete-policy-template')) return;
+        var templateId = e.target.getAttribute('data-template-id');
+        policyTemplates = policyTemplates.filter(function(template) { return template.id !== templateId; });
+        savePolicyTemplates();
+        renderPolicyTemplateSelect();
+        renderPolicyTemplatePanel();
+      });
+
       forceEnableFields();
+      loadExchangeRatesFromStorage();
+      loadPolicyTemplates();
+      renderPolicyTemplateSelect();
+      renderPolicyTemplatePanel();
+      renderChildrenListEditor([]);
+      renderOwnedPoliciesEditor([]);
       loadInsuranceWeights();
       loadTheme();
       loadKeyboardShortcuts();
+      renderThemeGrid();
+      renderIncomeConversions();
+      fetchExchangeRates(true);
       initAutoSave();
       autoLoadDefaultSave();
+      normalizeAllGraphNodes();
       if (undoStack.length === 0) {
         saveStateForUndo();
       }
@@ -4974,6 +6346,15 @@
     
     <!-- 错误提示 -->
     <p id="update-error" style="display:none;margin-top:15px;font-size:12px;color:#e53935;" data-i18n="downloadError">下载失败，请稍后重试</p>
+  </div>
+  <div id="smart-relation-dialog" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:26px;border-radius:16px;box-shadow:rgba(0,0,0,0.5) 0px 20px 60px;z-index:3100;min-width:380px;max-width:680px;width:min(90vw,680px);">
+    <h3 style="margin:0 0 12px;color:#1a1a2e;" data-i18n="smartRelationTitle">智能关联建议</h3>
+    <p class="section-hint" id="smart-relation-summary"></p>
+    <div class="smart-relation-list" id="smart-relation-list"></div>
+    <div class="form-buttons" style="margin-top:18px;">
+      <button id="smart-relation-confirm" class="btn-confirm" data-i18n="applySelectedRelations">新增所选关系</button>
+      <button id="smart-relation-skip" class="btn-cancel" data-i18n="skipSuggestions">跳过建议</button>
+    </div>
   </div>
 </body>
 </html>
