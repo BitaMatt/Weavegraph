@@ -1632,21 +1632,24 @@
       checkingUpdate: '\u6b63\u5728\u68c0\u67e5\u66f4\u65b0...',
       updateReadyToInstall: '\u66f4\u65b0\u5df2\u4e0b\u8f7d\uff0c\u6b63\u5728\u5b89\u88c5\u5e76\u91cd\u542f...',
       installAndRestart: '\u5b89\u88c5\u5e76\u91cd\u542f',
-      updateFailed: '\u66f4\u65b0\u5931\u8d25'
+      updateFailed: '\u66f4\u65b0\u5931\u8d25',
+      cancelNewNodePrompt: '\u5f53\u524d\u6b63\u5728\u65b0\u5efa\u8282\u70b9\uff0c\u70b9\u51fb\u7a7a\u767d\u5904\u5c06\u53d6\u6d88\u672c\u6b21\u65b0\u5efa\u3002\u786e\u5b9a\u8981\u53d6\u6d88\u5417\uff1f'
     });
     Object.assign(i18n['zh-TW'], {
       autoUpdate: '\u81ea\u52d5\u66f4\u65b0',
       checkingUpdate: '\u6b63\u5728\u6aa2\u67e5\u66f4\u65b0...',
       updateReadyToInstall: '\u66f4\u65b0\u5df2\u4e0b\u8f09\uff0c\u6b63\u5728\u5b89\u88dd\u4e26\u91cd\u65b0\u555f\u52d5...',
       installAndRestart: '\u5b89\u88dd\u4e26\u91cd\u65b0\u555f\u52d5',
-      updateFailed: '\u66f4\u65b0\u5931\u6557'
+      updateFailed: '\u66f4\u65b0\u5931\u6557',
+      cancelNewNodePrompt: '\u7576\u524d\u6b63\u5728\u65b0\u5efa\u7bc0\u9ede\uff0c\u9ede\u64ca\u7a7a\u767d\u8655\u5c07\u53d6\u6d88\u672c\u6b21\u65b0\u5efa\u3002\u78ba\u5b9a\u8981\u53d6\u6d88\u55ce\uff1f'
     });
     Object.assign(i18n['en'], {
       autoUpdate: 'Auto Update',
       checkingUpdate: 'Checking for updates...',
       updateReadyToInstall: 'Update downloaded, installing and restarting...',
       installAndRestart: 'Install and Restart',
-      updateFailed: 'Update failed'
+      updateFailed: 'Update failed',
+      cancelNewNodePrompt: 'You are creating a new node. Clicking the blank area will cancel it. Continue?'
     });
 
     document.getElementById('lang-select').addEventListener('change', function(e) {
@@ -2035,6 +2038,73 @@
         return i18n[currentLang] || i18n['zh-CN'];
       }
 
+      function isNodeFormVisible() {
+        return document.getElementById('node-form-panel').style.display === 'block';
+      }
+
+      function isCreatingNewNode() {
+        return isNodeFormVisible() && !editingNode;
+      }
+
+      function closeAllPanelsDirectly() {
+        document.getElementById('save-panel').style.display = 'none';
+        document.getElementById('load-panel').style.display = 'none';
+        document.getElementById('node-form-panel').style.display = 'none';
+        document.getElementById('node-detail-panel').style.display = 'none';
+        document.getElementById('panel-overlay').style.display = 'none';
+        pendingAfterManualSave = null;
+      }
+
+      function confirmDiscardNewNode(onConfirm) {
+        var texts = i18n[currentLang] || i18n['zh-CN'];
+        showConfirm(
+          texts.cancelNewNodePrompt || 'You are creating a new node. Clicking the blank area will cancel it. Continue?',
+          function() {
+            closeNodeForm();
+            if (onConfirm) {
+              onConfirm();
+            }
+          }
+        );
+      }
+
+      function getOwnedRelationLabel(label) {
+        var translated = translateRelation(label) || label || '';
+        var symmetricLabels = {
+          '配偶': true,
+          '兄弟': true,
+          '姐妹': true,
+          '兄妹': true,
+          '姐弟': true,
+          '朋友': true,
+          '小学同学': true,
+          '中学同学': true,
+          '大学同学': true,
+          '同事': true,
+          '邻居': true,
+          '工作合作伙伴': true,
+          '商业竞争对手': true
+        };
+
+        if (symmetricLabels[label]) {
+          return translated;
+        }
+
+        if (currentLang === 'en') {
+          return translated + ' of';
+        }
+
+        return '的' + translated;
+      }
+
+      function getRelationLabelForNode(edge, currentNode) {
+        var label = edge.data('label') || '关联';
+        if (edge.source().id() === currentNode.id()) {
+          return translateRelation(label) || label;
+        }
+        return getOwnedRelationLabel(label);
+      }
+
       function updateCurrentSaveToggleLabel(summary, texts) {
         var toggleEl = document.getElementById('toggle-current-save-desc');
         var descEl = document.getElementById('current-save-desc');
@@ -2385,12 +2455,13 @@
       window.setDefaultSaveSlot = setDefaultSaveSlot;
 
       document.getElementById('panel-overlay').addEventListener('click', function() {
-        document.getElementById('save-panel').style.display = 'none';
-        document.getElementById('load-panel').style.display = 'none';
-        document.getElementById('node-form-panel').style.display = 'none';
-        document.getElementById('node-detail-panel').style.display = 'none';
-        document.getElementById('panel-overlay').style.display = 'none';
-        pendingAfterManualSave = null;
+        if (isCreatingNewNode()) {
+          confirmDiscardNewNode(function() {
+            closeAllPanelsDirectly();
+          });
+          return;
+        }
+        closeAllPanelsDirectly();
       });
 
       document.getElementById('save-btn').addEventListener('click', function() {
@@ -3526,6 +3597,10 @@
 
       cy.on('tap', function(event) {
         if (event.target === cy && isEditMode) {
+          if (isCreatingNewNode()) {
+            confirmDiscardNewNode();
+            return;
+          }
           if (sourceNodeForEdge) {
             sourceNodeForEdge.removeClass('source-node');
             sourceNodeForEdge = null;
@@ -3596,6 +3671,10 @@
 
       cy.on('dbltap', function(event) {
         if (event.target === cy && isEditMode) {
+          if (isCreatingNewNode()) {
+            confirmDiscardNewNode();
+            return;
+          }
           pendingPosition = event.position;
           editingNode = null;
           var texts = i18n[currentLang] || i18n['zh-CN'];
@@ -4438,7 +4517,7 @@
           var otherNode = source.id() === node.id() ? target : source;
           var label = edge.data('label') || '关联';
           var cat = getRelationCategory(label);
-          relationsByCategory[cat].push({ node: otherNode, edge: edge, label: label });
+          relationsByCategory[cat].push({ node: otherNode, edge: edge, label: getRelationLabelForNode(edge, node) });
         });
 
         var relContent = '';
@@ -4447,7 +4526,7 @@
           if (relationsByCategory[cat].length > 0) {
             relContent += '<div class="relation-category ' + cat + '"><h5>' + catNames[cat] + '</h5><div class="relation-items">';
             relationsByCategory[cat].forEach(function(item) {
-              relContent += '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + item.node.data('name') + '</span><span class="rel-type">(' + translateRelation(item.label) + ')</span></div>';
+              relContent += '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + item.node.data('name') + '</span><span class="rel-type">(' + item.label + ')</span></div>';
             });
             relContent += '</div></div>';
           }
