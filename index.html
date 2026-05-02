@@ -220,7 +220,7 @@
     .theme-swatch { height: 48px; border-radius: 6px; margin-bottom: 8px; border: 1px solid rgba(0,0,0,0.08); }
     .theme-card h5 { margin: 0 0 4px; font-size: 13px; }
     .theme-card p { margin: 0; font-size: 11px; color: #666; }
-    .mode-indicator.persistent { display: block !important; top: 84px; right: 20px; left: auto; transform: none; border-radius: 12px; padding: 8px 14px; }
+    .mode-indicator.persistent { display: block !important; top: 84px; left: 20px; right: auto; transform: none; border-radius: 12px; padding: 8px 14px; z-index: 140; }
     .detail-item .detail-label { font-weight: 600; color: #0066ff; display: block; font-size: 12px; margin-bottom: 3px; }
     .detail-item .detail-value { display: block; color: #555; font-size: 15px; font-weight: 500; }
     .smart-relation-list { display: flex; flex-direction: column; gap: 10px; max-height: 260px; overflow-y: auto; text-align: left; }
@@ -1711,8 +1711,18 @@
       if (appVersion !== null) {
         updateTitle();
       }
-      if (cy && typeof cy.edges === 'function') {
-        cy.edges().style('label', function(ele) { return translateRelation(ele.data('label')) || ''; });
+      if (typeof cy !== 'undefined' && cy && typeof cy.edges === 'function') {
+        cy.batch(function() {
+          cy.edges().forEach(function(edge) {
+            edge.style('label', translateRelation(edge.data('label')) || '');
+          });
+        });
+        if (cy.style && typeof cy.style === 'function') {
+          cy.style().update();
+        }
+        if (typeof cy.resize === 'function') {
+          cy.resize();
+        }
       }
       if (typeof window.refreshCurrentSaveLanguage === 'function') {
         window.refreshCurrentSaveLanguage();
@@ -3707,10 +3717,19 @@
             });
             nodeId = maxNodeId;
             edgeId = maxEdgeId;
-            currentLoadedSlot = null;
             currentSaveDescExpanded = false;
-            localStorage.removeItem(CURRENT_SLOT_KEY);
-            updateCurrentSaveDisplay();
+            if (currentLoadedSlot) {
+              var currentSummary = getSaveSlotSummary(currentLoadedSlot);
+              performSave(
+                currentLoadedSlot,
+                currentSummary ? currentSummary.name : currentLoadedSlot,
+                currentSummary ? currentSummary.description : '',
+                false
+              );
+            } else {
+              localStorage.removeItem(CURRENT_SLOT_KEY);
+              updateCurrentSaveDisplay();
+            }
             debugLog('Template loaded: nodeId=' + nodeId + ', edgeId=' + edgeId);
 
             var selfNode = selfNodeId ? cy.$('#' + selfNodeId) : cy.nodes().first();
@@ -6222,6 +6241,7 @@
       loadKeyboardShortcuts();
       renderThemeGrid();
       renderIncomeConversions();
+      updateModeUI();
       fetchExchangeRates(true);
       initAutoSave();
       autoLoadDefaultSave();

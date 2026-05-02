@@ -4,217 +4,4197 @@
   "templateName": "100人社会关系模板",
   "description": "包含100人的社会关系网络：同事40人，朋友20人，工作客户20人，家人3人，亲戚10人，其他7人",
   "elements": [
-    {"data": {"id": "self1", "name": "自己", "template": "self", "gender": "男", "age": 35, "occupation": "保险顾问", "marriage": "已婚", "children": "2", "childrenAge": "8岁,5岁", "parents": "双亲健在", "salary": 30, "contact": "13800138000"}, "position": {"x": 600, "y": 400}},
-    {"data": {"id": "node1", "name": "张伟", "template": "insurance", "gender": "男", "age": 42, "occupation": "建筑工程师", "marriage": "已婚", "children": "1", "childrenAge": "12岁", "parents": "双亲健在", "salary": 45, "contact": "13900139001"}, "classes": "social", "position": {"x": 450, "y": 300}},
-    {"data": {"id": "node2", "name": "李娜", "template": "insurance", "gender": "女", "age": 38, "occupation": "中学教师", "marriage": "已婚", "children": "1", "childrenAge": "10岁", "parents": "双亲健在", "salary": 20, "contact": "13900139002"}, "classes": "social", "position": {"x": 500, "y": 280}},
-    {"data": {"id": "node3", "name": "王芳", "template": "insurance", "gender": "女", "age": 36, "occupation": "护士", "marriage": "未婚", "parents": "父亲已故", "salary": 18, "contact": "wfwf123"}, "classes": "social", "position": {"x": 550, "y": 320}},
-    {"data": {"id": "node4", "name": "刘强", "template": "insurance", "gender": "男", "age": 45, "occupation": "企业高管", "marriage": "已婚", "children": "2", "childrenAge": "15岁,10岁", "parents": "双亲健在", "salary": 80, "contact": "13900139004"}, "classes": "social", "position": {"x": 400, "y": 350}},
-    {"data": {"id": "node5", "name": "陈静", "template": "insurance", "gender": "女", "age": 33, "occupation": "会计", "marriage": "已婚", "children": "1", "childrenAge": "6岁", "parents": "双亲健在", "salary": 22, "contact": "chenjing_cj"}, "classes": "social", "position": {"x": 480, "y": 250}},
-    {"data": {"id": "node6", "name": "杨军", "template": "insurance", "gender": "男", "age": 40, "occupation": "律师", "marriage": "已婚", "children": "1", "childrenAge": "8岁", "parents": "母亲已故", "salary": 55, "contact": "13900139006"}, "classes": "social", "position": {"x": 420, "y": 280}},
-    {"data": {"id": "node7", "name": "赵敏", "template": "insurance", "gender": "女", "age": 29, "occupation": "市场专员", "marriage": "未婚", "parents": "双亲健在", "salary": 15, "contact": "zhaomin88"}, "classes": "social", "position": {"x": 520, "y": 380}},
-    {"data": {"id": "node8", "name": "黄磊", "template": "insurance", "gender": "男", "age": 37, "occupation": "IT项目经理", "marriage": "已婚", "children": "1", "childrenAge": "5岁", "parents": "双亲健在", "salary": 40, "contact": "13900139008"}, "classes": "social", "position": {"x": 380, "y": 320}},
-    {"data": {"id": "node9", "name": "周婷", "template": "insurance", "gender": "女", "age": 31, "occupation": "银行职员", "marriage": "已婚", "children": "1", "childrenAge": "4岁", "parents": "双亲健在", "salary": 20, "contact": "13900139009"}, "classes": "social", "position": {"x": 460, "y": 380}},
-    {"data": {"id": "node10", "name": "吴涛", "template": "insurance", "gender": "男", "age": 44, "occupation": "医生", "marriage": "已婚", "children": "2", "childrenAge": "14岁,11岁", "parents": "双亲健在", "salary": 50, "contact": "13900139010"}, "classes": "social", "position": {"x": 350, "y": 360}},
-    {"data": {"id": "node11", "name": "徐丽", "template": "insurance", "gender": "女", "age": 34, "occupation": "设计师", "marriage": "未婚", "parents": "双亲健在", "salary": 25, "contact": "xuli_design"}, "classes": "social", "position": {"x": 540, "y": 260}},
-    {"data": {"id": "node12", "name": "孙浩", "template": "insurance", "gender": "男", "age": 39, "occupation": "销售经理", "marriage": "已婚", "children": "1", "childrenAge": "7岁", "parents": "父亲已故", "salary": 35, "contact": "13900139012"}, "classes": "social", "position": {"x": 440, "y": 220}},
-    {"data": {"id": "node13", "name": "马超", "template": "insurance", "gender": "男", "age": 28, "occupation": "快递员", "marriage": "未婚", "parents": "双亲健在", "salary": 10, "contact": "13900139013"}, "classes": "social", "position": {"x": 580, "y": 340}},
-    {"data": {"id": "node14", "name": "胡雪", "template": "insurance", "gender": "女", "age": 27, "occupation": "行政助理", "marriage": "未婚", "parents": "双亲健在", "salary": 12, "contact": "huxue_hx"}, "classes": "social", "position": {"x": 510, "y": 420}},
-    {"data": {"id": "node15", "name": "朱琳", "template": "insurance", "gender": "女", "age": 32, "occupation": "人力资源", "marriage": "已婚", "children": "1", "childrenAge": "3岁", "parents": "双亲健在", "salary": 20, "contact": "13900139015"}, "classes": "social", "position": {"x": 410, "y": 400}},
-    {"data": {"id": "node16", "name": "郭洋", "template": "insurance", "gender": "男", "age": 41, "occupation": "工厂厂长", "marriage": "已婚", "children": "2", "childrenAge": "16岁,12岁", "parents": "双亲健在", "salary": 38, "contact": "13900139016"}, "classes": "social", "position": {"x": 360, "y": 280}},
-    {"data": {"id": "node17", "name": "林梅", "template": "insurance", "gender": "女", "age": 26, "occupation": "客服", "marriage": "未婚", "parents": "母亲已故", "salary": 10, "contact": "linmei_lm"}, "classes": "social", "position": {"x": 560, "y": 450}},
-    {"data": {"id": "node18", "name": "韩冰", "template": "insurance", "gender": "女", "age": 30, "occupation": "记者", "marriage": "已婚", "children": "1", "childrenAge": "2岁", "parents": "双亲健在", "salary": 18, "contact": "13900139018"}, "classes": "social", "position": {"x": 490, "y": 180}},
-    {"data": {"id": "node19", "name": "傅鹏", "template": "insurance", "gender": "男", "age": 46, "occupation": "大学教授", "marriage": "已婚", "children": "1", "childrenAge": "18岁", "parents": "双亲已故", "salary": 30, "contact": "13900139019"}, "classes": "social", "position": {"x": 330, "y": 300}},
-    {"data": {"id": "node20", "name": "曾敏", "template": "insurance", "gender": "女", "age": 35, "occupation": "金融分析师", "marriage": "已婚", "children": "1", "childrenAge": "9岁", "parents": "双亲健在", "salary": 35, "contact": "13900139020"}, "classes": "social", "position": {"x": 470, "y": 350}},
-    {"data": {"id": "node21", "name": "谢强", "template": "insurance", "gender": "男", "age": 48, "occupation": "企业老板", "marriage": "已婚", "children": "2", "childrenAge": "20岁,16岁", "parents": "双亲健在", "salary": 100, "contact": "13900139021"}, "classes": "social", "position": {"x": 300, "y": 400}},
-    {"data": {"id": "node22", "name": "苏婷", "template": "insurance", "gender": "女", "age": 24, "occupation": "实习生", "marriage": "未婚", "parents": "双亲健在", "salary": 5, "contact": "suting_st"}, "classes": "social", "position": {"x": 620, "y": 380}},
-    {"data": {"id": "node23", "name": "邓超", "template": "insurance", "gender": "男", "age": 43, "occupation": "警察", "marriage": "已婚", "children": "1", "childrenAge": "13岁", "parents": "双亲健在", "salary": 25, "contact": "13900139023"}, "classes": "social", "position": {"x": 390, "y": 180}},
-    {"data": {"id": "node24", "name": "肖芳", "template": "insurance", "gender": "女", "age": 29, "occupation": "美容师", "marriage": "未婚", "parents": "父亲已故", "salary": 12, "contact": "xiaofang_xf"}, "classes": "social", "position": {"x": 530, "y": 480}},
-    {"data": {"id": "node25", "name": "冯刚", "template": "insurance", "gender": "男", "age": 52, "occupation": "出租车司机", "marriage": "已婚", "children": "1", "childrenAge": "22岁", "parents": "双亲已故", "salary": 15, "contact": "13900139025"}, "classes": "social", "position": {"x": 320, "y": 480}},
-    {"data": {"id": "node26", "name": "董瑶", "template": "insurance", "gender": "女", "age": 33, "occupation": "药剂师", "marriage": "已婚", "children": "1", "childrenAge": "6岁", "parents": "双亲健在", "salary": 20, "contact": "13900139026"}, "classes": "social", "position": {"x": 440, "y": 160}},
-    {"data": {"id": "node27", "name": "卫华", "template": "insurance", "gender": "男", "age": 47, "occupation": "餐饮老板", "marriage": "已婚", "children": "2", "childrenAge": "18岁,14岁", "parents": "双亲健在", "salary": 45, "contact": "13900139027"}, "classes": "social", "position": {"x": 280, "y": 340}},
-    {"data": {"id": "node28", "name": "李霞", "template": "insurance", "gender": "女", "age": 36, "occupation": "书店老板", "marriage": "已婚", "children": "1", "childrenAge": "11岁", "parents": "双亲健在", "salary": 18, "contact": "lixia_lx"}, "classes": "social", "position": {"x": 500, "y": 140}},
-    {"data": {"id": "node29", "name": "赵勇", "template": "insurance", "gender": "男", "age": 31, "occupation": "健身教练", "marriage": "未婚", "parents": "双亲健在", "salary": 15, "contact": "13900139029"}, "classes": "social", "position": {"x": 600, "y": 500}},
-    {"data": {"id": "node30", "name": "王燕", "template": "insurance", "gender": "女", "age": 28, "occupation": "空姐", "marriage": "未婚", "parents": "双亲健在", "salary": 22, "contact": "wangyan_wy"}, "classes": "social", "position": {"x": 550, "y": 520}},
-    {"data": {"id": "node31", "name": "刘建", "template": "insurance", "gender": "男", "age": 50, "occupation": "退休干部", "marriage": "已婚", "children": "2", "childrenAge": "25岁,22岁", "parents": "双亲已故", "salary": 8, "contact": "13900139031"}, "classes": "social", "position": {"x": 250, "y": 420}},
-    {"data": {"id": "node32", "name": "陈娟", "template": "insurance", "gender": "女", "age": 37, "occupation": "保险代理人", "marriage": "已婚", "children": "1", "childrenAge": "8岁", "parents": "双亲健在", "salary": 25, "contact": "13900139032"}, "classes": "social", "position": {"x": 480, "y": 440}},
-    {"data": {"id": "node33", "name": "杨帆", "template": "insurance", "gender": "男", "age": 25, "occupation": "外卖骑手", "marriage": "未婚", "parents": "双亲健在", "salary": 8, "contact": "13900139033"}, "classes": "social", "position": {"x": 640, "y": 420}},
-    {"data": {"id": "node34", "name": "黄艳", "template": "insurance", "gender": "女", "age": 41, "occupation": "超市收银", "marriage": "离异", "children": "1", "childrenAge": "10岁", "parents": "父亲已故", "salary": 10, "contact": "huangyan_hy"}, "classes": "social", "position": {"x": 350, "y": 200}},
-    {"data": {"id": "node35", "name": "周凯", "template": "insurance", "gender": "男", "age": 39, "occupation": "电工", "marriage": "已婚", "children": "2", "childrenAge": "12岁,8岁", "parents": "双亲健在", "salary": 20, "contact": "13900139035"}, "classes": "social", "position": {"x": 410, "y": 500}},
-    {"data": {"id": "node36", "name": "吴静", "template": "insurance", "gender": "女", "age": 23, "occupation": "大学生", "marriage": "未婚", "parents": "双亲健在", "salary": 0, "contact": "wujing_wj"}, "classes": "social", "position": {"x": 680, "y": 350}},
-    {"data": {"id": "node37", "name": "徐杰", "template": "insurance", "gender": "男", "age": 34, "occupation": "厨师", "marriage": "已婚", "children": "1", "childrenAge": "4岁", "parents": "母亲已故", "salary": 18, "contact": "13900139037"}, "classes": "social", "position": {"x": 370, "y": 440}},
-    {"data": {"id": "node38", "name": "孙悦", "template": "insurance", "gender": "女", "age": 26, "occupation": "网红主播", "marriage": "未婚", "parents": "双亲健在", "salary": 30, "contact": "sunyue_sy"}, "classes": "social", "position": {"x": 630, "y": 280}},
-    {"data": {"id": "node39", "name": "马明", "template": "insurance", "gender": "男", "age": 55, "occupation": "出租车司机", "marriage": "已婚", "children": "1", "childrenAge": "28岁", "parents": "双亲已故", "salary": 12, "contact": "13900139039"}, "classes": "social", "position": {"x": 260, "y": 520}},
-    {"data": {"id": "node40", "name": "胡琴", "template": "insurance", "gender": "女", "age": 32, "occupation": "瑜伽教练", "marriage": "已婚", "children": "1", "childrenAge": "5岁", "parents": "双亲健在", "salary": 15, "contact": "huqin_hq"}, "classes": "social", "position": {"x": 520, "y": 550}},
-    {"data": {"id": "node41", "name": "李明", "template": "insurance", "gender": "男", "age": 45, "occupation": "私企老板", "marriage": "已婚", "children": "2", "childrenAge": "18岁,14岁", "parents": "双亲健在", "salary": 60, "contact": "13900139041"}, "classes": "social", "position": {"x": 750, "y": 400}},
-    {"data": {"id": "node42", "name": "张红", "template": "insurance", "gender": "女", "age": 30, "occupation": "房产销售", "marriage": "未婚", "parents": "双亲健在", "salary": 20, "contact": "zhanghong_zh"}, "classes": "social", "position": {"x": 700, "y": 450}},
-    {"data": {"id": "node43", "name": "王磊", "template": "insurance", "gender": "男", "age": 38, "occupation": "物流经理", "marriage": "已婚", "children": "1", "childrenAge": "10岁", "parents": "父亲已故", "salary": 32, "contact": "13900139043"}, "classes": "social", "position": {"x": 720, "y": 350}},
-    {"data": {"id": "node44", "name": "刘芳", "template": "insurance", "gender": "女", "age": 27, "occupation": "咖啡师", "marriage": "未婚", "parents": "双亲健在", "salary": 8, "contact": "liufang_lf"}, "classes": "social", "position": {"x": 680, "y": 500}},
-    {"data": {"id": "node45", "name": "陈浩", "template": "insurance", "gender": "男", "age": 42, "occupation": "牙医", "marriage": "已婚", "children": "2", "childrenAge": "15岁,10岁", "parents": "双亲健在", "salary": 50, "contact": "13900139045"}, "classes": "social", "position": {"x": 740, "y": 300}},
-    {"data": {"id": "node46", "name": "杨玲", "template": "insurance", "gender": "女", "age": 35, "occupation": "心理咨询师", "marriage": "已婚", "children": "1", "childrenAge": "7岁", "parents": "双亲健在", "salary": 28, "contact": "13900139046"}, "classes": "social", "position": {"x": 760, "y": 500}},
-    {"data": {"id": "node47", "name": "黄志", "template": "insurance", "gender": "男", "age": 29, "occupation": "程序员", "marriage": "未婚", "parents": "双亲健在", "salary": 30, "contact": "13900139047"}, "classes": "social", "position": {"x": 710, "y": 250}},
-    {"data": {"id": "node48", "name": "周萍", "template": "insurance", "gender": "女", "age": 40, "occupation": "图书馆管理员", "marriage": "已婚", "children": "1", "childrenAge": "12岁", "parents": "双亲健在", "salary": 15, "contact": "13900139048"}, "classes": "social", "position": {"x": 770, "y": 380}},
-    {"data": {"id": "node49", "name": "吴彬", "template": "insurance", "gender": "男", "age": 33, "occupation": "摄影师", "marriage": "已婚", "children": "1", "childrenAge": "3岁", "parents": "母亲已故", "salary": 22, "contact": "wubin_wb"}, "classes": "social", "position": {"x": 650, "y": 560}},
-    {"data": {"id": "node50", "name": "徐颖", "template": "insurance", "gender": "女", "age": 31, "occupation": "月嫂", "marriage": "已婚", "children": "2", "childrenAge": "8岁,4岁", "parents": "双亲健在", "salary": 20, "contact": "13900139050"}, "classes": "social", "position": {"x": 800, "y": 450}},
-    {"data": {"id": "node51", "name": "小林", "template": "insurance", "gender": "男", "age": 55, "occupation": "退休教师", "marriage": "已婚", "children": "2", "childrenAge": "30岁,28岁", "parents": "双亲已故", "salary": 6, "contact": "13900139051"}, "classes": "blood", "position": {"x": 600, "y": 250}},
-    {"data": {"id": "node52", "name": "林阿姨", "template": "insurance", "gender": "女", "age": 52, "occupation": "家庭主妇", "marriage": "已婚", "children": "2", "childrenAge": "30岁,28岁", "parents": "双亲已故", "salary": 0, "contact": "13900139052"}, "classes": "blood", "position": {"x": 600, "y": 300}},
-    {"data": {"id": "node53", "name": "小王", "template": "insurance", "gender": "男", "age": 28, "occupation": "公司职员", "marriage": "未婚", "parents": "双亲健在", "salary": 12, "contact": "13900139053"}, "classes": "blood", "position": {"x": 550, "y": 280}},
-    {"data": {"id": "node54", "name": "老张", "template": "insurance", "gender": "男", "age": 60, "occupation": "退休工人", "marriage": "已婚", "children": "3", "childrenAge": "35岁,32岁,28岁", "parents": "双亲已故", "salary": 5, "contact": "13900139054"}, "classes": "blood", "position": {"x": 650, "y": 550}},
-    {"data": {"id": "node55", "name": "老张妻", "template": "insurance", "gender": "女", "age": 58, "occupation": "退休工人", "marriage": "已婚", "children": "3", "childrenAge": "35岁,32岁,28岁", "parents": "双亲已故", "salary": 5, "contact": "13900139055"}, "classes": "blood", "position": {"x": 680, "y": 570}},
-    {"data": {"id": "node56", "name": "张叔", "template": "insurance", "gender": "男", "age": 48, "occupation": "包工头", "marriage": "已婚", "children": "2", "childrenAge": "20岁,16岁", "parents": "双亲已故", "salary": 35, "contact": "13900139056"}, "classes": "referral", "position": {"x": 750, "y": 200}},
-    {"data": {"id": "node57", "name": "李婶", "template": "insurance", "gender": "女", "age": 46, "occupation": "个体户", "marriage": "已婚", "children": "1", "childrenAge": "18岁", "parents": "父亲已故", "salary": 15, "contact": "lisun_ls"}, "classes": "referral", "position": {"x": 780, "y": 230}},
-    {"data": {"id": "node58", "name": "王舅", "template": "insurance", "gender": "男", "age": 50, "occupation": "货车司机", "marriage": "已婚", "children": "2", "childrenAge": "22岁,18岁", "parents": "双亲已故", "salary": 25, "contact": "13900139058"}, "classes": "referral", "position": {"x": 800, "y": 180}},
-    {"data": {"id": "node59", "name": "刘姨", "template": "insurance", "gender": "女", "age": 47, "occupation": "理发师", "marriage": "已婚", "children": "1", "childrenAge": "20岁", "parents": "双亲健在", "salary": 12, "contact": "liuyi_ly"}, "classes": "referral", "position": {"x": 830, "y": 280}},
-    {"data": {"id": "node60", "name": "陈叔", "template": "insurance", "gender": "男", "age": 53, "occupation": "农民", "marriage": "已婚", "children": "2", "childrenAge": "25岁,22岁", "parents": "双亲已故", "salary": 8, "contact": "13900139060"}, "classes": "referral", "position": {"x": 850, "y": 350}},
-    {"data": {"id": "node61", "name": "杨姑", "template": "insurance", "gender": "女", "age": 45, "occupation": "小商贩", "marriage": "已婚", "children": "1", "childrenAge": "16岁", "parents": "双亲健在", "salary": 10, "contact": "yanggu_yg"}, "classes": "referral", "position": {"x": 820, "y": 420}},
-    {"data": {"id": "node62", "name": "黄舅妈", "template": "insurance", "gender": "女", "age": 44, "occupation": "幼儿园老师", "marriage": "已婚", "children": "1", "childrenAge": "14岁", "parents": "双亲健在", "salary": 10, "contact": "13900139062"}, "classes": "referral", "position": {"x": 780, "y": 150}},
-    {"data": {"id": "node63", "name": "周姨父", "template": "insurance", "gender": "男", "age": 46, "occupation": "水电工", "marriage": "已婚", "children": "1", "childrenAge": "14岁", "parents": "父亲已故", "salary": 20, "contact": "13900139063"}, "classes": "referral", "position": {"x": 750, "y": 130}},
-    {"data": {"id": "node64", "name": "吴叔", "template": "insurance", "gender": "男", "age": 51, "occupation": "木匠", "marriage": "已婚", "children": "2", "childrenAge": "24岁,20岁", "parents": "双亲已故", "salary": 18, "contact": "13900139064"}, "classes": "referral", "position": {"x": 850, "y": 150}},
-    {"data": {"id": "node65", "name": "徐婶", "template": "insurance", "gender": "女", "age": 49, "occupation": "裁缝", "marriage": "已婚", "children": "2", "childrenAge": "24岁,20岁", "parents": "母亲已故", "salary": 10, "contact": "xushen_xs"}, "classes": "referral", "position": {"x": 880, "y": 200}},
-    {"data": {"id": "node66", "name": "孙舅", "template": "insurance", "gender": "男", "age": 47, "occupation": "装修工", "marriage": "已婚", "children": "1", "childrenAge": "15岁", "parents": "双亲已故", "salary": 22, "contact": "13900139066"}, "classes": "referral", "position": {"x": 900, "y": 280}},
-    {"data": {"id": "node67", "name": "马姨", "template": "insurance", "gender": "女", "age": 43, "occupation": "保洁员", "marriage": "已婚", "children": "1", "childrenAge": "12岁", "parents": "双亲健在", "salary": 8, "contact": "13900139067"}, "classes": "referral", "position": {"x": 870, "y": 350}},
-    {"data": {"id": "node68", "name": "胡叔", "template": "insurance", "gender": "男", "age": 54, "occupation": "农机手", "marriage": "已婚", "children": "2", "childrenAge": "26岁,22岁", "parents": "双亲已故", "salary": 15, "contact": "13900139068"}, "classes": "referral", "position": {"x": 850, "y": 450}},
-    {"data": {"id": "node69", "name": "朱姑", "template": "insurance", "gender": "女", "age": 41, "occupation": "养猪户", "marriage": "已婚", "children": "2", "childrenAge": "18岁,14岁", "parents": "双亲健在", "salary": 20, "contact": "zhugu_zg"}, "classes": "referral", "position": {"x": 900, "y": 400}},
-    {"data": {"id": "node70", "name": "郭舅", "template": "insurance", "gender": "男", "age": 52, "occupation": "砖瓦匠", "marriage": "已婚", "children": "2", "childrenAge": "24岁,20岁", "parents": "双亲已故", "salary": 18, "contact": "13900139070"}, "classes": "referral", "position": {"x": 880, "y": 480}},
-    {"data": {"id": "node71", "name": "阿华", "template": "insurance", "gender": "男", "age": 32, "occupation": "网管", "marriage": "已婚", "children": "1", "childrenAge": "5岁", "parents": "双亲健在", "salary": 15, "contact": "ahua_ah"}, "classes": "social", "position": {"x": 450, "y": 500}},
-    {"data": {"id": "node72", "name": "阿梅", "template": "insurance", "gender": "女", "age": 28, "occupation": "文员", "marriage": "未婚", "parents": "双亲健在", "salary": 10, "contact": "amei_am"}, "classes": "social", "position": {"x": 480, "y": 540}},
-    {"data": {"id": "node73", "name": "阿杰", "template": "insurance", "gender": "男", "age": 30, "occupation": "快递员", "marriage": "未婚", "parents": "双亲健在", "salary": 10, "contact": "13900139073"}, "classes": "social", "position": {"x": 420, "y": 550}},
-    {"data": {"id": "node74", "name": "阿英", "template": "insurance", "gender": "女", "age": 26, "occupation": "收银员", "marriage": "未婚", "parents": "父亲已故", "salary": 8, "contact": "aying_ay"}, "classes": "social", "position": {"x": 500, "y": 580}},
-    {"data": {"id": "node75", "name": "阿龙", "template": "insurance", "gender": "男", "age": 35, "occupation": "出租车司机", "marriage": "已婚", "children": "1", "childrenAge": "8岁", "parents": "双亲健在", "salary": 15, "contact": "13900139075"}, "classes": "social", "position": {"x": 380, "y": 580}},
-    {"data": {"id": "node76", "name": "阿凤", "template": "insurance", "gender": "女", "age": 33, "occupation": "饭店服务员", "marriage": "已婚", "children": "1", "childrenAge": "6岁", "parents": "双亲健在", "salary": 10, "contact": "13900139076"}, "classes": "social", "position": {"x": 350, "y": 540}},
-    {"data": {"id": "node77", "name": "阿志", "template": "insurance", "gender": "男", "age": 29, "occupation": "保安", "marriage": "未婚", "parents": "双亲健在", "salary": 8, "contact": "13900139077"}, "classes": "social", "position": {"x": 320, "y": 560}},
-    {"data": {"id": "node78", "name": "阿娟", "template": "insurance", "gender": "女", "age": 31, "occupation": "超市理货员", "marriage": "已婚", "children": "1", "childrenAge": "4岁", "parents": "母亲已故", "salary": 8, "contact": "13900139078"}, "classes": "social", "position": {"x": 400, "y": 600}},
-    {"data": {"id": "node79", "name": "阿强", "template": "insurance", "gender": "男", "age": 34, "occupation": "空调安装工", "marriage": "已婚", "children": "1", "childrenAge": "7岁", "parents": "双亲健在", "salary": 18, "contact": "13900139079"}, "classes": "social", "position": {"x": 450, "y": 620}},
-    {"data": {"id": "node80", "name": "阿丽", "template": "insurance", "gender": "女", "age": 27, "occupation": "服装店导购", "marriage": "未婚", "parents": "双亲健在", "salary": 10, "contact": "13900139080"}, "classes": "social", "position": {"x": 550, "y": 600}},
-    {"data": {"id": "node81", "name": "阿勇", "template": "insurance", "gender": "男", "age": 38, "occupation": "搬运工", "marriage": "已婚", "children": "2", "childrenAge": "12岁,8岁", "parents": "双亲健在", "salary": 15, "contact": "13900139081"}, "classes": "social", "position": {"x": 280, "y": 600}},
-    {"data": {"id": "node82", "name": "阿萍", "template": "insurance", "gender": "女", "age": 36, "occupation": "钟点工", "marriage": "已婚", "children": "1", "childrenAge": "10岁", "parents": "父亲已故", "salary": 12, "contact": "13900139082"}, "classes": "social", "position": {"x": 310, "y": 620}},
-    {"data": {"id": "node83", "name": "阿建", "template": "insurance", "gender": "男", "age": 40, "occupation": "液化气配送", "marriage": "已婚", "children": "2", "childrenAge": "14岁,10岁", "parents": "双亲健在", "salary": 16, "contact": "13900139083"}, "classes": "social", "position": {"x": 250, "y": 640}},
-    {"data": {"id": "node84", "name": "阿云", "template": "insurance", "gender": "女", "age": 29, "occupation": "奶茶店员工", "marriage": "未婚", "parents": "双亲健在", "salary": 8, "contact": "13900139084"}, "classes": "social", "position": {"x": 580, "y": 630}},
-    {"data": {"id": "node85", "name": "阿峰", "template": "insurance", "gender": "男", "age": 32, "occupation": "外卖店老板", "marriage": "已婚", "children": "1", "childrenAge": "5岁", "parents": "双亲健在", "salary": 20, "contact": "13900139085"}, "classes": "social", "position": {"x": 620, "y": 580}},
-    {"data": {"id": "node86", "name": "阿婷", "template": "insurance", "gender": "女", "age": 25, "occupation": "美甲师", "marriage": "未婚", "parents": "双亲健在", "salary": 12, "contact": "13900139086"}, "classes": "social", "position": {"x": 660, "y": 620}},
-    {"data": {"id": "node87", "name": "阿辉", "template": "insurance", "gender": "男", "age": 37, "occupation": "洗车工", "marriage": "已婚", "children": "1", "childrenAge": "8岁", "parents": "母亲已故", "salary": 12, "contact": "13900139087"}, "classes": "social", "position": {"x": 220, "y": 580}},
-    {"data": {"id": "node88", "name": "阿燕", "template": "insurance", "gender": "女", "age": 30, "occupation": "宾馆前台", "marriage": "已婚", "children": "1", "childrenAge": "3岁", "parents": "双亲健在", "salary": 10, "contact": "13900139088"}, "classes": "social", "position": {"x": 700, "y": 550}},
-    {"data": {"id": "node89", "name": "阿豪", "template": "insurance", "gender": "男", "age": 28, "occupation": "手机维修员", "marriage": "未婚", "parents": "双亲健在", "salary": 10, "contact": "13900139089"}, "classes": "social", "position": {"x": 740, "y": 580}},
-    {"data": {"id": "node90", "name": "阿丹", "template": "insurance", "gender": "女", "age": 26, "occupation": "花店员工", "marriage": "未婚", "parents": "双亲健在", "salary": 8, "contact": "adan_ad"}, "classes": "social", "position": {"x": 770, "y": 550}},
-    {"data": {"id": "node91", "name": "阿俊", "template": "insurance", "gender": "男", "age": 31, "occupation": "电脑维修员", "marriage": "已婚", "children": "1", "childrenAge": "4岁", "parents": "双亲健在", "salary": 15, "contact": "13900139091"}, "classes": "social", "position": {"x": 180, "y": 550}},
-    {"data": {"id": "node92", "name": "阿莎", "template": "insurance", "gender": "女", "age": 24, "occupation": "网红助理", "marriage": "未婚", "parents": "双亲健在", "salary": 10, "contact": "13900139092"}, "classes": "social", "position": {"x": 200, "y": 600}},
-    {"data": {"id": "node93", "name": "阿超", "template": "insurance", "gender": "男", "age": 36, "occupation": "垃圾清运工", "marriage": "已婚", "children": "2", "childrenAge": "10岁,6岁", "parents": "双亲健在", "salary": 12, "contact": "13900139093"}, "classes": "social", "position": {"x": 150, "y": 500}},
-    {"data": {"id": "node94", "name": "阿蕾", "template": "insurance", "gender": "女", "age": 29, "occupation": "婚庆化妆师", "marriage": "已婚", "children": "1", "childrenAge": "2岁", "parents": "双亲健在", "salary": 15, "contact": "13900139094"}, "classes": "social", "position": {"x": 130, "y": 450}},
-    {"data": {"id": "node95", "name": "阿炜", "template": "insurance", "gender": "男", "age": 33, "occupation": "窗帘安装工", "marriage": "已婚", "children": "1", "childrenAge": "6岁", "parents": "父亲已故", "salary": 16, "contact": "13900139095"}, "classes": "social", "position": {"x": 170, "y": 400}},
-    {"data": {"id": "node96", "name": "阿岚", "template": "insurance", "gender": "女", "age": 27, "occupation": "舞蹈老师", "marriage": "未婚", "parents": "双亲健在", "salary": 18, "contact": "13900139096"}, "classes": "social", "position": {"x": 100, "y": 380}},
-    {"data": {"id": "node97", "name": "阿龙2", "template": "insurance", "gender": "男", "age": 42, "occupation": "废品回收员", "marriage": "已婚", "children": "2", "childrenAge": "16岁,12岁", "parents": "双亲已故", "salary": 15, "contact": "13900139097"}, "classes": "social", "position": {"x": 130, "y": 300}},
-    {"data": {"id": "node98", "name": "阿莲", "template": "insurance", "gender": "女", "age": 35, "occupation": "按摩师", "marriage": "已婚", "children": "1", "childrenAge": "9岁", "parents": "双亲健在", "salary": 15, "contact": "13900139098"}, "classes": "social", "position": {"x": 150, "y": 250}},
-    {"data": {"id": "node99", "name": "阿林", "template": "insurance", "gender": "男", "age": 39, "occupation": "锁匠", "marriage": "已婚", "children": "2", "childrenAge": "12岁,8岁", "parents": "母亲已故", "salary": 18, "contact": "13900139099"}, "classes": "social", "position": {"x": 100, "y": 200}},
-    {"data": {"id": "node100", "name": "阿珊", "template": "insurance", "gender": "女", "age": 23, "occupation": "便利店店员", "marriage": "未婚", "parents": "双亲健在", "salary": 8, "contact": "13900139100"}, "classes": "social", "position": {"x": 80, "y": 280}},
-    {"data": {"id": "edge1", "source": "self1", "target": "node1", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge2", "source": "self1", "target": "node2", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge3", "source": "self1", "target": "node3", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge4", "source": "self1", "target": "node4", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge5", "source": "self1", "target": "node5", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge6", "source": "self1", "target": "node6", "label": "上司", "classes": "social"}},
-    {"data": {"id": "edge7", "source": "self1", "target": "node7", "label": "下属", "classes": "social"}},
-    {"data": {"id": "edge8", "source": "self1", "target": "node8", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge9", "source": "self1", "target": "node9", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge10", "source": "self1", "target": "node10", "label": "客户", "classes": "social"}},
-    {"data": {"id": "edge11", "source": "self1", "target": "node11", "label": "客户", "classes": "social"}},
-    {"data": {"id": "edge12", "source": "self1", "target": "node12", "label": "客户", "classes": "social"}},
-    {"data": {"id": "edge13", "source": "self1", "target": "node13", "label": "客户", "classes": "social"}},
-    {"data": {"id": "edge14", "source": "self1", "target": "node14", "label": "客户", "classes": "social"}},
-    {"data": {"id": "edge15", "source": "self1", "target": "node15", "label": "客户", "classes": "social"}},
-    {"data": {"id": "edge16", "source": "self1", "target": "node51", "label": "父亲", "classes": "blood"}},
-    {"data": {"id": "edge17", "source": "self1", "target": "node52", "label": "母亲", "classes": "blood"}},
-    {"data": {"id": "edge18", "source": "self1", "target": "node53", "label": "兄弟", "classes": "blood"}},
-    {"data": {"id": "edge19", "source": "self1", "target": "node56", "label": "叔叔", "classes": "referral"}},
-    {"data": {"id": "edge20", "source": "self1", "target": "node57", "label": "阿姨", "classes": "referral"}},
-    {"data": {"id": "edge21", "source": "self1", "target": "node71", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge22", "source": "self1", "target": "node72", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge23", "source": "self1", "target": "node41", "label": "客户推荐", "classes": "referral"}},
-    {"data": {"id": "edge24", "source": "self1", "target": "node32", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge25", "source": "self1", "target": "node21", "label": "商业合作伙伴", "classes": "social"}},
-    {"data": {"id": "edge26", "source": "node1", "target": "node2", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge27", "source": "node1", "target": "node3", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge28", "source": "node2", "target": "node4", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge29", "source": "node3", "target": "node5", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge30", "source": "node4", "target": "node21", "label": "商业合作伙伴", "classes": "social"}},
-    {"data": {"id": "edge31", "source": "node5", "target": "node6", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge32", "source": "node6", "target": "node7", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge33", "source": "node7", "target": "node8", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge34", "source": "node8", "target": "node47", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge35", "source": "node9", "target": "node10", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge36", "source": "node10", "target": "node11", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge37", "source": "node11", "target": "node12", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge38", "source": "node12", "target": "node13", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge39", "source": "node13", "target": "node14", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge40", "source": "node14", "target": "node15", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge41", "source": "node15", "target": "node16", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge42", "source": "node16", "target": "node17", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge43", "source": "node17", "target": "node18", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge44", "source": "node18", "target": "node19", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge45", "source": "node19", "target": "node20", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge46", "source": "node20", "target": "node21", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge47", "source": "node22", "target": "node23", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge48", "source": "node23", "target": "node24", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge49", "source": "node24", "target": "node25", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge50", "source": "node25", "target": "node26", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge51", "source": "node26", "target": "node27", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge52", "source": "node27", "target": "node28", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge53", "source": "node28", "target": "node29", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge54", "source": "node29", "target": "node30", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge55", "source": "node30", "target": "node31", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge56", "source": "node31", "target": "node32", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge57", "source": "node32", "target": "node33", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge58", "source": "node33", "target": "node34", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge59", "source": "node34", "target": "node35", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge60", "source": "node35", "target": "node36", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge61", "source": "node51", "target": "node52", "label": "配偶", "classes": "blood"}},
-    {"data": {"id": "edge62", "source": "node51", "target": "node53", "label": "子女", "classes": "blood"}},
-    {"data": {"id": "edge63", "source": "node52", "target": "node53", "label": "子女", "classes": "blood"}},
-    {"data": {"id": "edge64", "source": "node54", "target": "node55", "label": "配偶", "classes": "blood"}},
-    {"data": {"id": "edge65", "source": "node56", "target": "node57", "label": "配偶", "classes": "referral"}},
-    {"data": {"id": "edge66", "source": "node56", "target": "node58", "label": "兄弟", "classes": "referral"}},
-    {"data": {"id": "edge67", "source": "node58", "target": "node59", "label": "配偶", "classes": "referral"}},
-    {"data": {"id": "edge68", "source": "node59", "target": "node60", "label": "邻居", "classes": "referral"}},
-    {"data": {"id": "edge69", "source": "node60", "target": "node61", "label": "朋友", "classes": "referral"}},
-    {"data": {"id": "edge70", "source": "node61", "target": "node62", "label": "配偶", "classes": "referral"}},
-    {"data": {"id": "edge71", "source": "node62", "target": "node63", "label": "邻居", "classes": "referral"}},
-    {"data": {"id": "edge72", "source": "node63", "target": "node64", "label": "朋友", "classes": "referral"}},
-    {"data": {"id": "edge73", "source": "node64", "target": "node65", "label": "配偶", "classes": "referral"}},
-    {"data": {"id": "edge74", "source": "node65", "target": "node66", "label": "兄弟", "classes": "referral"}},
-    {"data": {"id": "edge75", "source": "node66", "target": "node67", "label": "邻居", "classes": "referral"}},
-    {"data": {"id": "edge76", "source": "node67", "target": "node68", "label": "朋友", "classes": "referral"}},
-    {"data": {"id": "edge77", "source": "node68", "target": "node69", "label": "配偶", "classes": "referral"}},
-    {"data": {"id": "edge78", "source": "node69", "target": "node70", "label": "邻居", "classes": "referral"}},
-    {"data": {"id": "edge79", "source": "node71", "target": "node72", "label": "夫妻", "classes": "social"}},
-    {"data": {"id": "edge80", "source": "node71", "target": "node73", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge81", "source": "node72", "target": "node74", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge82", "source": "node73", "target": "node75", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge83", "source": "node74", "target": "node76", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge84", "source": "node75", "target": "node77", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge85", "source": "node76", "target": "node78", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge86", "source": "node77", "target": "node79", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge87", "source": "node78", "target": "node80", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge88", "source": "node79", "target": "node81", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge89", "source": "node80", "target": "node82", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge90", "source": "node81", "target": "node83", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge91", "source": "node82", "target": "node84", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge92", "source": "node83", "target": "node85", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge93", "source": "node84", "target": "node86", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge94", "source": "node85", "target": "node87", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge95", "source": "node86", "target": "node88", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge96", "source": "node87", "target": "node89", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge97", "source": "node88", "target": "node90", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge98", "source": "node89", "target": "node91", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge99", "source": "node90", "target": "node92", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge100", "source": "node91", "target": "node93", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge101", "source": "node92", "target": "node94", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge102", "source": "node93", "target": "node95", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge103", "source": "node94", "target": "node96", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge104", "source": "node95", "target": "node97", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge105", "source": "node96", "target": "node98", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge106", "source": "node97", "target": "node99", "label": "同事", "classes": "social"}},
-    {"data": {"id": "edge107", "source": "node98", "target": "node100", "label": "邻居", "classes": "social"}},
-    {"data": {"id": "edge108", "source": "node99", "target": "node100", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge109", "source": "node40", "target": "node50", "label": "朋友", "classes": "social"}},
-    {"data": {"id": "edge110", "source": "node41", "target": "node42", "label": "商业合作伙伴", "classes": "social"}}
+    {
+      "data": {
+        "id": "self1",
+        "name": "自己",
+        "template": "self",
+        "gender": "男",
+        "age": 35,
+        "occupation": "保险顾问",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "8岁,5岁",
+        "parents": "双亲健在",
+        "salary": 300000,
+        "contact": "13800138000",
+        "incomeCurrency": "MOP",
+        "birthYear": "1991",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "8",
+            "birthYear": "2018"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "5",
+            "birthYear": "2021"
+          }
+        ],
+        "ownedPolicies": [
+          {
+            "id": "policy_tpl_self_medical",
+            "templateId": "tpl-medical",
+            "productName": "????",
+            "category": "medical",
+            "sumAssured": "500000",
+            "premium": "12000",
+            "premiumTerm": "20",
+            "paymentMode": "??",
+            "currency": "MOP",
+            "notes": "?????????"
+          },
+          {
+            "id": "policy_tpl_self_life",
+            "templateId": "tpl-life",
+            "productName": "????",
+            "category": "life",
+            "sumAssured": "1000000",
+            "premium": "18000",
+            "premiumTerm": "20",
+            "paymentMode": "??",
+            "currency": "MOP",
+            "notes": "????????"
+          }
+        ]
+      },
+      "position": {
+        "x": 600,
+        "y": 400
+      }
+    },
+    {
+      "data": {
+        "id": "node1",
+        "name": "张伟",
+        "template": "insurance",
+        "gender": "男",
+        "age": 42,
+        "occupation": "建筑工程师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "12岁",
+        "parents": "双亲健在",
+        "salary": 450000,
+        "contact": "13900139001",
+        "incomeCurrency": "MOP",
+        "birthYear": "1984",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "12",
+            "birthYear": "2014"
+          }
+        ],
+        "ownedPolicies": [
+          {
+            "id": "policy_tpl_node1_critical",
+            "templateId": "tpl-critical",
+            "productName": "????",
+            "category": "critical",
+            "sumAssured": "800000",
+            "premium": "15000",
+            "premiumTerm": "25",
+            "paymentMode": "??",
+            "currency": "MOP",
+            "notes": "??????"
+          }
+        ]
+      },
+      "classes": "social",
+      "position": {
+        "x": 450,
+        "y": 300
+      }
+    },
+    {
+      "data": {
+        "id": "node2",
+        "name": "李娜",
+        "template": "insurance",
+        "gender": "女",
+        "age": 38,
+        "occupation": "中学教师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "10岁",
+        "parents": "双亲健在",
+        "salary": 200000,
+        "contact": "13900139002",
+        "incomeCurrency": "MOP",
+        "birthYear": "1988",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "10",
+            "birthYear": "2016"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 500,
+        "y": 280
+      }
+    },
+    {
+      "data": {
+        "id": "node3",
+        "name": "王芳",
+        "template": "insurance",
+        "gender": "女",
+        "age": 36,
+        "occupation": "护士",
+        "marriage": "未婚",
+        "parents": "父亲已故",
+        "salary": 180000,
+        "contact": "wfwf123",
+        "incomeCurrency": "MOP",
+        "birthYear": "1990",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 550,
+        "y": 320
+      }
+    },
+    {
+      "data": {
+        "id": "node4",
+        "name": "刘强",
+        "template": "insurance",
+        "gender": "男",
+        "age": 45,
+        "occupation": "企业高管",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "15岁,10岁",
+        "parents": "双亲健在",
+        "salary": 800000,
+        "contact": "13900139004",
+        "incomeCurrency": "MOP",
+        "birthYear": "1981",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "15",
+            "birthYear": "2011"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "10",
+            "birthYear": "2016"
+          }
+        ],
+        "ownedPolicies": [
+          {
+            "id": "policy_tpl_node4_savings",
+            "templateId": "tpl-savings",
+            "productName": "????",
+            "category": "savings",
+            "sumAssured": "300000",
+            "premium": "10000",
+            "premiumTerm": "15",
+            "paymentMode": "??",
+            "currency": "MOP",
+            "notes": "?????????"
+          }
+        ]
+      },
+      "classes": "social",
+      "position": {
+        "x": 400,
+        "y": 350
+      }
+    },
+    {
+      "data": {
+        "id": "node5",
+        "name": "陈静",
+        "template": "insurance",
+        "gender": "女",
+        "age": 33,
+        "occupation": "会计",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "6岁",
+        "parents": "双亲健在",
+        "salary": 220000,
+        "contact": "chenjing_cj",
+        "incomeCurrency": "MOP",
+        "birthYear": "1993",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "6",
+            "birthYear": "2020"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 480,
+        "y": 250
+      }
+    },
+    {
+      "data": {
+        "id": "node6",
+        "name": "杨军",
+        "template": "insurance",
+        "gender": "男",
+        "age": 40,
+        "occupation": "律师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "8岁",
+        "parents": "母亲已故",
+        "salary": 550000,
+        "contact": "13900139006",
+        "incomeCurrency": "MOP",
+        "birthYear": "1986",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "8",
+            "birthYear": "2018"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 420,
+        "y": 280
+      }
+    },
+    {
+      "data": {
+        "id": "node7",
+        "name": "赵敏",
+        "template": "insurance",
+        "gender": "女",
+        "age": 29,
+        "occupation": "市场专员",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 150000,
+        "contact": "zhaomin88",
+        "incomeCurrency": "MOP",
+        "birthYear": "1997",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 520,
+        "y": 380
+      }
+    },
+    {
+      "data": {
+        "id": "node8",
+        "name": "黄磊",
+        "template": "insurance",
+        "gender": "男",
+        "age": 37,
+        "occupation": "IT项目经理",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "5岁",
+        "parents": "双亲健在",
+        "salary": 400000,
+        "contact": "13900139008",
+        "incomeCurrency": "MOP",
+        "birthYear": "1989",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "5",
+            "birthYear": "2021"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 380,
+        "y": 320
+      }
+    },
+    {
+      "data": {
+        "id": "node9",
+        "name": "周婷",
+        "template": "insurance",
+        "gender": "女",
+        "age": 31,
+        "occupation": "银行职员",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "4岁",
+        "parents": "双亲健在",
+        "salary": 200000,
+        "contact": "13900139009",
+        "incomeCurrency": "MOP",
+        "birthYear": "1995",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "4",
+            "birthYear": "2022"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 460,
+        "y": 380
+      }
+    },
+    {
+      "data": {
+        "id": "node10",
+        "name": "吴涛",
+        "template": "insurance",
+        "gender": "男",
+        "age": 44,
+        "occupation": "医生",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "14岁,11岁",
+        "parents": "双亲健在",
+        "salary": 500000,
+        "contact": "13900139010",
+        "incomeCurrency": "MOP",
+        "birthYear": "1982",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "14",
+            "birthYear": "2012"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "11",
+            "birthYear": "2015"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 350,
+        "y": 360
+      }
+    },
+    {
+      "data": {
+        "id": "node11",
+        "name": "徐丽",
+        "template": "insurance",
+        "gender": "女",
+        "age": 34,
+        "occupation": "设计师",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 250000,
+        "contact": "xuli_design",
+        "incomeCurrency": "MOP",
+        "birthYear": "1992",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 540,
+        "y": 260
+      }
+    },
+    {
+      "data": {
+        "id": "node12",
+        "name": "孙浩",
+        "template": "insurance",
+        "gender": "男",
+        "age": 39,
+        "occupation": "销售经理",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "7岁",
+        "parents": "父亲已故",
+        "salary": 350000,
+        "contact": "13900139012",
+        "incomeCurrency": "MOP",
+        "birthYear": "1987",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "7",
+            "birthYear": "2019"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 440,
+        "y": 220
+      }
+    },
+    {
+      "data": {
+        "id": "node13",
+        "name": "马超",
+        "template": "insurance",
+        "gender": "男",
+        "age": 28,
+        "occupation": "快递员",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 100000,
+        "contact": "13900139013",
+        "incomeCurrency": "MOP",
+        "birthYear": "1998",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 580,
+        "y": 340
+      }
+    },
+    {
+      "data": {
+        "id": "node14",
+        "name": "胡雪",
+        "template": "insurance",
+        "gender": "女",
+        "age": 27,
+        "occupation": "行政助理",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 120000,
+        "contact": "huxue_hx",
+        "incomeCurrency": "MOP",
+        "birthYear": "1999",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 510,
+        "y": 420
+      }
+    },
+    {
+      "data": {
+        "id": "node15",
+        "name": "朱琳",
+        "template": "insurance",
+        "gender": "女",
+        "age": 32,
+        "occupation": "人力资源",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "3岁",
+        "parents": "双亲健在",
+        "salary": 200000,
+        "contact": "13900139015",
+        "incomeCurrency": "MOP",
+        "birthYear": "1994",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "3",
+            "birthYear": "2023"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 410,
+        "y": 400
+      }
+    },
+    {
+      "data": {
+        "id": "node16",
+        "name": "郭洋",
+        "template": "insurance",
+        "gender": "男",
+        "age": 41,
+        "occupation": "工厂厂长",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "16岁,12岁",
+        "parents": "双亲健在",
+        "salary": 380000,
+        "contact": "13900139016",
+        "incomeCurrency": "MOP",
+        "birthYear": "1985",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "16",
+            "birthYear": "2010"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "12",
+            "birthYear": "2014"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 360,
+        "y": 280
+      }
+    },
+    {
+      "data": {
+        "id": "node17",
+        "name": "林梅",
+        "template": "insurance",
+        "gender": "女",
+        "age": 26,
+        "occupation": "客服",
+        "marriage": "未婚",
+        "parents": "母亲已故",
+        "salary": 100000,
+        "contact": "linmei_lm",
+        "incomeCurrency": "MOP",
+        "birthYear": "2000",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 560,
+        "y": 450
+      }
+    },
+    {
+      "data": {
+        "id": "node18",
+        "name": "韩冰",
+        "template": "insurance",
+        "gender": "女",
+        "age": 30,
+        "occupation": "记者",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "2岁",
+        "parents": "双亲健在",
+        "salary": 180000,
+        "contact": "13900139018",
+        "incomeCurrency": "MOP",
+        "birthYear": "1996",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "2",
+            "birthYear": "2024"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 490,
+        "y": 180
+      }
+    },
+    {
+      "data": {
+        "id": "node19",
+        "name": "傅鹏",
+        "template": "insurance",
+        "gender": "男",
+        "age": 46,
+        "occupation": "大学教授",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "18岁",
+        "parents": "双亲已故",
+        "salary": 300000,
+        "contact": "13900139019",
+        "incomeCurrency": "MOP",
+        "birthYear": "1980",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "18",
+            "birthYear": "2008"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 330,
+        "y": 300
+      }
+    },
+    {
+      "data": {
+        "id": "node20",
+        "name": "曾敏",
+        "template": "insurance",
+        "gender": "女",
+        "age": 35,
+        "occupation": "金融分析师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "9岁",
+        "parents": "双亲健在",
+        "salary": 350000,
+        "contact": "13900139020",
+        "incomeCurrency": "MOP",
+        "birthYear": "1991",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "9",
+            "birthYear": "2017"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 470,
+        "y": 350
+      }
+    },
+    {
+      "data": {
+        "id": "node21",
+        "name": "谢强",
+        "template": "insurance",
+        "gender": "男",
+        "age": 48,
+        "occupation": "企业老板",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "20岁,16岁",
+        "parents": "双亲健在",
+        "salary": 1000000,
+        "contact": "13900139021",
+        "incomeCurrency": "MOP",
+        "birthYear": "1978",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "20",
+            "birthYear": "2006"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "16",
+            "birthYear": "2010"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 300,
+        "y": 400
+      }
+    },
+    {
+      "data": {
+        "id": "node22",
+        "name": "苏婷",
+        "template": "insurance",
+        "gender": "女",
+        "age": 24,
+        "occupation": "实习生",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 50000,
+        "contact": "suting_st",
+        "incomeCurrency": "MOP",
+        "birthYear": "2002",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 620,
+        "y": 380
+      }
+    },
+    {
+      "data": {
+        "id": "node23",
+        "name": "邓超",
+        "template": "insurance",
+        "gender": "男",
+        "age": 43,
+        "occupation": "警察",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "13岁",
+        "parents": "双亲健在",
+        "salary": 250000,
+        "contact": "13900139023",
+        "incomeCurrency": "MOP",
+        "birthYear": "1983",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "13",
+            "birthYear": "2013"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 390,
+        "y": 180
+      }
+    },
+    {
+      "data": {
+        "id": "node24",
+        "name": "肖芳",
+        "template": "insurance",
+        "gender": "女",
+        "age": 29,
+        "occupation": "美容师",
+        "marriage": "未婚",
+        "parents": "父亲已故",
+        "salary": 120000,
+        "contact": "xiaofang_xf",
+        "incomeCurrency": "MOP",
+        "birthYear": "1997",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 530,
+        "y": 480
+      }
+    },
+    {
+      "data": {
+        "id": "node25",
+        "name": "冯刚",
+        "template": "insurance",
+        "gender": "男",
+        "age": 52,
+        "occupation": "出租车司机",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "22岁",
+        "parents": "双亲已故",
+        "salary": 150000,
+        "contact": "13900139025",
+        "incomeCurrency": "MOP",
+        "birthYear": "1974",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "22",
+            "birthYear": "2004"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 320,
+        "y": 480
+      }
+    },
+    {
+      "data": {
+        "id": "node26",
+        "name": "董瑶",
+        "template": "insurance",
+        "gender": "女",
+        "age": 33,
+        "occupation": "药剂师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "6岁",
+        "parents": "双亲健在",
+        "salary": 200000,
+        "contact": "13900139026",
+        "incomeCurrency": "MOP",
+        "birthYear": "1993",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "6",
+            "birthYear": "2020"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 440,
+        "y": 160
+      }
+    },
+    {
+      "data": {
+        "id": "node27",
+        "name": "卫华",
+        "template": "insurance",
+        "gender": "男",
+        "age": 47,
+        "occupation": "餐饮老板",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "18岁,14岁",
+        "parents": "双亲健在",
+        "salary": 450000,
+        "contact": "13900139027",
+        "incomeCurrency": "MOP",
+        "birthYear": "1979",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "18",
+            "birthYear": "2008"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "14",
+            "birthYear": "2012"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 280,
+        "y": 340
+      }
+    },
+    {
+      "data": {
+        "id": "node28",
+        "name": "李霞",
+        "template": "insurance",
+        "gender": "女",
+        "age": 36,
+        "occupation": "书店老板",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "11岁",
+        "parents": "双亲健在",
+        "salary": 180000,
+        "contact": "lixia_lx",
+        "incomeCurrency": "MOP",
+        "birthYear": "1990",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "11",
+            "birthYear": "2015"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 500,
+        "y": 140
+      }
+    },
+    {
+      "data": {
+        "id": "node29",
+        "name": "赵勇",
+        "template": "insurance",
+        "gender": "男",
+        "age": 31,
+        "occupation": "健身教练",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 150000,
+        "contact": "13900139029",
+        "incomeCurrency": "MOP",
+        "birthYear": "1995",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 600,
+        "y": 500
+      }
+    },
+    {
+      "data": {
+        "id": "node30",
+        "name": "王燕",
+        "template": "insurance",
+        "gender": "女",
+        "age": 28,
+        "occupation": "空姐",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 220000,
+        "contact": "wangyan_wy",
+        "incomeCurrency": "MOP",
+        "birthYear": "1998",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 550,
+        "y": 520
+      }
+    },
+    {
+      "data": {
+        "id": "node31",
+        "name": "刘建",
+        "template": "insurance",
+        "gender": "男",
+        "age": 50,
+        "occupation": "退休干部",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "25岁,22岁",
+        "parents": "双亲已故",
+        "salary": 80000,
+        "contact": "13900139031",
+        "incomeCurrency": "MOP",
+        "birthYear": "1976",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "25",
+            "birthYear": "2001"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "22",
+            "birthYear": "2004"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 250,
+        "y": 420
+      }
+    },
+    {
+      "data": {
+        "id": "node32",
+        "name": "陈娟",
+        "template": "insurance",
+        "gender": "女",
+        "age": 37,
+        "occupation": "保险代理人",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "8岁",
+        "parents": "双亲健在",
+        "salary": 250000,
+        "contact": "13900139032",
+        "incomeCurrency": "MOP",
+        "birthYear": "1989",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "8",
+            "birthYear": "2018"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 480,
+        "y": 440
+      }
+    },
+    {
+      "data": {
+        "id": "node33",
+        "name": "杨帆",
+        "template": "insurance",
+        "gender": "男",
+        "age": 25,
+        "occupation": "外卖骑手",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 80000,
+        "contact": "13900139033",
+        "incomeCurrency": "MOP",
+        "birthYear": "2001",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 640,
+        "y": 420
+      }
+    },
+    {
+      "data": {
+        "id": "node34",
+        "name": "黄艳",
+        "template": "insurance",
+        "gender": "女",
+        "age": 41,
+        "occupation": "超市收银",
+        "marriage": "离异",
+        "children": "1",
+        "childrenAge": "10岁",
+        "parents": "父亲已故",
+        "salary": 100000,
+        "contact": "huangyan_hy",
+        "incomeCurrency": "MOP",
+        "birthYear": "1985",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "10",
+            "birthYear": "2016"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 350,
+        "y": 200
+      }
+    },
+    {
+      "data": {
+        "id": "node35",
+        "name": "周凯",
+        "template": "insurance",
+        "gender": "男",
+        "age": 39,
+        "occupation": "电工",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "12岁,8岁",
+        "parents": "双亲健在",
+        "salary": 200000,
+        "contact": "13900139035",
+        "incomeCurrency": "MOP",
+        "birthYear": "1987",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "12",
+            "birthYear": "2014"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "8",
+            "birthYear": "2018"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 410,
+        "y": 500
+      }
+    },
+    {
+      "data": {
+        "id": "node36",
+        "name": "吴静",
+        "template": "insurance",
+        "gender": "女",
+        "age": 23,
+        "occupation": "大学生",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 0,
+        "contact": "wujing_wj",
+        "incomeCurrency": "MOP",
+        "birthYear": "2003",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 680,
+        "y": 350
+      }
+    },
+    {
+      "data": {
+        "id": "node37",
+        "name": "徐杰",
+        "template": "insurance",
+        "gender": "男",
+        "age": 34,
+        "occupation": "厨师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "4岁",
+        "parents": "母亲已故",
+        "salary": 180000,
+        "contact": "13900139037",
+        "incomeCurrency": "MOP",
+        "birthYear": "1992",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "4",
+            "birthYear": "2022"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 370,
+        "y": 440
+      }
+    },
+    {
+      "data": {
+        "id": "node38",
+        "name": "孙悦",
+        "template": "insurance",
+        "gender": "女",
+        "age": 26,
+        "occupation": "网红主播",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 300000,
+        "contact": "sunyue_sy",
+        "incomeCurrency": "MOP",
+        "birthYear": "2000",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 630,
+        "y": 280
+      }
+    },
+    {
+      "data": {
+        "id": "node39",
+        "name": "马明",
+        "template": "insurance",
+        "gender": "男",
+        "age": 55,
+        "occupation": "出租车司机",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "28岁",
+        "parents": "双亲已故",
+        "salary": 120000,
+        "contact": "13900139039",
+        "incomeCurrency": "MOP",
+        "birthYear": "1971",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "28",
+            "birthYear": "1998"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 260,
+        "y": 520
+      }
+    },
+    {
+      "data": {
+        "id": "node40",
+        "name": "胡琴",
+        "template": "insurance",
+        "gender": "女",
+        "age": 32,
+        "occupation": "瑜伽教练",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "5岁",
+        "parents": "双亲健在",
+        "salary": 150000,
+        "contact": "huqin_hq",
+        "incomeCurrency": "MOP",
+        "birthYear": "1994",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "5",
+            "birthYear": "2021"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 520,
+        "y": 550
+      }
+    },
+    {
+      "data": {
+        "id": "node41",
+        "name": "李明",
+        "template": "insurance",
+        "gender": "男",
+        "age": 45,
+        "occupation": "私企老板",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "18岁,14岁",
+        "parents": "双亲健在",
+        "salary": 600000,
+        "contact": "13900139041",
+        "incomeCurrency": "MOP",
+        "birthYear": "1981",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "18",
+            "birthYear": "2008"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "14",
+            "birthYear": "2012"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 750,
+        "y": 400
+      }
+    },
+    {
+      "data": {
+        "id": "node42",
+        "name": "张红",
+        "template": "insurance",
+        "gender": "女",
+        "age": 30,
+        "occupation": "房产销售",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 200000,
+        "contact": "zhanghong_zh",
+        "incomeCurrency": "MOP",
+        "birthYear": "1996",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 700,
+        "y": 450
+      }
+    },
+    {
+      "data": {
+        "id": "node43",
+        "name": "王磊",
+        "template": "insurance",
+        "gender": "男",
+        "age": 38,
+        "occupation": "物流经理",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "10岁",
+        "parents": "父亲已故",
+        "salary": 320000,
+        "contact": "13900139043",
+        "incomeCurrency": "MOP",
+        "birthYear": "1988",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "10",
+            "birthYear": "2016"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 720,
+        "y": 350
+      }
+    },
+    {
+      "data": {
+        "id": "node44",
+        "name": "刘芳",
+        "template": "insurance",
+        "gender": "女",
+        "age": 27,
+        "occupation": "咖啡师",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 80000,
+        "contact": "liufang_lf",
+        "incomeCurrency": "MOP",
+        "birthYear": "1999",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 680,
+        "y": 500
+      }
+    },
+    {
+      "data": {
+        "id": "node45",
+        "name": "陈浩",
+        "template": "insurance",
+        "gender": "男",
+        "age": 42,
+        "occupation": "牙医",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "15岁,10岁",
+        "parents": "双亲健在",
+        "salary": 500000,
+        "contact": "13900139045",
+        "incomeCurrency": "MOP",
+        "birthYear": "1984",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "15",
+            "birthYear": "2011"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "10",
+            "birthYear": "2016"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 740,
+        "y": 300
+      }
+    },
+    {
+      "data": {
+        "id": "node46",
+        "name": "杨玲",
+        "template": "insurance",
+        "gender": "女",
+        "age": 35,
+        "occupation": "心理咨询师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "7岁",
+        "parents": "双亲健在",
+        "salary": 280000,
+        "contact": "13900139046",
+        "incomeCurrency": "MOP",
+        "birthYear": "1991",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "7",
+            "birthYear": "2019"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 760,
+        "y": 500
+      }
+    },
+    {
+      "data": {
+        "id": "node47",
+        "name": "黄志",
+        "template": "insurance",
+        "gender": "男",
+        "age": 29,
+        "occupation": "程序员",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 300000,
+        "contact": "13900139047",
+        "incomeCurrency": "MOP",
+        "birthYear": "1997",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 710,
+        "y": 250
+      }
+    },
+    {
+      "data": {
+        "id": "node48",
+        "name": "周萍",
+        "template": "insurance",
+        "gender": "女",
+        "age": 40,
+        "occupation": "图书馆管理员",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "12岁",
+        "parents": "双亲健在",
+        "salary": 150000,
+        "contact": "13900139048",
+        "incomeCurrency": "MOP",
+        "birthYear": "1986",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "12",
+            "birthYear": "2014"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 770,
+        "y": 380
+      }
+    },
+    {
+      "data": {
+        "id": "node49",
+        "name": "吴彬",
+        "template": "insurance",
+        "gender": "男",
+        "age": 33,
+        "occupation": "摄影师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "3岁",
+        "parents": "母亲已故",
+        "salary": 220000,
+        "contact": "wubin_wb",
+        "incomeCurrency": "MOP",
+        "birthYear": "1993",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "3",
+            "birthYear": "2023"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 650,
+        "y": 560
+      }
+    },
+    {
+      "data": {
+        "id": "node50",
+        "name": "徐颖",
+        "template": "insurance",
+        "gender": "女",
+        "age": 31,
+        "occupation": "月嫂",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "8岁,4岁",
+        "parents": "双亲健在",
+        "salary": 200000,
+        "contact": "13900139050",
+        "incomeCurrency": "MOP",
+        "birthYear": "1995",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "8",
+            "birthYear": "2018"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "4",
+            "birthYear": "2022"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 800,
+        "y": 450
+      }
+    },
+    {
+      "data": {
+        "id": "node51",
+        "name": "小林",
+        "template": "insurance",
+        "gender": "男",
+        "age": 55,
+        "occupation": "退休教师",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "30岁,28岁",
+        "parents": "双亲已故",
+        "salary": 60000,
+        "contact": "13900139051",
+        "incomeCurrency": "MOP",
+        "birthYear": "1971",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "30",
+            "birthYear": "1996"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "28",
+            "birthYear": "1998"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "blood",
+      "position": {
+        "x": 600,
+        "y": 250
+      }
+    },
+    {
+      "data": {
+        "id": "node52",
+        "name": "林阿姨",
+        "template": "insurance",
+        "gender": "女",
+        "age": 52,
+        "occupation": "家庭主妇",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "30岁,28岁",
+        "parents": "双亲已故",
+        "salary": 0,
+        "contact": "13900139052",
+        "incomeCurrency": "MOP",
+        "birthYear": "1974",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "30",
+            "birthYear": "1996"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "28",
+            "birthYear": "1998"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "blood",
+      "position": {
+        "x": 600,
+        "y": 300
+      }
+    },
+    {
+      "data": {
+        "id": "node53",
+        "name": "小王",
+        "template": "insurance",
+        "gender": "男",
+        "age": 28,
+        "occupation": "公司职员",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 120000,
+        "contact": "13900139053",
+        "incomeCurrency": "MOP",
+        "birthYear": "1998",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "blood",
+      "position": {
+        "x": 550,
+        "y": 280
+      }
+    },
+    {
+      "data": {
+        "id": "node54",
+        "name": "老张",
+        "template": "insurance",
+        "gender": "男",
+        "age": 60,
+        "occupation": "退休工人",
+        "marriage": "已婚",
+        "children": "3",
+        "childrenAge": "35岁,32岁,28岁",
+        "parents": "双亲已故",
+        "salary": 50000,
+        "contact": "13900139054",
+        "incomeCurrency": "MOP",
+        "birthYear": "1966",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "35",
+            "birthYear": "1991"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "32",
+            "birthYear": "1994"
+          },
+          {
+            "id": "child_template_3",
+            "name": "??3",
+            "age": "28",
+            "birthYear": "1998"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "blood",
+      "position": {
+        "x": 650,
+        "y": 550
+      }
+    },
+    {
+      "data": {
+        "id": "node55",
+        "name": "老张妻",
+        "template": "insurance",
+        "gender": "女",
+        "age": 58,
+        "occupation": "退休工人",
+        "marriage": "已婚",
+        "children": "3",
+        "childrenAge": "35岁,32岁,28岁",
+        "parents": "双亲已故",
+        "salary": 50000,
+        "contact": "13900139055",
+        "incomeCurrency": "MOP",
+        "birthYear": "1968",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "35",
+            "birthYear": "1991"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "32",
+            "birthYear": "1994"
+          },
+          {
+            "id": "child_template_3",
+            "name": "??3",
+            "age": "28",
+            "birthYear": "1998"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "blood",
+      "position": {
+        "x": 680,
+        "y": 570
+      }
+    },
+    {
+      "data": {
+        "id": "node56",
+        "name": "张叔",
+        "template": "insurance",
+        "gender": "男",
+        "age": 48,
+        "occupation": "包工头",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "20岁,16岁",
+        "parents": "双亲已故",
+        "salary": 350000,
+        "contact": "13900139056",
+        "incomeCurrency": "MOP",
+        "birthYear": "1978",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "20",
+            "birthYear": "2006"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "16",
+            "birthYear": "2010"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 750,
+        "y": 200
+      }
+    },
+    {
+      "data": {
+        "id": "node57",
+        "name": "李婶",
+        "template": "insurance",
+        "gender": "女",
+        "age": 46,
+        "occupation": "个体户",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "18岁",
+        "parents": "父亲已故",
+        "salary": 150000,
+        "contact": "lisun_ls",
+        "incomeCurrency": "MOP",
+        "birthYear": "1980",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "18",
+            "birthYear": "2008"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 780,
+        "y": 230
+      }
+    },
+    {
+      "data": {
+        "id": "node58",
+        "name": "王舅",
+        "template": "insurance",
+        "gender": "男",
+        "age": 50,
+        "occupation": "货车司机",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "22岁,18岁",
+        "parents": "双亲已故",
+        "salary": 250000,
+        "contact": "13900139058",
+        "incomeCurrency": "MOP",
+        "birthYear": "1976",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "22",
+            "birthYear": "2004"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "18",
+            "birthYear": "2008"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 800,
+        "y": 180
+      }
+    },
+    {
+      "data": {
+        "id": "node59",
+        "name": "刘姨",
+        "template": "insurance",
+        "gender": "女",
+        "age": 47,
+        "occupation": "理发师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "20岁",
+        "parents": "双亲健在",
+        "salary": 120000,
+        "contact": "liuyi_ly",
+        "incomeCurrency": "MOP",
+        "birthYear": "1979",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "20",
+            "birthYear": "2006"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 830,
+        "y": 280
+      }
+    },
+    {
+      "data": {
+        "id": "node60",
+        "name": "陈叔",
+        "template": "insurance",
+        "gender": "男",
+        "age": 53,
+        "occupation": "农民",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "25岁,22岁",
+        "parents": "双亲已故",
+        "salary": 80000,
+        "contact": "13900139060",
+        "incomeCurrency": "MOP",
+        "birthYear": "1973",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "25",
+            "birthYear": "2001"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "22",
+            "birthYear": "2004"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 850,
+        "y": 350
+      }
+    },
+    {
+      "data": {
+        "id": "node61",
+        "name": "杨姑",
+        "template": "insurance",
+        "gender": "女",
+        "age": 45,
+        "occupation": "小商贩",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "16岁",
+        "parents": "双亲健在",
+        "salary": 100000,
+        "contact": "yanggu_yg",
+        "incomeCurrency": "MOP",
+        "birthYear": "1981",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "16",
+            "birthYear": "2010"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 820,
+        "y": 420
+      }
+    },
+    {
+      "data": {
+        "id": "node62",
+        "name": "黄舅妈",
+        "template": "insurance",
+        "gender": "女",
+        "age": 44,
+        "occupation": "幼儿园老师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "14岁",
+        "parents": "双亲健在",
+        "salary": 100000,
+        "contact": "13900139062",
+        "incomeCurrency": "MOP",
+        "birthYear": "1982",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "14",
+            "birthYear": "2012"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 780,
+        "y": 150
+      }
+    },
+    {
+      "data": {
+        "id": "node63",
+        "name": "周姨父",
+        "template": "insurance",
+        "gender": "男",
+        "age": 46,
+        "occupation": "水电工",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "14岁",
+        "parents": "父亲已故",
+        "salary": 200000,
+        "contact": "13900139063",
+        "incomeCurrency": "MOP",
+        "birthYear": "1980",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "14",
+            "birthYear": "2012"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 750,
+        "y": 130
+      }
+    },
+    {
+      "data": {
+        "id": "node64",
+        "name": "吴叔",
+        "template": "insurance",
+        "gender": "男",
+        "age": 51,
+        "occupation": "木匠",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "24岁,20岁",
+        "parents": "双亲已故",
+        "salary": 180000,
+        "contact": "13900139064",
+        "incomeCurrency": "MOP",
+        "birthYear": "1975",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "24",
+            "birthYear": "2002"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "20",
+            "birthYear": "2006"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 850,
+        "y": 150
+      }
+    },
+    {
+      "data": {
+        "id": "node65",
+        "name": "徐婶",
+        "template": "insurance",
+        "gender": "女",
+        "age": 49,
+        "occupation": "裁缝",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "24岁,20岁",
+        "parents": "母亲已故",
+        "salary": 100000,
+        "contact": "xushen_xs",
+        "incomeCurrency": "MOP",
+        "birthYear": "1977",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "24",
+            "birthYear": "2002"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "20",
+            "birthYear": "2006"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 880,
+        "y": 200
+      }
+    },
+    {
+      "data": {
+        "id": "node66",
+        "name": "孙舅",
+        "template": "insurance",
+        "gender": "男",
+        "age": 47,
+        "occupation": "装修工",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "15岁",
+        "parents": "双亲已故",
+        "salary": 220000,
+        "contact": "13900139066",
+        "incomeCurrency": "MOP",
+        "birthYear": "1979",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "15",
+            "birthYear": "2011"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 900,
+        "y": 280
+      }
+    },
+    {
+      "data": {
+        "id": "node67",
+        "name": "马姨",
+        "template": "insurance",
+        "gender": "女",
+        "age": 43,
+        "occupation": "保洁员",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "12岁",
+        "parents": "双亲健在",
+        "salary": 80000,
+        "contact": "13900139067",
+        "incomeCurrency": "MOP",
+        "birthYear": "1983",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "12",
+            "birthYear": "2014"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 870,
+        "y": 350
+      }
+    },
+    {
+      "data": {
+        "id": "node68",
+        "name": "胡叔",
+        "template": "insurance",
+        "gender": "男",
+        "age": 54,
+        "occupation": "农机手",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "26岁,22岁",
+        "parents": "双亲已故",
+        "salary": 150000,
+        "contact": "13900139068",
+        "incomeCurrency": "MOP",
+        "birthYear": "1972",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "26",
+            "birthYear": "2000"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "22",
+            "birthYear": "2004"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 850,
+        "y": 450
+      }
+    },
+    {
+      "data": {
+        "id": "node69",
+        "name": "朱姑",
+        "template": "insurance",
+        "gender": "女",
+        "age": 41,
+        "occupation": "养猪户",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "18岁,14岁",
+        "parents": "双亲健在",
+        "salary": 200000,
+        "contact": "zhugu_zg",
+        "incomeCurrency": "MOP",
+        "birthYear": "1985",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "18",
+            "birthYear": "2008"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "14",
+            "birthYear": "2012"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 900,
+        "y": 400
+      }
+    },
+    {
+      "data": {
+        "id": "node70",
+        "name": "郭舅",
+        "template": "insurance",
+        "gender": "男",
+        "age": 52,
+        "occupation": "砖瓦匠",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "24岁,20岁",
+        "parents": "双亲已故",
+        "salary": 180000,
+        "contact": "13900139070",
+        "incomeCurrency": "MOP",
+        "birthYear": "1974",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "24",
+            "birthYear": "2002"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "20",
+            "birthYear": "2006"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "referral",
+      "position": {
+        "x": 880,
+        "y": 480
+      }
+    },
+    {
+      "data": {
+        "id": "node71",
+        "name": "阿华",
+        "template": "insurance",
+        "gender": "男",
+        "age": 32,
+        "occupation": "网管",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "5岁",
+        "parents": "双亲健在",
+        "salary": 150000,
+        "contact": "ahua_ah",
+        "incomeCurrency": "MOP",
+        "birthYear": "1994",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "5",
+            "birthYear": "2021"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 450,
+        "y": 500
+      }
+    },
+    {
+      "data": {
+        "id": "node72",
+        "name": "阿梅",
+        "template": "insurance",
+        "gender": "女",
+        "age": 28,
+        "occupation": "文员",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 100000,
+        "contact": "amei_am",
+        "incomeCurrency": "MOP",
+        "birthYear": "1998",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 480,
+        "y": 540
+      }
+    },
+    {
+      "data": {
+        "id": "node73",
+        "name": "阿杰",
+        "template": "insurance",
+        "gender": "男",
+        "age": 30,
+        "occupation": "快递员",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 100000,
+        "contact": "13900139073",
+        "incomeCurrency": "MOP",
+        "birthYear": "1996",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 420,
+        "y": 550
+      }
+    },
+    {
+      "data": {
+        "id": "node74",
+        "name": "阿英",
+        "template": "insurance",
+        "gender": "女",
+        "age": 26,
+        "occupation": "收银员",
+        "marriage": "未婚",
+        "parents": "父亲已故",
+        "salary": 80000,
+        "contact": "aying_ay",
+        "incomeCurrency": "MOP",
+        "birthYear": "2000",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 500,
+        "y": 580
+      }
+    },
+    {
+      "data": {
+        "id": "node75",
+        "name": "阿龙",
+        "template": "insurance",
+        "gender": "男",
+        "age": 35,
+        "occupation": "出租车司机",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "8岁",
+        "parents": "双亲健在",
+        "salary": 150000,
+        "contact": "13900139075",
+        "incomeCurrency": "MOP",
+        "birthYear": "1991",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "8",
+            "birthYear": "2018"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 380,
+        "y": 580
+      }
+    },
+    {
+      "data": {
+        "id": "node76",
+        "name": "阿凤",
+        "template": "insurance",
+        "gender": "女",
+        "age": 33,
+        "occupation": "饭店服务员",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "6岁",
+        "parents": "双亲健在",
+        "salary": 100000,
+        "contact": "13900139076",
+        "incomeCurrency": "MOP",
+        "birthYear": "1993",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "6",
+            "birthYear": "2020"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 350,
+        "y": 540
+      }
+    },
+    {
+      "data": {
+        "id": "node77",
+        "name": "阿志",
+        "template": "insurance",
+        "gender": "男",
+        "age": 29,
+        "occupation": "保安",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 80000,
+        "contact": "13900139077",
+        "incomeCurrency": "MOP",
+        "birthYear": "1997",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 320,
+        "y": 560
+      }
+    },
+    {
+      "data": {
+        "id": "node78",
+        "name": "阿娟",
+        "template": "insurance",
+        "gender": "女",
+        "age": 31,
+        "occupation": "超市理货员",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "4岁",
+        "parents": "母亲已故",
+        "salary": 80000,
+        "contact": "13900139078",
+        "incomeCurrency": "MOP",
+        "birthYear": "1995",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "4",
+            "birthYear": "2022"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 400,
+        "y": 600
+      }
+    },
+    {
+      "data": {
+        "id": "node79",
+        "name": "阿强",
+        "template": "insurance",
+        "gender": "男",
+        "age": 34,
+        "occupation": "空调安装工",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "7岁",
+        "parents": "双亲健在",
+        "salary": 180000,
+        "contact": "13900139079",
+        "incomeCurrency": "MOP",
+        "birthYear": "1992",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "7",
+            "birthYear": "2019"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 450,
+        "y": 620
+      }
+    },
+    {
+      "data": {
+        "id": "node80",
+        "name": "阿丽",
+        "template": "insurance",
+        "gender": "女",
+        "age": 27,
+        "occupation": "服装店导购",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 100000,
+        "contact": "13900139080",
+        "incomeCurrency": "MOP",
+        "birthYear": "1999",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 550,
+        "y": 600
+      }
+    },
+    {
+      "data": {
+        "id": "node81",
+        "name": "阿勇",
+        "template": "insurance",
+        "gender": "男",
+        "age": 38,
+        "occupation": "搬运工",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "12岁,8岁",
+        "parents": "双亲健在",
+        "salary": 150000,
+        "contact": "13900139081",
+        "incomeCurrency": "MOP",
+        "birthYear": "1988",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "12",
+            "birthYear": "2014"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "8",
+            "birthYear": "2018"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 280,
+        "y": 600
+      }
+    },
+    {
+      "data": {
+        "id": "node82",
+        "name": "阿萍",
+        "template": "insurance",
+        "gender": "女",
+        "age": 36,
+        "occupation": "钟点工",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "10岁",
+        "parents": "父亲已故",
+        "salary": 120000,
+        "contact": "13900139082",
+        "incomeCurrency": "MOP",
+        "birthYear": "1990",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "10",
+            "birthYear": "2016"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 310,
+        "y": 620
+      }
+    },
+    {
+      "data": {
+        "id": "node83",
+        "name": "阿建",
+        "template": "insurance",
+        "gender": "男",
+        "age": 40,
+        "occupation": "液化气配送",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "14岁,10岁",
+        "parents": "双亲健在",
+        "salary": 160000,
+        "contact": "13900139083",
+        "incomeCurrency": "MOP",
+        "birthYear": "1986",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "14",
+            "birthYear": "2012"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "10",
+            "birthYear": "2016"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 250,
+        "y": 640
+      }
+    },
+    {
+      "data": {
+        "id": "node84",
+        "name": "阿云",
+        "template": "insurance",
+        "gender": "女",
+        "age": 29,
+        "occupation": "奶茶店员工",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 80000,
+        "contact": "13900139084",
+        "incomeCurrency": "MOP",
+        "birthYear": "1997",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 580,
+        "y": 630
+      }
+    },
+    {
+      "data": {
+        "id": "node85",
+        "name": "阿峰",
+        "template": "insurance",
+        "gender": "男",
+        "age": 32,
+        "occupation": "外卖店老板",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "5岁",
+        "parents": "双亲健在",
+        "salary": 200000,
+        "contact": "13900139085",
+        "incomeCurrency": "MOP",
+        "birthYear": "1994",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "5",
+            "birthYear": "2021"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 620,
+        "y": 580
+      }
+    },
+    {
+      "data": {
+        "id": "node86",
+        "name": "阿婷",
+        "template": "insurance",
+        "gender": "女",
+        "age": 25,
+        "occupation": "美甲师",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 120000,
+        "contact": "13900139086",
+        "incomeCurrency": "MOP",
+        "birthYear": "2001",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 660,
+        "y": 620
+      }
+    },
+    {
+      "data": {
+        "id": "node87",
+        "name": "阿辉",
+        "template": "insurance",
+        "gender": "男",
+        "age": 37,
+        "occupation": "洗车工",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "8岁",
+        "parents": "母亲已故",
+        "salary": 120000,
+        "contact": "13900139087",
+        "incomeCurrency": "MOP",
+        "birthYear": "1989",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "8",
+            "birthYear": "2018"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 220,
+        "y": 580
+      }
+    },
+    {
+      "data": {
+        "id": "node88",
+        "name": "阿燕",
+        "template": "insurance",
+        "gender": "女",
+        "age": 30,
+        "occupation": "宾馆前台",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "3岁",
+        "parents": "双亲健在",
+        "salary": 100000,
+        "contact": "13900139088",
+        "incomeCurrency": "MOP",
+        "birthYear": "1996",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "3",
+            "birthYear": "2023"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 700,
+        "y": 550
+      }
+    },
+    {
+      "data": {
+        "id": "node89",
+        "name": "阿豪",
+        "template": "insurance",
+        "gender": "男",
+        "age": 28,
+        "occupation": "手机维修员",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 100000,
+        "contact": "13900139089",
+        "incomeCurrency": "MOP",
+        "birthYear": "1998",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 740,
+        "y": 580
+      }
+    },
+    {
+      "data": {
+        "id": "node90",
+        "name": "阿丹",
+        "template": "insurance",
+        "gender": "女",
+        "age": 26,
+        "occupation": "花店员工",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 80000,
+        "contact": "adan_ad",
+        "incomeCurrency": "MOP",
+        "birthYear": "2000",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 770,
+        "y": 550
+      }
+    },
+    {
+      "data": {
+        "id": "node91",
+        "name": "阿俊",
+        "template": "insurance",
+        "gender": "男",
+        "age": 31,
+        "occupation": "电脑维修员",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "4岁",
+        "parents": "双亲健在",
+        "salary": 150000,
+        "contact": "13900139091",
+        "incomeCurrency": "MOP",
+        "birthYear": "1995",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "4",
+            "birthYear": "2022"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 180,
+        "y": 550
+      }
+    },
+    {
+      "data": {
+        "id": "node92",
+        "name": "阿莎",
+        "template": "insurance",
+        "gender": "女",
+        "age": 24,
+        "occupation": "网红助理",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 100000,
+        "contact": "13900139092",
+        "incomeCurrency": "MOP",
+        "birthYear": "2002",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 200,
+        "y": 600
+      }
+    },
+    {
+      "data": {
+        "id": "node93",
+        "name": "阿超",
+        "template": "insurance",
+        "gender": "男",
+        "age": 36,
+        "occupation": "垃圾清运工",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "10岁,6岁",
+        "parents": "双亲健在",
+        "salary": 120000,
+        "contact": "13900139093",
+        "incomeCurrency": "MOP",
+        "birthYear": "1990",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "10",
+            "birthYear": "2016"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "6",
+            "birthYear": "2020"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 150,
+        "y": 500
+      }
+    },
+    {
+      "data": {
+        "id": "node94",
+        "name": "阿蕾",
+        "template": "insurance",
+        "gender": "女",
+        "age": 29,
+        "occupation": "婚庆化妆师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "2岁",
+        "parents": "双亲健在",
+        "salary": 150000,
+        "contact": "13900139094",
+        "incomeCurrency": "MOP",
+        "birthYear": "1997",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "2",
+            "birthYear": "2024"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 130,
+        "y": 450
+      }
+    },
+    {
+      "data": {
+        "id": "node95",
+        "name": "阿炜",
+        "template": "insurance",
+        "gender": "男",
+        "age": 33,
+        "occupation": "窗帘安装工",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "6岁",
+        "parents": "父亲已故",
+        "salary": 160000,
+        "contact": "13900139095",
+        "incomeCurrency": "MOP",
+        "birthYear": "1993",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "6",
+            "birthYear": "2020"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 170,
+        "y": 400
+      }
+    },
+    {
+      "data": {
+        "id": "node96",
+        "name": "阿岚",
+        "template": "insurance",
+        "gender": "女",
+        "age": 27,
+        "occupation": "舞蹈老师",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 180000,
+        "contact": "13900139096",
+        "incomeCurrency": "MOP",
+        "birthYear": "1999",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 100,
+        "y": 380
+      }
+    },
+    {
+      "data": {
+        "id": "node97",
+        "name": "阿龙2",
+        "template": "insurance",
+        "gender": "男",
+        "age": 42,
+        "occupation": "废品回收员",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "16岁,12岁",
+        "parents": "双亲已故",
+        "salary": 150000,
+        "contact": "13900139097",
+        "incomeCurrency": "MOP",
+        "birthYear": "1984",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "16",
+            "birthYear": "2010"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "12",
+            "birthYear": "2014"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 130,
+        "y": 300
+      }
+    },
+    {
+      "data": {
+        "id": "node98",
+        "name": "阿莲",
+        "template": "insurance",
+        "gender": "女",
+        "age": 35,
+        "occupation": "按摩师",
+        "marriage": "已婚",
+        "children": "1",
+        "childrenAge": "9岁",
+        "parents": "双亲健在",
+        "salary": 150000,
+        "contact": "13900139098",
+        "incomeCurrency": "MOP",
+        "birthYear": "1991",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "9",
+            "birthYear": "2017"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 150,
+        "y": 250
+      }
+    },
+    {
+      "data": {
+        "id": "node99",
+        "name": "阿林",
+        "template": "insurance",
+        "gender": "男",
+        "age": 39,
+        "occupation": "锁匠",
+        "marriage": "已婚",
+        "children": "2",
+        "childrenAge": "12岁,8岁",
+        "parents": "母亲已故",
+        "salary": 180000,
+        "contact": "13900139099",
+        "incomeCurrency": "MOP",
+        "birthYear": "1987",
+        "childrenList": [
+          {
+            "id": "child_template_1",
+            "name": "??1",
+            "age": "12",
+            "birthYear": "2014"
+          },
+          {
+            "id": "child_template_2",
+            "name": "??2",
+            "age": "8",
+            "birthYear": "2018"
+          }
+        ],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 100,
+        "y": 200
+      }
+    },
+    {
+      "data": {
+        "id": "node100",
+        "name": "阿珊",
+        "template": "insurance",
+        "gender": "女",
+        "age": 23,
+        "occupation": "便利店店员",
+        "marriage": "未婚",
+        "parents": "双亲健在",
+        "salary": 80000,
+        "contact": "13900139100",
+        "incomeCurrency": "MOP",
+        "birthYear": "2003",
+        "childrenList": [],
+        "ownedPolicies": []
+      },
+      "classes": "social",
+      "position": {
+        "x": 80,
+        "y": 280
+      }
+    },
+    {
+      "data": {
+        "id": "edge1",
+        "source": "self1",
+        "target": "node1",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge2",
+        "source": "self1",
+        "target": "node2",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge3",
+        "source": "self1",
+        "target": "node3",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge4",
+        "source": "self1",
+        "target": "node4",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge5",
+        "source": "self1",
+        "target": "node5",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge6",
+        "source": "self1",
+        "target": "node6",
+        "label": "上司",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge7",
+        "source": "self1",
+        "target": "node7",
+        "label": "下属",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge8",
+        "source": "self1",
+        "target": "node8",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge9",
+        "source": "self1",
+        "target": "node9",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge10",
+        "source": "self1",
+        "target": "node10",
+        "label": "客户",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge11",
+        "source": "self1",
+        "target": "node11",
+        "label": "客户",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge12",
+        "source": "self1",
+        "target": "node12",
+        "label": "客户",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge13",
+        "source": "self1",
+        "target": "node13",
+        "label": "客户",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge14",
+        "source": "self1",
+        "target": "node14",
+        "label": "客户",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge15",
+        "source": "self1",
+        "target": "node15",
+        "label": "客户",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge16",
+        "source": "self1",
+        "target": "node51",
+        "label": "父亲",
+        "classes": "blood"
+      }
+    },
+    {
+      "data": {
+        "id": "edge17",
+        "source": "self1",
+        "target": "node52",
+        "label": "母亲",
+        "classes": "blood"
+      }
+    },
+    {
+      "data": {
+        "id": "edge18",
+        "source": "self1",
+        "target": "node53",
+        "label": "兄弟",
+        "classes": "blood"
+      }
+    },
+    {
+      "data": {
+        "id": "edge19",
+        "source": "self1",
+        "target": "node56",
+        "label": "叔叔",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge20",
+        "source": "self1",
+        "target": "node57",
+        "label": "阿姨",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge21",
+        "source": "self1",
+        "target": "node71",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge22",
+        "source": "self1",
+        "target": "node72",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge23",
+        "source": "self1",
+        "target": "node41",
+        "label": "客户推荐",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge24",
+        "source": "self1",
+        "target": "node32",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge25",
+        "source": "self1",
+        "target": "node21",
+        "label": "商业合作伙伴",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge26",
+        "source": "node1",
+        "target": "node2",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge27",
+        "source": "node1",
+        "target": "node3",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge28",
+        "source": "node2",
+        "target": "node4",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge29",
+        "source": "node3",
+        "target": "node5",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge30",
+        "source": "node4",
+        "target": "node21",
+        "label": "商业合作伙伴",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge31",
+        "source": "node5",
+        "target": "node6",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge32",
+        "source": "node6",
+        "target": "node7",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge33",
+        "source": "node7",
+        "target": "node8",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge34",
+        "source": "node8",
+        "target": "node47",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge35",
+        "source": "node9",
+        "target": "node10",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge36",
+        "source": "node10",
+        "target": "node11",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge37",
+        "source": "node11",
+        "target": "node12",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge38",
+        "source": "node12",
+        "target": "node13",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge39",
+        "source": "node13",
+        "target": "node14",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge40",
+        "source": "node14",
+        "target": "node15",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge41",
+        "source": "node15",
+        "target": "node16",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge42",
+        "source": "node16",
+        "target": "node17",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge43",
+        "source": "node17",
+        "target": "node18",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge44",
+        "source": "node18",
+        "target": "node19",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge45",
+        "source": "node19",
+        "target": "node20",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge46",
+        "source": "node20",
+        "target": "node21",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge47",
+        "source": "node22",
+        "target": "node23",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge48",
+        "source": "node23",
+        "target": "node24",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge49",
+        "source": "node24",
+        "target": "node25",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge50",
+        "source": "node25",
+        "target": "node26",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge51",
+        "source": "node26",
+        "target": "node27",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge52",
+        "source": "node27",
+        "target": "node28",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge53",
+        "source": "node28",
+        "target": "node29",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge54",
+        "source": "node29",
+        "target": "node30",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge55",
+        "source": "node30",
+        "target": "node31",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge56",
+        "source": "node31",
+        "target": "node32",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge57",
+        "source": "node32",
+        "target": "node33",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge58",
+        "source": "node33",
+        "target": "node34",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge59",
+        "source": "node34",
+        "target": "node35",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge60",
+        "source": "node35",
+        "target": "node36",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge61",
+        "source": "node51",
+        "target": "node52",
+        "label": "配偶",
+        "classes": "blood"
+      }
+    },
+    {
+      "data": {
+        "id": "edge62",
+        "source": "node51",
+        "target": "node53",
+        "label": "子女",
+        "classes": "blood"
+      }
+    },
+    {
+      "data": {
+        "id": "edge63",
+        "source": "node52",
+        "target": "node53",
+        "label": "子女",
+        "classes": "blood"
+      }
+    },
+    {
+      "data": {
+        "id": "edge64",
+        "source": "node54",
+        "target": "node55",
+        "label": "配偶",
+        "classes": "blood"
+      }
+    },
+    {
+      "data": {
+        "id": "edge65",
+        "source": "node56",
+        "target": "node57",
+        "label": "配偶",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge66",
+        "source": "node56",
+        "target": "node58",
+        "label": "兄弟",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge67",
+        "source": "node58",
+        "target": "node59",
+        "label": "配偶",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge68",
+        "source": "node59",
+        "target": "node60",
+        "label": "邻居",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge69",
+        "source": "node60",
+        "target": "node61",
+        "label": "朋友",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge70",
+        "source": "node61",
+        "target": "node62",
+        "label": "配偶",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge71",
+        "source": "node62",
+        "target": "node63",
+        "label": "邻居",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge72",
+        "source": "node63",
+        "target": "node64",
+        "label": "朋友",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge73",
+        "source": "node64",
+        "target": "node65",
+        "label": "配偶",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge74",
+        "source": "node65",
+        "target": "node66",
+        "label": "兄弟",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge75",
+        "source": "node66",
+        "target": "node67",
+        "label": "邻居",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge76",
+        "source": "node67",
+        "target": "node68",
+        "label": "朋友",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge77",
+        "source": "node68",
+        "target": "node69",
+        "label": "配偶",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge78",
+        "source": "node69",
+        "target": "node70",
+        "label": "邻居",
+        "classes": "referral"
+      }
+    },
+    {
+      "data": {
+        "id": "edge79",
+        "source": "node71",
+        "target": "node72",
+        "label": "夫妻",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge80",
+        "source": "node71",
+        "target": "node73",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge81",
+        "source": "node72",
+        "target": "node74",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge82",
+        "source": "node73",
+        "target": "node75",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge83",
+        "source": "node74",
+        "target": "node76",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge84",
+        "source": "node75",
+        "target": "node77",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge85",
+        "source": "node76",
+        "target": "node78",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge86",
+        "source": "node77",
+        "target": "node79",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge87",
+        "source": "node78",
+        "target": "node80",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge88",
+        "source": "node79",
+        "target": "node81",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge89",
+        "source": "node80",
+        "target": "node82",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge90",
+        "source": "node81",
+        "target": "node83",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge91",
+        "source": "node82",
+        "target": "node84",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge92",
+        "source": "node83",
+        "target": "node85",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge93",
+        "source": "node84",
+        "target": "node86",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge94",
+        "source": "node85",
+        "target": "node87",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge95",
+        "source": "node86",
+        "target": "node88",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge96",
+        "source": "node87",
+        "target": "node89",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge97",
+        "source": "node88",
+        "target": "node90",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge98",
+        "source": "node89",
+        "target": "node91",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge99",
+        "source": "node90",
+        "target": "node92",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge100",
+        "source": "node91",
+        "target": "node93",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge101",
+        "source": "node92",
+        "target": "node94",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge102",
+        "source": "node93",
+        "target": "node95",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge103",
+        "source": "node94",
+        "target": "node96",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge104",
+        "source": "node95",
+        "target": "node97",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge105",
+        "source": "node96",
+        "target": "node98",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge106",
+        "source": "node97",
+        "target": "node99",
+        "label": "同事",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge107",
+        "source": "node98",
+        "target": "node100",
+        "label": "邻居",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge108",
+        "source": "node99",
+        "target": "node100",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge109",
+        "source": "node40",
+        "target": "node50",
+        "label": "朋友",
+        "classes": "social"
+      }
+    },
+    {
+      "data": {
+        "id": "edge110",
+        "source": "node41",
+        "target": "node42",
+        "label": "商业合作伙伴",
+        "classes": "social"
+      }
+    }
   ],
   "selfNodeId": "self1"
 }
