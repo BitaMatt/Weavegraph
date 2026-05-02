@@ -2382,8 +2382,29 @@
       return smartRelationReverseLabel(labelA) === labelB || smartRelationReverseLabel(labelB) === labelA;
     }
 
+    function getGraphRuntime() {
+      return window.__graphRuntime || null;
+    }
+
+    function getGraphCy() {
+      var runtime = getGraphRuntime();
+      if (runtime && typeof runtime.getCy === 'function') {
+        return runtime.getCy();
+      }
+      return typeof cy !== 'undefined' ? cy : null;
+    }
+
+    function showSmartRelationToast(message, duration) {
+      var runtime = getGraphRuntime();
+      if (runtime && typeof runtime.showToast === 'function') {
+        runtime.showToast(message, duration);
+      }
+    }
+
     function relationExists(sourceId, targetId, label, treatSymmetric) {
-      return cy.edges().some(function(edge) {
+      var graphCy = getGraphCy();
+      if (!graphCy) return false;
+      return graphCy.edges().some(function(edge) {
         var sameDirection = edge.source().id() === sourceId && edge.target().id() === targetId;
         var reverseDirection = edge.source().id() === targetId && edge.target().id() === sourceId;
         if (sameDirection && isEquivalentRelation(edge.data('label'), label)) return true;
@@ -2448,9 +2469,11 @@
     }
 
     function backfillCoreRelationData(edgeData) {
+      var graphCy = getGraphCy();
+      if (!graphCy) return;
       var label = edgeData.label;
-      var sourceNode = cy.getElementById(edgeData.source);
-      var targetNode = cy.getElementById(edgeData.target);
+      var sourceNode = graphCy.getElementById(edgeData.source);
+      var targetNode = graphCy.getElementById(edgeData.target);
       if (!sourceNode.length || !targetNode.length) return;
       var recipient = null;
       var childNode = null;
@@ -2483,14 +2506,18 @@
       data.children = data.childrenList.length === 0 ? '0' : (data.childrenList.length >= 3 ? '3' : String(data.childrenList.length));
       data.childrenAge = serializeChildrenAge(data.childrenList);
       recipient.data(data);
-      showToast(getTexts().smartRelationBackfilled || 'Related data auto-filled');
+      showSmartRelationToast(getTexts().smartRelationBackfilled || 'Related data auto-filled');
     }
 
     function addEdgeWithMetadata(edgeData) {
+      var runtime = getGraphRuntime();
+      var graphCy = getGraphCy();
+      if (!runtime || !graphCy || typeof runtime.nextEdgeId !== 'function') {
+        throw new Error('Graph runtime is not ready');
+      }
       var category = getRelationCategory(edgeData.label);
-      var payload = { id: 'edge' + edgeId, source: edgeData.source, target: edgeData.target, label: edgeData.label, classes: category };
-      cy.add({ data: payload });
-      edgeId++;
+      var payload = { id: 'edge' + runtime.nextEdgeId(), source: edgeData.source, target: edgeData.target, label: edgeData.label, classes: category };
+      graphCy.add({ data: payload });
       backfillCoreRelationData(payload);
     }
 
@@ -2772,6 +2799,18 @@
       });
 
       var nodeId = 1, edgeId = 1;
+      window.__graphRuntime = {
+        getCy: function() { return cy; },
+        nextEdgeId: function() {
+          var id = edgeId;
+          edgeId += 1;
+          return id;
+        },
+        getEdgeId: function() { return edgeId; },
+        showToast: function(message, duration) {
+          showToast(message, duration);
+        }
+      };
 
       var undoStack = [];
       var redoStack = [];
