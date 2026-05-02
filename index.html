@@ -1976,6 +1976,15 @@
       useCachedRates: 'Using cached rates'
     });
 
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     var FX_CACHE_KEY = 'mindmap-exchange-rates';
     var POLICY_TEMPLATE_KEY = 'mindmap-policy-templates';
     var DEFAULT_INCOME_CURRENCY = 'MOP';
@@ -2725,11 +2734,10 @@
           { selector: 'node.product', style: { 'background-color': '#660033', 'border-color': '#ff6b6b' }},
           { selector: 'node.service', style: { 'background-color': '#1a1a4e', 'border-color': '#00d4ff' }},
           { selector: 'node.self', style: { 'background-color': '#ff6b6b', 'border-color': '#ff5e3a', 'width': 180, 'height': 80 }},
-          { selector: 'node.deceased', style: { 'opacity': 0.5, 'filter': 'grayscale(70%)' }},
+          { selector: 'node.deceased', style: { 'opacity': 0.5 }},
           { selector: 'node:selected', style: { 'border-width': 12, 'border-color': '#ff9500' }},
           { selector: 'node.source-node', style: { 'border-width': 12, 'border-color': '#ff5e3a' }},
           { selector: 'node:active', style: { 'overlay-opacity': 0 }},
-          { selector: 'node:hover', style: { 'width': 200, 'height': 90, 'font-size': 18, 'border-width': 10 }},
           { selector: 'edge', style: { 'width': 4, 'line-color': '#666688', 'target-arrow-color': '#666688', 'target-arrow-shape': 'triangle', 'label': function(ele) { return translateRelation(ele.data('label')) || ''; }, 'color': '#ffffff', 'font-size': 14, 'font-weight': 'bold', 'text-background-color': '#1a1a4e', 'text-background-opacity': 1, 'curve-style': 'bezier' }},
           { selector: 'edge.blood', style: { 'line-color': '#c62828', 'target-arrow-color': '#c62828', 'width': 5 }},
           { selector: 'edge.social', style: { 'line-color': '#1565c0', 'target-arrow-color': '#1565c0', 'width': 4 }},
@@ -2748,7 +2756,7 @@
         userPanningEnabled: true,
         autounselectify: false,
         autoungrabify: false,
-        wheelSensitivity: 0.3
+        wheelSensitivity: 1
       });
 
       var nodeId = 1, edgeId = 1;
@@ -4973,15 +4981,6 @@
       }
 
       function getDisplayValue(val) { return val && val.trim() ? val.trim() : '未知'; }
-
-      function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/&/g, '&amp;')
-                  .replace(/</g, '&lt;')
-                  .replace(/>/g, '&gt;')
-                  .replace(/"/g, '&quot;')
-                  .replace(/'/g, '&#39;');
-      }
 
       function detectContactType(value) {
         var phonePattern = /^[\d\-\+\(\)\s]{7,20}$/;
