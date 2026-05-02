@@ -23,13 +23,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "8",
             "birthYear": "2018"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "5",
             "birthYear": "2021"
           }
@@ -38,26 +38,26 @@
           {
             "id": "policy_tpl_self_medical",
             "templateId": "tpl-medical",
-            "productName": "????",
+            "productName": "医疗保险",
             "category": "medical",
             "sumAssured": "500000",
             "premium": "12000",
             "premiumTerm": "20",
-            "paymentMode": "??",
+            "paymentMode": "年缴",
             "currency": "MOP",
-            "notes": "?????????"
+            "notes": "住院及手術保障示例"
           },
           {
             "id": "policy_tpl_self_life",
             "templateId": "tpl-life",
-            "productName": "????",
+            "productName": "人寿保险",
             "category": "life",
             "sumAssured": "1000000",
             "premium": "18000",
             "premiumTerm": "20",
-            "paymentMode": "??",
+            "paymentMode": "年缴",
             "currency": "MOP",
-            "notes": "????????"
+            "notes": "家庭责任保障示例"
           }
         ]
       },
@@ -85,7 +85,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "12",
             "birthYear": "2014"
           }
@@ -94,14 +94,14 @@
           {
             "id": "policy_tpl_node1_critical",
             "templateId": "tpl-critical",
-            "productName": "????",
+            "productName": "危疾保险",
             "category": "critical",
             "sumAssured": "800000",
             "premium": "15000",
             "premiumTerm": "25",
-            "paymentMode": "??",
+            "paymentMode": "年缴",
             "currency": "MOP",
-            "notes": "??????"
+            "notes": "危疾保障示例"
           }
         ]
       },
@@ -130,7 +130,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "10",
             "birthYear": "2016"
           }
@@ -185,13 +185,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "15",
             "birthYear": "2011"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "10",
             "birthYear": "2016"
           }
@@ -200,14 +200,14 @@
           {
             "id": "policy_tpl_node4_savings",
             "templateId": "tpl-savings",
-            "productName": "????",
+            "productName": "儲蓄保险",
             "category": "savings",
             "sumAssured": "300000",
             "premium": "10000",
             "premiumTerm": "15",
-            "paymentMode": "??",
+            "paymentMode": "年缴",
             "currency": "MOP",
-            "notes": "?????????"
+            "notes": "教育及退休儲備示例"
           }
         ]
       },
@@ -236,7 +236,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "6",
             "birthYear": "2020"
           }
@@ -268,7 +268,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "8",
             "birthYear": "2018"
           }
@@ -323,7 +323,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "5",
             "birthYear": "2021"
           }
@@ -355,7 +355,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "4",
             "birthYear": "2022"
           }
@@ -387,13 +387,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "14",
             "birthYear": "2012"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "11",
             "birthYear": "2015"
           }
@@ -448,7 +448,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "7",
             "birthYear": "2019"
           }
@@ -526,7 +526,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "3",
             "birthYear": "2023"
           }
@@ -558,13 +558,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "16",
             "birthYear": "2010"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "12",
             "birthYear": "2014"
           }
@@ -619,7 +619,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "2",
             "birthYear": "2024"
           }
@@ -651,7 +651,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "18",
             "birthYear": "2008"
           }
@@ -683,7 +683,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "9",
             "birthYear": "2017"
           }
@@ -715,13 +715,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "20",
             "birthYear": "2006"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "16",
             "birthYear": "2010"
           }
@@ -776,7 +776,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "13",
             "birthYear": "2013"
           }
@@ -831,7 +831,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "22",
             "birthYear": "2004"
           }
@@ -863,7 +863,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "6",
             "birthYear": "2020"
           }
@@ -895,13 +895,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "18",
             "birthYear": "2008"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "14",
             "birthYear": "2012"
           }
@@ -933,7 +933,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "11",
             "birthYear": "2015"
           }
@@ -1011,13 +1011,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "25",
             "birthYear": "2001"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "22",
             "birthYear": "2004"
           }
@@ -1049,7 +1049,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "8",
             "birthYear": "2018"
           }
@@ -1104,7 +1104,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "10",
             "birthYear": "2016"
           }
@@ -1136,13 +1136,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "12",
             "birthYear": "2014"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "8",
             "birthYear": "2018"
           }
@@ -1197,7 +1197,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "4",
             "birthYear": "2022"
           }
@@ -1252,7 +1252,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "28",
             "birthYear": "1998"
           }
@@ -1284,7 +1284,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "5",
             "birthYear": "2021"
           }
@@ -1316,13 +1316,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "18",
             "birthYear": "2008"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "14",
             "birthYear": "2012"
           }
@@ -1377,7 +1377,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "10",
             "birthYear": "2016"
           }
@@ -1432,13 +1432,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "15",
             "birthYear": "2011"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "10",
             "birthYear": "2016"
           }
@@ -1470,7 +1470,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "7",
             "birthYear": "2019"
           }
@@ -1525,7 +1525,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "12",
             "birthYear": "2014"
           }
@@ -1557,7 +1557,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "3",
             "birthYear": "2023"
           }
@@ -1589,13 +1589,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "8",
             "birthYear": "2018"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "4",
             "birthYear": "2022"
           }
@@ -1627,13 +1627,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "30",
             "birthYear": "1996"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "28",
             "birthYear": "1998"
           }
@@ -1665,13 +1665,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "30",
             "birthYear": "1996"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "28",
             "birthYear": "1998"
           }
@@ -1726,19 +1726,19 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "35",
             "birthYear": "1991"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "32",
             "birthYear": "1994"
           },
           {
             "id": "child_template_3",
-            "name": "??3",
+            "name": "子女3",
             "age": "28",
             "birthYear": "1998"
           }
@@ -1770,19 +1770,19 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "35",
             "birthYear": "1991"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "32",
             "birthYear": "1994"
           },
           {
             "id": "child_template_3",
-            "name": "??3",
+            "name": "子女3",
             "age": "28",
             "birthYear": "1998"
           }
@@ -1814,13 +1814,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "20",
             "birthYear": "2006"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "16",
             "birthYear": "2010"
           }
@@ -1852,7 +1852,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "18",
             "birthYear": "2008"
           }
@@ -1884,13 +1884,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "22",
             "birthYear": "2004"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "18",
             "birthYear": "2008"
           }
@@ -1922,7 +1922,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "20",
             "birthYear": "2006"
           }
@@ -1954,13 +1954,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "25",
             "birthYear": "2001"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "22",
             "birthYear": "2004"
           }
@@ -1992,7 +1992,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "16",
             "birthYear": "2010"
           }
@@ -2024,7 +2024,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "14",
             "birthYear": "2012"
           }
@@ -2056,7 +2056,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "14",
             "birthYear": "2012"
           }
@@ -2088,13 +2088,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "24",
             "birthYear": "2002"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "20",
             "birthYear": "2006"
           }
@@ -2126,13 +2126,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "24",
             "birthYear": "2002"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "20",
             "birthYear": "2006"
           }
@@ -2164,7 +2164,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "15",
             "birthYear": "2011"
           }
@@ -2196,7 +2196,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "12",
             "birthYear": "2014"
           }
@@ -2228,13 +2228,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "26",
             "birthYear": "2000"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "22",
             "birthYear": "2004"
           }
@@ -2266,13 +2266,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "18",
             "birthYear": "2008"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "14",
             "birthYear": "2012"
           }
@@ -2304,13 +2304,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "24",
             "birthYear": "2002"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "20",
             "birthYear": "2006"
           }
@@ -2342,7 +2342,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "5",
             "birthYear": "2021"
           }
@@ -2443,7 +2443,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "8",
             "birthYear": "2018"
           }
@@ -2475,7 +2475,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "6",
             "birthYear": "2020"
           }
@@ -2530,7 +2530,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "4",
             "birthYear": "2022"
           }
@@ -2562,7 +2562,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "7",
             "birthYear": "2019"
           }
@@ -2617,13 +2617,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "12",
             "birthYear": "2014"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "8",
             "birthYear": "2018"
           }
@@ -2655,7 +2655,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "10",
             "birthYear": "2016"
           }
@@ -2687,13 +2687,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "14",
             "birthYear": "2012"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "10",
             "birthYear": "2016"
           }
@@ -2748,7 +2748,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "5",
             "birthYear": "2021"
           }
@@ -2803,7 +2803,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "8",
             "birthYear": "2018"
           }
@@ -2835,7 +2835,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "3",
             "birthYear": "2023"
           }
@@ -2913,7 +2913,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "4",
             "birthYear": "2022"
           }
@@ -2968,13 +2968,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "10",
             "birthYear": "2016"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "6",
             "birthYear": "2020"
           }
@@ -3006,7 +3006,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "2",
             "birthYear": "2024"
           }
@@ -3038,7 +3038,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "6",
             "birthYear": "2020"
           }
@@ -3093,13 +3093,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "16",
             "birthYear": "2010"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "12",
             "birthYear": "2014"
           }
@@ -3131,7 +3131,7 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "9",
             "birthYear": "2017"
           }
@@ -3163,13 +3163,13 @@
         "childrenList": [
           {
             "id": "child_template_1",
-            "name": "??1",
+            "name": "子女1",
             "age": "12",
             "birthYear": "2014"
           },
           {
             "id": "child_template_2",
-            "name": "??2",
+            "name": "子女2",
             "age": "8",
             "birthYear": "2018"
           }

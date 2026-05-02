@@ -2101,11 +2101,16 @@
 
     function normalizeChildrenList(childrenList, legacyChildrenAge) {
       var list = Array.isArray(childrenList) ? childrenList.slice() : parseLegacyChildrenAge(legacyChildrenAge);
+      var texts = getTexts();
       return list.map(function(child, index) {
         child = child || {};
+        var childName = child.name || '';
+        if (/^\?+\d*$/.test(childName)) {
+          childName = (texts.child || 'Child') + ' ' + (index + 1);
+        }
         return {
           id: child.id || ('child_' + Date.now() + '_' + index),
-          name: child.name || '',
+          name: childName,
           age: child.age !== undefined && child.age !== null ? String(child.age) : '',
           birthYear: child.birthYear !== undefined && child.birthYear !== null ? String(child.birthYear) : ''
         };
@@ -2122,9 +2127,17 @@
           var legacyNames = DEFAULT_POLICY_TEMPLATES.map(function(template) {
             return getBuiltinPolicyTemplateName(template.id, template.category);
           }).concat(['医疗保险', '危疾保险', '人寿保险', '储蓄保险', '醫療保險', '危疾保險', '人壽保險', '儲蓄保險', 'Medical Insurance', 'Critical Illness Insurance', 'Life Insurance', 'Savings Insurance']);
-          if (!normalizedProductName || legacyNames.indexOf(normalizedProductName) !== -1) {
+          if (!normalizedProductName || legacyNames.indexOf(normalizedProductName) !== -1 || /^\?+$/.test(normalizedProductName)) {
             normalizedProductName = builtinName;
           }
+        }
+        var normalizedPaymentMode = policy.paymentMode || '';
+        if (/^\?+$/.test(normalizedPaymentMode)) {
+          normalizedPaymentMode = '';
+        }
+        var normalizedNotes = policy.notes || '';
+        if (/^\?+$/.test(normalizedNotes)) {
+          normalizedNotes = '';
         }
         return {
           id: policy.id || ('policy_' + Date.now() + '_' + index),
@@ -2134,9 +2147,9 @@
           sumAssured: policy.sumAssured !== undefined && policy.sumAssured !== null ? String(policy.sumAssured) : '',
           premium: policy.premium !== undefined && policy.premium !== null ? String(policy.premium) : '',
           premiumTerm: policy.premiumTerm !== undefined && policy.premiumTerm !== null ? String(policy.premiumTerm) : '',
-          paymentMode: policy.paymentMode || '',
+          paymentMode: normalizedPaymentMode,
           currency: policy.currency || DEFAULT_INCOME_CURRENCY,
-          notes: policy.notes || ''
+          notes: normalizedNotes
         };
       });
     }
