@@ -1580,15 +1580,11 @@
       if (cy && typeof cy.edges === 'function') {
         cy.edges().style('label', function(ele) { return translateRelation(ele.data('label')) || ''; });
       }
-      if (typeof updateCurrentSaveDisplay === 'function') {
-        updateCurrentSaveDisplay();
-        if (typeof updateCurrentSaveToggleLabel === 'function') {
-          updateCurrentSaveToggleLabel(getSaveSlotSummary(currentLoadedSlot), texts);
-        }
+      if (typeof window.refreshCurrentSaveLanguage === 'function') {
+        window.refreshCurrentSaveLanguage();
         requestAnimationFrame(function() {
-          updateCurrentSaveDisplay();
-          if (typeof updateCurrentSaveToggleLabel === 'function') {
-            updateCurrentSaveToggleLabel(getSaveSlotSummary(currentLoadedSlot), texts);
+          if (typeof window.refreshCurrentSaveLanguage === 'function') {
+            window.refreshCurrentSaveLanguage();
           }
         });
       }
@@ -2148,6 +2144,11 @@
         descEl.textContent = summary.description || texts.noArchiveDescription || 'No description';
         updateCurrentSaveToggleLabel(summary, texts);
       }
+
+      window.refreshCurrentSaveLanguage = function() {
+        updateCurrentSaveDisplay();
+        updateDefaultArchiveStatus();
+      };
 
       function showTemplateLoadDialog(onSaveAsNew, onLoadDirectly) {
         var overlay = document.getElementById('panel-overlay');
