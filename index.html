@@ -1582,8 +1582,14 @@
       }
       if (typeof updateCurrentSaveDisplay === 'function') {
         updateCurrentSaveDisplay();
+        if (typeof updateCurrentSaveToggleLabel === 'function') {
+          updateCurrentSaveToggleLabel(getSaveSlotSummary(currentLoadedSlot), texts);
+        }
         requestAnimationFrame(function() {
           updateCurrentSaveDisplay();
+          if (typeof updateCurrentSaveToggleLabel === 'function') {
+            updateCurrentSaveToggleLabel(getSaveSlotSummary(currentLoadedSlot), texts);
+          }
         });
       }
       if (typeof updateDefaultArchiveStatus === 'function') {
@@ -2033,6 +2039,26 @@
         return i18n[currentLang] || i18n['zh-CN'];
       }
 
+      function updateCurrentSaveToggleLabel(summary, texts) {
+        var toggleEl = document.getElementById('toggle-current-save-desc');
+        var descEl = document.getElementById('current-save-desc');
+        var hasDescription = !!(summary && summary.description);
+
+        if (!toggleEl) {
+          return;
+        }
+
+        texts = texts || getCurrentSaveTexts();
+        toggleEl.style.display = hasDescription ? 'inline-flex' : 'none';
+        toggleEl.textContent = currentSaveDescExpanded
+          ? (texts.hideDescription || 'Hide Description')
+          : (texts.showDescription || 'Show Description');
+
+        if (descEl) {
+          descEl.style.display = hasDescription && currentSaveDescExpanded ? 'block' : 'none';
+        }
+      }
+
       function getSaveSlotSummary(slotName) {
         if (!slotName) return null;
         var saveList = JSON.parse(localStorage.getItem(SAVE_LIST_KEY) || '[]');
@@ -2101,12 +2127,11 @@
         var panel = document.getElementById('current-save-panel');
         var nameEl = document.getElementById('current-save-name');
         var descEl = document.getElementById('current-save-desc');
-        var toggleEl = document.getElementById('toggle-current-save-desc');
         var texts = getCurrentSaveTexts();
         var slotName = currentLoadedSlot;
         var summary = getSaveSlotSummary(slotName);
 
-        if (!panel || !nameEl || !descEl || !toggleEl) {
+        if (!panel || !nameEl || !descEl) {
           return;
         }
 
@@ -2114,15 +2139,14 @@
           panel.style.display = 'none';
           descEl.style.display = 'none';
           currentSaveDescExpanded = false;
+          updateCurrentSaveToggleLabel(null, texts);
           return;
         }
 
         panel.style.display = 'block';
         nameEl.textContent = summary.name;
         descEl.textContent = summary.description || texts.noArchiveDescription || 'No description';
-        toggleEl.style.display = summary.description ? 'inline-flex' : 'none';
-        toggleEl.textContent = currentSaveDescExpanded ? (texts.hideDescription || 'Hide Description') : (texts.showDescription || 'Show Description');
-        descEl.style.display = currentSaveDescExpanded ? 'block' : 'none';
+        updateCurrentSaveToggleLabel(summary, texts);
       }
 
       function showTemplateLoadDialog(onSaveAsNew, onLoadDirectly) {
