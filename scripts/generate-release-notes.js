@@ -31,11 +31,15 @@ function getVersion() {
 
 function getFallbackNotes(version) {
   return [
-    `## WeaveGraph ${version} / 人脈織圖 ${version}`,
+    `## WeaveGraph ${version} / \u4eba\u8108\u7e54\u5716 ${version} / \u4eba\u8109\u7ec7\u56fe ${version}`,
     '',
-    '### Chinese / 中文',
-    '- 此版本已包含 Windows 安裝包、便攜 zip 與自動更新所需 metadata。',
-    '- 詳細更新內容請參閱倉庫中的 CHANGELOG.md。',
+    '### \u7b80\u4f53\u4e2d\u6587',
+    '- \u6b64\u7248\u672c\u5305\u542b Windows \u5b89\u88c5\u5305\u3001\u4fbf\u643a zip \u4e0e\u81ea\u52a8\u66f4\u65b0\u6240\u9700\u7684 metadata\u3002',
+    '- \u5b8c\u6574\u66f4\u65b0\u5185\u5bb9\u8bf7\u67e5\u770b\u4ed3\u5e93\u4e2d\u7684 CHANGELOG.md\u3002',
+    '',
+    '### \u7e41\u9ad4\u4e2d\u6587',
+    '- \u6b64\u7248\u672c\u5305\u542b Windows \u5b89\u88dd\u5305\u3001\u4fbf\u651c zip \u8207\u81ea\u52d5\u66f4\u65b0\u6240\u9700\u7684 metadata\u3002',
+    '- \u5b8c\u6574\u66f4\u65b0\u5167\u5bb9\u8acb\u67e5\u770b\u5009\u5eab\u4e2d\u7684 CHANGELOG.md\u3002',
     '',
     '### English',
     '- This release includes the Windows installer, portable zip, and auto-update metadata.',

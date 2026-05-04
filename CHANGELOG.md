@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.13] - 2026-05-04
+
+### 修复 Fixed
+- 补齐 `CHANGELOG.md` 最近版本记录中的英文更新日志，统一为简体中文 / 繁體中文 / English 三语格式。
+- 同步修正发布说明兜底文案的多语言结构，避免未命中对应版本日志时回退到缺少英文或乱码的说明文本。
+### 修復 Fixed
+- 補齊 `CHANGELOG.md` 最近版本記錄中的英文更新日誌，統一為簡體中文 / 繁體中文 / English 三語格式。
+- 同步修正發佈說明備援文案的多語言結構，避免未命中對應版本日誌時回退到缺少英文或亂碼的說明文字。
+### English
+- Added English release notes to the recent `CHANGELOG.md` entries and standardized the format as Simplified Chinese / Traditional Chinese / English.
+- Updated the fallback release-notes copy to use the same multilingual structure, so missed changelog matches no longer fall back to English-missing or garbled text.
+
 ## [1.6.12] - 2026-05-04
 
 ### 修复 Fixed
@@ -10,6 +22,10 @@
 - 修復 `1.6.11` 的 `CHANGELOG.md` 最新版本說明被誤寫成問號的問題，重新以 UTF-8 正確寫回目前版本雙語日誌。
 - 修復節點編輯表單中「子女數量」與「子女列表」狀態不同步的問題；當使用者先選擇 `1個子女 / 2個子女 / 3個或以上`、暫時未填寫子女姓名就退出後，再次打開編輯時，不會再被錯誤重設為「無子女」。
 - 調整子女數量回寫邏輯，改為依據目前子女編輯列數同步下拉選項，避免空白子女列被當成 `0` 個子女。
+### English
+- Fixed the `CHANGELOG.md` issue in `1.6.11` where the latest release notes were accidentally written as question marks, and rewrote the current version notes in proper UTF-8.
+- Fixed the node editor mismatch between the `Children Count` selector and the `Children List`; if a user selected `1 child / 2 children / 3 or more`, left the child names blank, and exited, reopening the editor no longer incorrectly resets the selector to `No children`.
+- Adjusted the children-count sync logic to follow the current number of child editor rows, so blank child rows are no longer treated as `0` children.
 
 ## [1.6.11] - 2026-05-04
 
@@ -19,6 +35,9 @@
 ### 修復 Fixed
 - 修復英文節點詳情中的性別值仍顯示為 `Female:` / `Male:` 的問題，現在已統一為不帶冒號的普通值顯示。
 - 優化查看模式下英文反向關係文案，避免繼續顯示生硬的 `XXX of` 結構，現改為更自然的 `Name's XXX` 顯示方式。
+### English
+- Fixed the issue where English gender values in the node detail panel still appeared as `Female:` / `Male:`; they now display as plain values without a trailing colon.
+- Improved the reverse-relation wording in English view mode, replacing the awkward `XXX of` phrasing with the more natural `Name's XXX` format.
 
 ## [1.6.10] - 2026-05-03
 
