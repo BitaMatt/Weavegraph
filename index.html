@@ -1590,8 +1590,8 @@
         insuranceClient: 'Insurance Client:',
         productNode: 'Product Node:',
         serviceNode: 'Service Node:',
-        male: 'Male:',
-        female: 'Female:',
+        male: 'Male',
+        female: 'Female',
         ageGroup: 'Age Distribution:',
         incomeGroup: 'Income Distribution:',
         marriageStatus: 'Marriage Status:',
@@ -3054,7 +3054,7 @@
         }
 
         if (currentLang === 'en') {
-          return translated + ' of';
+          return translated;
         }
 
         return '的' + translated;
@@ -3066,6 +3066,32 @@
           return translateRelation(label) || label;
         }
         return getOwnedRelationLabel(label);
+      }
+
+      function getRelationDisplayInfo(edge, currentNode) {
+        var label = edge.data('label') || '??';
+        if (edge.source().id() === currentNode.id()) {
+          return {
+            text: translateRelation(label) || label,
+            owned: false
+          };
+        }
+
+        return {
+          text: getOwnedRelationLabel(label),
+          owned: true
+        };
+      }
+
+      function renderRelationItemHtml(item) {
+        var nodeName = escapeHtml(item.node.data('name') || '');
+        var labelText = escapeHtml(item.label || '');
+
+        if (currentLang === 'en' && item.owned) {
+          return '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + nodeName + '</span><span class="rel-type">&#39;s ' + labelText + '</span></div>';
+        }
+
+        return '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + nodeName + '</span><span class="rel-type">(' + labelText + ')</span></div>';
       }
 
       function updateCurrentSaveToggleLabel(summary, texts) {
@@ -5522,7 +5548,8 @@
           var otherNode = source.id() === node.id() ? target : source;
           var label = edge.data('label') || '关联';
           var cat = getRelationCategory(label);
-          relationsByCategory[cat].push({ node: otherNode, edge: edge, label: getRelationLabelForNode(edge, node) });
+          var relationInfo = getRelationDisplayInfo(edge, node);
+          relationsByCategory[cat].push({ node: otherNode, edge: edge, label: relationInfo.text, owned: relationInfo.owned });
         });
 
         var relContent = '';
@@ -5531,7 +5558,7 @@
           if (relationsByCategory[cat].length > 0) {
             relContent += '<div class="relation-category ' + cat + '"><h5>' + catNames[cat] + '</h5><div class="relation-items">';
             relationsByCategory[cat].forEach(function(item) {
-              relContent += '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + item.node.data('name') + '</span><span class="rel-type">(' + item.label + ')</span></div>';
+              relContent += renderRelationItemHtml(item);
             });
             relContent += '</div></div>';
           }
@@ -5997,7 +6024,8 @@
           var otherNode = source.id() === node.id() ? target : source;
           var label = edge.data('label') || '关联';
           var cat = getRelationCategory(label);
-          relationsByCategory[cat].push({ node: otherNode, edge: edge, label: getRelationLabelForNode(edge, node) });
+          var relationInfo = getRelationDisplayInfo(edge, node);
+          relationsByCategory[cat].push({ node: otherNode, edge: edge, label: relationInfo.text, owned: relationInfo.owned });
         });
         var relContent = '';
         var catNames = { blood: texts.bloodRelation || '生理关系', social: texts.socialRelation || '社交关系', referral: texts.referralRelation || '推荐关系' };
@@ -6005,7 +6033,7 @@
           if (relationsByCategory[cat].length > 0) {
             relContent += '<div class="relation-category ' + cat + '"><h5>' + catNames[cat] + '</h5><div class="relation-items">';
             relationsByCategory[cat].forEach(function(item) {
-              relContent += '<div class="relation-item" data-node-id="' + item.node.id() + '"><span class="rel-name">' + item.node.data('name') + '</span><span class="rel-type">(' + item.label + ')</span></div>';
+              relContent += renderRelationItemHtml(item);
             });
             relContent += '</div></div>';
           }
